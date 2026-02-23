@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIBUGEN: Time-Crystalline Bio-Hacker Dashboard</title>
+    <style>
+        :root {
+            --primary-bg: #0f0f12;
+            --card-bg: #1a1a1f;
+            --accent-gold: #d4af37;
+            --accent-purple: #8a2be2;
+            --accent-red: #c0392b;
+            --accent-blue: #0984e3;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            letter-spacing: -2px;
+            margin: 0;
+            background: linear-gradient(90deg, #d4af37, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 10px;
+        }
+
+        /* Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        /* Link wrapper styling to maintain layout */
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .stack-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #333;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .stack-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+        }
+
+        .stack-card h2 {
+            margin-top: 0;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Category Badges */
+        .badge {
+            font-size: 0.7em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .mood {
+            background: #6c5ce7;
+        }
+
+        .physical {
+            background: #d63031;
+        }
+
+        .metabolic {
+            background: #00b894;
+        }
+
+        .neuro {
+            background: #0984e3;
+        }
+
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        .benefit-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .benefit-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+        }
+
+        .speculative-footer {
+            font-size: 0.85em;
+            color: var(--text-dim);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        /* Master Stack Section */
+        .master-protocol {
+            max-width: 1400px;
+            margin: 60px auto;
+            background: linear-gradient(135deg, #1a1a1f 0%, #000 100%);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .protocol-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .protocol-table th {
+            text-align: left;
+            color: var(--accent-gold);
+            border-bottom: 1px solid #333;
+            padding: 15px;
+        }
+
+        .protocol-table td {
+            padding: 15px;
+            border-bottom: 1px solid #222;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-dim);
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>BIO-HACKER COMMAND</h1>
+        <div class="subtitle">Time-Crystalline Regeneration Protocol</div>
+    </header>
+
+    <div class="dashboard-grid">
+
+        <a href="saffron.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge mood">Serotonin/Dopamine</span>
+                <h2>Saffron Extract <small style="color:var(--accent-gold)">7.5%</small></h2>
+                <ul class="benefit-list">
+                    <li>Selective reuptake inhibition of "the big three."</li>
+                    <li>NMDA antagonism for glutamate mitigation.</li>
+                    <li>Vision preservation via retinal oxygenation.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Eliminates "doom-spiraling" and enhances visual saturation
+                    (RGB depth).</div>
+            </div>
+        </a>
+
+        <a href="erinamax.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge neuro">NGF/Neuroplasticity</span>
+                <h2>ErinaMAX™ <small style="color:var(--accent-blue)">Liquid Culture</small></h2>
+                <ul class="benefit-list">
+                    <li>Direct Erinacine A delivery across the BBB.</li>
+                    <li>Stimulates endogenous Nerve Growth Factor.</li>
+                    <li>Modulates neurosteroids (Pregnenolone/Progesterone).</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Intensifies REM-cycle vividity; triggers "real-time" mental
+                    sharpening.</div>
+            </div>
+        </a>
+
+        <a href="tribugen.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge physical">Androgen Drive</span>
+                <h2>TRIBUGEN™ <small style="color:var(--accent-red)">Protodioscin</small></h2>
+                <ul class="benefit-list">
+                    <li>Androgen receptor (AR) upregulation in brain/muscle.</li>
+                    <li>Dopaminergic focus via MAO-B inhibition floor.</li>
+                    <li>CNS motor unit recruitment for explosive power.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Induces "Social Dominance" state and CNS-driven strength
+                    gains.</div>
+            </div>
+        </a>
+
+        <a href="cistamax.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge metabolic">Growth/Hormonal</span>
+                <h2>CistaMAX™ <small style="color:var(--accent-gold)">CO2 Matrix</small></h2>
+                <ul class="benefit-list">
+                    <li>Upregulates steroidogenic enzymes (StAR/CYP11A1).</li>
+                    <li>Ghrelin receptor agonism (Growth Hormone release).</li>
+                    <li>Microbiome re-modeling (Bacteroides support).</li>
+                </ul>
+                <div class="speculative-footer">Speculative: The "Hard Gainer" solution; triggers anabolic drive without
+                    the "edge."</div>
+            </div>
+        </a>
+
+        <a href="c3g.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge metabolic">Partitioning</span>
+                <h2>C3G <small style="color:var(--accent-purple)">Purple Force</small></h2>
+                <ul class="benefit-list">
+                    <li>GLUT4 translocation for muscle-glucose shuttling.</li>
+                    <li>AMPK-driven mitochondrial biogenesis.</li>
+                    <li>Reversible MAO inhibition for mood stability.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Physically re-models fat cells; enhances Rhodopsin for
+                    night vision.</div>
+            </div>
+        </a>
+
+        <a href="tudca.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge metabolic">Cytoprotection</span>
+                <h2>TUDCA <small style="color:#00b894">Chaperone</small></h2>
+                <ul class="benefit-list">
+                    <li>Endoplasmic Reticulum (ER) stress resolution.</li>
+                    <li>Prevents apoptotic signals in healthy cells.</li>
+                    <li>Biliary and gut-barrier integrity support.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: The "Metabolic Eraser"; improves T4 to T3 conversion in
+                    brown fat.</div>
+            </div>
+        </a>
+
+        <a href="agmatine.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge neuro">Neuromodulator</span>
+                <h2>Agmatine Sulfate <small style="color:var(--accent-blue)">Sulfate</small></h2>
+                <ul class="benefit-list">
+                    <li>Selective NOS modulation (eNOS vs nNOS).</li>
+                    <li>NMDA antagonism for neuroprotection.</li>
+                    <li>Imidazoline receptor agonism for metabolism.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Legend for receptor "Tolerance Reset" and neuropathic pain
+                    relief.</div>
+            </div>
+        </a>
+
+        <a href="blackginger.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge physical">Metabolic/Flow</span>
+                <h2>Black Ginger <small style="color:var(--accent-red)">10% DMF</small></h2>
+                <ul class="benefit-list">
+                    <li>Potent AMPK activation for fuel utilization.</li>
+                    <li>Natural PDE5 inhibition for peripheral flow.</li>
+                    <li>Mitochondrial biogenesis (SIRT1 pathway).</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Improves muscle "hardness" and provides an "infinite gas
+                    tank" feel.</div>
+            </div>
+        </a>
+
+        <a href="panamax.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge neuro">Energy/Adaptogen</span>
+                <h2>PanaMAX <small style="color:var(--accent-blue)">Ginseng Matrix</small></h2>
+                <ul class="benefit-list">
+                    <li>Balanced root/leaf ginsenoside ratio.</li>
+                    <li>Schisandra-driven bioavailability boost.</li>
+                    <li>Cortisol regulation and HPA-axis support.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Provides "stress-proof" focus and smooths out stimulant
+                    jitters.</div>
+            </div>
+        </a>
+
+        <a href="andrographis.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge metabolic">Immune Sentinel</span>
+                <h2>Andrographis <small style="color:var(--accent-gold)">Andrographolides</small></h2>
+                <ul class="benefit-list">
+                    <li>Selective NF-kB and COX-2 modulation.</li>
+                    <li>Liver and gut-barrier support via bile flow.</li>
+                    <li>SIRT1 interaction for longevity synergy.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: "Metabolic Coolant" that blunts inflammation from heavy
+                    protein intake.</div>
+            </div>
+        </a>
+
+        <a href="injuv.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge metabolic">Deep Hydration</span>
+                <h2>Injuv® <small style="color:var(--accent-blue)">Hyaluronic Acid</small></h2>
+                <ul class="benefit-list">
+                    <li>Low molecular weight HA for intestinal absorption.</li>
+                    <li>Replenishes dermal matrix and synovial fluid.</li>
+                    <li>Provides the architecture for cellular regeneration.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Internal "Blue Balm" to support extracellular matrix
+                    integrity.</div>
+            </div>
+        </a>
+
+        <a href="gotukola.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge neuro">Neural Architecture</span>
+                <h2>Gotu Kola <small style="color:var(--accent-purple)">Triterpenes</small></h2>
+                <ul class="benefit-list">
+                    <li>Stimulation of Type I Collagen synthesis.</li>
+                    <li>Acetylcholinesterase inhibition for memory.</li>
+                    <li>GABAergic modulation for calm focus.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Infrastructure builder; constructs the collagenous matrix
+                    for ErinaMAX.</div>
+            </div>
+        </a>
+
+        <a href="ecklonia.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge neuro">Vascular Fluidity</span>
+                <h2>Ecklonia Cava <small style="color:var(--accent-blue)">Dieckol</small></h2>
+                <ul class="benefit-list">
+                    <li>Potent eNOS upregulation for vasodilation.</li>
+                    <li>Lipid-soluble marine phlorotannins (12hr half-life).</li>
+                    <li>Strong Acetylcholinesterase inhibition.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Vascular lubricant that clear "metabolic sludge" from
+                    neural networks.</div>
+            </div>
+        </a>
+
+        <a href="cognance.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge neuro">Creative Catalyst</span>
+                <h2>Cognance <small style="color:var(--accent-purple)">Ebelin Lactone</small></h2>
+                <ul class="benefit-list">
+                    <li>Positive Allosteric Modulator (PAM) of 5-HT2A.</li>
+                    <li>Enhanced Muscarinic M1 receptor activity.</li>
+                    <li>Direct focus on creative flow and lateral thinking.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Provides perceptual brightening and creative social
+                    fluidity.</div>
+            </div>
+        </a>
+
+        <a href="ashwagandha.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge physical">Grounding Shield</span>
+                <h2>Ashwagandha <small style="color:var(--accent-gold)">Withanolides</small></h2>
+                <ul class="benefit-list">
+                    <li>Systemic HPA-axis cortisol modulation.</li>
+                    <li>Supports DHEA and Total Testosterone floor.</li>
+                    <li>Mimetic GABAergic activity for deep recovery.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: The biological "shock absorber" for high-androgen
+                    protocols.</div>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="master-protocol">
+        <h2 style="color:var(--accent-gold); margin-top:0;">The Integrated Protocol Matrix</h2>
+        <p>Strategically timing these extracts to maximize synergy and prevent receptor down-regulation.</p>
+
+        <table class="protocol-table">
+            <tr>
+                <th>Timeframe</th>
+                <th>Primary Stack</th>
+                <th>Goal</th>
+            </tr>
+            <tr>
+                <td><strong>Morning (Fasted)</strong></td>
+                <td>PanaMAX + ErinaMAX + Tribugen + Injuv + Ecklonia + Cognance</td>
+                <td>CNS Activation, creative flow, and deep vascular hydration.</td>
+            </tr>
+            <tr>
+                <td><strong>Pre-Meal (Carnivore/High Protein)</strong></td>
+                <td>C3G + TUDCA + Black Ginger + Andrographis</td>
+                <td>Nutrient Partitioning, ER Stress Relief, & Metabolic Cooling.</td>
+            </tr>
+            <tr>
+                <td><strong>Evening (Post-Meal)</strong></td>
+                <td>CistaMAX + Agmatine + Saffron + Gotu Kola + Ashwagandha</td>
+                <td>Anabolic Recovery, NMDA Balance, & Neural Infrastructure Repair.</td>
+            </tr>
+        </table>
+    </div>
+
+    <footer>
+        <p><strong>Note for the Advanced Practitioner:</strong> This protocol leverages the synergy of
+            high-fat/animal-product diets (Cistanche/TUDCA) and mitochondrial regeneration. Always cycle androgenic
+            compounds to maintain baseline sensitivity.</p>
+        <p>&copy; 2026 Time-Crystalline Coherent Biology | Protocol 001</p>
+    </footer>
+
+</body>
+
+</html>

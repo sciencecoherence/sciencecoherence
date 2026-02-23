@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sleep Architecture: Hardware Repair</title>
+    <style>
+        :root {
+            --primary-bg: #05050a;
+            --card-bg: #111118;
+            --accent-blue: #4a69bd;
+            --accent-cyan: #00d2ff;
+            --accent-glow: rgba(0, 210, 255, 0.3);
+            --text-main: #e0e0e0;
+            --text-dim: #9aa0a6;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            max-width: 900px;
+            margin: auto;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top right, #0a1128, var(--primary-bg) 80%);
+            background-attachment: fixed;
+        }
+
+        .back-link {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 25px;
+            text-shadow: 0 0 8px var(--accent-glow);
+            transition: 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        header {
+            border-bottom: 1px solid #222;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--accent-cyan);
+            font-size: 3.2em;
+            margin: 0;
+            text-shadow: 0 0 20px var(--accent-glow);
+            letter-spacing: -1px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            color: var(--accent-blue);
+            border-left: 4px solid var(--accent-cyan);
+            padding-left: 15px;
+            margin-top: 50px;
+            font-size: 1.5em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .insight-box {
+            background: rgba(74, 105, 189, 0.05);
+            border: 1px solid #222;
+            border-top: 3px solid var(--accent-blue);
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .insight-box h3 {
+            color: var(--accent-cyan);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .phase-label {
+            display: inline-block;
+            background: rgba(0, 210, 255, 0.1);
+            color: var(--accent-cyan);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+
+        .protocol-timeline {
+            margin: 40px 0;
+            padding-left: 20px;
+            border-left: 2px solid #333;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 25px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .timeline-time {
+            font-weight: bold;
+            color: var(--accent-cyan);
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--accent-cyan);
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9em;
+            border-top: 1px solid #222;
+            padding-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="external_dashboard.html" class="back-link">← BACK TO DASHBOARD</a>
+
+    <header>
+        <h1>Regeneration Command</h1>
+        <p style="color: var(--text-dim); font-size: 1.2em; letter-spacing: 2px; text-transform: uppercase;">Hardware
+            Repair & Software Updates</p>
+    </header>
+
+    <section>
+        <h2>I. The Cortisol Floor</h2>
+        <p>True deep sleep begins hours before bed. When neural hardware is over-clocked during the day, residual stress
+            hormones act as resistance against the transition into Slow-Wave Sleep.</p>
+
+        <div class="insight-box">
+            <span class="phase-label">Afternoon Anchor</span>
+            <h3>Ashwagandha (KSM-66)</h3>
+            <p>Taking Ashwagandha directly before bed often triggers a mild cholinergic stimulation that disrupts sleep
+                architecture. Shifting the <strong>KSM-66</strong> dose to the mid-afternoon actively blunts the natural
+                evening cortisol spike. By nightfall, the stress hormones have been cleared from the bloodstream,
+                establishing a flat, quiet neuro-chemical floor ready for deceleration.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>II. Thermal Drop & Systemic Cooling</h2>
+        <p>Processing massive quantities of dense, raw animal fats and proteins generates a very high "thermic effect of
+            food," keeping the core metabolic engine running hot. Deep, cellular-repair sleep physically requires core
+            body temperature to drop by 1 to 2 degrees.</p>
+
+        <div class="insight-box">
+            <span class="phase-label">The Heat Sinks</span>
+            <h3>Andrographis + Glycine</h3>
+            <p><strong>Andrographis</strong> operates as a potent systemic antipyretic (temperature reducer). By
+                aggressively quenching inflammatory cytokines (IL-6 and TNF-alpha), it acts as a physiological coolant
+                against the meat-heavy thermic load. Paired with a heavy pre-bed dose of <strong>Glycine</strong>—which
+                induces vasodilation in the extremities to flush core heat outward—this combination mechanically forces
+                the biological trigger for Slow-Wave Sleep.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>III. Circuit Breakers & REM Rebound</h2>
+        <p>With the physical body cooled and the cortisol floor set, the neural circuitry must be selectively
+            decelerated and accelerated to trigger vivid dreaming without waking the body.</p>
+
+        <div class="insight-box">
+            <span class="phase-label">Software Update</span>
+            <h3>Nigella Sativa (Black Seed)</h3>
+            <p>As a potent Acetylcholinesterase (AChE) inhibitor, Nigella Sativa floods the brain with the acetylcholine
+                necessary for vivid, hyper-realistic REM sleep—the state where neuroplasticity, memory consolidation,
+                and psychological "software updates" occur. Crucially, its simultaneous boost to GABAergic tone ensures
+                this intense dream state does not breach into physical wakefulness.</p>
+        </div>
+
+        <div class="insight-box">
+            <span class="phase-label">Neural Deceleration</span>
+            <h3>Agmatine Sulfate</h3>
+            <p>If the central nervous system is over-stimulated, <strong>Agmatine</strong> acts as the master
+                neuro-circuit breaker. As an NMDA receptor antagonist, it blocks excitatory glutamate. It stops the
+                "wired" feeling, dampens the "spinning" of the mind, and mildly boosts endorphins to allow the body to
+                sink into a heavy, paralytic state of hardware repair.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>IV. The Nocturnal Execution Protocol</h2>
+
+        <div class="protocol-timeline">
+            <div class="timeline-item">
+                <span class="timeline-time">T-Minus 6 Hours (Mid-Afternoon)</span>
+                <strong>Ashwagandha (KSM-66):</strong> 2 Capsules. Clears the daily cortisol accumulation and prevents
+                evening adrenal spikes.
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-time">T-Minus 2 Hours (Post-Dinner)</span>
+                <strong>Andrographis:</strong> 2 Capsules. Initiates systemic cooling and anti-inflammatory quenching to
+                counter the thermic effect of digestion.
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-time">T-Minus 45 Minutes (Pre-Bed)</span>
+                <strong>Glycine:</strong> 3g - 5g. Triggers extremity vasodilation for the final core temperature
+                drop.<br>
+                <strong>Agmatine Sulfate:</strong> 1 Capsule. Severs the glutamate circuits, halting excitatory thought
+                loops.<br>
+                <strong>Nigella Sativa (10%):</strong> 1 Capsule. Primes the cholinergic system for the REM software
+                update.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Time-Crystalline Coherent Biology | Deep Sleep & Cellular Repair Division</p>
+    </footer>
+
+</body>
+
+</html>

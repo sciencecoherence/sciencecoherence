@@ -1,0 +1,286 @@
+<style>
+    /* 1. Isolation & Animation */
+    .c3g-manifesto {
+        animation: fadeIn 0.8s ease-out forwards;
+        max-width: 1000px;
+        padding-top: 10px;
+    }
+
+    /* 2. Unique Header to avoid Shell Collision */
+    .c3g-header {
+        border-bottom: 1px solid rgba(0, 242, 255, 0.15);
+        padding-bottom: 40px;
+        margin-bottom: 50px;
+    }
+
+    .c3g-manifesto h1 {
+        font-family: 'Syncopate', sans-serif;
+        color: white;
+        font-size: 2.2rem;
+        margin: 0;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+    }
+
+    .c3g-manifesto .subtitle {
+        font-family: 'Space Mono', monospace;
+        color: #00f2ff;
+        font-size: 0.7rem;
+        margin-top: 15px;
+        letter-spacing: 2px;
+    }
+
+    /* 3. Themed Typography - Reverted to Cyan */
+    .c3g-manifesto h2 {
+        font-family: 'Syncopate', sans-serif;
+        color: #00f2ff;
+        border-left: 3px solid #00f2ff;
+        padding-left: 20px;
+        margin-top: 60px;
+        margin-bottom: 30px;
+        font-size: 1rem;
+        letter-spacing: 4px;
+    }
+
+    .c3g-manifesto h3 {
+        font-family: 'Syncopate', sans-serif;
+        color: white;
+        font-size: 0.8rem;
+        margin-top: 30px;
+        letter-spacing: 2px;
+    }
+
+    .c3g-manifesto p {
+        color: #888;
+        font-size: 0.95rem;
+        max-width: 850px;
+        line-height: 1.8;
+    }
+
+    /* 4. Glassmorphism Bento Grid */
+    .c3g-mechanism-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 30px 0;
+    }
+
+    .c3g-card {
+        background: rgba(8, 12, 16, 0.6);
+        border: 1px solid rgba(0, 242, 255, 0.1);
+        border-top: 3px solid #00f2ff;
+        padding: 25px;
+        border-radius: 4px;
+        backdrop-filter: blur(10px);
+        transition: 0.3s;
+    }
+
+    .c3g-card:hover {
+        border-color: #00f2ff;
+        transform: translateY(-5px);
+    }
+
+    /* 5. Speculative Deep-Dive Box */
+    .c3g-speculative {
+        background-color: rgba(0, 242, 255, 0.03);
+        border: 1px dashed #00f2ff;
+        padding: 25px;
+        margin: 40px 0;
+        border-radius: 2px;
+        font-style: italic;
+        color: #888;
+        font-size: 0.85rem;
+        line-height: 1.8;
+    }
+
+    .c3g-metabolic-insights::before {
+        content: "🧬 THE METABOLIC INSIGHT: ";
+        font-family: 'Space Mono', monospace;
+        font-weight: bold;
+        color: #00f2ff;
+        font-style: normal;
+    }
+
+    .c3g-visual-insights::before {
+        content: "🧬 THE METABOLIC INSIGHT: ";
+        font-family: 'Space Mono', monospace;
+        font-weight: bold;
+        color: #00f2ff;
+        font-style: normal;
+    }
+
+    /* 6. Dark Terminal Table */
+    .c3g-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 40px 0;
+        background: #080c10;
+        border: 1px solid rgba(0, 242, 255, 0.15);
+    }
+
+    .c3g-table th,
+    .c3g-table td {
+        border-bottom: 1px solid rgba(0, 242, 255, 0.15);
+        padding: 18px;
+        text-align: left;
+        font-size: 0.85rem;
+    }
+
+    .c3g-table th {
+        font-family: 'Syncopate', sans-serif;
+        background-color: rgba(0, 242, 255, 0.05);
+        color: #00f2ff;
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+    }
+
+    .c3g-footer {
+        margin-top: 80px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        text-align: center;
+        color: #444;
+        border-top: 1px solid rgba(0, 242, 255, 0.15);
+        padding-top: 40px;
+    }
+</style>
+
+<div class="c3g-manifesto">
+    <div class="c3g-header">
+        <h1>C3G (Cyanidin 3-Glucoside)</h1>
+        <p class="subtitle">PROJECT: REGENESIS // COMPOUND: STANDARDIZED BLACK RICE EXTRACT</p>
+    </div>
+
+    <section>
+        <h2>I. THE KEYSTONE POLYPHENOL</h2>
+        <p>C3G acts as a governing cellular signal influencing multiple pathways associated with longevity and
+            stress-linked signaling. It directly modulates the energy centers of the mitochondria.</p>
+
+        <div class="c3g-mechanism-grid">
+            <div class="c3g-card">
+                <h3>SIRT6 ACTIVATION</h3>
+                <p>Potently activates <strong>SIRT6</strong>, the "guardian of the genome," responsible for DNA repair
+                    and telomere maintenance.</p>
+            </div>
+            <div class="c3g-card">
+                <h3>MITOCHONDRIAL BIOGENESIS</h3>
+                <p>Stimulates <strong>PGC-1α</strong>, signaling the creation of <em>new</em> mitochondria to increase
+                    total energy headroom.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>II. THE "NUTRIENT SHUTTLE"</h2>
+        <p>Acts as a <strong>Nutrient Partitioning Agent</strong>, driving calories into muscle cells (myocytes) rather
+            than fat cells (adipocytes).</p>
+
+        <div class="c3g-mechanism-grid">
+            <div class="c3g-card">
+                <h3>AMPK ACTIVATION</h3>
+                <p>Activates the master metabolic switch, mimicking the fat-burning effects of fasting.</p>
+            </div>
+            <div class="c3g-card">
+                <h3>GLUT4 TRANSLOCATION</h3>
+                <p>Promotes glucose transporter movement to the cell surface, "opening the door" for carbohydrates.</p>
+            </div>
+            <div class="c3g-card">
+                <h3>LPL MODULATION</h3>
+                <p>Inhibits Lipoprotein Lipase in fat while activating it in muscle.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>III. THE SURPRISE NOOTROPIC SHIFT</h2>
+        <p>C3G supports the gut-brain interface through vascular and neurotrophic signaling. It is a true "Cyan
+            Nootropic".</p>
+
+        <table class="c3g-table">
+            <thead>
+                <tr>
+                    <th>PATHWAY</th>
+                    <th>THE ACTION</th>
+                    <th>THE EXPERIENCE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>MAO INHIBITION</strong></td>
+                    <td>Reversible inhibition of MAO-A and MAO-B.</td>
+                    <td>Boosts Dopamine/Serotonin; persistent mood brightening.</td>
+                </tr>
+                <tr>
+                    <td><strong>CEREBRAL BLOOD FLOW</strong></td>
+                    <td>Supports eNOS/NO signaling pathways.</td>
+                    <td>Reduced "mental friction" and improved processing.</td>
+                </tr>
+                <tr>
+                    <td><strong>NEUROTROPHIC</strong></td>
+                    <td>Associated with ERK/CREB/BDNF signaling.</td>
+                    <td>Supports long-term memory and neuroplasticity.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>IV. INSIGHTS</h2>
+        <div class="c3g-metabolic-insights">
+            <strong>The "Hunger Paradox":</strong> Users report acute hunger due to efficient glucose shuttling into
+            muscle, often accompanied by high energy and muscle fullness.
+        </div>
+
+        <h3>1. METABOLIC RE-MODELING</h3>
+        <p>Consistent use may shift your baseline metabolic "set point" by promoting fat oxidation and inhibiting
+            storage.</p>
+
+        <h3>2. ANTI-INFLAMMATORY SHIELD</h3>
+        <p>Targets the <strong>NF-kB pathway</strong>, making it a primary tool for longevity hackers concerned with
+            <em>inflammaging</em>.
+        </p>
+
+        <div class="c3g-speculative">
+            <strong>The "Visual Sharpness" Effect:</strong> Users report color brightening, likely due to C3G’s ability
+            to regenerate <strong>Rhodopsin</strong> for improved visual sensitivity.
+        </div>
+
+        <h3>1. METABOLIC RE-MODELING</h3>
+        <p>In blue-light stressed retinal pigment epithelium cells, C3G improved barrier function and upregulated
+            tight-junction proteins, consistent with strengthening epithelial integrity under stress.</p>
+
+        <h3>2. ANTI-INFLAMMATORY SHIELD</h3>
+        <p>Targets the <strong>NF-kB pathway</strong>, making it a primary tool for longevity hackers concerned with
+            <em>inflammaging</em>.
+        </p>
+    </section>
+
+    <section>
+        <h2>V. STACKING & USAGE</h2>
+        <div class="c3g-card" style="width: 100%;">
+            <h3>THE "METABOLIC FORTRESS" STACK</h3>
+            <p><strong>C3G + TUDCA + Black Ginger + Andrographis.</strong> Pairs aggressive nutrient partitioning with
+                cellular chaperone activity for maximum output without burnout.</p>
+        </div>
+
+        <div class="c3g-card" style="width: 100%;">
+            <h3>THE "VISUAL COHERENCE" STACK</h3>
+            <p><strong>C3G + Saffron + Astaxanthin + Black Ginger.</strong></p>
+            <ul>
+                <li><strong>C3G:</strong> Regenerates Rhodopsin for improved low-light sensitivity and visual sharpness.
+                </li>
+                <li><strong>Saffron:</strong> Protects the retina from blue-light damage and enhances color saturation.
+                </li>
+                <li><strong>Astaxanthin:</strong> Crosses the blood-retinal barrier to neutralize localized oxidative
+                    stress.</li>
+                <li><strong>Black Ginger:</strong> Supports ocular blood flow via eNOS signaling for nutrient delivery.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="c3g-footer">
+        DATE: 2026.02.15 // LOCATION: ECUADOR // RESEARCH_ID: RESEARCHER_01<br>
+        &copy; 2026 SCIENCE-COHERENCE | BIO-HACKER PROTOCOL RESEARCH
+    </footer>
+</div>

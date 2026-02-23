@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astaxanthin: The Red Sentinel</title>
+    <style>
+        :root {
+            --primary-bg: #0f0f12;
+            --card-bg: #1a1a1f;
+            --accent-red: #e67e22;
+            /* Solar Orange-Red */
+            --accent-glow: rgba(230, 126, 34, 0.4);
+            --accent-gold: #d4af37;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        /* DASHBOARD MATCHED BACKGROUND */
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            max-width: 950px;
+            margin: auto;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top right, #4a1c12, var(--primary-bg) 70%);
+            background-attachment: fixed;
+        }
+
+        /* RE-LINKING TO DASHBOARD STYLE */
+        .back-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            transition: 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--accent-red);
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 0 0 20px var(--accent-glow);
+            letter-spacing: -1px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            color: var(--accent-red);
+            border-left: 5px solid var(--accent-red);
+            padding-left: 15px;
+            margin-top: 50px;
+            text-shadow: 0 0 10px var(--accent-glow);
+            text-transform: uppercase;
+            font-size: 1.4em;
+        }
+
+        h3 {
+            color: #fab1a0;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .speculative {
+            background-color: rgba(230, 126, 34, 0.05);
+            border: 1px dashed var(--accent-red);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 12px;
+            color: var(--text-dim);
+            backdrop-filter: blur(4px);
+        }
+
+        .speculative::before {
+            content: "👁️ The 'Visual Depth' Insight: ";
+            font-weight: bold;
+            color: var(--accent-red);
+        }
+
+        .tech-box {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border-top: 4px solid var(--accent-red);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #333;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--accent-red);
+            color: #000;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.85em;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--accent-red);
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 0.85em;
+            text-align: center;
+            color: var(--text-dim);
+            border-top: 1px solid #333;
+            padding: 30px 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="external_dashboard.html" class="back-link">← BACK TO EXTERNAL DASHBOARD</a>
+
+    <header>
+        <h1>Astaxanthin</h1>
+        <p><em>Xanthophyll Carotenoid | Membrane-Spanning Antioxidant | Mitochondrial Shield</em></p>
+    </header>
+
+    <section>
+        <h2>I. Pharmacological Identity</h2>
+        <p>Astaxanthin is often called "The King of Carotenoids" for its unparalleled antioxidant capacity—6,000x
+            stronger than Vitamin C. Unlike other antioxidants, its unique molecular structure allows it to <strong>span
+                the entire cellular membrane bilayer</strong>, providing protection to both the interior and exterior of
+            the cell simultaneously.</p>
+
+        <div class="tech-box">
+            <h3>The Membrane Stabilizer:</h3>
+            <p>By anchoring itself across the lipid bilayer, Astaxanthin prevents <strong>Lipid
+                    Peroxidation</strong>—the oxidative degradation of fats. In a carnivore-heavy protocol high in
+                animal fats, this ensures that the lipids being incorporated into your cell membranes remain pristine
+                and functional.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>II. Clinical Mechanisms</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Target</th>
+                    <th>Mechanism</th>
+                    <th>Subjective Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Visual System</strong></td>
+                    <td>Crosses the blood-retinal barrier; protects photoreceptors.</td>
+                    <td>Reduced eye strain and improved visual accommodation.</td>
+                </tr>
+                <tr>
+                    <td><strong>Mitochondria</strong></td>
+                    <td>Neutralizes ROS within the electron transport chain.</td>
+                    <td>Increased physical endurance and faster recovery from exercise.</td>
+                </tr>
+                <tr>
+                    <td><strong>Dermal Layer</strong></td>
+                    <td>Inhibits collagen-degrading enzymes (MMPs).</td>
+                    <td>"Internal Sunscreen" effect; improved skin elasticity.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>III. Speculative Insights & "Time-Crystalline" Lore</h2>
+        <p>Astaxanthin is the "Red Sentinel" that guards the electrical and structural boundaries of your biology.</p>
+
+        <div class="speculative">
+            <strong>The "Internal UV-Shield":</strong> Biohackers utilize 12mg doses to drastically increase the skin's
+            "Minimal Erythemal Dose" (MED)—the amount of time you can spend in the sun before burning. It acts as a
+            systemic photo-protective agent, essential for those living in high-UV equatorial environments.
+        </div>
+
+        <h3>1. RGB Depth & Retinal Synergy</h3>
+        <p>When stacked with <strong>Saffron</strong> and <strong>C3G</strong>, Astaxanthin creates a visual "clarity
+            triad." Saffron improves retinal oxygenation, C3G enhances Rhodopsin regeneration, and Astaxanthin protects
+            the hardware from oxidative damage. Users report higher color saturation and better "night vision".</p>
+
+        <h3>2. Synergy with "Blue Balm" Regeneration</h3>
+        <div class="speculative">
+            <strong>The Matrix Guard:</strong> While your **GHK-Cu** and **Injuv** work to rebuild the dermal matrix,
+            Astaxanthin prevents the "rusting" of those new structures. It ensures that the collagen fibers being built
+            by **Glycine** are not immediately degraded by environmental oxidative stress.
+        </div>
+    </section>
+
+    <section>
+        <h2>IV. Strategic Stacking & Dosage</h2>
+        <p>In the <strong>Auxiliary Command</strong> structure, Astaxanthin is the daily systemic shield.</p>
+        <ul>
+            <li><strong>The Visual & Dermal Stack:</strong> 12mg Astaxanthin + <em>Saffron</em> + <em>C3G</em> +
+                <em>Injuv</em>.</li>
+            <li><strong>Synergy:</strong> Astaxanthin provides the lipid-layer defense, Saffron modulates the
+                neurotransmitters, and Injuv provides the hydration for full-spectrum "Time-Crystalline" regeneration.
+            </li>
+            <li><strong>Dose:</strong> 12mg daily.</li>
+            <li><strong>Timing:</strong> Best used with your largest high-fat meal (Carnivore lunch/dinner) to maximize
+                absorption, as it is highly lipophilic.</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>Disclaimer: This page is for educational purposes. Astaxanthin is extremely safe; however, chronic high doses
+            may lead to a slight (harmless) "healthy glow" or orange tint to the skin.</p>
+        <p>&copy; 2026 Time-Crystalline Coherent Biology | Auxiliary Protocol</p>
+    </footer>
+
+</body>
+
+</html>

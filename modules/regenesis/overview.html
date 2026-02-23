@@ -1,0 +1,330 @@
+<style>
+    .regenesis-overview-panel {
+        animation: fadeIn 0.8s ease-out forwards;
+        max-width: 1100px;
+        padding-top: 10px;
+    }
+
+    .regenesis-header {
+        border-bottom: 1px solid rgba(0, 242, 255, 0.15);
+        padding-bottom: 40px;
+        margin-bottom: 50px;
+    }
+
+    .regenesis-overview-panel h1 {
+        font-family: 'Syncopate', sans-serif;
+        color: white;
+        font-size: 2.2rem;
+        margin: 0;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+    }
+
+    .regenesis-overview-panel .subtitle {
+        font-family: 'Space Mono', monospace;
+        color: var(--accent);
+        font-size: 0.7rem;
+        margin-top: 15px;
+        letter-spacing: 2px;
+    }
+
+    .regenesis-overview-panel h2 {
+        font-family: 'Syncopate', sans-serif;
+        color: var(--accent);
+        border-left: 3px solid var(--accent);
+        padding-left: 20px;
+        margin-bottom: 30px;
+        font-size: 0.95rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-top: 60px;
+    }
+
+    .regenesis-overview-panel p {
+        color: #888;
+        font-size: 0.95rem;
+        line-height: 1.9;
+        max-width: 900px;
+    }
+
+    .bento-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 25px;
+        margin-top: 25px;
+    }
+
+    .bento-card {
+        background: rgba(8, 12, 16, 0.5);
+        border: 1px solid rgba(0, 242, 255, 0.1);
+        padding: 30px;
+        border-radius: 4px;
+        backdrop-filter: blur(20px);
+        position: relative;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+
+    .bento-card:hover {
+        border-color: rgba(0, 242, 255, 0.28);
+        background: rgba(8, 12, 16, 0.7);
+    }
+
+    .tag {
+        display: inline-block;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        font-family: 'Space Mono';
+        font-size: 0.6rem;
+        padding: 2px 8px;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .bento-card h3 {
+        font-family: 'Syncopate', sans-serif;
+        color: white;
+        font-size: 0.8rem;
+        margin: 8px 0 14px 0;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .list li {
+        margin-bottom: 12px;
+        padding-left: 22px;
+        position: relative;
+        color: #888;
+        font-size: 0.9rem;
+        line-height: 1.7;
+    }
+
+    .list li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+    }
+
+    .status-matrix {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 5px;
+    }
+
+    .status-matrix td {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        font-family: 'Space Mono';
+        font-size: 0.75rem;
+    }
+
+    .status-label {
+        color: #555;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .status-val {
+        color: var(--accent);
+        text-align: right;
+        letter-spacing: 1px;
+    }
+
+    .highlight-card {
+        border: 1px solid rgba(0, 242, 255, 0.3);
+        background: rgba(0, 242, 255, 0.03);
+    }
+
+    .note {
+        margin-top: 25px;
+        font-family: 'Space Mono';
+        font-size: 0.72rem;
+        color: #444;
+        border-top: 1px solid rgba(0, 242, 255, 0.12);
+        padding-top: 18px;
+        line-height: 1.6;
+    }
+</style>
+
+
+
+
+
+<div class="regenesis-overview-panel">
+    <div class="regenesis-header">
+        <h1>REGENESIS</h1>
+        <p class="subtitle">PRIMARY LEVER: SLEEP // OUTPUT: REGENERATION // METHOD: EMPIRICAL COHERENCE</p>
+
+        <p style="color: #888; line-height: 1.8; max-width: 700px;">
+            Primary objective: The optimization of human biological coherence through rigorous empirical compound
+            research.
+            Evaluating the intersection of ancestral intelligence and metabolic sovereignty via high-purity molecular
+            tools.
+
+        <p style="margin-top:12px;">
+            Regenesis uses the same lens as the Cosmos framework: reality is modeled as an
+            <span style="color:var(--accent);">information-processing system</span> that stays stable through
+            periodic <strong>update cycles</strong>. At the universal scale, coherence persists because the system
+            continuously re-stabilizes structure under its own rule. At the biological scale, the organism is a
+            nested coherence engine, and <strong>sleep is its primary update cycle</strong>.
+        </p>
+
+        <p style="margin-top:10px;">
+            In this view, the <strong>body</strong> is <span style="color:#ccc;">hardware</span> (tissue, metabolism,
+            immune repair,
+            endocrine timing), and the <strong>mind</strong> is <span style="color:#ccc;">software</span> (models,
+            memory, affect regulation,
+            attention control). Sleep shifts the system into a protected “maintenance mode” where energy is redirected
+            from
+            outward performance to inward correction: autonomic downshift, repair signaling, immune recalibration, and
+            neural housekeeping. Across the night, deep sleep is associated with physical restoration and global
+            downscaling of noise, while REM supports memory integration and emotional processing, improving next-day
+            clarity and stability.
+        </p>
+
+        <p style="margin-top:10px;">
+            The circadian rhythm functions like a <strong>clock signal</strong>: it schedules when repair chemistry
+            turns on,
+            when arousal chemistry turns off, and how efficiently the night runs. So Regenesis is built around one
+            measurable goal: <span style="color:#ccc;">increase the integrity of the nightly update</span>
+            (depth, continuity, and REM coherence) so regeneration becomes a predictable output, not a lucky event.
+        </p>
+    </div>
+
+    <div class="bento-card highlight-card">
+        <span class="tag">MISSION</span>
+        <h3>THE NIGHTLY REPAIR WINDOW</h3>
+        <p style="color:#ddd; font-size:1.02rem; max-width: 950px;">
+            Regenesis is not “biohacking” as stimulation. It is biohacking as <strong
+                style="color:var(--accent)">repair</strong>.
+            The protocol treats sleep as the core update cycle where the organism clears noise, rewrites tissue,
+            stabilizes mood,
+            and restores performance. If you want regeneration, you do not chase more output. You build deeper nights.
+        </p>
+        <p style="margin-top:12px;">
+            The working rule is simple: <span style="color:#ccc;">days build load, nights erase damage</span>.
+            The entire stack is organized around protecting deep sleep, REM integrity, circadian timing, and the calm
+            state that allows repair to execute.
+        </p>
+    </div>
+
+    <h2>01. THE REGENESIS TRIAD</h2>
+    <div class="bento-grid">
+        <div class="bento-card">
+            <span class="tag">SLEEP ARCHITECTURE</span>
+            <h3>DEEP + REM AS REPAIR MODES</h3>
+            <ul class="list">
+                <li><strong>Deep sleep:</strong> physical restoration, tissue repair signaling, immune recalibration.
+                </li>
+                <li><strong>REM sleep:</strong> emotional processing, memory integration, cognitive defragmentation.
+                </li>
+                <li><strong>Continuity:</strong> fewer awakenings equals higher quality repair throughput.</li>
+            </ul>
+        </div>
+
+        <div class="bento-card">
+            <span class="tag">CIRCADIAN CONTROL</span>
+            <h3>LIGHT IS THE MASTER DIAL</h3>
+            <ul class="list">
+                <li>Morning light anchors wake chemistry and sets the clock.</li>
+                <li>Evening darkness unlocks melatonin and downshifts arousal.</li>
+                <li>Late blue light fragments sleep even when “hours” look fine.</li>
+            </ul>
+        </div>
+
+        <div class="bento-card">
+            <span class="tag">REGENERATION TARGETS</span>
+            <h3>WHAT WE TRY TO IMPROVE</h3>
+            <ul class="list">
+                <li>Nervous system calm: reduced hypervigilance, cleaner mood baseline.</li>
+                <li>Cellular maintenance: less inflammatory drift, more stable energy.</li>
+                <li>Brain clarity: reduced “fog,” faster learning, better recall.</li>
+            </ul>
+        </div>
+
+        <div class="bento-card">
+            <span class="tag">MEASUREMENT</span>
+            <h3>TRACK THE NIGHT</h3>
+            <table class="status-matrix">
+                <tr>
+                    <td class="status-label">SLEEP LATENCY</td>
+                    <td class="status-val">TARGET: FAST</td>
+                </tr>
+                <tr>
+                    <td class="status-label">AWAKENINGS</td>
+                    <td class="status-val">TARGET: LOW</td>
+                </tr>
+                <tr>
+                    <td class="status-label">DEEP SLEEP</td>
+                    <td class="status-val">TARGET: STABLE</td>
+                </tr>
+                <tr>
+                    <td class="status-label">REM</td>
+                    <td class="status-val">TARGET: INTACT</td>
+                </tr>
+                <tr>
+                    <td class="status-label">MORNING STATE</td>
+                    <td class="status-val">TARGET: CLEAR</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <h2>02. THE NIGHT PROTOCOL</h2>
+    <div class="bento-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="bento-card">
+            <span class="tag">STEP 01</span>
+            <h3>DOWNSHIFT</h3>
+            <ul class="list">
+                <li>Reduce brightness and screen exposure 60 to 120 minutes before bed.</li>
+                <li>Lower cognitive load: no conflict, no intense planning, no doom scrolling.</li>
+                <li>Make the room “boring”: dim, quiet, cool.</li>
+            </ul>
+        </div>
+
+        <div class="bento-card">
+            <span class="tag">STEP 02</span>
+            <h3>TEMPERATURE + BREATH</h3>
+            <ul class="list">
+                <li>Cool environment supports sleep onset and continuity.</li>
+                <li>Slow nasal breathing signals safety and reduces sympathetic tone.</li>
+                <li>Keep it simple: your goal is a body that believes it can let go.</li>
+            </ul>
+        </div>
+
+        <div class="bento-card">
+            <span class="tag">STEP 03</span>
+            <h3>NUTRIENT TIMING</h3>
+            <ul class="list">
+                <li>Avoid heavy meals too close to sleep if they raise temperature or heart rate.</li>
+                <li>Prioritize steady blood sugar and no late stimulants.</li>
+                <li>Consistency matters more than perfection.</li>
+            </ul>
+        </div>
+
+        <div class="bento-card">
+            <span class="tag">STEP 04</span>
+            <h3>STACKS ARE SUPPORT, NOT THE ENGINE</h3>
+            <ul class="list">
+                <li>Supplements serve sleep quality, not the other way around.</li>
+                <li>If a compound increases arousal, it is not “regenesis” for that night.</li>
+                <li>We privilege what increases depth, continuity, and morning clarity.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="note">
+        REGENESIS NOTE: This is a research dashboard and protocol framework, not medical advice.
+        If you have a sleep disorder, severe insomnia, or are mixing compounds with prescriptions, involve a qualified
+        clinician.
+        The prime directive stays the same: protect the night, and the body will do what bodies are built to do.
+    </div>
+</div>

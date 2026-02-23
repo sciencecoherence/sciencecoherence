@@ -1,0 +1,1086 @@
+<style>
+    :root {
+        /* Softer Regenesis accent for Neuro page */
+        --neuro-accent: rgba(0, 242, 255, 0.55);
+        --neuro-accent-2: rgba(0, 242, 255, 0.18);
+        --neuro-ink: #e9eef2;
+        --neuro-muted: #9aa6b2;
+        --neuro-panel: rgba(8, 12, 16, 0.55);
+        --neuro-border: rgba(255, 255, 255, 0.08);
+    }
+
+    .neuro-page {
+        max-width: 1100px;
+        padding-top: 10px;
+        animation: fadeIn 0.7s ease-out forwards;
+    }
+
+    .hero {
+        padding: 34px 28px;
+        border-radius: 10px;
+        background:
+            radial-gradient(900px 220px at 20% 0%, rgba(0, 242, 255, 0.10), transparent 55%),
+            radial-gradient(900px 260px at 80% 0%, rgba(0, 242, 255, 0.06), transparent 60%),
+            rgba(8, 12, 16, 0.35);
+        border: 1px solid var(--neuro-border);
+        backdrop-filter: blur(16px);
+    }
+
+    .hero h1 {
+        font-family: 'Syncopate', sans-serif;
+        color: var(--neuro-ink);
+        font-size: 2.05rem;
+        margin: 0;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+    }
+
+    .hero p {
+        font-family: 'Space Mono', monospace;
+        color: var(--neuro-accent);
+        margin: 14px 0 0;
+        font-size: 0.72rem;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+    }
+
+    .intro {
+        margin-top: 18px;
+        color: var(--neuro-muted);
+        font-size: 0.98rem;
+        line-height: 1.9;
+    }
+
+    .protocol-tag {
+        display: inline-block;
+        border: 1px solid var(--neuro-accent, var(--accent));
+        color: var(--neuro-accent, var(--accent));
+        font-family: 'Space Mono', monospace;
+        font-size: 0.6rem;
+        padding: 2px 8px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .status-matrix {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .status-matrix td {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        font-family: 'Space Mono', monospace;
+        font-size: 0.75rem;
+    }
+
+    .status-label {
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .status-val {
+        color: var(--neuro-accent, var(--accent));
+        text-align: right;
+    }
+
+    .evidence-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 16px;
+    }
+
+    .evidence-tag {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.62rem;
+        padding: 3px 8px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #aaa;
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .evidence-tag strong {
+        color: var(--neuro-accent, var(--accent));
+        font-weight: 700;
+    }
+
+    /* Optional: if your spectral block used the accordion style */
+    .neuro-accordion {
+        border: 1px dashed rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 4px;
+        padding: 14px 16px;
+        margin-top: 18px;
+    }
+
+    .neuro-accordion summary {
+        cursor: pointer;
+        font-family: 'Space Mono', monospace;
+        color: var(--neuro-accent, var(--accent));
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        list-style: none;
+        outline: none;
+    }
+
+    .neuro-accordion summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .neuro-accordion summary:before {
+        content: "▸";
+        display: inline-block;
+        margin-right: 10px;
+        color: var(--neuro-accent, var(--accent));
+        transform: translateY(-1px);
+    }
+
+    .neuro-accordion[open] summary:before {
+        content: "▾";
+    }
+
+    .neuro-accordion .phase-body {
+        margin-top: 12px;
+        color: #999;
+        font-size: 0.88rem;
+        line-height: 1.8;
+    }
+
+    .phase-list {
+        margin: 10px 0 0;
+        padding-left: 18px;
+        color: #aaa;
+    }
+
+    .phase-list li {
+        margin: 6px 0;
+    }
+
+    .section {
+        margin-top: 46px;
+    }
+
+    .section h2 {
+        font-family: 'Syncopate', sans-serif;
+        color: var(--neuro-ink);
+        font-size: 0.9rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin: 0 0 18px;
+    }
+
+    .grid-2 {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 18px;
+    }
+
+    .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    @media(max-width: 900px) {
+        .grid-2 {
+            grid-template-columns: 1fr;
+        }
+
+        .grid-3 {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .card {
+        background: var(--neuro-panel);
+        border: 1px solid var(--neuro-border);
+        border-radius: 10px;
+        padding: 22px;
+        backdrop-filter: blur(18px);
+    }
+
+    .card h3 {
+        font-family: 'Syncopate', sans-serif;
+        color: var(--neuro-ink);
+        font-size: 0.72rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 0 0 12px;
+    }
+
+    .card p {
+        color: var(--neuro-muted);
+        font-size: 0.92rem;
+        line-height: 1.85;
+        margin: 0;
+    }
+
+    .pillrow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    .pill {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.66rem;
+        color: #b9c3cc;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.03);
+        padding: 4px 10px;
+        border-radius: 999px;
+    }
+
+    .pill strong {
+        color: var(--neuro-accent);
+    }
+
+    .cadence {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .lane {
+        border: 1px solid var(--neuro-border);
+        border-radius: 10px;
+        padding: 18px 18px 16px;
+        background:
+            linear-gradient(90deg, rgba(0, 242, 255, 0.06), transparent 55%),
+            rgba(8, 12, 16, 0.40);
+    }
+
+    .lane-top {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 10px;
+    }
+
+    .lane-title {
+        font-family: 'Syncopate', sans-serif;
+        color: var(--neuro-ink);
+        font-size: 0.74rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 0;
+    }
+
+    .lane-tag {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.64rem;
+        color: var(--neuro-accent);
+        border: 1px solid var(--neuro-accent-2);
+        padding: 3px 9px;
+        border-radius: 999px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+    .bullets {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--neuro-muted);
+        line-height: 1.85;
+        font-size: 0.92rem;
+    }
+
+    .bullets li {
+        margin: 6px 0;
+    }
+
+    details {
+        border: 1px dashed rgba(0, 242, 255, 0.18);
+        border-radius: 10px;
+        padding: 14px 16px;
+        background: rgba(0, 242, 255, 0.03);
+        margin-top: 14px;
+    }
+
+    summary {
+        cursor: pointer;
+        font-family: 'Space Mono', monospace;
+        color: var(--neuro-accent);
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        list-style: none;
+        outline: none;
+        text-transform: uppercase;
+    }
+
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    summary:before {
+        content: "▸";
+        display: inline-block;
+        margin-right: 10px;
+        color: var(--neuro-accent);
+        transform: translateY(-1px);
+    }
+
+    details[open] summary:before {
+        content: "▾";
+    }
+
+    details .body {
+        margin-top: 12px;
+        color: var(--neuro-muted);
+        font-size: 0.92rem;
+        line-height: 1.85;
+    }
+
+    .tracker {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        overflow: hidden;
+        background: rgba(8, 12, 16, 0.55);
+    }
+
+    .tracker th,
+    .tracker td {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 12px 12px;
+        font-size: 0.84rem;
+        color: #c2ccd5;
+        text-align: left;
+    }
+
+    .tracker th {
+        font-family: 'Syncopate', sans-serif;
+        font-size: 0.62rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--neuro-accent);
+        background: rgba(0, 242, 255, 0.04);
+    }
+
+    .jump-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px;
+        margin-top: 14px;
+    }
+
+    .jump {
+        border: 1px solid var(--neuro-border);
+        border-radius: 10px;
+        padding: 16px;
+        background: rgba(8, 12, 16, 0.50);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .jump:hover {
+        border-color: rgba(0, 242, 255, 0.28);
+        box-shadow: 0 0 16px rgba(0, 242, 255, 0.06);
+        transform: translateY(-2px);
+    }
+
+    .jump .kicker {
+        font-family: 'Space Mono', monospace;
+        color: var(--neuro-accent);
+        font-size: 0.68rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .jump .title {
+        font-family: 'Syncopate', sans-serif;
+        color: var(--neuro-ink);
+        font-size: 0.72rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 8px;
+    }
+
+    .jump .desc {
+        color: var(--neuro-muted);
+        font-size: 0.88rem;
+        line-height: 1.75;
+        margin-top: 10px;
+    }
+
+    .footer {
+        margin: 64px 0 20px;
+        padding-top: 18px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        font-family: 'Space Mono', monospace;
+        font-size: 0.66rem;
+        color: #5b6772;
+        text-align: center;
+        line-height: 1.7;
+    }
+
+    .section .neuro-note {
+        margin-top: 16px;
+        padding-left: 14px;
+        border-left: 2px solid rgba(0, 242, 255, 0.40);
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 0.85rem;
+        line-height: 1.8;
+        font-style: italic;
+    }
+
+    .section .neuro-inline-link {
+        display: inline-block;
+        margin-top: 14px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.78rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 242, 255, 0.35);
+        padding-bottom: 2px;
+
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .section .neuro-inline-link:visited {
+        color: var(--accent);
+    }
+
+    .section .neuro-inline-link:hover {
+        opacity: 0.85;
+        transform: translateY(-1px);
+    }
+
+    /* =========================
+   In-page Brief Panel (overlay)
+   ========================= */
+    .inline-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: none;
+    }
+
+    .inline-overlay.is-open {
+        display: block;
+    }
+
+    .inline-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(8px);
+    }
+
+    .inline-panel {
+        position: absolute;
+        top: 110px;
+        right: 40px;
+        width: min(620px, calc(100vw - 80px));
+        max-height: calc(100vh - 160px);
+        overflow: auto;
+
+        background: rgba(8, 12, 16, 0.88);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 22px 22px 18px;
+        box-shadow: 0 0 40px rgba(0, 242, 255, 0.10);
+    }
+
+    @media (max-width: 760px) {
+        .inline-panel {
+            left: 20px;
+            right: 20px;
+            top: 100px;
+            width: auto;
+        }
+    }
+
+    .inline-panel::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .inline-panel::-webkit-scrollbar-thumb {
+        background: var(--accent);
+    }
+
+    .inline-close {
+        position: sticky;
+        top: 0;
+        margin-left: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        background: rgba(0, 242, 255, 0.05);
+        color: var(--accent);
+        cursor: pointer;
+    }
+
+    .inline-title {
+        font-family: var(--font-title);
+        letter-spacing: 4px;
+        font-size: 0.78rem;
+        color: #fff;
+        margin: 14px 0 10px;
+        text-transform: uppercase;
+    }
+
+    .inline-kicker {
+        font-family: var(--font-data);
+        color: var(--accent);
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+    }
+
+    .inline-text {
+        color: #9aa6b2;
+        line-height: 1.8;
+        font-size: 0.92rem;
+    }
+
+    .inline-mini {
+        margin-top: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 12px;
+        padding: 14px;
+    }
+
+    .inline-mini h4 {
+        font-family: var(--font-title);
+        font-size: 0.64rem;
+        letter-spacing: 2px;
+        color: var(--accent);
+        text-transform: uppercase;
+        margin: 0 0 10px;
+    }
+
+    .inline-mini ul {
+        margin: 0;
+        padding-left: 18px;
+        color: #a7b2bc;
+        line-height: 1.8;
+        font-size: 0.9rem;
+    }
+
+    .inline-actions {
+        margin-top: 16px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .inline-link {
+        font-family: var(--font-data);
+        font-size: 0.72rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 242, 255, 0.35);
+        padding-bottom: 2px;
+    }
+
+    .inline-link:hover {
+        opacity: 0.85;
+    }
+
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="neuro-page">
+    <div class="hero">
+        <h1>NEURO-DYNAMICS</h1>
+        <p>THE NERVOUS SYSTEM AS A LAYERED PROTOCOL</p>
+        <div class="intro">
+            This page is a map of how the full Regenesis stack interacts with the brain and behavior over time.
+            Micro-dosing is only one lane. The structure is layered: daily foundations, weekly modulation, and cyclic
+            deep interventions.
+            The goal is simple: stable baseline, clean signal, durable change.
+        </div>
+    </div>
+
+    <!-- 01: The model -->
+    <div class="section">
+        <h2>01. THE STRUCTURE</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>Three layers, one nervous system</h3>
+                <p>
+                    Think in layers, not “magic bullets”.
+                    Daily behaviors set the baseline. Weekly sessions tune perception and emotional processing.
+                    Cyclic deep interventions can reset patterns, but only if the integration layer is protected.
+                </p>
+                <div class="pillrow">
+                    <span class="pill"><strong>OUTPUT:</strong> stability</span>
+                    <span class="pill"><strong>OUTPUT:</strong> clarity</span>
+                    <span class="pill"><strong>OUTPUT:</strong> consolidation</span>
+                </div>
+
+                <details>
+                    <summary>Integration rule</summary>
+                    <div class="body">
+                        The stronger the intervention, the more important the “quiet days” around it.
+                        Your protocol works when the nervous system gets time to save changes: sleep, nutrition, low
+                        chaos, repetition.
+                    </div>
+                </details>
+            </div>
+
+            <div class="card">
+                <h3>What we track</h3>
+                <p>
+                    No over-complication. Track trend, not perfection.
+                    Use 0–10 scores, once per day, same time.
+                </p>
+
+                <table class="tracker">
+                    <thead>
+                        <tr>
+                            <th>Signal</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sleep quality</td>
+                            <td>Consolidation capacity</td>
+                        </tr>
+                        <tr>
+                            <td>Mood stability</td>
+                            <td>Volatility and rumination</td>
+                        </tr>
+                        <tr>
+                            <td>Focus / drive</td>
+                            <td>Signal-to-noise for action</td>
+                        </tr>
+                        <tr>
+                            <td>Recovery</td>
+                            <td>Stress load and resilience</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 01 -->
+    <div class="section">
+        <h2>02. NEURAL RECONSTRUCTION</h2>
+        <div class="grid-2">
+            <div class="card">
+                <span class="protocol-tag">AXIS: REPAIR / PLASTICITY</span>
+                <h3>IBOGA + ERINAMAX INTERFACE</h3>
+                <p>
+                    This channel is framed as “deep repair + guided regrowth”: stabilize the baseline, then reinforce
+                    adaptive
+                    plasticity. The goal is not stimulation. It’s durable reconstruction.
+                </p>
+
+                <details class="neuro-accordion">
+                    <summary>PHASE LOGIC (STABILIZE → GROW → CONSOLIDATE)</summary>
+                    <div class="phase-body">
+                        <ul class="phase-list">
+                            <li><strong style="color:var(--accent)">Stabilize:</strong> lower noise, reduce volatility,
+                                protect sleep.</li>
+                            <li><strong style="color:var(--accent)">Grow:</strong> introduce neurotrophic support,
+                                gentle cognitive load.</li>
+                            <li><strong style="color:var(--accent)">Consolidate:</strong> sleep architecture,
+                                repetition, low-chaos routines.</li>
+                        </ul>
+                        <p style="margin-top:12px; color:#777;">
+                            Note: this is a protocol scaffold, not medical advice. High-risk interventions require
+                            professional supervision.
+                        </p>
+                    </div>
+                </details>
+
+                <div class="evidence-row">
+                    <span class="evidence-tag"><strong>EVIDENCE:</strong> MIXED</span>
+                    <span class="evidence-tag"><strong>RISK:</strong> HIGH (SUPERVISE)</span>
+                    <span class="evidence-tag"><strong>GOAL:</strong> LONG-HORIZON</span>
+                </div>
+
+                <div
+                    style="margin-top:18px; font-style:italic; color:#666; font-size:0.82rem; border-left:2px solid var(--accent); padding-left:14px;">
+                    “No hype. Just structure: reduce noise, grow capacity, lock it in with sleep.”
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>STATUS MATRIX</h3>
+                <table class="status-matrix">
+                    <tr>
+                        <td class="status-label">PLASTICITY_MODE</td>
+                        <td class="status-val">CONTROLLED</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">REPAIR_CHANNEL</td>
+                        <td class="status-val">PRIMARY</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">COGNITIVE_LOAD</td>
+                        <td class="status-val">CALIBRATED</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">SLEEP_PRIORITY</td>
+                        <td class="status-val">MAX</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="section">
+        <h2>03. SPECTRAL COHERENCE</h2>
+        <div class="grid-2">
+            <div class="card">
+                <span class="protocol-tag">AXIS: ANTI-DOOM / STABILITY</span>
+                <h3>THE ANTI-DOOM ARCHITECTURE</h3>
+                <p>
+                    This channel targets the “doom loop”: catastrophizing, agitation, and stress-amplified
+                    interpretation.
+                    The output metric is simple: <strong style="color:#ccc">less spiral, more signal</strong>.
+                </p>
+                <details class="neuro-accordion">
+                    <summary>WHAT THIS CHANNEL IS ACTUALLY DOING</summary>
+                    <div class="phase-body">
+                        <ul class="phase-list">
+                            <li>Reduce excitability (especially in the evening).</li>
+                            <li>Lower interpretation volatility (stress-driven narrative inflation).</li>
+                            <li>Protect REM continuity (dreams become structured instead of fragmented).</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <div class="evidence-row">
+                    <span class="evidence-tag"><strong>EVIDENCE:</strong> MODERATE</span>
+                    <span class="evidence-tag"><strong>RISK:</strong> LOW–MOD</span>
+                    <span class="evidence-tag"><strong>OUTPUT:</strong> STABILITY</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>COHERENCE METRICS</h3>
+                <table class="status-matrix">
+                    <tr>
+                        <td class="status-label">STRESS_REACTIVITY</td>
+                        <td class="status-val">DECREASING</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">RUMINATION</td>
+                        <td class="status-val">SUPPRESSED</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">REM_CONTINUITY</td>
+                        <td class="status-val">IMPROVING</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">AFFECT_CLARITY</td>
+                        <td class="status-val">ENHANCED</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 03: Cadence map -->
+    <div class="section">
+        <h2>04. CADENCE MAP</h2>
+        <div class="cadence">
+            <div class="lane">
+                <div class="lane-top">
+                    <div class="lane-title">Daily foundations</div>
+                    <div class="lane-tag">Baseline layer</div>
+                </div>
+                <ul class="bullets">
+                    <li>Sleep consistency and evening downshift</li>
+                    <li>Nutrition and gut stability as “neural power supply”</li>
+                    <li>Low-chaos routines that reduce interpretation volatility</li>
+                </ul>
+            </div>
+
+            <div class="lane">
+                <div class="lane-top">
+                    <div class="lane-title">Cyclic iboga flood intervention</div>
+                    <div class="lane-tag">Deep reset layer</div>
+                </div>
+                <ul class="bullets">
+                    <li>High-impact lane that can reorganize behavior and emotional architecture</li>
+                    <li>Integration window is not optional: rest, stable food, low stimulus, support</li>
+                    <li>Medical screening matters (cardiac risk is not theoretical)</li>
+                </ul>
+                <details>
+                    <summary>Red flags to respect</summary>
+                    <div class="body">
+                        This lane should be treated as high-risk and supervised.
+                        Cardiac screening and electrolyte status are common safety priorities.
+                        If your body says “not now”, the protocol listens.
+                    </div>
+                </details>
+            </div>
+
+            <div class="lane">
+                <div class="lane-top">
+                    <div class="lane-title">Weekly psilocybin session</div>
+                    <div class="lane-tag">Modulation layer</div>
+                </div>
+                <ul class="bullets">
+                    <li>Used as a structured “recalibration” lane, not entertainment</li>
+                    <li>Works best when paired with integration: journaling, nature, gentle cognition</li>
+                    <li>Protect sleep and avoid stacking with stimulants on the same day</li>
+                </ul>
+                <details>
+                    <summary>Safety notes</summary>
+                    <div class="body">
+                        If there is a history of psychosis, bipolar mania, or severe dissociation, this lane can be
+                        risky.
+                        Medication interactions are a real thing. If in doubt, treat “supervised and screened” as the
+                        default.
+                    </div>
+                </details>
+            </div>
+
+            <div class="lane">
+                <div class="lane-top">
+                    <div class="lane-title">Iboga microdosing</div>
+                    <div class="lane-tag">Between floods</div>
+                </div>
+
+                <ul class="bullets">
+                    <li>Used as a low-intensity <strong>integration support</strong> between flood cycles: steadier
+                        mood, cleaner drive, less compulsive drift.</li>
+                    <li>Keep it <strong>bounded and cycled</strong> (avoid turning it into a daily dependency pattern).
+                    </li>
+                    <li><strong>Sleep is the governor:</strong> if it increases insomnia, agitation, irritability, or
+                        compulsive use, pause and return to stabilization.</li>
+                </ul>
+
+                <details>
+                    <summary>Safety notes</summary>
+                    <div class="body">
+                        Iboga can carry cardiac risk and can interact with medications. Treat screening and supervision
+                        as the default.
+                        Also avoid stacking it with stimulants, especially near evening.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="section">
+        <h2>05. CREATIVE INTEGRATION</h2>
+        <div class="grid-2">
+            <div class="card">
+                <span class="protocol-tag">TARGET: 5-HT2A (PAM) / M1</span>
+                <h3>COGNANCE: THE CREATIVE FLOW GATE</h3>
+                <p>
+                    Cognance sits in Neuro-Dynamics as the “flexibility amplifier”: it’s not a brute-force push, it’s a
+                    <strong>perception + association</strong> optimizer. The intended role is to lower friction for
+                    lateral
+                    thinking, social fluidity, and integration narratives, especially when the system is rebuilding.
+                </p>
+
+                <div class="neuro-note">
+                    Separate from weekly psychedelic sessions, this is framed as a “daily cognition geometry” tool:
+                    clearer
+                    pattern-linking, cleaner memory encoding, better creative throughput.
+                </div>
+
+                <a href="#" class="neuro-inline-link" onclick="openInlineBrief('cognance'); return false;">COGNANCE
+                    NEURO-DYNAMICS</a>
+
+            </div>
+
+            <div class="card">
+                <h3>FLOW METRICS</h3>
+                <table class="status-matrix">
+                    <tr>
+                        <td class="status-label">5HT2A_MODULATION</td>
+                        <td class="status-val">PAM</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">M1_CHOLINERGIC</td>
+                        <td class="status-val">SUPPORTED</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">LATERAL_THINKING</td>
+                        <td class="status-val">UP</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">EMOTIONAL_FLUIDITY</td>
+                        <td class="status-val">UP</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 05: Nicotine -->
+    <div class="section">
+        <h2>06. NICOTINIC AS A NEURAL TOOL</h2>
+        <div class="grid-2">
+            <div class="card">
+                <span class="protocol-tag">TARGET: nAChR / ATTENTIONAL GATING</span>
+                <h3>THE ATTENTION LENS</h3>
+                <p>
+                    Nicotine is treated here as an <strong>acute attentional gate</strong> that can temporarily sharpen
+                    signal
+                    selection, increase task-lock, and raise cognitive “edge” during output windows. Because it can
+                    train
+                    dependence, it belongs to <strong>tight constraints</strong> (short windows, deliberate use, no
+                    drift).
+                </p>
+                <div class="neuro-note">
+                    Power tool, not lifestyle: it’s most valuable when it stays rare, intentional, and bounded.
+                </div>
+            </div>
+
+            <div class="bento-card">
+                <h3>RISK-AWARE METRICS</h3>
+                <table class="status-matrix">
+                    <tr>
+                        <td class="status-label">ATTENTION_GAIN</td>
+                        <td class="status-val">ACUTE</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">WINDOW</td>
+                        <td class="status-val">SHORT</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">TOLERANCE_RISK</td>
+                        <td class="status-val">MANAGE</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">CRAVING_DRIFT</td>
+                        <td class="status-val">WATCH</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 04: Modules -->
+    <div class="section">
+        <h2>SUPPORT MODULES</h2>
+        <div class="card">
+            <p>
+                These modules support the nervous system layers above. Tap to jump.
+            </p>
+
+            <div class="jump-grid">
+                <div class="jump" onclick="loadModule('erinamax')">
+                    <div class="kicker">Plasticity support</div>
+                    <div class="title">ErinaMAX</div>
+                    <div class="desc">Neurotrophic scaffolding and consolidation support.</div>
+                </div>
+
+                <div class="jump" onclick="loadModule('saffron')">
+                    <div class="kicker">Mood stability</div>
+                    <div class="title">Saffron</div>
+                    <div class="desc">Calm clarity, especially when the mind tries to spiral.</div>
+                </div>
+
+                <div class="jump" onclick="loadModule('tudca')">
+                    <div class="kicker">Cellular integrity</div>
+                    <div class="title">TUDCA</div>
+                    <div class="desc">Support layer when stress load is high.</div>
+                </div>
+
+                <div class="jump" onclick="loadModule('c3g')">
+                    <div class="kicker">Energy and output</div>
+                    <div class="title">C3G</div>
+                    <div class="desc">System headroom: recovery, cellular resilience, performance.</div>
+                </div>
+
+                <div class="jump" onclick="loadModule('nutrition')">
+                    <div class="kicker">Foundation</div>
+                    <div class="title">Nutrition</div>
+                    <div class="desc">Baseline stability and brain fuel architecture.</div>
+                </div>
+
+                <div class="jump" onclick="loadModule('purity')">
+                    <div class="kicker">Protocol hygiene</div>
+                    <div class="title">Purity</div>
+                    <div class="desc">Reduce noise sources that sabotage neuro repair.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 05: Minimal tracking -->
+    <div class="section">
+        <h2>05. DAILY TRACK (1 MINUTE)</h2>
+        <div class="card">
+            <p>
+                Use a simple score: (Sleep + Mood + Focus + Recovery) / 4.
+                You are tracking direction, not perfection.
+            </p>
+
+            <table class="tracker">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Sleep (0–10)</th>
+                        <th>Mood (0–10)</th>
+                        <th>Focus (0–10)</th>
+                        <th>Recovery (0–10)</th>
+                        <th>Avg</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>YYYY.MM.DD</td>
+                        <td>__</td>
+                        <td>__</td>
+                        <td>__</td>
+                        <td>__</td>
+                        <td>__</td>
+                    </tr>
+                    <tr>
+                        <td>YYYY.MM.DD</td>
+                        <td>__</td>
+                        <td>__</td>
+                        <td>__</td>
+                        <td>__</td>
+                        <td>__</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        Regenesis Neuro-Dynamics is educational content only. High-impact interventions should be supervised and
+        screened,
+        especially anything with cardiac or psychiatric risk. The protocol works when integration is protected.
+    </div>
+</div>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Ginger: The Metabolic Firestarter</title>
+    <style>
+        :root {
+            --primary-bg: #0f0f12;
+            --card-bg: #1a1a1f;
+            --accent-purple: #8a2be2;
+            --accent-glow: rgba(138, 43, 226, 0.4);
+            --accent-gold: #d4af37;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        /* DASHBOARD MATCHED BACKGROUND */
+        body { 
+            font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            line-height: 1.8; 
+            color: var(--text-main); 
+            max-width: 900px; 
+            margin: auto; 
+            padding: 40px 20px; 
+            background: radial-gradient(circle at top right, #1e0b36, var(--primary-bg) 70%);
+            background-attachment: fixed;
+        }
+
+        /* RE-LINKING TO DASHBOARD STYLE */
+        .back-link { 
+            color: var(--accent-gold); 
+            text-decoration: none; 
+            font-weight: bold; 
+            display: inline-block; 
+            margin-bottom: 25px; 
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            transition: 0.3s ease;
+        }
+        
+        .back-link:hover { transform: translateX(-5px); }
+
+        header { 
+            border-bottom: 1px solid #333; 
+            padding-bottom: 25px; 
+            margin-bottom: 40px; 
+            text-align: center; 
+        }
+
+        h1 { 
+            color: var(--accent-purple); 
+            font-size: 2.6em; 
+            margin: 0;
+            text-shadow: 0 0 20px var(--accent-glow);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h2 { 
+            color: var(--accent-purple); 
+            border-left: 5px solid var(--accent-purple); 
+            padding-left: 15px; 
+            margin-top: 50px; 
+            text-shadow: 0 0 10px var(--accent-glow);
+            text-transform: uppercase;
+            font-size: 1.4em;
+        }
+
+        h3 { color: #e0aaff; margin-top: 20px; margin-bottom: 10px; }
+
+        .speculative { 
+            background-color: rgba(138, 43, 226, 0.05); 
+            border: 1px dashed var(--accent-purple); 
+            padding: 20px; 
+            margin: 30px 0; 
+            border-radius: 8px; 
+            color: var(--text-dim);
+            backdrop-filter: blur(4px);
+        }
+
+        .speculative::before { 
+            content: "⚡ The 'Podcast' Insight: "; 
+            font-weight: bold; 
+            color: var(--accent-purple); 
+        }
+
+        .feature-box { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 20px; 
+            margin: 30px 0; 
+        }
+
+        .feature-card { 
+            flex: 1; 
+            min-width: 250px; 
+            background: var(--card-bg); 
+            border: 1px solid #333; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-top: 4px solid var(--accent-purple);
+        }
+
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 30px 0; 
+            background: var(--card-bg); 
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        th, td { border-bottom: 1px solid #333; padding: 15px; text-align: left; }
+        
+        th { 
+            background-color: var(--accent-purple); 
+            color: #fff; 
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.85em;
+        }
+
+        .highlight { font-weight: bold; color: var(--accent-purple); }
+
+        footer { 
+            margin-top: 60px; 
+            font-size: 0.8em; 
+            text-align: center; 
+            color: var(--text-dim); 
+            border-top: 1px solid #333;
+            padding: 30px 20px;
+            background-color: rgba(0,0,0,0.2);
+        }
+
+        ul li { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<a href="dashboard.html" class="back-link">← BACK TO DASHBOARD</a>
+
+<header>
+    <h1>Black Ginger Extract</h1>
+    <p><em>Standardized to 10% 5,7-Dimethoxyflavone (DMF)</em></p>
+</header>
+
+<section>
+    <h2>I. Pharmacological Identity</h2>
+    <p>While culinary ginger is great for digestion, <strong>Black Ginger</strong> is a different species entirely. Its dark purple-black interior is packed with <span class="highlight">Polymethoxyflavones (PMFs)</span>. Nootropics Depot’s extract focuses specifically on <strong>5,7-DMF</strong>, the heavy hitter for metabolic flexibility and blood flow.</p>
+    
+    <div class="feature-box">
+        <div class="feature-card">
+            <h3>AMPK Activation</h3>
+            <p>Often called the "Master Metabolic Switch," AMPK activation mimics the effects of exercise, telling your cells to burn fuel for energy rather than storing it as fat.</p>
+        </div>
+        <div class="feature-card">
+            <h3>PDE5 Inhibition</h3>
+            <p>By naturally inhibiting the PDE5 enzyme, it allows for significantly increased nitric oxide availability and peripheral blood flow.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>II. The Pillars of Performance</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Benefit</th>
+                <th>The Science</th>
+                <th>Real-World Effect</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Mitochondrial Biogenesis</strong></td>
+                <td>Activates PGC-1α and SIRT1 pathways.</td>
+                <td>Increased endurance and long-term cellular energy.</td>
+            </tr>
+            <tr>
+                <td><strong>Body Recomposition</strong></td>
+                <td>Stimulates Brown Adipose Tissue (BAT) activity.</td>
+                <td>Enhanced thermogenesis and "stubborn" fat burning.</td>
+            </tr>
+            <tr>
+                <td><strong>Physical Power</strong></td>
+                <td>Modulates calcium signaling in muscle fibers.</td>
+                <td>Increased grip strength and explosive power.</td>
+            </tr>
+            <tr>
+                <td><strong>Vitality & Libido</strong></td>
+                <td>Improves blood flow and dopamine modulation.</td>
+                <td>Enhanced confidence, drive, and sexual function.</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>III. Speculative Deep-Dive (From the Podcast)</h2>
+    <p>Emiel and Erika have discussed Black Ginger as the "missing piece" for many stacks. Here is the more speculative, "anecdotal-meets-science" perspective:</p>
+
+    <div class="speculative">
+        <strong>The "Clean Energy" Paradox:</strong> Unlike caffeine, which forces energy release, Black Ginger seems to improve <em>substrate utilization</em>. Users report that it doesn't give you a "buzz," but rather makes it feel like you have an "infinite gas tank." You simply don't run out of steam as easily during high-intensity tasks.
+    </div>
+
+    <h3>1. The Confidence Molecule</h3>
+    <p>There is significant discussion around Black Ginger’s effect on "social motivation." By improving peripheral blood flow and potentially modulating neurotransmitter release, it provides a smooth, non-jittery boost to confidence that many find superior to traditional stimulants.</p>
+
+    <h3>2. SIRT1 & Anti-Aging Synergy</h3>
+    <p>The activation of <strong>SIRT1</strong> (the "longevity gene") suggests that Black Ginger isn't just a fitness supplement; it may function as a potent pro-metabolic longevity agent. It pairs perfectly with NAD+ boosters like NMN or NADH.</p>
+
+    <div class="speculative">
+        <strong>The "Harder" Aspect:</strong> The PDE5 inhibition of Black Ginger is often compared to mild pharmaceutical interventions. Biohackers have noted that it improves muscle "hardness" and vascularity throughout the day, not just during a workout.
+    </div>
+</section>
+
+<section>
+    <h2>IV. Strategic Stacking & Dosage</h2>
+    <p>Black Ginger is the metabolic engine for your "Pre-Meal" window, optimizing how your body handles high-nutrient animal products.</p>
+    <ul>
+        <li><strong>The Pre-Meal Stack:</strong> 100mg Black Ginger + <em>C3G</em> + <em>TUDCA</em>.</li>
+        <li><strong>Synergy:</strong> While C3G shuttles glucose into the muscle, Black Ginger activates the SIRT1 longevity pathway and SIRT-driven fat oxidation.</li>
+        <li><strong>Timing:</strong> Take 15–30 minutes before a high-protein/fat meal to maximize the "Infinite Gas Tank" metabolic effect.</li>
+    </ul>
+</section>
+
+<footer>
+    <p>Disclaimer: Black Ginger is a potent vasodilator. Monitor blood pressure if stacking with other PDE5 inhibitors or stimulants.</p>
+    <p>&copy; 2026 In Search of Insight | Bio-Hacker Protocol Series</p>
+</footer>
+
+</body>
+</html>

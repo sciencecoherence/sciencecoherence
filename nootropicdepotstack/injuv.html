@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Injuv: The Cellular & Neural Hydration Matrix</title>
+    <style>
+        :root {
+            --primary-bg: #0f0f12;
+            --card-bg: #1a1a1f;
+            --accent-teal: #00cec9;
+            --accent-glow: rgba(0, 206, 201, 0.4);
+            --accent-gold: #d4af37;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        /* DASHBOARD MATCHED BACKGROUND */
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            max-width: 950px;
+            margin: auto;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top right, #003d3d, var(--primary-bg) 70%);
+            background-attachment: fixed;
+        }
+
+        /* RE-LINKING TO DASHBOARD STYLE */
+        .back-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            transition: 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--accent-teal);
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 0 0 20px var(--accent-glow);
+            letter-spacing: -1px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            color: var(--accent-teal);
+            border-left: 5px solid var(--accent-teal);
+            padding-left: 15px;
+            margin-top: 50px;
+            text-shadow: 0 0 10px var(--accent-glow);
+            text-transform: uppercase;
+            font-size: 1.4em;
+        }
+
+        h3 {
+            color: #81ecec;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .speculative {
+            background-color: rgba(0, 206, 201, 0.05);
+            border: 1px dashed var(--accent-teal);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 12px;
+            color: var(--text-dim);
+            backdrop-filter: blur(4px);
+        }
+
+        .speculative::before {
+            content: "💧 The 'Luminescent' Insight: ";
+            font-weight: bold;
+            color: var(--accent-teal);
+        }
+
+        .tech-box {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border-top: 4px solid var(--accent-teal);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #333;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--accent-teal);
+            color: #000;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.85em;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--accent-teal);
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 0.85em;
+            text-align: center;
+            color: var(--text-dim);
+            border-top: 1px solid #333;
+            padding: 30px 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="dashboard.html" class="back-link">← BACK TO DASHBOARD</a>
+
+    <header>
+        <h1>Injuv</h1>
+        <p><em>Naturally Derived Hyaluronic Acid | Low Molecular Weight | High Bioavailability | Neural Scaffolding</em>
+        </p>
+    </header>
+
+    <section>
+        <h2>I. Pharmacological Identity</h2>
+        <p>Injuv is a unique form of <strong>Hyaluronic Acid (HA)</strong> derived from rooster combs through a
+            specialized enzymatic process. Unlike standard HA, which often has a molecular weight too high for oral
+            absorption, Injuv is standardized to a low molecular weight, allowing it to penetrate the intestinal
+            barrier, reach systemic circulation, and actively interact with the Extracellular Matrix (ECM) of the brain.
+        </p>
+
+        <div class="tech-box">
+            <h3>Why Molecular Weight Matters:</h3>
+            <p>Most oral HA supplements act as simple fiber because the molecules are too large. Injuv's enzymatic
+                "shearing" results in a complex that the body recognizes as a signal for tissue repair, deep hydration,
+                and an active signaling molecule. In the brain, this low-molecular-weight HA binds to CD44 receptors,
+                actively signaling astrocytes to cool down neuro-inflammation.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>II. Clinical Mechanisms</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Target</th>
+                    <th>Mechanism</th>
+                    <th>Subjective Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Neural Matrix (PNNs)</strong></td>
+                    <td>Provides the structural backbone for Perineuronal Nets.</td>
+                    <td>Enhances neuroplasticity and physically stabilizes new memory pathways during REM sleep.</td>
+                </tr>
+                <tr>
+                    <td><strong>Blood-Brain Barrier</strong></td>
+                    <td>Modulates microglial activation and cytokine release.</td>
+                    <td>Clears persistent "brain fog" and cools central nervous system inflammation.</td>
+                </tr>
+                <tr>
+                    <td><strong>Skin Dermis</strong></td>
+                    <td>Replenishes Glycosaminoglycans (GAGs).</td>
+                    <td>Increased "plumpness" and hydration from the inside out.</td>
+                </tr>
+                <tr>
+                    <td><strong>Joint Synovial Fluid</strong></td>
+                    <td>Restores lubricating fluid viscosity.</td>
+                    <td>Reduced "creakiness" and smoother joint articulation.</td>
+                </tr>
+                <tr>
+                    <td><strong>Wound Healing</strong></td>
+                    <td>Modulates the inflammatory repair phase.</td>
+                    <td>Accelerated skin regeneration and barrier repair.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>III. Speculative Insights & The "Regenerative" Lore</h2>
+        <p>In the context of the <strong>Time-Crystalline Protocol</strong>, Injuv is viewed as the "biological sealant"
+            for both cellular integrity and cognitive architecture. The brain does not contain collagen; its entire
+            structural matrix is built on Hyaluronic Acid.</p>
+
+        <div class="speculative">
+            <strong>The "Internal Blue Balm" Effect:</strong> Just as your DIY whipped tallow cream protects the skin
+            externally, Injuv acts as an internal balm. It provides the hydrated matrix required for
+            <strong>GHK-Cu</strong> and other regenerative signals to function optimally.
+        </div>
+
+        <div class="speculative">
+            <strong>The Neuroplasticity Switch:</strong> By supplementing LMW HA, you provide the exact raw material the
+            brain uses to build Perineuronal Nets (PNNs). These nets dictate when your brain is "plastic" (capable of
+            learning) and when it is "rigid" (locking a memory in place).
+        </div>
+
+        <h3>1. The "Glow" Phenomenon</h3>
+        <p>Biohackers report a perceptible "inner glow" after 2–4 weeks of consistent Injuv use. This is likely due to
+            the restoration of the dermal matrix, which improves how light reflects through the skin layers.</p>
+
+        <h3>2. The TBI & Cognitive Repair Protocol</h3>
+        <p>Advanced biohackers frequently utilize Injuv alongside neuro-regenerative compounds to "soften" the brain
+            following heavy stress or physical sparring. By restoring the shock-absorbing gel matrix of the brain, it
+            efficiently clears the persistent "heavy head" feeling.</p>
+
+        <h3>3. Synergy with Collagen Synthesis</h3>
+        <div class="speculative">
+            While collagen provides the "bricks" for your tissue, Injuv provides the "mortar". Speculative lore suggests
+            that taking Injuv alongside high-protein carnivore meals maximizes the structural integrity of every new
+            cell formed, whether in the dermis or the hippocampus.
+        </div>
+    </section>
+
+    <section>
+        <h2>IV. Strategic Stacking & Dosage</h2>
+        <p>In the <strong>Bio-Hacker Command</strong> protocol, Injuv is the hydration anchor, integrated into the
+            morning fasted window to prime systemic and neural tissues.</p>
+        <ul>
+            <li><strong>The Morning Hydration Stack:</strong> 2 Softgels Injuv + <em>ErinaMAX</em> + <em>PanaMAX</em>.
+            </li>
+            <li><strong>Synergy:</strong> While PanaMAX regulates cortisol and ErinaMAX triggers Nerve Growth Factor
+                (NGF), Injuv provides the hydrated environment and neural scaffolding (Perineuronal Nets) required for
+                these neuro-active signals to propagate through the extracellular matrix and physically rewire the
+                brain.</li>
+            <li><strong>Timing:</strong> Consume Fasted in the morning with high-quality mineral water to initiate the
+                daily hydration cycle.</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>Disclaimer: This page is for educational purposes. Injuv is a natural extract; consult a professional before
+            use if you have any sensitivities to avian-derived products.</p>
+        <p>&copy; 2026 Time-Crystalline Coherent Biology | Protocol Research</p>
+    </footer>
+
+</body>
+
+</html>

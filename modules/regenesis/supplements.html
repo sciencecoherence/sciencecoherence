@@ -1,0 +1,275 @@
+<style>
+    /* Grid Layout from Original Code */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+
+    /* Card Styling from Original Code */
+    .stack-card {
+        background: #080c10;
+        border: 1px solid rgba(0, 242, 255, 0.15);
+        padding: 25px;
+        border-radius: 4px;
+        transition: 0.3s;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .stack-card:hover {
+        border-color: #00f2ff;
+        transform: translateY(-5px);
+        box-shadow: 0 5px 25px rgba(0, 242, 255, 0.08);
+    }
+
+    .badge {
+        font-family: 'Space Mono', monospace;
+        font-size: 0.6rem;
+        color: #00f2ff;
+        border: 1px solid #00f2ff;
+        padding: 2px 8px;
+        border-radius: 10px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        display: inline-block;
+    }
+
+    .stack-card h3 {
+        font-family: 'Syncopate', sans-serif;
+        font-size: 0.95rem;
+        margin: 10px 0;
+        letter-spacing: 1px;
+    }
+
+    .stack-card h3 small {
+        color: #00f2ff;
+        font-size: 0.7rem;
+        font-family: 'Space Mono', monospace;
+        margin-left: 8px;
+    }
+
+    .benefit-list {
+        list-style: none;
+        padding: 0;
+        font-size: 0.85rem;
+        color: #888;
+        margin: 20px 0;
+    }
+
+    .benefit-list li {
+        margin-bottom: 8px;
+        padding-left: 18px;
+        position: relative;
+    }
+
+    .benefit-list li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: #00f2ff;
+    }
+
+    .speculative-box {
+        font-size: 0.75rem;
+        color: #555;
+        background: rgba(0, 242, 255, 0.02);
+        padding: 10px;
+        border-left: 2px solid #00f2ff;
+        font-style: italic;
+    }
+
+    /* Entry Animation */
+    .content-reveal {
+        animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+            filter: blur(5px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+    }
+</style>
+
+<div class="content-reveal">
+    <h2>SUPPLEMENTS RESEARCH</h2>
+    <div class="dashboard-grid">
+
+        <div class="stack-card" onclick="loadModule('saffron')">
+            <span class="badge">Mood</span>
+            <h3>Saffron Extract <small>7.5%</small></h3>
+            <ul class="benefit-list">
+                <li>Selective reuptake inhibition of "the big three."</li>
+                <li>NMDA antagonism for glutamate mitigation.</li>
+                <li>Vision preservation via retinal oxygenation.</li>
+            </ul>
+            <div class="speculative-box">Eliminates "doom-spiraling" and enhances visual saturation.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('erinamax')">
+            <span class="badge">NGF/Neuroplasticity</span>
+            <h3>ErinaMAX™ <small>Liquid Lion's Mane Culture</small></h3>
+            <ul class="benefit-list">
+                <li>Direct Erinacine A delivery across the BBB.</li>
+                <li>Stimulates endogenous Nerve Growth Factor.</li>
+                <li>Modulates neurosteroids (Pregnenolone/Progesterone).</li>
+            </ul>
+            <div class="speculative-box">Intensifies REM-cycle vividity; triggers mental sharpening.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('tribugen')">
+            <span class="badge">Androgen Drive</span>
+            <h3>TRIBUGEN™ <small>Protodioscin</small></h3>
+            <ul class="benefit-list">
+                <li>Androgen receptor upregulation in brain/muscle.</li>
+                <li>Dopaminergic focus via MAO-B inhibition.</li>
+                <li>CNS motor for explosive power.</li>
+            </ul>
+            <div class="speculative-box">Induces "Social Dominance" state and CNS-driven strength gains.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('cistamax')">
+            <span class="badge">Hormonal Growth/Sleep</span>
+            <h3>CistaMAX™ <small>CO2 Matrix</small></h3>
+            <ul class="benefit-list">
+                <li>Upregulates steroidogenic enzymes.</li>
+                <li>Ghrelin receptor agonism (GH release).</li>
+                <li>Microbiome re-modeling (Bacteroides support).</li>
+            </ul>
+            <div class="speculative-box">Triggers anabolic drive without the "psychological edge."</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('c3g')">
+            <span class="badge">Metabolic Partitioning</span>
+            <h3>C3G <small>Purple Force</small></h3>
+            <ul class="benefit-list">
+                <li>GLUT4 translocation for glucose shuttling.</li>
+                <li>AMPK-driven mitochondrial biogenesis.</li>
+                <li>Reversible MAO inhibition for mood stability.</li>
+            </ul>
+            <div class="speculative-box">Physically re-models fat cells; enhances night vision.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('tudca')">
+            <span class="badge">Metabolic Cytoprotection</span>
+            <h3>TUDCA <small>Chaperone</small></h3>
+            <ul class="benefit-list">
+                <li>Endoplasmic Reticulum (ER) stress resolution.</li>
+                <li>Prevents apoptotic signals in healthy cells.</li>
+                <li>Biliary and gut-barrier integrity support.</li>
+            </ul>
+            <div class="speculative-box">The "Metabolic Eraser"; improves thyroid conversion in brown fat.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('agmatine')">
+            <span class="badge">Neuro-modulator</span>
+            <h3>Agmatine Sulfate <small>Sulfate</small></h3>
+            <ul class="benefit-list">
+                <li>Selective NOS modulation (eNOS vs nNOS).</li>
+                <li>NMDA antagonism for neuroprotection.</li>
+                <li>Imidazoline receptor agonism for metabolism.</li>
+            </ul>
+            <div class="speculative-box">Legend for receptor "Tolerance Reset" and pain relief.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('blackginger')">
+            <span class="badge">Metabolic Flow</span>
+            <h3>Black Ginger <small>10% DMF</small></h3>
+            <ul class="benefit-list">
+                <li>Potent AMPK activation for fuel utilization.</li>
+                <li>Natural PDE5 inhibition for peripheral flow.</li>
+                <li>Mitochondrial biogenesis (SIRT1 pathway).</li>
+            </ul>
+            <div class="speculative-box">Improves muscle "hardness" and provides "infinite gas tank."</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('panamax')">
+            <span class="badge">Neuro-Immunity</span>
+            <h3>PanaMAX <small>Ginseng Matrix</small></h3>
+            <ul class="benefit-list">
+                <li>Balanced root/leaf ginsenoside ratio.</li>
+                <li>Cortisol regulation and HPA-axis support.</li>
+                <li>Schisandra-driven bioavailability boost.</li>
+            </ul>
+            <div class="speculative-box">Provides "stress-proof" focus and smooths stimulant jitters.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('andrographis')">
+            <span class="badge">Immunity</span>
+            <h3>Andrographis <small>Andrographolides</small></h3>
+            <ul class="benefit-list">
+                <li>Selective NF-kB and COX-2 modulation.</li>
+                <li>Liver and gut-barrier support.</li>
+                <li>SIRT1 interaction for longevity synergy.</li>
+            </ul>
+            <div class="speculative-box"> "Metabolic Coolant" that blunts inflammation.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('injuv')">
+            <span class="badge">Skin Health</span>
+            <h3>Injuv <small>Hyaluronic Acid</small></h3>
+            <ul class="benefit-list">
+                <li>Low molecular weight HA for intestinal absorption.</li>
+                <li>Replenishes dermal matrix and synovial fluid.</li>
+                <li>Provides the architecture for cellular regeneration.</li>
+            </ul>
+            <div class="speculative-box">Internal "Balm" to support extracellular matrix integrity.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('gotukola')">
+            <span class="badge">Neural Architecture</span>
+            <h3>Gotu Kola <small>Triterpenes</small></h3>
+            <ul class="benefit-list">
+                <li>Stimulation of Type I Collagen synthesis.</li>
+                <li>Acetylcholinesterase inhibition for memory.</li>
+                <li>GABAergic modulation for calm focus.</li>
+            </ul>
+            <div class="speculative-box">Infrastructure builder; constructs the collagenous matrix
+                for ErinaMAX.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('ecklonia')">
+            <span class="badge">Vascular Fluidity</span>
+            <h3>Gotu Kola <small>Dieckol</small></h3>
+            <ul class="benefit-list">
+                <li>Potent eNOS upregulation for vasodilation.</li>
+                <li>Lipid-soluble marine phlorotannins.</li>
+                <li>Strong Acetylcholinesterase inhibition.</li>
+            </ul>
+            <div class="speculative-box"> Vascular lubricant that clear "metabolic sludge" from
+                neural networks.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('cognance')">
+            <span class="badge">Creative Catalyst</span>
+            <h3>Cognance <small>Ebelin Lactone</small></h3>
+            <ul class="benefit-list">
+                <li>Positive Allosteric Modulator (PAM) of 5-HT2A.</li>
+                <li>Enhanced Muscarinic M1 receptor activity.</li>
+                <li>Direct focus on creative flow and lateral thinking.</li>
+            </ul>
+            <div class="speculative-box"> Provides perceptual brightening and creative social
+                fluidity.</div>
+        </div>
+
+        <div class="stack-card" onclick="loadModule('ashwagandha')">
+            <span class="badge">Grounding Shield</span>
+            <h2>Ashwagandha <small style="color:var(--accent-gold)">Withanolides</small></h2>
+            <ul class="benefit-list">
+                <li>Systemic HPA-axis cortisol modulation.</li>
+                <li>Supports DHEA and Total Testosterone floor.</li>
+                <li>Mimetic GABAergic activity for deep recovery.</li>
+            </ul>
+            <div class="speculative-box"> The biological "shock absorber" for high-androgen
+                protocols.</div>
+        </div>
+    </div>

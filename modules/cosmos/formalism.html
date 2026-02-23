@@ -1,0 +1,205 @@
+<div class="module-panel">
+    <div class="module-header">
+        <h1>FORMALISM</h1>
+        <p class="subtitle">SOURCE CODE // MINIMAL SPECIFICATION</p>
+    </div>
+
+    <div class="bento-card"
+        style="text-align: center; padding: 40px 20px; margin-bottom: 40px; border: 1px solid var(--accent);">
+        <span class="tag">THE SELF-ENGINEERING CHAIN</span>
+        <div class="math-block"
+            style="font-size: 1.2rem; background: transparent; border: none; padding: 0; margin-top: 20px;">
+            $$ H_{tot} \rightarrow S \rightarrow \Lambda \rightarrow \Omega \rightarrow \Delta \rightarrow H_{tot} $$
+        </div>
+    </div>
+
+    <div class="module-section" style="margin-bottom: 40px;">
+        <h2>MINIMAL SPECIFICATION</h2>
+        <div class="bento-card">
+            <ul
+                style="list-style: none; padding: 0; margin: 0; font-family: 'Space Mono'; font-size: 0.85rem; color: #ccc; line-height: 2;">
+                <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 10px;">
+                    <span style="color: var(--accent); margin-right: 10px;">PRIMITIVE SET ::</span>
+                    \(\{ S, H_{tot}, \Lambda, \Omega, \Delta \}\). No additional ontic spaces.
+                </li>
+                <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 10px;">
+                    <span style="color: var(--accent); margin-right: 10px;">ONE UPDATE ::</span>
+                    Defined as exactly one traversal of the chain: \( H_{tot} \rightarrow S \rightarrow \Lambda
+                    \rightarrow \Omega \rightarrow \Delta \rightarrow H_{tot} \).
+                </li>
+                <li style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; margin-bottom: 10px;">
+                    <span style="color: var(--accent); margin-right: 10px;">CLOSURE ::</span>
+                    The output of the cycle \((S_{n+1}, H_{tot})\) serves as valid input for the next cycle without
+                    introducing external primitives.
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="module-section" style="margin-bottom: 40px;">
+        <h2>INTERPRETIVE DICTIONARY</h2>
+        <div class="bento-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+
+            <div class="bento-card" style="padding: 20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <span class="tag">SUBSTRATE</span>
+                    <span style="font-family:'Space Mono'; color:var(--accent);">S</span>
+                </div>
+                <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 5px;"><strong>Role:</strong> The state space
+                    undergoing evolution.</p>
+                <p style="font-size: 0.8rem; color: #ccc;"><strong>Commitment:</strong> Fundamental arena. Not "space,"
+                    but the pre-geometric potential.</p>
+            </div>
+
+            <div class="bento-card" style="padding: 20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <span class="tag">GENERATOR</span>
+                    <span style="font-family:'Space Mono'; color:var(--accent);">H_tot</span>
+                </div>
+                <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 5px;"><strong>Role:</strong> Driver of global
+                    evolution.</p>
+                <p style="font-size: 0.8rem; color: #ccc;"><strong>Commitment:</strong> Intrinsic activity. Time is an
+                    internal update count, not an external dimension.</p>
+            </div>
+
+            <div class="bento-card" style="padding: 20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <span class="tag">RESTRICTION</span>
+                    <span style="font-family:'Space Mono'; color:var(--accent);">&Lambda;</span>
+                </div>
+                <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 5px;"><strong>Role:</strong> Selection of
+                    stable sectors.</p>
+                <p style="font-size: 0.8rem; color: #ccc;"><strong>Commitment:</strong> Contextuality. Locality is a
+                    coherence constraint, not a primitive.</p>
+            </div>
+
+            <div class="bento-card" style="padding: 20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <span class="tag">INTERFACE</span>
+                    <span style="font-family:'Space Mono'; color:var(--accent);">&Omega;</span>
+                </div>
+                <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 5px;"><strong>Role:</strong> Effective
+                    description.</p>
+                <p style="font-size: 0.8rem; color: #ccc;"><strong>Commitment:</strong> Induced structure. Spacetime is
+                    the "user interface" rendered by \(\Lambda\).</p>
+            </div>
+
+            <div class="bento-card" style="padding: 20px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <span class="tag">INTEGRATION</span>
+                    <span style="font-family:'Space Mono'; color:var(--accent);">&Delta;</span>
+                </div>
+                <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 5px;"><strong>Role:</strong> Recursive
+                    feedback.</p>
+                <p style="font-size: 0.8rem; color: #ccc;"><strong>Commitment:</strong> Closure. The system learns;
+                    stability conditions reinforce themselves.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="module-section" style="margin-bottom: 40px;">
+        <h2>UPDATE RULES (INSTRUCTION CYCLE)</h2>
+        <div class="bento-card">
+            <ol
+                style="margin: 0; padding-left: 20px; font-family: 'Space Mono'; font-size: 0.85rem; color: #ccc; line-height: 1.8;">
+                <li style="margin-bottom: 10px;">
+                    <strong style="color:white;">Global Evolution:</strong> \(H_{tot}\) drives the transformation of
+                    substrate \(S\), generating raw configuration change.
+                </li>
+                <li style="margin-bottom: 10px;">
+                    <strong style="color:white;">Coherence Gating:</strong> \(\Lambda\) restricts the global state to a
+                    coherence-stable sector, filtering out non-integrable complexity.
+                </li>
+                <li style="margin-bottom: 10px;">
+                    <strong style="color:white;">Effective Description:</strong> \(\Omega\) induces the interface-level
+                    dynamics (spacetime/fields) capable of describing the restricted sector.
+                </li>
+                <li style="margin-bottom: 10px;">
+                    <strong style="color:white;">Recursive Integration:</strong> \(\Delta\) captures emergent
+                    regularities and feeds them back as constraints into the global generator.
+                </li>
+                <li>
+                    <strong style="color:white;">Closure:</strong> The cycle completes. The system returns to
+                    \(H_{tot}\) with updated stability conditions, ready for the next beat.
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="bento-card" style="border: 1px solid var(--accent); background: rgba(0, 242, 255, 0.03);">
+        <span class="tag">PRACTICE</span>
+        <h3>RECONFIGURATION UNDER &Lambda;</h3>
+        <p style="font-size: 0.9rem; color: #ddd; margin-bottom: 12px;">
+            Internalizing the model is not “mind over matter.” It’s learning to navigate what is <em>accessible and
+                stable</em> under restriction.
+            Changing constraints changes what reliably appears as a world.
+        </p>
+        <div class="math-block" style="text-align: center; margin: 10px 0; background: transparent; border: none;">
+            $$ \text{experienced world} \;\sim\; \Omega(\Lambda(S_n)) $$
+        </div>
+        <p style="font-size: 0.85rem; color: #aaa; margin: 0;">
+            In plain terms: you can’t arbitrarily rewrite reality, but you can reshape outcomes by reshaping the
+            constraints
+            (attention, interaction, measurement, commitments) that define the allowed sector.
+        </p>
+    </div>
+</div>
+
+
+<div class="bento-grid" style="margin-bottom: 40px;">
+
+    <div class="bento-card">
+        <span class="tag">DEFINITIONS</span>
+        <h3>PERSISTENCE CRITERIA</h3>
+        <p style="font-size: 0.9rem; color: #ddd;">
+            <strong>Object:</strong> A pattern in \(S\) that remains invariant under \(\Lambda\) across multiple
+            updates.<br><br>
+            <strong>Law:</strong> A stable regularity in \(\Omega\) preserved by the closure of \(\Delta\).<br><br>
+            <strong>Identity:</strong> Not static existence, but the repeatability of structured transformation.
+            Real = Recurrent.
+        </p>
+    </div>
+
+    <div class="bento-card" style="border: 1px solid #ffcc00; background: rgba(255, 204, 0, 0.05);">
+        <span class="tag" style="color: #ffcc00; border-color: #ffcc00;">WARNING</span>
+        <h3 style="color: #ffcc00;">&Omega; IS INDUCED</h3>
+        <p style="font-size: 0.9rem; color: #ddd;">
+            \(\Omega\) (spacetime, geometry, fields) is <strong>not</strong> fundamental ontology. It is an
+            effective interface induced by coherence restriction. Do not mistake the map for the territory.
+        </p>
+    </div>
+
+    <div class="bento-card" style="border: 1px solid #333;">
+        <span class="tag" style="color: #888; border-color: #555;">DISTINCTION</span>
+        <h3>NOT SIMULATION THEORY</h3>
+        <ul style="padding-left: 20px; margin: 0; color: #ccc; font-size: 0.9rem; line-height: 1.6;">
+            <li>No external hardware/computer is assumed.</li>
+            <li>No programmer or agent is assumed.</li>
+            <li>No outside timebase; recurrence is intrinsic.</li>
+        </ul>
+    </div>
+
+    <div class="bento-card" style="background: rgba(255, 255, 255, 0.03);">
+        <span class="tag">MOTIVATION</span>
+        <h3>BIOLOGICAL HINT</h3>
+        <p style="font-size: 0.85rem; color: #aaa;">
+            This framework is inspired by reported experimental work suggesting time-crystal–like, multi-scale
+            oscillatory behavior in microtubules. While not a proof, this biological evidence hints that nested,
+            coherence-structured temporal organization is a scalable architectural motif of nature.
+        </p>
+    </div>
+</div>
+
+<footer
+    style="margin-top: 80px; font-family: 'Space Mono'; color: #555; font-size: 0.6rem; border-top: 1px solid rgba(0, 242, 255, 0.1); padding-top: 30px;">
+    <div style="margin-bottom: 10px; color: #888;">SOURCES & NOTES:</div>
+    <ol style="margin: 0; padding-left: 20px; color: #666;">
+        <li>Primitive Set Definition [441]</li>
+        <li>Operational Definitions [473-480]</li>
+        <li>Update Cycle Logic [460, 516-520]</li>
+        <li>Persistence as Recurrence [525, 563]</li>
+        <li>Induction of Effective Dynamics [540]</li>
+        <li>Closure and Self-Maintenance [449, 548]</li>
+    </ol>
+</footer>
+</div>

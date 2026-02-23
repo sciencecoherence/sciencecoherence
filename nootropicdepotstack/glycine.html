@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glycine: The Metabolic Anchor</title>
+    <style>
+        :root {
+            --primary-bg: #0f0f12;
+            --card-bg: #1a1a1f;
+            --accent-emerald: #2ecc71;
+            --accent-glow: rgba(46, 204, 113, 0.4);
+            --accent-gold: #d4af37;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        /* DASHBOARD MATCHED BACKGROUND */
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            max-width: 950px;
+            margin: auto;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top right, #0a2e1f, var(--primary-bg) 70%);
+            background-attachment: fixed;
+        }
+
+        /* RE-LINKING TO DASHBOARD STYLE */
+        .back-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            transition: 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--accent-emerald);
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 0 0 20px var(--accent-glow);
+            letter-spacing: -1px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            color: var(--accent-emerald);
+            border-left: 5px solid var(--accent-emerald);
+            padding-left: 15px;
+            margin-top: 50px;
+            text-shadow: 0 0 10px var(--accent-glow);
+            text-transform: uppercase;
+            font-size: 1.4em;
+        }
+
+        h3 {
+            color: #58d68d;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .speculative {
+            background-color: rgba(46, 204, 113, 0.05);
+            border: 1px dashed var(--accent-emerald);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 12px;
+            color: var(--text-dim);
+            backdrop-filter: blur(4px);
+        }
+
+        .speculative::before {
+            content: "🧬 The 'Carnivore Glue' Insight: ";
+            font-weight: bold;
+            color: var(--accent-emerald);
+        }
+
+        .tech-box {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border-top: 4px solid var(--accent-emerald);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #333;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--accent-emerald);
+            color: #000;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.85em;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--accent-emerald);
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 0.85em;
+            text-align: center;
+            color: var(--text-dim);
+            border-top: 1px solid #333;
+            padding: 30px 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="external_dashboard.html" class="back-link">← BACK TO EXTERNAL DASHBOARD</a>
+
+    <header>
+        <h1>Glycine</h1>
+        <p><em>Master Collagen Precursor | Methionine Buffer | Inhibitory Neurotransmitter</em></p>
+    </header>
+
+    <section>
+        <h2>I. Pharmacological Identity</h2>
+        <p>Glycine is the simplest amino acid, yet it serves as the most critical structural and metabolic pillar in a
+            carnivore-heavy lifestyle. As the primary component of collagen, it is the literal "glue" that maintains the
+            integrity of your skin, joints, and gut lining.</p>
+
+        <div class="tech-box">
+            <h3>The Methionine Buffer:</h3>
+            <p>A diet high in muscle meats provides an abundance of <strong>Methionine</strong>. Without adequate
+                Glycine to balance this, homocysteine levels can rise, leading to systemic inflammation. Your protocol
+                provides the necessary methyl-buffer to ensure metabolic clearance.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>II. Clinical Mechanisms</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Target</th>
+                    <th>Mechanism</th>
+                    <th>Subjective Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Sleep Architecture</strong></td>
+                    <td>Lowers core body temperature via vasodilation.</td>
+                    <td>Faster sleep onset and deeper slow-wave recovery.</td>
+                </tr>
+                <tr>
+                    <td><strong>Detoxification</strong></td>
+                    <td>Phase II Liver Conjugation (Hippurate).</td>
+                    <td>Improved clearance of metabolic byproducts and toxins.</td>
+                </tr>
+                <tr>
+                    <td><strong>Glutathione</strong></td>
+                    <td>Rate-limiting precursor (with Cysteine/Glutamate).</td>
+                    <td>Enhanced master-antioxidant status and cellular defense.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>III. Speculative Insights & "Time-Crystalline" Lore</h2>
+        <p>In your protocol, Glycine is the recovery anchor that bridges metabolic stability and neural grounding.</p>
+
+        <div class="speculative">
+            <strong>The "GABAergic Proxy":</strong> While not a direct GABA agonist, Glycine acts as an inhibitory
+            neurotransmitter in the brainstem and spinal cord. At high doses, it provides a "weighty" sense of
+            relaxation that counters the high-dopamine drive of <strong>Tribugen</strong>.
+        </div>
+
+        <h3>1. Growth Hormone Secretagogue</h3>
+        <p>Speculative lore suggests that high-dose oral Glycine can stimulate a modest release of <strong>Growth
+                Hormone</strong>. Stacking this with <strong>CistaMAX</strong> in the evening creates an optimized
+            hormonal environment for tissue repair.</p>
+
+        <h3>2. Internal Matrix Repair</h3>
+        <div class="speculative">
+            <strong>The Precursor Strategy:</strong> While your GHK-Cu balm triggers the signal for skin regeneration,
+            Glycine provides the raw material. Taking high-dose Glycine is essentially "loading the tray" for the copper
+            peptides and <strong>Injuv</strong> to work their regenerative magic.
+        </div>
+    </section>
+
+    <section>
+        <h2>IV. Strategic Stacking & Dosage</h2>
+        <p>In the <strong>Auxiliary Command</strong> structure, Glycine is the evening recovery stabilizer.</p>
+        <ul>
+            <li><strong>The Deep Repair Stack:</strong> 15g Glycine + <em>Taurine</em> + <em>Saffron</em> +
+                <em>Agmatine</em>.</li>
+            <li><strong>Synergy:</strong> Glycine buffers the methionine from your evening meal while Taurine provides
+                osmoregulation, creating a combined GABAergic effect with Saffron and Agmatine.</li>
+            <li><strong>Dose:</strong> 15g daily.</li>
+            <li><strong>Timing:</strong> Best used 30–60 minutes before bed (Post-Meal) to leverage its
+                temperature-lowering effects for sleep induction.</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>Disclaimer: This page is for educational purposes. Glycine is a safe amino acid; however, 15g is a
+            therapeutic dose—monitor for excessive sedation if taken during the day.</p>
+        <p>&copy; 2026 Time-Crystalline Coherent Biology | Auxiliary Protocol</p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMG: The Methylation Sentinel</title>
+    <style>
+        :root {
+            --primary-bg: #0f0f12;
+            --card-bg: #1a1a1f;
+            --accent-emerald: #2ecc71;
+            --accent-glow: rgba(46, 204, 113, 0.4);
+            --accent-gold: #d4af37;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        /* DASHBOARD MATCHED BACKGROUND */
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            max-width: 950px;
+            margin: auto;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top right, #1a1a1f, var(--primary-bg) 70%);
+            background-attachment: fixed;
+        }
+
+        /* RE-LINKING TO DASHBOARD STYLE */
+        .back-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            transition: 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--accent-gold);
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 0 0 20px var(--accent-glow);
+            letter-spacing: -1px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            color: var(--accent-gold);
+            border-left: 5px solid var(--accent-gold);
+            padding-left: 15px;
+            margin-top: 50px;
+            text-shadow: 0 0 10px var(--accent-glow);
+            text-transform: uppercase;
+            font-size: 1.4em;
+        }
+
+        h3 {
+            color: #f1c40f;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .speculative {
+            background-color: rgba(212, 175, 55, 0.05);
+            border: 1px dashed var(--accent-gold);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 12px;
+            color: var(--text-dim);
+            backdrop-filter: blur(4px);
+        }
+
+        .speculative::before {
+            content: "⚙️ The 'Methyl-Buffer' Insight: ";
+            font-weight: bold;
+            color: var(--accent-gold);
+        }
+
+        .tech-box {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border-top: 4px solid var(--accent-gold);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #333;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--accent-gold);
+            color: #000;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.85em;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--accent-gold);
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 0.85em;
+            text-align: center;
+            color: var(--text-dim);
+            border-top: 1px solid #333;
+            padding: 30px 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="external_dashboard.html" class="back-link">← BACK TO EXTERNAL DASHBOARD</a>
+
+    <header>
+        <h1>TMG (Trimethylglycine)</h1>
+        <p><em>Betaine Anhydrous | Methyl Donor | Homocysteine Regulator</em></p>
+    </header>
+
+    <section>
+        <h2>I. Pharmacological Identity</h2>
+        <p>TMG, or Betaine, is a glycine molecule with three methyl groups attached. In the <strong>Bio-Hacker
+                Command</strong>, it serves as the primary "Methyl Reservoir." It donates these groups to the
+            <strong>Methylation Cycle</strong>, ensuring that DNA repair, neurotransmitter synthesis, and detoxification
+            pathways remain operational under high metabolic demand.</p>
+
+        <div class="tech-box">
+            <h3>The Homocysteine Sink:</h3>
+            <p>TMG directly converts homocysteine back into <strong>Methionine</strong> via the BHMT pathway. This is
+                critical for carnivore-based protocols, as it allows for the continuous recycling of amino acids while
+                preventing the inflammatory buildup of homocysteine that muscle-meat diets can sometimes trigger.</p>
+        </div>
+    </section>
+
+
+
+    [Image of the methylation cycle diagram]
+
+
+    <section>
+        <h2>II. Clinical Mechanisms</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Target</th>
+                    <th>Mechanism</th>
+                    <th>Subjective Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Methylation</strong></td>
+                    <td>BHMT-mediated Methionine recycling.</td>
+                    <td>Stable mood and high-efficiency detoxification.</td>
+                </tr>
+                <tr>
+                    <td><strong>Hydration</strong></td>
+                    <td>Organic osmolyte activity.</td>
+                    <td>Cellular "fullness" and resilience to thermal stress.</td>
+                </tr>
+                <tr>
+                    <td><strong>Liver Health</strong></td>
+                    <td>Prevents fatty acid accumulation (Lipoptropic).</td>
+                    <td>Optimized hepatic function during high-fat intake.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>III. Speculative Insights & "Time-Crystalline" Lore</h2>
+        <p>TMG is the "logistics manager" of your cellular chemistry, ensuring the right groups get to the right
+            molecules.</p>
+
+        <div class="speculative">
+            <strong>The "Methyl-Drain" Protection:</strong> High-androgen protocols (like <strong>Tribugen</strong>) and
+            high-intensity cognitive focus can "drain" methyl groups rapidly. TMG at a 3g dose acts as a buffer,
+            ensuring you don't experience the "methyl-crash" characterized by lethargy and low mood.
+        </div>
+
+        <h3>1. Endogenous Creatine Support</h3>
+        <p>By providing methyl groups, TMG facilitates the body's natural production of <strong>Creatine</strong>.
+            Stacking TMG with your 8g Creatine dose ensures that your phosphocreatine system is fully supported from
+            both exogenous and endogenous angles, maximizing neural energy.</p>
+
+        <h3>2. Synergy with Saffron & Mood</h3>
+        <div class="speculative">
+            <strong>Neurotransmitter Recycling:</strong> Methylation is required for the synthesis and breakdown of
+            dopamine and serotonin. TMG ensures that the selective reuptake effects of <strong>Saffron</strong> have a
+            consistent supply of neurotransmitters to work with, preventing the "diminishing returns" of long-term
+            nootropic use.
+        </div>
+    </section>
+
+    <section>
+        <h2>IV. Strategic Stacking & Dosage</h2>
+        <p>In the <strong>Auxiliary Command</strong> structure, TMG is the morning metabolic primer.</p>
+        <ul>
+            <li><strong>The Morning Power Stack:</strong> 3g TMG + 8g <em>Creatine</em> + <em>PanaMAX</em> +
+                <em>Tribugen</em>.</li>
+            <li><strong>Synergy:</strong> TMG provides the methyl-support for the dopaminergic surge of Tribugen while
+                PanaMAX regulates the cortisol response, creating a state of high-energy stability.</li>
+            <li><strong>Dose:</strong> 3g daily.</li>
+            <li><strong>Timing:</strong> Best used in the morning (Fasted) to prime the methylation cycle for the day's
+                cognitive and physical demands.</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>Disclaimer: This page is for educational purposes. TMG is a potent methyl donor; if you have specific MTHFR
+            mutations or high baseline methylation, monitor for over-stimulation.</p>
+        <p>&copy; 2026 Time-Crystalline Coherent Biology | Auxiliary Protocol</p>
+    </footer>
+
+</body>
+
+</html>

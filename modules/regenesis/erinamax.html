@@ -1,0 +1,218 @@
+<style>
+    /* 1. Isolation & Fade-in */
+    .erinamax-manifesto {
+        animation: fadeIn 0.8s ease-out forwards;
+        max-width: 1000px;
+        padding-top: 10px; /* Aligns with Saffron fix */
+    }
+
+    /* 2. Renamed Header to prevent Dashboard Collision */
+    .erinamax-header { 
+        border-bottom: 1px solid rgba(0, 242, 255, 0.15); 
+        padding-bottom: 40px; 
+        margin-bottom: 50px; 
+    }
+
+    .erinamax-manifesto h1 { 
+        font-family: 'Syncopate', sans-serif;
+        color: white; 
+        font-size: 2.2rem; 
+        margin: 0;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+    }
+
+    .erinamax-manifesto .subtitle {
+        font-family: 'Space Mono', monospace;
+        color: #00f2ff;
+        font-size: 0.7rem;
+        margin-top: 15px;
+        letter-spacing: 2px;
+    }
+
+    /* 3. Themed Typography */
+    .erinamax-manifesto h2 { 
+        font-family: 'Syncopate', sans-serif;
+        color: #00f2ff; 
+        border-left: 3px solid #00f2ff; 
+        padding-left: 20px; 
+        margin-top: 60px; 
+        margin-bottom: 30px;
+        font-size: 1rem;
+        letter-spacing: 4px;
+    }
+
+    .erinamax-manifesto h3 { 
+        font-family: 'Syncopate', sans-serif;
+        color: white; 
+        font-size: 0.8rem;
+        margin-top: 30px; 
+        letter-spacing: 2px;
+    }
+
+    .erinamax-manifesto p { 
+        color: #888; 
+        font-size: 0.95rem; 
+        max-width: 850px; 
+        line-height: 1.8; 
+    }
+
+    /* 4. Glassmorphism Boxes */
+    .erinamax-tech-box { 
+        background: rgba(8, 12, 16, 0.6); 
+        border: 1px solid rgba(0, 242, 255, 0.15); 
+        padding: 30px; 
+        border-radius: 4px; 
+        margin: 30px 0;
+        backdrop-filter: blur(10px);
+    }
+
+    .erinamax-manifesto ul { list-style: none; padding: 0; }
+    .erinamax-manifesto ul li { 
+        margin-bottom: 15px; 
+        padding-left: 25px; 
+        position: relative; 
+        color: #888;
+        font-size: 0.9rem;
+    }
+    .erinamax-manifesto ul li::before { 
+        content: "→"; 
+        position: absolute; 
+        left: 0; 
+        color: #00f2ff; 
+    }
+
+    /* 5. Speculative Deep-Dive Box */
+    .erinamax-speculative { 
+        background-color: rgba(0, 242, 255, 0.03); 
+        border: 1px dashed #00f2ff; 
+        padding: 25px; 
+        margin: 40px 0; 
+        border-radius: 2px; 
+        font-style: italic;
+        color: #888;
+        font-size: 0.85rem;
+        line-height: 1.8;
+    }
+
+    .erinamax-speculative::before { 
+        content: "🧠 THE 'INSIGHT' DEEP-DIVE: "; 
+        font-family: 'Space Mono', monospace;
+        font-weight: bold; 
+        color: #00f2ff; 
+        font-style: normal;
+    }
+
+    /* 6. Dark Terminal Table */
+    .erinamax-table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        margin: 40px 0; 
+        background: #080c10; 
+        border: 1px solid rgba(0, 242, 255, 0.15);
+    }
+
+    .erinamax-table th, .erinamax-table td { 
+        border-bottom: 1px solid rgba(0, 242, 255, 0.15); 
+        padding: 18px; 
+        text-align: left; 
+        font-size: 0.85rem; 
+    }
+    
+    .erinamax-table th { 
+        font-family: 'Syncopate', sans-serif;
+        background-color: rgba(0, 242, 255, 0.05); 
+        color: #00f2ff; 
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+    }
+
+    .erinamax-highlight { color: #00f2ff; font-weight: bold; }
+
+    .erinamax-footer { 
+        margin-top: 80px; 
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem; 
+        text-align: center; 
+        color: #444; 
+        border-top: 1px solid rgba(0, 242, 255, 0.15);
+        padding-top: 40px;
+    }
+</style>
+
+<div class="erinamax-manifesto">
+    <div class="erinamax-header">
+        <h1>ErinaMAX™</h1>
+        <p class="subtitle">PROJECT: REGENESIS // COMPOUND: LIQUID CULTURE LION'S MANE MYCELIUM (0.5% ERINACINE A)</p>
+    </div>
+
+    <section>
+        <h2>I. THE MYCELIUM REVOLUTION</h2>
+        <p>For years, the industry focused on fruiting bodies. Research suggests that while fruit contains hericenones, the <strong>mycelium</strong> contains <span class="erinamax-highlight">Erinacines</span>—the primary compounds capable of crossing the blood-brain barrier to trigger Nerve Growth Factor (NGF).</p>
+        
+        <div class="erinamax-tech-box">
+            <h3>WHY "LIQUID CULTURE" MATTERS:</h3>
+            <p>ErinaMAX uses <strong>pure liquid fermentation</strong>. This ensures 0% grain filler and 100% active fungal biomass, unlike standard mycelium grown on rice or oats.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>II. PHARMACOLOGICAL MECHANISMS</h2>
+        <table class="erinamax-table">
+            <thead>
+                <tr>
+                    <th>COMPOUND</th>
+                    <th>TARGET RECEPTOR</th>
+                    <th>PRIMARY BENEFIT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Erinacine A</strong></td>
+                    <td>TrkA Receptor (via NGF)</td>
+                    <td>Potent stimulation of Nerve Growth Factor; neurite outgrowth.</td>
+                </tr>
+                <tr>
+                    <td><strong>Erinacine S</strong></td>
+                    <td>Neurosteroid Synthesis</td>
+                    <td>Increases Pregnenolone/Progesterone levels in the brain.</td>
+                </tr>
+                <tr>
+                    <td><strong>Erinacine E</strong></td>
+                    <td>Kappa Opioid Receptor (KOR)</td>
+                    <td>Potential management of neuropathic pain pathways.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>III. SPECULATIVE INSIGHTS & THE "ND LORE"</h2>
+        <p>Beta-testers report a unique, "perceptible" shift compared to standard mushroom powders.</p>
+
+        <div class="erinamax-speculative">
+            <strong>The "Rapid Onset" Myth-Busting:</strong> Because Erinacine A crosses the blood-brain barrier so efficiently, users report "mental sharpening" within 30-60 minutes, suggesting potential modulation of Norepinephrine in real-time.
+        </div>
+
+        <h3>1. THE VIVID DREAM PHENOMENON</h3>
+        <p>By boosting NGF and BDNF, ErinaMAX may enhance REM sleep maintenance, leading to structured and memorable dream states.</p>
+
+        <div class="erinamax-speculative">
+            <strong>The "Total NGF" Synergy:</strong> ND suggests stacking ErinaMAX (which triggers NGF) with their <strong>8:1 Fruiting Body extract</strong> (which sensitizes receptors to that NGF) for maximum neuroplasticity.
+        </div>
+    </section>
+
+    <section>
+        <h2>IV. STRATEGIC USAGE</h2>
+        <ul>
+            <li><strong>BEST FOR:</strong> Cognitive recovery from "brain burnout" and enhancing neuroplasticity.</li>
+            <li><strong>DOSING:</strong> 500mg daily. Bioactives are highly accessible due to the liquid culture process.</li>
+            <li><strong>SYNERGY:</strong> Pairs with <em>7,8-Dihydroxyflavone</em> for a complete neurotrophic factor suite (NGF + BDNF).</li>
+        </ul>
+    </section>
+
+    <footer class="erinamax-footer">
+        DATE: 2026.02.15 // LOCATION: ECUADOR // RESEARCH_ID: RESEARCHER_01<br>
+        DISCLAIMER: POTENT STIMULATOR OF NEUROTROPHIC FACTORS. CONSULT WITH PROFESSIONALS.
+    </footer>
+</div>

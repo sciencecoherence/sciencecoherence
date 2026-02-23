@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C3G: The Master Polyphenol</title>
+    <style>
+        :root {
+            --primary-bg: #0f0f12;
+            --card-bg: #1a1a1f;
+            --accent-purple: #8a2be2;
+            --accent-glow: rgba(138, 43, 226, 0.4);
+            --accent-gold: #d4af37;
+            --accent-teal: #00cec9;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        /* DASHBOARD MATCHED BACKGROUND (Dark Mode) */
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            max-width: 950px;
+            margin: auto;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top right, #240b36, var(--primary-bg) 70%);
+            background-attachment: fixed;
+        }
+
+        /* Re-linking to Dashboard Style */
+        .back-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            transition: 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--accent-purple);
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 0 0 20px var(--accent-glow);
+            letter-spacing: -1px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            color: var(--accent-purple);
+            border-left: 5px solid var(--accent-purple);
+            padding-left: 15px;
+            margin-top: 50px;
+            text-shadow: 0 0 10px var(--accent-glow);
+            text-transform: uppercase;
+            font-size: 1.4em;
+        }
+
+        h3 {
+            color: #dcd6f7;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Updated Tech Boxes for Dark Mode */
+        .tech-box {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border-top: 4px solid var(--accent-purple);
+            margin-bottom: 25px;
+        }
+
+        .gut-box {
+            background: rgba(0, 206, 201, 0.05);
+            border-left: 4px solid var(--accent-teal);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 12px 12px 0;
+            color: var(--text-dim);
+        }
+
+        /* Speculative Section Styling */
+        .speculative {
+            background-color: rgba(138, 43, 226, 0.05);
+            border: 1px dashed var(--accent-purple);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 12px;
+            color: var(--text-dim);
+            backdrop-filter: blur(4px);
+        }
+
+        .speculative::before {
+            content: "🧬 The Metabolic Insight: ";
+            font-weight: bold;
+            color: var(--accent-purple);
+        }
+
+        /* Grid Layout for Mechanisms */
+        .mechanism-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            border-top: 3px solid var(--accent-purple);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-purple);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #333;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--accent-purple);
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.85em;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9em;
+            border-top: 1px solid #333;
+            padding-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="dashboard.html" class="back-link">← BACK TO COMMAND CENTER</a>
+
+    <header>
+        <h1>C3G (Cyanidin 3-Glucoside)</h1>
+        <p>Black Rice Extract Standardized for Longevity, Metabolic Partitioning & Nootropic Sharpness</p>
+    </header>
+
+    <section>
+
+
+        <h2>I. The Keystone Polyphenol: Longevity & Mitochondria</h2>
+        <p>C3G acts as the "Keystone Polyphenol," governing systemic cellular signaling: a single anthocyanin-rich
+            signal that influence multiple cellular pathways beyond basic antioxidant activity, including metabolism-
+            and stress-linked signaling associated with longevity research. It directly modulates the longevity
+            machinery within the cell nucleus and the energy centers of the mitochondria.</p>
+        <div class="mechanism-grid">
+            <div class="card">
+                <h3>SIRT6 Activation (The Longevity Gene)</h3>
+                <p>While Black Ginger targets SIRT1, C3G potently activates <strong>SIRT6</strong>.
+                    SIRT6 is the "guardian of the genome," responsible for DNA double-strand break repair, telomere
+                    maintenance, and genomic stability.</p>
+            </div>
+            <div class="card">
+                <h3>Mitochondrial Biogenesis</h3>
+                <p>C3G stimulates <strong>PGC-1α</strong>, the master regulator of mitochondrial biogenesis. This just
+                    improve efficiency;it physically signals the creation of <em>new</em> mitochondria, increasing your
+                    total "energy headroom" for both cognitive and physical output.</p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2>II. The "Nutrient Shuttle" Mechanism</h2>
+        <p>C3G is a potent anthocyanin that acts as a <strong>Nutrient Partitioning Agent</strong>. Its primary claim to
+            fame is its ability to tell the body to stop storing calories in adipocytes (fat cells) and start driving
+            them into myocytes (muscle cells).</p>
+
+        <div class="mechanism-grid">
+            <div class="card">
+                <h3>AMPK Activation</h3>
+                <p>Activates the "Master Metabolic Switch," increasing cellular energy production and mimicking the
+                    fat-burning effects of fasting or exercise.</p>
+            </div>
+            <div class="card">
+                <h3>GLUT4 Translocation</h3>
+                <p>Promotes the movement of glucose transporters to the cell surface, effectively "opening the door" for
+                    carbohydrates to enter muscle tissue.</p>
+            </div>
+            <div class="card">
+                <h3>LPL Modulation</h3>
+                <p>Inhibits Lipoprotein Lipase (LPL) in fat tissue while activating it in muscle, fundamentally changing
+                    how your body handles dietary fats.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <section>
+        <h2>III. The Surprise Nootropic Shift</h2>
+        <p>While often marketed for body recomposition, C3G supports the gut-brain
+            interface through microbiome, barrier, and vascular signaling.
+            It isn't just a metabolic tool; it’s a "Purple Nootropic."</p>
+
+        <table>
+            <tr>
+                <th>Pathway</th>
+                <th>The Action</th>
+                <th>The Experience</th>
+            </tr>
+            <tr>
+                <td><strong>MAO Inhibition</strong></td>
+                <td>Subtle, reversible inhibition of MAO-A and MAO-B.</td>
+                <td>Boosts Dopamine and Serotonin; persistent mood brightening.</td>
+            </tr>
+            <tr>
+                <td><strong>Cerebral Blood Flow</strong></td>
+                <td>Supports endothelial nitric oxide signaling (eNOS/NO pathways).</td>
+                <td>Reduced "mental friction" and improved processing speed.</td>
+            </tr>
+            <tr>
+                <td><strong>Neurotrophic Signaling</strong></td>
+                <td>C3G is associated with ERK/CREB/BDNF-related signaling.</td>
+                <td>Supports long-term memory and neuroplasticity.</td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <h2>IV. Speculative Insights (The Podcast Lore)</h2>
+        <p>In the <em>In Search of Insight</em> podcast, the team discussed why C3G feels different from other "fat
+            burners" or "brain boosters."</p>
+
+        <div class="speculative">
+            <strong>The "Hunger Paradox":</strong> Some users report a surge in hunger after taking C3G. This is
+            speculated to be an acute effect of "shuttling" blood glucose into the muscles so effectively that the brain
+            triggers a hunger signal. However, unlike a typical crash, this hunger is often accompanied by high energy
+            and lean muscle fullness.
+        </div>
+
+        <h3>1. Metabolic Re-Modeling</h3>
+        <p>C3G isn't a "one-off" stimulant. The speculative theory is that consistent use actually
+            <strong>re-models</strong> your fat cells. By chronically inhibiting fat storage and promoting fat
+            oxidation, you may be shifting your baseline metabolic "set point" over time.
+        </p>
+
+        <h3>2. The Anti-Inflammatory Shield</h3>
+        <p>Because C3G targets the <strong>NF-kB pathway</strong>, it is speculated to be one of the best tools for
+            "metabolic inflammation"—the low-grade systemic stress caused by high-carb diets. This makes it a primary
+            tool for longevity biohackers concerned with <em>inflammaging</em>.</p>
+
+        <div class="speculative">
+            <strong>The "Visual Sharpness" Effect:</strong> Similar to Saffron and Black Ginger, C3G users often report
+            a "brightening" of colors. This is likely due to C3G’s ability to regenerate <strong>Rhodopsin</strong>, the
+            pigment in your eyes responsible for low-light vision and visual sensitivity.
+        </div>
+    </section>
+
+    <section>
+        <h2>V. Stacking & Usage</h2>
+        <p>To get the most out of Nootropics Depot's 125mg standardization, timing is key:</p>
+        <ul>
+            <li><strong>The "Metabolic Fortress" Stack:</strong> C3G + <em>TUDCA</em> + <em>Black Ginger</em> +
+                <em>Andrographis</em>. This pairs aggressive AMPK-driven nutrient partitioning with TUDCA's cellular
+                chaperone activity and Andrographis' inflammation control, allowing for maximum metabolic output without
+                systemic burnout.
+            </li>
+        </ul>
+    </section>
+
+    <footer>
+        <P>This page summarizes mechanisms reported across in vitro, animal, and limited human data. Individual response
+            varies. If you use serotonergic meds (SSRIs/SNRIs), stimulants, or have a medical condition, consult a
+            clinician before using concentrated extracts, especially if combining stacks.</p>
+        <p>C3G is a powerful pigment. Don't be surprised if your output takes on a slightly purple
+            hue. Consistency is the "Purple Force" secret.</p>
+        <p>&copy; 2026 Science-Coherence | Bio-Hacker Protocol Research | Nootropics Depot Series</p>
+    </footer>

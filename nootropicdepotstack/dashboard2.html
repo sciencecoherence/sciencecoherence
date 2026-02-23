@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXTERNAL-CORE: Auxiliary Bio-Hacker Dashboard</title>
+    <style>
+        :root {
+            --primary-bg: #0f0f12;
+            --card-bg: #1a1a1f;
+            --accent-gold: #d4af37;
+            --accent-purple: #8a2be2;
+            --accent-emerald: #2ecc71;
+            --accent-blue: #0984e3;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            letter-spacing: -2px;
+            margin: 0;
+            background: linear-gradient(90deg, #2ecc71, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 10px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .stack-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #333;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .stack-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-emerald);
+        }
+
+        .stack-card h2 {
+            margin-top: 0;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            font-size: 0.7em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .metabolic {
+            background: #2ecc71;
+        }
+
+        .physical {
+            background: #d63031;
+        }
+
+        .neuro {
+            background: #0984e3;
+        }
+
+        .cellular {
+            background: #e67e22;
+        }
+
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        .benefit-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .benefit-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-emerald);
+        }
+
+        .speculative-footer {
+            font-size: 0.85em;
+            color: var(--text-dim);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-emerald);
+        }
+
+        .master-protocol {
+            max-width: 1400px;
+            margin: 60px auto;
+            background: linear-gradient(135deg, #1a1a1f 0%, #000 100%);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--accent-emerald);
+        }
+
+        .protocol-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .protocol-table th {
+            text-align: left;
+            color: var(--accent-emerald);
+            border-bottom: 1px solid #333;
+            padding: 15px;
+        }
+
+        .protocol-table td {
+            padding: 15px;
+            border-bottom: 1px solid #222;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-dim);
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>EXTERNAL-CORE COMMAND</h1>
+        <div class="subtitle">Auxiliary Structural & Metabolic sentinels</div>
+    </header>
+
+    <div class="dashboard-grid">
+
+        <a href="glycine.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge metabolic">Structural Matrix</span>
+                <h2>Glycine <small style="color:var(--accent-emerald)">Amino</small></h2>
+                <ul class="benefit-list">
+                    <li>Primary Collagen precursor for tissue repair.</li>
+                    <li>Buffers Methionine levels in high-meat diets.</li>
+                    <li>Phase II liver detoxification support.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Functions as the "Metabolic Glue" that prevents
+                    carnivore-driven inflammation.</div>
+            </div>
+        </a>
+
+        <a href="taurine.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge neuro">Osmoregulation</span>
+                <h2>Taurine <small style="color:var(--accent-blue)">Sulfonic</small></h2>
+                <ul class="benefit-list">
+                    <li>Bile acid conjugation and lipid absorption.</li>
+                    <li>Inhibitory GABAergic neurotransmission.</li>
+                    <li>Cardiac and mitochondrial membrane stability.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Regulates cellular hydration and calms the CNS during
+                    high-output tasks.</div>
+            </div>
+        </a>
+
+        <a href="tmg.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge metabolic">Methylation</span>
+                <h2>TMG <small style="color:var(--accent-emerald)">Betaine</small></h2>
+                <ul class="benefit-list">
+                    <li>Methyl donor for Homocysteine recycling.</li>
+                    <li>Supports endogenous Creatine & SAMe synthesis.</li>
+                    <li>Osmoprotectant for cellular stress resilience.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Prevents "Methylation Drain" induced by high stress or
+                    androgens.</div>
+            </div>
+        </a>
+
+        <a href="creatine.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge physical">ATP Buffer</span>
+                <h2>Creatine <small style="color:var(--accent-red)">Monohydrate</small></h2>
+                <ul class="benefit-list">
+                    <li>Phosphocreatine system for explosive ATP energy.</li>
+                    <li>Brain energetics and cognitive processing floor.</li>
+                    <li>Intracellular water retention and muscle fullness.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Essential for neural battery life during prolonged
+                    cognitive focus.</div>
+            </div>
+        </a>
+
+        <a href="astaxanthin.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge cellular">Red Sentinel</span>
+                <h2>Astaxanthin <small style="color:#e67e22">Carotenoid</small></h2>
+                <ul class="benefit-list">
+                    <li>Highest ORAC value membrane-spanning antioxidant.</li>
+                    <li>Protects lipids from oxidative peroxidation.</li>
+                    <li>Rhodopsin support for visual processing.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Provides "Internal UV-Shielding" and optimizes RGB color
+                    saturation.</div>
+            </div>
+        </a>
+
+        <a href="oakg.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge physical">Metabolic Flow</span>
+                <h2>OAKG <small style="color:var(--accent-red)">Ornithine</small></h2>
+                <ul class="benefit-list">
+                    <li>Urea cycle catalyst for ammonia scavenging.</li>
+                    <li>Arginine precursor for Nitric Oxide (NO) drive.</li>
+                    <li>Supports Growth Hormone (GH) secretagogue pathways.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Clears the "Ammonia Fog" resulting from high-protein
+                    carnivore intake.</div>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="master-protocol">
+        <h2 style="color:var(--accent-emerald); margin-top:0;">Auxiliary Integration Matrix</h2>
+        <p>Overlaying secondary sentinels with the primary Time-Crystalline protocol.</p>
+
+        <table class="protocol-table">
+            <tr>
+                <th>Timeframe</th>
+                <th>External Stack</th>
+                <th>Primary Synergy</th>
+            </tr>
+            <tr>
+                <td><strong>Morning (Fasted)</strong></td>
+                <td>Creatine + TMG</td>
+                <td>ATP availability for ErinaMAX & Tribugen focus.</td>
+            </tr>
+            <tr>
+                <td><strong>Pre-Meal</strong></td>
+                <td>Astaxanthin + OAKG</td>
+                <td>Lipid protection and ammonia buffering for the Carnivore meal.</td>
+            </tr>
+            <tr>
+                <td><strong>Evening (Post-Meal)</strong></td>
+                <td>Glycine + Taurine</td>
+                <td>GABAergic synergy with Agmatine & Saffron for deep repair.</td>
+            </tr>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Time-Crystalline Coherent Biology | Auxiliary Command Center</p>
+    </footer>
+
+</body>
+
+</html>

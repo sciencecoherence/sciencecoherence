@@ -1,0 +1,216 @@
+<style>
+    /* 1. Isolation & Animation */
+    .tribugen-manifesto {
+        animation: fadeIn 0.8s ease-out forwards;
+        max-width: 1000px;
+        padding-top: 10px;
+    }
+
+    /* 2. Unique Header to avoid Shell Collision */
+    .tribugen-header { 
+        border-bottom: 1px solid rgba(0, 242, 255, 0.15); 
+        padding-bottom: 40px; 
+        margin-bottom: 50px; 
+    }
+
+    .tribugen-manifesto h1 { 
+        font-family: 'Syncopate', sans-serif;
+        color: white; 
+        font-size: 2.2rem; 
+        margin: 0;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+    }
+
+    .tribugen-manifesto .subtitle {
+        font-family: 'Space Mono', monospace;
+        color: #00f2ff;
+        font-size: 0.7rem;
+        margin-top: 15px;
+        letter-spacing: 2px;
+    }
+
+    /* 3. Themed Typography */
+    .tribugen-manifesto h2 { 
+        font-family: 'Syncopate', sans-serif;
+        color: #00f2ff; 
+        border-left: 3px solid #00f2ff; 
+        padding-left: 20px; 
+        margin-top: 60px; 
+        margin-bottom: 30px;
+        font-size: 1rem;
+        letter-spacing: 4px;
+    }
+
+    .tribugen-manifesto h3 { 
+        font-family: 'Syncopate', sans-serif;
+        color: white; 
+        font-size: 0.8rem;
+        margin-top: 30px; 
+        letter-spacing: 2px;
+    }
+
+    .tribugen-manifesto p { 
+        color: #888; 
+        font-size: 0.95rem; 
+        max-width: 850px; 
+        line-height: 1.8; 
+    }
+
+    /* 4. Glassmorphism Boxes */
+    .tribugen-tech-box { 
+        background: rgba(8, 12, 16, 0.6); 
+        border: 1px solid rgba(0, 242, 255, 0.15); 
+        padding: 30px; 
+        border-radius: 4px; 
+        margin: 30px 0;
+        backdrop-filter: blur(10px);
+    }
+
+    .tribugen-manifesto ul { list-style: none; padding: 0; }
+    .tribugen-manifesto ul li { 
+        margin-bottom: 15px; 
+        padding-left: 25px; 
+        position: relative; 
+        color: #888;
+        font-size: 0.9rem;
+    }
+    .tribugen-manifesto ul li::before { 
+        content: "→"; 
+        position: absolute; 
+        left: 0; 
+        color: #00f2ff; 
+    }
+
+    /* 5. Speculative Deep-Dive Box */
+    .tribugen-speculative { 
+        background-color: rgba(0, 242, 255, 0.03); 
+        border: 1px dashed #00f2ff; 
+        padding: 25px; 
+        margin: 40px 0; 
+        border-radius: 2px; 
+        font-style: italic;
+        color: #888;
+        font-size: 0.85rem;
+        line-height: 1.8;
+    }
+
+    .tribugen-speculative::before { 
+        content: "⚡ THE 'DOMINANCE' LOG: "; 
+        font-family: 'Space Mono', monospace;
+        font-weight: bold; 
+        color: #00f2ff; 
+        font-style: normal;
+    }
+
+    /* 6. Dark Terminal Table */
+    .tribugen-table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        margin: 40px 0; 
+        background: #080c10; 
+        border: 1px solid rgba(0, 242, 255, 0.15);
+    }
+
+    .tribugen-table th, .tribugen-table td { 
+        border-bottom: 1px solid rgba(0, 242, 255, 0.15); 
+        padding: 18px; 
+        text-align: left; 
+        font-size: 0.85rem; 
+    }
+    
+    .tribugen-table th { 
+        font-family: 'Syncopate', sans-serif;
+        background-color: rgba(0, 242, 255, 0.05); 
+        color: #00f2ff; 
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+    }
+
+    .tribugen-footer { 
+        margin-top: 80px; 
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem; 
+        text-align: center; 
+        color: #444; 
+        border-top: 1px solid rgba(0, 242, 255, 0.15);
+        padding-top: 40px;
+    }
+</style>
+
+<div class="tribugen-manifesto">
+    <div class="tribugen-header">
+        <h1>TRIBUGEN™</h1>
+        <p class="subtitle">PROJECT: REGENESIS // COMPOUND: PROTODIOSCIN ENRICHED MATRIX</p>
+    </div>
+
+    <section>
+        <h2>I. THE ANDROGENIC INTERFACE</h2>
+        <p>Tribugen represents a shift away from simple hormone boosting toward <strong>Androgen Receptor (AR) upregulation</strong>. By increasing the density and sensitivity of receptors in both the brain and muscle tissue, it enhances the biological "signal" of existing hormones.</p>
+        
+        <div class="tribugen-tech-box">
+            <h3>CORE BIOACTIVES:</h3>
+            <ul>
+                <li><strong>Protodioscin:</strong> The primary steroidal saponin responsible for social drive and physical aggression.</li>
+                <li><strong>Tribulus Terrestris:</strong> Targeted extract focused on CNS-driven strength gains.</li>
+                <li><strong>Dopaminergic Support:</strong> Modulates the reward center to sustain high-intensity effort.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>II. PHARMACOLOGICAL TARGETS</h2>
+        <table class="tribugen-table">
+            <thead>
+                <tr>
+                    <th>SYSTEM</th>
+                    <th>MECHANISM</th>
+                    <th>PRIMARY BENEFIT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>NEURAL</strong></td>
+                    <td>MAO-B Inhibition (Subtle)</td>
+                    <td>Increased dopaminergic focus and social confidence.</td>
+                </tr>
+                <tr>
+                    <td><strong>MUSCULAR</strong></td>
+                    <td>AR Upregulation</td>
+                    <td>Enhanced muscle "hardness" and explosive CNS drive.</td>
+                </tr>
+                <tr>
+                    <td><strong>ENDOCRINE</strong></td>
+                    <td>DHEA/LH Support</td>
+                    <td>Optimizes the steroidogenic environment for recovery.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>III. SPECULATIVE INSIGHTS</h2>
+        <p>In the protocol, Tribugen is the "Aggression Anchor," providing the psychological edge required for physical remodeling.</p>
+
+        <div class="tribugen-speculative">
+            <strong>The "Social Dominance" State:</strong> Users report a distinct shift in social posture—increased eye contact, reduced verbal hesitation, and a "preemptive" confidence in high-stress environments.
+        </div>
+
+        <h3>THE DOPAMINE-ANDROGEN LOOP</h3>
+        <p>By stacking Tribugen with metabolic catalysts, the user creates a self-reinforcing loop where physical success triggers higher social drive, further fueling the "Time-Crystalline" progression.</p>
+    </section>
+
+    <section>
+        <h2>IV. STRATEGIC USAGE</h2>
+        <ul>
+            <li><strong>BEST FOR:</strong> Social confidence, social dominance, and breaking through physical plateaus.</li>
+            <li><strong>DOSING:</strong> 1 capsule (500mg) pre-workout or pre-social engagement.</li>
+            <li><strong>SYNERGY:</strong> Pairs perfectly with <strong>CistaMAX™</strong> for a complete anabolic drive suite.</li>
+        </ul>
+    </section>
+
+    <footer class="tribugen-footer">
+        DATE: 2026.02.15 // LOCATION: ECUADOR // RESEARCH_ID: RESEARCHER_01<br>
+        DISCLAIMER: POTENT ANDROGENIC MODULATOR. NOT FOR LONG-TERM SUSTAINED USE WITHOUT CYCLING.
+    </footer>
+</div>

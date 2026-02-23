@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGENESIS | Bio-Hacking</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono&family=Inter:wght@300;400;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --accent: #00f2ff;
+            --bg: #010406;
+            --border: rgba(0, 242, 255, 0.15);
+            --font-title: 'Syncopate', sans-serif;
+            --font-data: 'Space Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- HIGH-END LUMINOUS ANIMATED BACKGROUND --- */
+        body::before,
+        body::after {
+            content: "";
+            position: absolute;
+            width: 140vmax;
+            height: 140vmax;
+            top: -20vmax;
+            left: -20vmax;
+            z-index: 0;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        body::before {
+            background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
+            animation: drift 15s infinite alternate ease-in-out;
+        }
+
+        body::after {
+            background: radial-gradient(circle, #005f73 0%, transparent 70%);
+            animation: drift 25s infinite alternate-reverse ease-in-out;
+            right: -20vmax;
+            left: auto;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(15%, 12%) scale(1.1);
+            }
+
+            100% {
+                transform: translate(-10%, -15%) scale(0.9);
+            }
+        }
+
+        /* --- TWO-COLUMN GRID --- */
+        .workspace {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: 90px 1fr;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+            background: rgba(1, 4, 6, 0.45);
+            backdrop-filter: blur(45px);
+        }
+
+        header.shell-header {
+            grid-column: 1 / -1;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+        }
+
+        .header-meta {
+            font-family: var(--font-data);
+            font-size: 0.65rem;
+            color: #555;
+            display: flex;
+            gap: 30px;
+        }
+
+        .header-meta span {
+            color: var(--accent);
+        }
+
+        .btn-return {
+            font-family: var(--font-data);
+            font-size: 0.65rem;
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            padding: 10px 18px;
+            transition: 0.3s;
+            background: rgba(0, 242, 255, 0.05);
+        }
+
+        .btn-return:hover {
+            background: rgba(0, 242, 255, 0.15);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .sidebar {
+            border-right: 1px solid var(--border);
+            padding: 60px 0;
+        }
+
+        .nav-item {
+            font-family: var(--font-title);
+            font-size: 0.65rem;
+            padding: 20px 40px;
+            color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: 0.4s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background: linear-gradient(90deg, rgba(0, 242, 255, 0.08), transparent);
+        }
+
+        /* =========================
+   In-page Brief Window (overlay)
+   ========================= */
+        .inline-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+        }
+
+        .inline-overlay.is-open {
+            display: block;
+        }
+
+        .inline-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(8px);
+        }
+
+        .inline-panel {
+            position: absolute;
+            top: 110px;
+            right: 40px;
+            width: min(640px, calc(100vw - 80px));
+            max-height: calc(100vh - 160px);
+            overflow: auto;
+
+            background: rgba(8, 12, 16, 0.88);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px 22px 18px;
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.10);
+        }
+
+        @media (max-width: 760px) {
+            .inline-panel {
+                left: 20px;
+                right: 20px;
+                top: 100px;
+                width: auto;
+            }
+        }
+
+        .inline-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .inline-panel::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .inline-close {
+            position: sticky;
+            top: 0;
+            margin-left: auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: rgba(0, 242, 255, 0.05);
+            color: var(--accent);
+            cursor: pointer;
+        }
+
+        .inline-title {
+            font-family: var(--font-title);
+            letter-spacing: 4px;
+            font-size: 0.78rem;
+            color: #fff;
+            margin: 14px 0 10px;
+            text-transform: uppercase;
+        }
+
+        .inline-kicker {
+            font-family: var(--font-data);
+            color: var(--accent);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .inline-text {
+            color: #9aa6b2;
+            line-height: 1.8;
+            font-size: 0.92rem;
+        }
+
+        .inline-mini {
+            margin-top: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .inline-mini h4 {
+            font-family: var(--font-title);
+            font-size: 0.64rem;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin: 0 0 10px;
+        }
+
+        .inline-mini ul {
+            margin: 0;
+            padding-left: 18px;
+            color: #a7b2bc;
+            line-height: 1.8;
+            font-size: 0.9rem;
+        }
+
+        .inline-actions {
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .inline-link {
+            font-family: var(--font-data);
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0, 242, 255, 0.35);
+            padding-bottom: 2px;
+        }
+
+        .inline-link:hover {
+            opacity: 0.85;
+        }
+
+        main {
+            padding: 60px 80px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        main::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        main::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="workspace">
+        <header class="shell-header">
+            <a href="index.html" class="btn-return">← RETURN TO PORTAL</a>
+            <div style="font-family: var(--font-title); font-size: 0.8rem; letter-spacing: 6px;">REGENESIS // <span
+                    style="color: var(--accent);">BIO-HACKING</span></div>
+            <div class="header-meta">
+                <div>SESSION: <span>2026.02.15</span></div>
+                <div>LOCATION: <span>ECUADOR</span></div>
+            </div>
+        </header>
+
+        <aside class="sidebar">
+            <div id="nav-overview" class="nav-item active" onclick="loadModule('overview')">01. OVERVIEW</div>
+            <div id="nav-supplements" class="nav-item" onclick="loadModule('supplements')">02. SUPPLEMENTS</div>
+            <div id="nav-neuro" class="nav-item" onclick="loadModule('neuro')">03. NEURO-DYNAMICS</div>
+            <div id="nav-cell" class="nav-item" onclick="loadModule('cell')">04. CELL-DYNAMICS</div>
+            <div id="nav-logs" class="nav-item" onclick="loadModule('logs')">05. LAB LOGS</div>
+        </aside>
+
+        <main id="content-display"></main>
+    </div>
+
+    <!-- In-page brief window -->
+    <div id="inlineOverlay" class="inline-overlay" aria-hidden="true">
+        <div class="inline-backdrop" onclick="closeInlineBrief()"></div>
+
+        <div class="inline-panel" role="dialog" aria-modal="true" aria-label="Protocol brief">
+            <button class="inline-close" onclick="closeInlineBrief()" aria-label="Close">✕</button>
+            <div id="inlinePanelContent"></div>
+        </div>
+    </div>
+
+    <script>
+        async function loadModule(name) {
+            const display = document.getElementById('content-display');
+            try {
+                const response = await fetch(`modules/regenesis/${name}.html?v=${Date.now()}`, { cache: "no-store" });
+                if (!response.ok) throw new Error();
+                const html = await response.text();
+
+                display.innerHTML = html;
+                display.scrollTo(0, 0);
+
+                document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                const navBtn = document.getElementById('nav-' + name);
+                if (navBtn) navBtn.classList.add('active');
+            } catch (err) {
+                display.innerHTML = "<h2 style='font-family:Syncopate'>ERROR_LOAD_FAILED</h2>";
+            }
+        }
+
+        function closeInlineBrief() {
+            const overlay = document.getElementById('inlineOverlay');
+            overlay.classList.remove('is-open');
+            overlay.setAttribute('aria-hidden', 'true');
+        }
+
+        async function openInlineBrief(name) {
+            const overlay = document.getElementById('inlineOverlay');
+            const panel = document.getElementById('inlinePanelContent');
+
+            overlay.classList.add('is-open');
+            overlay.setAttribute('aria-hidden', 'false');
+            panel.innerHTML = `<div class="inline-kicker">Loading…</div>`;
+
+            try {
+                const res = await fetch(`modules/regenesis/briefs/${name}.html?v=${Date.now()}`, { cache: "no-store" });
+                if (!res.ok) throw new Error();
+                panel.innerHTML = await res.text();
+            } catch (e) {
+                panel.innerHTML = `
+        <div class="inline-title">BRIEF NOT FOUND</div>
+        <div class="inline-kicker">${name}</div>
+        <div class="inline-text">
+          The brief file is missing. Create:
+          <span style="color:#cfd8e0; font-family: var(--font-data);">modules/regenesis/briefs/${name}.html</span>
+        </div>
+        <div class="inline-actions">
+          <a class="inline-link" href="#" onclick="closeInlineBrief(); return false;">Close</a>
+          <a class="inline-link" href="#" onclick="closeInlineBrief(); loadModule('${name}'); return false;">Open full module →</a>
+        </div>
+      `;
+            }
+        }
+
+        // Close with ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeInlineBrief();
+        });
+
+        loadModule('overview');
+    </script>
+
+</body>
+
+</html>

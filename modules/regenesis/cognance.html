@@ -1,0 +1,230 @@
+<style>
+    /* 1. Isolation & Animation */
+    .cognance-manifesto {
+        animation: fadeIn 0.8s ease-out forwards;
+        max-width: 1000px;
+        padding-top: 10px;
+    }
+
+    /* 2. Unique Header to avoid Shell Collision */
+    .cognance-header {
+        border-bottom: 1px solid rgba(0, 242, 255, 0.15);
+        padding-bottom: 40px;
+        margin-bottom: 50px;
+    }
+
+    .cognance-manifesto h1 {
+        font-family: 'Syncopate', sans-serif;
+        color: white;
+        font-size: 2.2rem;
+        margin: 0;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+    }
+
+    .cognance-manifesto .subtitle {
+        font-family: 'Space Mono', monospace;
+        color: #00f2ff;
+        font-size: 0.7rem;
+        margin-top: 15px;
+        letter-spacing: 2px;
+    }
+
+    /* 3. Themed Typography */
+    .cognance-manifesto h2 {
+        font-family: 'Syncopate', sans-serif;
+        color: #00f2ff;
+        border-left: 3px solid #00f2ff;
+        padding-left: 20px;
+        margin-top: 60px;
+        margin-bottom: 30px;
+        font-size: 1rem;
+        letter-spacing: 4px;
+    }
+
+    .cognance-manifesto h3 {
+        font-family: 'Syncopate', sans-serif;
+        color: white;
+        font-size: 0.8rem;
+        margin-top: 30px;
+        letter-spacing: 2px;
+    }
+
+    .cognance-manifesto p {
+        color: #888;
+        font-size: 0.95rem;
+        max-width: 850px;
+        line-height: 1.8;
+    }
+
+    /* 4. Glassmorphism Tech Box */
+    .cognance-tech-box {
+        background: rgba(8, 12, 16, 0.6);
+        border: 1px solid rgba(0, 242, 255, 0.15);
+        padding: 30px;
+        border-radius: 4px;
+        margin: 30px 0;
+        backdrop-filter: blur(10px);
+    }
+
+    /* 5. Speculative Deep-Dive Box */
+    .cognance-speculative {
+        background-color: rgba(0, 242, 255, 0.03);
+        border: 1px dashed #00f2ff;
+        padding: 25px;
+        margin: 40px 0;
+        border-radius: 2px;
+        font-style: italic;
+        color: #888;
+        font-size: 0.85rem;
+        line-height: 1.8;
+    }
+
+    .cognance-speculative::before {
+        content: "🌌 THE 'CREATIVE FLOW' INSIGHT: ";
+        font-family: 'Space Mono', monospace;
+        font-weight: bold;
+        color: #00f2ff;
+        font-style: normal;
+    }
+
+    /* 6. Dark Terminal Table */
+    .cognance-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 40px 0;
+        background: #080c10;
+        border: 1px solid rgba(0, 242, 255, 0.15);
+    }
+
+    .cognance-table th,
+    .cognance-table td {
+        border-bottom: 1px solid rgba(0, 242, 255, 0.15);
+        padding: 18px;
+        text-align: left;
+        font-size: 0.85rem;
+    }
+
+    .cognance-table th {
+        font-family: 'Syncopate', sans-serif;
+        background-color: rgba(0, 242, 255, 0.05);
+        color: #00f2ff;
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+    }
+
+    .cognance-manifesto ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .cognance-manifesto ul li {
+        margin-bottom: 15px;
+        padding-left: 25px;
+        position: relative;
+        color: #888;
+        font-size: 0.9rem;
+    }
+
+    .cognance-manifesto ul li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: #00f2ff;
+    }
+
+    .cognance-footer {
+        margin-top: 80px;
+        font-family: 'Space Mono', monospace;
+        font-size: 0.65rem;
+        text-align: center;
+        color: #444;
+        border-top: 1px solid rgba(0, 242, 255, 0.15);
+        padding-top: 40px;
+    }
+</style>
+
+<div class="cognance-manifesto">
+    <div class="cognance-header">
+        <h1>COGNANCE</h1>
+        <p class="subtitle">PROJECT: REGENESIS // COMPOUND: STANDARDIZED EBELIN LACTONE [5-HT2A PAM]</p>
+    </div>
+
+    <section>
+        <h2>I. PHARMACOLOGICAL IDENTITY</h2>
+        <p>Cognance is a precision-standardized extract of <em>Bacopa monnieri</em> focused on <strong>Ebelin
+                Lactone</strong>. It acts as a rare Positive Allosteric Modulator (PAM) of the 5-HT2A receptor, a site
+            directly linked to peak creative states and neuroplasticity.</p>
+
+        <div class="cognance-tech-box">
+            <h3>THE 5-HT2A DIFFERENCE:</h3>
+            <p>Unlike traditional Bacopa, which can be sedating, Cognance is mood-brightening and stimulating. It
+                enhances cognitive flexibility without the "brain fog" associated with heavy bacoside formulations.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>II. CLINICAL MECHANISMS</h2>
+        <table class="cognance-table">
+            <thead>
+                <tr>
+                    <th>TARGET</th>
+                    <th>MECHANISM</th>
+                    <th>SUBJECTIVE OUTCOME</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>5-HT2A RECEPTOR</strong></td>
+                    <td>Positive Allosteric Modulation (PAM).</td>
+                    <td>Enhanced creative thinking and lateral problem solving.</td>
+                </tr>
+                <tr>
+                    <td><strong>MUSCARINIC M1</strong></td>
+                    <td>Synergistic Acetylcholine support.</td>
+                    <td>Improved memory consolidation and attention span.</td>
+                </tr>
+                <tr>
+                    <td><strong>MOOD / SEROTONIN</strong></td>
+                    <td>Selective receptor sensitivity boost.</td>
+                    <td>Emotional resilience and social "fluidity".</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>III. SPECULATIVE INSIGHTS & LORE</h2>
+        <div class="cognance-speculative">
+            <strong>The "Micro-Dose" Signature:</strong> Users describe a subtle "perceptual brightening" similar to
+            micro-dosing. It effectively lowers the threshold for entering creative flow states.
+        </div>
+
+        <h3>1. THE "COGNANCE GLOW"</h3>
+        <p>A distinct shift in visual saturation and empathy, similar to the effects of Saffron. This suggests a
+            powerful dual-stack for retinal and neurological brightening.</p>
+
+        <div class="cognance-speculative">
+            <strong>The Plasticity Anchor:</strong> While <strong>ErinaMAX</strong> provides the NGF for synaptic
+            growth, Cognance provides the 5-HT2A activity that "directs" that growth toward creative pathways.
+        </div>
+    </section>
+
+    <section>
+        <h2>IV. STRATEGIC STACKING</h2>
+        <div class="cognance-tech-box">
+            <h3>THE CREATIVE MORNING STACK</h3>
+            <p><strong>100mg Cognance + ErinaMAX + PanaMAX + Tribugen.</strong></p>
+            <ul>
+                <li><strong>Synergy:</strong> Cognance modulates the serotonin floor, allowing the dopaminergic drive of
+                    Tribugen and the NGF induction of ErinaMAX to manifest as "calm dominance".</li>
+                <li><strong>Timing:</strong> Best used fasted in the morning to initiate the workday flow state.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="cognance-footer">
+        DATE: 2026.02.15 // LOCATION: ECUADOR // RESEARCH_ID: RESEARCHER_01<br>
+        &copy; 2026 TIME-CRYSTALLINE COHERENT BIOLOGY | COGNITIVE PROTOCOL RESEARCH
+    </footer>
+</div>

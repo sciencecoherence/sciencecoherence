@@ -1,0 +1,316 @@
+<style>
+    .cell-dynamics-panel {
+        animation: fadeIn 0.8s ease-out forwards;
+        max-width: 1100px;
+        padding-top: 10px;
+    }
+
+    .cell-header {
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 40px;
+        margin-bottom: 50px;
+    }
+
+    .cell-dynamics-panel h1 {
+        font-family: 'Syncopate', sans-serif;
+        color: white;
+        font-size: 2.2rem;
+        margin: 0;
+        letter-spacing: 8px;
+        text-transform: uppercase;
+    }
+
+    .cell-dynamics-panel .subtitle {
+        font-family: 'Space Mono', monospace;
+        color: var(--accent);
+        font-size: 0.7rem;
+        margin-top: 15px;
+        letter-spacing: 2px;
+    }
+
+    .cell-header .hero-intro {
+        margin-top: 28px;
+        max-width: 980px;
+        color: rgba(255, 255, 255, 0.42);
+        font-size: 1.05rem;
+        line-height: 2.05;
+        letter-spacing: 0.2px;
+    }
+
+
+    .protocol-section {
+        margin-bottom: 60px;
+    }
+
+    .cell-dynamics-panel h2 {
+        font-family: 'Syncopate', sans-serif;
+        color: var(--accent);
+        border-left: 3px solid var(--accent);
+        padding-left: 20px;
+        margin-bottom: 30px;
+        font-size: 0.95rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+    }
+
+    .cell-bento {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 25px;
+    }
+
+    .bento-card {
+        background: rgba(8, 12, 16, 0.5);
+        border: 1px solid var(--border);
+        padding: 30px;
+        border-radius: 4px;
+        backdrop-filter: blur(20px);
+    }
+
+    .cell-dynamics-panel h3 {
+        font-family: 'Syncopate', sans-serif;
+        color: white;
+        font-size: 0.7rem;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+    }
+
+    .cell-dynamics-panel p {
+        color: #888;
+        font-size: 0.9rem;
+        line-height: 1.8;
+    }
+
+    .status-matrix {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .status-matrix td {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        font-family: 'Space Mono';
+        font-size: 0.75rem;
+    }
+
+    .status-label {
+        color: #555;
+        text-transform: uppercase;
+    }
+
+    .status-val {
+        color: var(--accent);
+        text-align: right;
+    }
+
+    .protocol-tag {
+        display: inline-block;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        font-family: 'Space Mono';
+        font-size: 0.6rem;
+        padding: 2px 8px;
+        margin-bottom: 10px;
+    }
+
+    /* NEW: System framing + consistent “fact-note” */
+    .cell-intro {
+        margin-bottom: 60px;
+    }
+
+    .cell-bullets {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0 0;
+    }
+
+    .cell-bullets li {
+        margin-bottom: 12px;
+        padding-left: 22px;
+        position: relative;
+        color: #888;
+        font-size: 0.88rem;
+        line-height: 1.7;
+    }
+
+    .cell-bullets li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+    }
+
+    .cell-note {
+        margin-top: 18px;
+        font-style: italic;
+        color: #666;
+        font-size: 0.82rem;
+        border-left: 2px solid var(--accent);
+        padding-left: 14px;
+    }
+
+    @media (max-width: 900px) {
+        .cell-bento {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+
+<div class="cell-dynamics-panel">
+    <div class="cell-header">
+        <h1>CELL-DYNAMICS</h1>
+        <p class="subtitle">THE CELLULAR LAYERED REPAIR PROTOCOL</p>
+
+        <p class="hero-intro">
+            This page is a map of how the Regenesis stack interacts with cellular repair over time. Supplements are only
+            one lane.
+            The structure is layered: daily foundations (proteostasis and membrane stability), weekly modulation (energy
+            routing and
+            mitochondrial renewal), and cyclic deep interventions when the system needs a harder reset. The goal is
+            simple: stable
+            baseline, clean signal, durable regeneration.
+        </p>
+    </div>
+
+    <div class="bento-card cell-intro">
+        <span class="protocol-tag">PRIME DIRECTIVE</span>
+        <h3>STABILITY = REPAIR + ENERGY + CLEAN SIGNAL</h3>
+        <p>
+            Cell health is not “one lever”. It is a three-axis control system: protein quality control (folding),
+            bio-energetic
+            flux (ATP + mitochondrial turnover), and membrane/redox shielding (signal integrity).
+        </p>
+        <ul class="cell-bullets">
+            <li><strong>Protein QC:</strong> lower unfolded-protein load and reduce ER stress signaling.</li>
+            <li><strong>Energy Flux:</strong> maintain AMPK-driven efficiency and mitochondrial renewal capacity.</li>
+            <li><strong>Membrane Shield:</strong> protect lipid structures so signals do not dissolve into noise.</li>
+        </ul>
+    </div>
+
+    <div class="protocol-section">
+        <h2>01. CELLULAR CHAPERONING</h2>
+        <div class="cell-bento">
+            <div class="bento-card">
+                <span class="protocol-tag">TARGET: TUDCA</span>
+                <h3>THE METABOLIC ERASER</h3>
+                <p>
+                    Resolution of Endoplasmic Reticulum (ER) stress to reduce unfolded-protein pressure and prevent
+                    downstream
+                    pro-apoptotic signaling. TUDCA is widely described as a chemical chaperone that helps stabilize
+                    protein folding
+                    environments and attenuate stress-response escalation ensuring cells and neurons remain in a state
+                    of high-integrity
+                    homeostasis.
+                </p>
+                <div class="cell-note">
+                    Fact anchor: chemical chaperones like TUDCA are reported to dampen UPR stress signaling and reduce
+                    apoptosis markers
+                    across multiple biological models.
+                </div>
+            </div>
+            <div class="bento-card">
+                <h3>STRESS MARKERS</h3>
+                <table class="status-matrix">
+                    <tr>
+                        <td class="status-label">UPR_SIGNAL</td>
+                        <td class="status-val">DAMPENING</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">ER_STRESS</td>
+                        <td class="status-val">RESOLVING</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">PROTEOSTASIS</td>
+                        <td class="status-val">STABILIZING</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="protocol-section">
+        <h2>02. BIO-ENERGETIC FLUX</h2>
+        <div class="cell-bento">
+            <div class="bento-card">
+                <span class="protocol-tag">TARGET: C3G / AMPK</span>
+                <h3>MITOCHONDRIAL BIOGENESIS</h3>
+                <p>
+                    C3G (cyanidin-3-glucoside) is reported in the literature to support glucose-handling pathways
+                    and stimulate AMPK
+                    signaling in metabolic tissues. In some models, it is also associated with improved
+                    mitochondrial function and
+                    biogenesis-related gene programs (often discussed through PGC-1α/SIRT1-linked control).
+                    This also provides the substrate for the high-energy demands of the Neuro-Dynamics
+                    protocols.
+                </p>
+                <div class="cell-note">
+                    Translation: better “energy routing”, plus a stronger renewal program for the mitochondrial
+                    network.
+                </div>
+            </div>
+            <div class="bento-card">
+                <h3>ENERGY STATUS</h3>
+                <table class="status-matrix">
+                    <tr>
+                        <td class="status-label">AMPK_ACTIVATION</td>
+                        <td class="status-val">HIGH</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">GLUT4_SHUTTLE</td>
+                        <td class="status-val">EFFICIENT</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">FUEL_SOURCE</td>
+                        <td class="status-val">FATTY_ACIDS</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="protocol-section">
+        <h2>03. MEMBRANE + REDOX SHIELD</h2>
+        <div class="cell-bento">
+            <div class="bento-card">
+                <span class="protocol-tag">TARGET: SIGNAL INTEGRITY</span>
+                <h3>LIPID STRUCTURE + OXIDATIVE LOAD</h3>
+                <p>
+                    Many “cell problems” are signal problems. If membranes oxidize or lipids peroxidize,
+                    receptors drift, transporters
+                    misbehave, and the cell spends energy on damage control instead of renewal. The goal here is
+                    simple:
+                    keep the membrane environment stable and keep redox buffering online.
+                </p>
+                <div class="cell-note">
+                    Design logic: Purity lowers the noise floor, rhythm enables repair windows, and the shield
+                    keeps signaling coherent
+                    long enough for regeneration to compound.
+                </div>
+            </div>
+            <div class="bento-card">
+                <h3>INTEGRITY STATUS</h3>
+                <table class="status-matrix">
+                    <tr>
+                        <td class="status-label">LIPID_PEROX</td>
+                        <td class="status-val">LOW</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">REDOX_BUFFER</td>
+                        <td class="status-val">ONLINE</td>
+                    </tr>
+                    <tr>
+                        <td class="status-label">SIGNAL_CLARITY</td>
+                        <td class="status-val">CLEAN</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <footer
+        style="margin-top: 80px; font-family: 'Space Mono'; color: #333; font-size: 0.6rem; border-top: 1px solid rgba(0, 242, 255, 0.1); padding-top: 30px; text-align: center;">
+        CELLULAR INTEGRITY BLUEPRINT // SESSION: 2026.02.15 // REGENESIS_ID: 01
+    </footer>
+</div>

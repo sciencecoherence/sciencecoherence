@@ -1,0 +1,121 @@
+<style>
+    /* Content specific styles to ensure no layout shift */
+    .saffron-manifesto {
+        animation: fadeIn 0.8s ease-out forwards;
+        max-width: 900px;
+    }
+
+    .manifesto-title {
+        font-family: 'Syncopate', sans-serif;
+        font-size: 3rem;
+        letter-spacing: 12px;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+        line-height: 1.4;
+    }
+
+    .meta-tag {
+        font-family: 'Space Mono', monospace;
+        color: #00f2ff;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        margin-bottom: 60px;
+    }
+
+    .manifesto-section h2 {
+        font-family: 'Syncopate', sans-serif;
+        color: #00f2ff;
+        border-left: 4px solid #00f2ff;
+        padding-left: 20px;
+        margin-top: 80px;
+        margin-bottom: 40px;
+        font-size: 1.1rem;
+        letter-spacing: 4px;
+    }
+
+    .manifesto-section p {
+        color: #888;
+        line-height: 1.8;
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+
+    .data-box {
+        background: #080c10;
+        border: 1px solid rgba(0, 242, 255, 0.15);
+        padding: 40px;
+        margin: 40px 0;
+    }
+
+    .data-box h3 {
+        font-family: 'Syncopate', sans-serif;
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+    }
+
+    .data-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .data-list li {
+        margin-bottom: 15px;
+        padding-left: 25px;
+        position: relative;
+        color: #888;
+    }
+
+    .data-list li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: #00f2ff;
+    }
+
+    .highlight { color: #00f2ff; font-weight: bold; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); filter: blur(5px); }
+        to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+</style>
+
+<div class="saffron-manifesto">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <h1 class="manifesto-title">THE<br>SAFFRON<br>MANIFESTO</h1>
+        <div class="meta-tag">
+            PROJECT: REGENESIS //<br>
+            COMPOUND: CROCUS SATIVUS<br>
+            [7.5% CROCINS]
+        </div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.05); margin-bottom: 60px;">
+
+    <section class="manifesto-section">
+        <h2>01. PHARMACOLOGICAL IDENTITY</h2>
+        <p>Unlike culinary saffron, Nootropics Depot’s extract focuses on a high concentration of <span class="highlight">Crocins (7.5%)</span> and <span class="highlight">Safranal (1%)</span>. These are the primary molecular drivers of the Time-Crystalline biological interface.</p>
+        
+        <div class="data-box">
+            <h3>PRIMARY BIOACTIVES</h3>
+            <ul class="data-list">
+                <li><span class="highlight">Crocins:</span> Water-soluble carotenoids responsible for potent antioxidant effects and neuro-coherence.</li>
+                <li><span class="highlight">Safranal:</span> Volatile oil modulating the GABAergic system for aromatic neuro-signaling.</li>
+                <li><span class="highlight">Picrocrocin:</span> Precursor to safranal, involved in metabolic synchronization.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="manifesto-section">
+        <h2>02. THE TRIPLE-THREAT MECHANISM</h2>
+        <p>Saffron acts as a broad-spectrum neuro-modulator through three core biological pillars:</p>
+        <p>1. <span class="highlight">Neurotransmitter Reuptake Inhibition:</span> Natural support for Serotonin, Dopamine, and Norepinephrine.</p>
+        <p>2. <span class="highlight">NMDA Antagonism:</span> Prevents glutamate excitotoxicity and brain burnout.</p>
+        <p>3. <span class="highlight">BDNF Support:</span> Increases Brain-Derived Neurotrophic Factor to fertilize neural growth.</p>
+    </section>
+
+    <footer style="margin-top: 100px; padding-bottom: 60px; font-family: 'Space Mono'; font-size: 0.7rem; color: #444;">
+        RESEARCH_ID: RESEARCHER_01 // SESSION_DATE: 2026.02.15
+    </footer>
+</div>

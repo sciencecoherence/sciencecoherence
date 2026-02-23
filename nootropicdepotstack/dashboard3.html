@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DERMAL-REGEN: Time-Crystalline Skin Protocol</title>
+    <style>
+        :root {
+            --primary-bg: #0f0f12;
+            --card-bg: #1a1a1f;
+            --accent-cyan: #00d2ff;
+            --accent-glow: rgba(0, 210, 255, 0.4);
+            --accent-gold: #d4af37;
+            --accent-red: #ff4757;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 1px solid #333;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            letter-spacing: -2px;
+            margin: 0;
+            background: linear-gradient(90deg, #00d2ff, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 10px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .stack-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #333;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .stack-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+        }
+
+        .stack-card h2 {
+            margin-top: 0;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge {
+            font-size: 0.7em;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .topical {
+            background: #00d2ff;
+            color: #000;
+        }
+
+        .physical {
+            background: #ff4757;
+        }
+
+        .internal {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        .benefit-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .benefit-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+        }
+
+        .speculative-footer {
+            font-size: 0.85em;
+            color: var(--text-dim);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-cyan);
+        }
+
+        .master-protocol {
+            max-width: 1400px;
+            margin: 60px auto;
+            background: linear-gradient(135deg, #1a1a1f 0%, #000 100%);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--accent-cyan);
+        }
+
+        .protocol-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .protocol-table th {
+            text-align: left;
+            color: var(--accent-cyan);
+            border-bottom: 1px solid #333;
+            padding: 15px;
+        }
+
+        .protocol-table td {
+            padding: 15px;
+            border-bottom: 1px solid #222;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-dim);
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>DERMAL-REGEN COMMAND</h1>
+        <div class="subtitle">Biological Scaffolding & Architecture</div>
+    </header>
+
+    <div class="dashboard-grid">
+
+        <a href="blue-balm.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge topical">Chemical Signal</span>
+                <h2>DIY Blue Balm <small style="color:var(--accent-cyan)">GHK-Cu / MB</small></h2>
+                <ul class="benefit-list">
+                    <li>GHK-Cu: Genomic reset of dermal fibroblasts.</li>
+                    <li>Methylene Blue: Mitochondrial ATP support for skin cells.</li>
+                    <li>Tallow Base: Bio-mimetic lipid barrier repair.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Triggers "Phase-Shift" regeneration when applied
+                    post-microneedling.</div>
+            </div>
+        </a>
+
+        <a href="microneedling.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge physical">Controlled Trauma</span>
+                <h2>Microneedling <small style="color:var(--accent-red)">Mechanical</small></h2>
+                <ul class="benefit-list">
+                    <li>Percutaneous Collagen Induction Therapy (PCIT).</li>
+                    <li>Creates micro-channels for 100x deeper absorption.</li>
+                    <li>Triggers "Cascade of Growth Factors" (TGF-beta).</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Breaks down "Old Collagen" to allow Injuv/Glycine to build
+                    the new matrix.</div>
+            </div>
+        </a>
+
+        <a href="essential-oils.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge topical">Terpene Synergy</span>
+                <h2>The Trinity Oils <small style="color:var(--accent-gold)">Frankincense / Helichrysum</small></h2>
+                <ul class="benefit-list">
+                    <li>Frankincense: Boswellic acids for DNA protection.</li>
+                    <li>Helichrysum: "Immortelle" for rapid tissue cicatrization.</li>
+                    <li>Ylang Ylang: Sebum balancing and neural grounding.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Helichrysum recycles red blood cells to prevent post-trauma
+                    bruising.</div>
+            </div>
+        </a>
+
+        <a href="dermal-internal.html" class="card-link">
+            <div class="stack-card">
+                <span class="badge internal">The Scaffolding</span>
+                <h2>Internal Matrix <small style="color:var(--accent-gold)">Injuv / Glycine</small></h2>
+                <ul class="benefit-list">
+                    <li>Injuv: Restores the Glycosaminoglycan (GAG) layer.</li>
+                    <li>Glycine: Raw material for the new collagen helix.</li>
+                    <li>Astaxanthin: Protects the new matrix from UV-rusting.</li>
+                </ul>
+                <div class="speculative-footer">Speculative: Provides the "Biological Bricks" for the microneedling
+                    signal.</div>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="master-protocol">
+        <h2 style="color:var(--accent-cyan); margin-top:0;">Integrated Dermal Matrix</h2>
+        <p>Strategic timing for physical and chemical skin interventions.</p>
+
+        <table class="protocol-table">
+            <tr>
+                <th>Frequency</th>
+                <th>Primary Action</th>
+                <th>Regenerative Goal</th>
+            </tr>
+            <tr>
+                <td><strong>Daily (Nightly)</strong></td>
+                <td>Blue Balm + Trinity Essential Oils</td>
+                <td>Sustained GHK-Cu signaling and lipid barrier repair.</td>
+            </tr>
+            <tr>
+                <td><strong>Every 4-6 Weeks</strong></td>
+                <td>Deep Microneedling (1.0mm - 1.5mm)</td>
+                <td>Strategic structural trauma and new collagen induction.</td>
+            </tr>
+            <tr>
+                <td><strong>Daily (Morning)</strong></td>
+                <td>Injuv + Astaxanthin + High Protein</td>
+                <td>Internal hydration and oxidative shielding.</td>
+            </tr>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Time-Crystalline Coherent Biology | Dermal Command</p>
+    </footer>
+
+</body>
+
+</html>

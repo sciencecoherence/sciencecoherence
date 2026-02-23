@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OAKG: The Ammonia Scavenger</title>
+    <style>
+        :root {
+            --primary-bg: #0f0f12;
+            --card-bg: #1a1a1f;
+            --accent-amber: #ffbf00;
+            --accent-glow: rgba(255, 191, 0, 0.4);
+            --accent-gold: #d4af37;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+        }
+
+        /* DASHBOARD MATCHED BACKGROUND */
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text-main);
+            max-width: 950px;
+            margin: auto;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top right, #3d2b00, var(--primary-bg) 70%);
+            background-attachment: fixed;
+        }
+
+        /* RE-LINKING TO DASHBOARD STYLE */
+        .back-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            transition: 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        header {
+            border-bottom: 1px solid #333;
+            padding-bottom: 25px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--accent-amber);
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 0 0 20px var(--accent-glow);
+            letter-spacing: -1px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            color: var(--accent-amber);
+            border-left: 5px solid var(--accent-amber);
+            padding-left: 15px;
+            margin-top: 50px;
+            text-shadow: 0 0 10px var(--accent-glow);
+            text-transform: uppercase;
+            font-size: 1.4em;
+        }
+
+        h3 {
+            color: #ffeaa7;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .speculative {
+            background-color: rgba(255, 191, 0, 0.05);
+            border: 1px dashed var(--accent-amber);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 12px;
+            color: var(--text-dim);
+            backdrop-filter: blur(4px);
+        }
+
+        .speculative::before {
+            content: "🌪️ The 'Clear Skies' Insight: ";
+            font-weight: bold;
+            color: var(--accent-amber);
+        }
+
+        .tech-box {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border-top: 4px solid var(--accent-amber);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #333;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--accent-amber);
+            color: #000;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 0.85em;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--accent-amber);
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 0.85em;
+            text-align: center;
+            color: var(--text-dim);
+            border-top: 1px solid #333;
+            padding: 30px 20px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="external_dashboard.html" class="back-link">← BACK TO EXTERNAL DASHBOARD</a>
+
+    <header>
+        <h1>OAKG</h1>
+        <p><em>Ornithine Alpha-Ketoglutarate | Urea Cycle Catalyst | GH Secretagogue</em></p>
+    </header>
+
+    <section>
+        <h2>I. Pharmacological Identity</h2>
+        <p>OAKG is a potent salt formed by two molecules of <strong>Ornithine</strong> and one molecule of
+            <strong>Alpha-Ketoglutarate (AKG)</strong>. In your protocol, it serves as a dual-action metabolic cleaner
+            and anabolic driver. It is specifically designed to manage the byproduct load of high-protein intake while
+            fueling the citric acid cycle for ATP production.</p>
+
+        <div class="tech-box">
+            <h3>The Ammonia Scavenger:</h3>
+            <p>A carnivore-heavy diet can lead to elevated <strong>Ammonia</strong> levels during the breakdown of amino
+                acids. OAKG accelerates the <strong>Urea Cycle</strong>, converting toxic ammonia into urea for
+                excretion, thereby protecting the brain from the "ammonia fog" that often mimics mental fatigue.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>II. Clinical Mechanisms</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Target</th>
+                    <th>Mechanism</th>
+                    <th>Subjective Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Hormonal Floor</strong></td>
+                    <td>Stimulates release of Growth Hormone & Insulin.</td>
+                    <td>Enhanced muscle fullness and accelerated wound healing.</td>
+                </tr>
+                <tr>
+                    <td><strong>Muscle Sparing</strong></td>
+                    <td>Inhibits protein degradation via AKG pathway.</td>
+                    <td>Reduced muscle soreness and improved retention during fasting.</td>
+                </tr>
+                <tr>
+                    <td><strong>Vascular Flow</strong></td>
+                    <td>Acts as a precursor to Arginine and Proline.</td>
+                    <td>Improved Nitric Oxide (NO) drive and connective tissue strength.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>III. Speculative Insights & "Time-Crystalline" Lore</h2>
+        <p>OAKG is the "clean-burning fuel" additive for your high-performance carnivore engine.</p>
+
+        <div class="speculative">
+            <strong>The "Brain-Fog" Antidote:</strong> Biohackers utilize OAKG to clear the neurotoxic ammonia that
+            crosses the blood-brain barrier. By scavenging this waste, it allows the neuro-active effects of
+            <strong>Tribugen</strong> and <strong>Cognance</strong> to manifest with crystal clarity, removing the
+            "metabolic drag" on your cognition.
+        </div>
+
+        <h3>1. Synergy with Collagen Architecture</h3>
+        <p>As a precursor to <strong>Proline</strong>, OAKG provides a secondary supply of the building blocks for your
+            connective tissue. This creates a powerful synergy with <strong>Glycine</strong> and your
+            <strong>GHK-Cu</strong> protocol, ensuring that every angle of the structural matrix is reinforced.</p>
+
+        <h3>2. The Glutamine-Sparing Effect</h3>
+        <div class="speculative">
+            <strong>Immune & Gut Defense:</strong> AKG is a precursor to Glutamine. By providing OAKG, you ensure the
+            gut and immune cells have their preferred fuel source without the need to break down muscle tissue,
+            essentially "protecting the hardware" during high-stress bio-hacking phases.
+        </div>
+    </section>
+
+    <section>
+        <h2>IV. Strategic Stacking & Dosage</h2>
+        <p>In the <strong>Auxiliary Command</strong> structure, OAKG is the metabolic cleanser for your primary meals.
+        </p>
+        <ul>
+            <li><strong>The Carnivore Performance Stack:</strong> 1g OAKG + 12mg <em>Astaxanthin</em> + <em>TUDCA</em> +
+                <em>C3G</em>.</li>
+            <li><strong>Synergy:</strong> While TUDCA handles ER stress and C3G partitions nutrients, OAKG clears the
+                ammonia from protein metabolism and Astaxanthin protects the lipid bilayer of your cells.</li>
+            <li><strong>Dose:</strong> 1g daily.</li>
+            <li><strong>Timing:</strong> Best used 30 minutes <strong>Pre-Meal</strong> to prime the urea cycle for the
+                incoming protein load.</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>Disclaimer: This page is for educational purposes. OAKG is highly effective; however, excessive doses should
+            be avoided by individuals with a history of herpes-related viral flare-ups due to the ornithine-arginine
+            pathway.</p>
+        <p>&copy; 2026 Time-Crystalline Coherent Biology | Auxiliary Protocol</p>
+    </footer>
+
+</body>
+
+</html>

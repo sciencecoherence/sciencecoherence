@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIBUGEN: Time-Crystalline Bio-Hacker Dashboard</title>
+    <style>
+        :root {
+            --primary-bg: #0f0f12;
+            --card-bg: #1a1a1f;
+            --accent-gold: #d4af37;
+            --accent-purple: #8a2be2;
+            --accent-red: #c0392b;
+            --accent-blue: #0984e3;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+            --sidebar-width: 240px;
+        }
+
+        body { 
+            font-family: 'Inter', 'Segoe UI', sans-serif; 
+            background-color: var(--primary-bg); 
+            color: var(--text-main); 
+            margin: 0; 
+            margin-left: var(--sidebar-width); 
+            padding: 20px; 
+            line-height: 1.6; 
+            transition: margin 0.3s;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            height: 100%;
+            width: var(--sidebar-width);
+            position: fixed;
+            z-index: 999;
+            top: 0;
+            left: 0;
+            background-color: #111114;
+            overflow-x: hidden;
+            padding-top: 20px;
+            border-right: 1px solid #333;
+        }
+
+        .sidebar-header {
+            padding: 10px 20px 20px 20px;
+            color: var(--accent-gold);
+            font-weight: 800;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #222;
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 0.9em;
+            color: #a0a0a0;
+            display: block;
+            transition: 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #1d1d22;
+            color: #fff;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        /* Dashboard Content */
+        header { text-align: center; padding: 40px 20px; border-bottom: 1px solid #333; margin-bottom: 40px; }
+        h1 { font-size: 3.5em; letter-spacing: -2px; margin: 0; background: linear-gradient(90deg, #d4af37, #8a2be2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; }
+        .subtitle { font-size: 1.1em; color: var(--text-dim); text-transform: uppercase; letter-spacing: 4px; margin-top: 10px; }
+        
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; max-width: 1400px; margin: auto; }
+        
+        /* Clickable Card Styling */
+        .card-link { text-decoration: none; color: inherit; display: block; }
+        .stack-card { 
+            background: var(--card-bg); 
+            border-radius: 12px; 
+            padding: 25px; 
+            border: 1px solid #333; 
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; 
+            height: 100%;
+            box-sizing: border-box;
+        }
+        .stack-card:hover { transform: translateY(-5px); border-color: var(--accent-gold); box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
+        
+        .badge { font-size: 0.7em; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; font-weight: bold; margin-bottom: 10px; display: inline-block; }
+        .mood { background: #6c5ce7; }
+        .physical { background: #d63031; }
+        .metabolic { background: #00b894; }
+        .neuro { background: #0984e3; }
+
+        .benefit-list { list-style: none; padding: 0; margin: 15px 0; font-size: 0.9em; }
+        .benefit-list li { margin-bottom: 6px; padding-left: 18px; position: relative; }
+        .benefit-list li::before { content: "→"; position: absolute; left: 0; color: var(--accent-gold); }
+
+        .speculative-footer { font-size: 0.8em; color: var(--text-dim); background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px; border-left: 2px solid var(--accent-gold); margin-top: 10px; }
+
+        .master-protocol { max-width: 1400px; margin: 60px auto; background: #111114; padding: 40px; border-radius: 20px; border: 1px solid #333; }
+        .protocol-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9em; }
+        .protocol-table th { text-align: left; color: var(--accent-gold); border-bottom: 1px solid #333; padding: 15px; }
+        .protocol-table td { padding: 15px; border-bottom: 1px solid #222; }
+
+        @media screen and (max-width: 1024px) {
+            :root { --sidebar-width: 60px; }
+            .sidebar a span, .sidebar-header { display: none; }
+            body { margin-left: var(--sidebar-width); }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>BIO-HACKER COMMAND</h1>
+    <div class="subtitle">Protocol Integrated Interface</div>
+</header>
+
+<div class="dashboard-grid">
+    
+    <a href="saffron.html" class="card-link">
+        <div class="stack-card">
+            <span class="badge mood">Mood</span>
+            <h2 style="margin:0;">Saffron Extract</h2>
+            <ul class="benefit-list">
+                <li>Neurotransmitter reuptake inhibition.</li>
+                <li>NMDA antagonism for focus.</li>
+            </ul>
+            <div class="speculative-footer">Speculative: "Anti-doom" habit-breaker.</div>
+        </div>
+    </a>
+
+    <a href="erinamax.html" class="card-link">
+        <div class="stack-card">
+            <span class="badge neuro">Neuro</span>
+            <h2 style="margin:0;">ErinaMAX™</h2>
+            <ul class="benefit-list">
+                <li>Pure liquid culture mycelium.</li>
+                <li>Stimulates endogenous NGF production.</li>
+            </ul>
+            <div class="speculative-footer">Speculative: Vivid dreaming & REM support.</div>
+        </div>
+    </a>
+
+    <a href="tribugen.html" class="card-link">
+        <div class="stack-card">
+            <span class="badge physical">Drive</span>
+            <h2 style="margin:0;">TRIBUGEN™</h2>
+            <ul class="benefit-list">
+                <li>Androgen Receptor upregulation.</li>
+                <li>Dopaminergic motivational drive.</li>
+            </ul>
+            <div class="speculative-footer">Speculative: Acute CNS recruitment.</div>
+        </div>
+    </a>
+
+    <a href="cistamax.html" class="card-link">
+        <div class="stack-card">
+            <span class="badge metabolic">Growth</span>
+            <h2 style="margin:0;">CistaMAX™</h2>
+            <ul class="benefit-list">
+                <li>Ghrelin-driven growth hormone support.</li>
+                <li>Microbiome & Gut-Brain modulation.</li>
+            </ul>
+            <div class="speculative-footer">Speculative: Hormonal "Primer" strategy.</div>
+        </div>
+    </a>
+
+    <a href="c3g.html" class="card-link">
+        <div class="stack-card">
+            <span class="badge metabolic">Metabolic</span>
+            <h2 style="margin:0;">C3G</h2>
+            <ul class="benefit-list">
+                <li>Nutrient partitioning into muscle.</li>
+                <li>Reversible MAO inhibition.</li>
+            </ul>
+            <div class="speculative-footer">Speculative: Retinal Rhodopsin support.</div>
+        </div>
+    </a>
+
+    <a href="tudca.html" class="card-link">
+        <div class="stack-card">
+            <span class="badge metabolic">Protect</span>
+            <h2 style="margin:0;">TUDCA</h2>
+            <ul class="benefit-list">
+                <li>Chemical chaperone for protein folding.</li>
+                <li>Mitigates ER and metabolic stress.</li>
+            </ul>
+            <div class="speculative-footer">Speculative: Improves T4 to T3 conversion.</div>
+        </div>
+    </a>
+
+    <a href="panamax.html" class="card-link">
+        <div class="stack-card">
+            <span class="badge neuro">Adaptogen</span>
+            <h2 style="margin:0;">PanaMAX</h2>
+            <ul class="benefit-list">
+                <li>Root/Leaf Ginsenoside synergy.</li>
+                <li>Schisandra-driven bioavailability.</li>
+            </ul>
+            <div class="speculative-footer">Speculative: Stimulant smoothing agent.</div>
+        </div>
+    </a>
+
+    <a href="blackginger.html" class="card-link">
+        <div class="stack-card">
+            <span class="badge physical">Flow</span>
+            <h2 style="margin:0;">Black Ginger</h2>
+            <ul class="benefit-list">
+                <li>AMPK & SIRT1 activation.</li>
+                <li>Peripheral PDE5 inhibition.</li>
+            </ul>
+            <div class="speculative-footer">Speculative: Mitochondrial biogenesis tool.</div>
+        </div>
+    </a>
+
+    <a href="agmatine.html" class="card-link">
+        <div class="stack-card">
+            <span class="badge neuro">Modulator</span>
+            <h2 style="margin:0;">Agmatine</h2>
+            <ul class="benefit-list">
+                <li>NOS enzyme modulation (eNOS).</li>
+                <li>Prevention of "Glutamate Storms."</li>
+            </ul>
+            <div class="speculative-footer">Speculative: Receptor "Tolerance Reset."</div>
+        </div>
+    </a>
+
+</div>
+
+<div class="master-protocol">
+    <h2 style="color:var(--accent-gold); margin-top:0;">Standardized Timing Protocol</h2>
+    <table class="protocol-table">
+        <tr><th>Morning</th><td>ErinaMAX + Tribugen + PanaMAX</td></tr>
+        <tr><th>Pre-Meal</th><td>C3G + TUDCA + Black Ginger</td></tr>
+        <tr><th>Night</th><td>CistaMAX + Agmatine + Saffron</td></tr>
+    </table>
+</div>
+
+<footer style="text-align:center; padding:40px; color:var(--text-dim); font-size:0.8em;">
+    &copy; 2026 In Search of Insight | Unified Bio-Hacker Protocol 001
+</footer>
+
+</body>
+</html>
