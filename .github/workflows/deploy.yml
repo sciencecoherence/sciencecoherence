@@ -3,9 +3,8 @@ name: Site • Deploy to Hostinger
 on:
   push:
     branches: ["main"]
-    
     paths:
-      - "/sciencecoherence**"
+      - "**"
       - ".github/workflows/deploy.yml"
 
 jobs:
@@ -34,9 +33,7 @@ jobs:
           username: ${{ secrets.HOSTINGER_USER }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           port: ${{ secrets.HOSTINGER_PORT }}
-
-          source: "**"
-
+          source: "**,!.github/**,!.git/**,!hostinger_pem*"
           target: ${{ secrets.HOSTINGER_TARGET_DIR }}
           # Exclude git and workflow files from deployment
           rm: false
