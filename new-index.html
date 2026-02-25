@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCIENCE OF COHERENCE | Portal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@100;300;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ghk-blue: #00f2ff;
+            --mb-violet: #7000ff;
+            --primal-gold: #ffcc00;
+            --holo-start: #0A1F2E;
+            --holo-end: #1E3A5F;
+            --transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            --wave-phase: 0deg;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(180deg, var(--holo-start) 0%, var(--holo-end) 100%);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .portal-wrapper {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .crystalline-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cdefs%3E%3Cpattern id='crystal' width='100' height='173' patternUnits='userSpaceOnUse'%3E%3Cpolygon points='50,10 90,50 90,123 50,163 10,123 10,50' fill='none' stroke='%23ffffff' stroke-width='1.2' opacity='0.08'/%3E%3Cline x1='50' y1='10' x2='50' y2='163' stroke='%2300f2ff' stroke-width='0.6' opacity='0.04'/%3E%3Cpolygon points='150,30 190,70 190,143 150,183 110,143 110,70' fill='none' stroke='%23ffffff' stroke-width='1' opacity='0.06'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='300' height='300' fill='url(%23crystal)'/%3E%3C/svg%3E");
+            background-size: 180px 180px;
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: -1;
+            mix-blend-mode: overlay;
+        }
+
+        .section {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: var(--transition);
+            cursor: pointer;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .section:hover {
+            flex: 2;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .main-header {
+            position: absolute;
+            top: 5vh;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .main-header h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            letter-spacing: 15px;
+            margin: 0;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .main-header p {
+            font-weight: 100;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: var(--ghk-blue);
+        }
+
+        .content {
+            text-align: center;
+            padding: 0 40px;
+            opacity: 0.4;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .section:hover .content,
+        .section.coherent .content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            white-space: nowrap;
+        }
+
+        .description {
+            max-width: 300px;
+            font-weight: 300;
+            line-height: 1.8;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Coherence Micro-Animations */
+        @property --wave-phase {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+
+        @keyframes interference-wave {
+            from {
+                --wave-phase: 0deg;
+            }
+
+            to {
+                --wave-phase: 360deg;
+            }
+        }
+
+        .section.coherent {
+            animation: interference-wave 18s linear infinite;
+        }
+
+        .bio-hacker.coherent {
+            filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.25));
+        }
+
+        .physics.coherent {
+            filter: drop-shadow(0 0 30px rgba(112, 0, 255, 0.25));
+        }
+
+        .primal.coherent {
+            filter: drop-shadow(0 0 30px rgba(255, 204, 0, 0.25));
+        }
+
+        /* Existing hover identities */
+        .bio-hacker:hover {
+            box-shadow: inset 0 0 100px rgba(0, 242, 255, 0.15);
+        }
+
+        .physics:hover {
+            box-shadow: inset 0 0 100px rgba(112, 0, 255, 0.15);
+        }
+
+        .primal:hover {
+            box-shadow: inset 0 0 100px rgba(255, 204, 0, 0.15);
+        }
+
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 5;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% {
+                bottom: 100%;
+            }
+
+            100% {
+                bottom: -100%;
+            }
+        }
+
+        #bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.35;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scanline"></div>
+    <div class="crystalline-bg"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="main-header">
+        <h1>Science of Coherence</h1>
+        <p>Time-Crystalline Holographic Universe</p>
+        <p>Opening now</p>
+    </header>
+
+    <main class="portal-wrapper">
+        <section class="section bio-hacker" onclick="location.href='regenesis.html'">
+            <div class="content">
+                <h2>REGENESIS</h2>
+                <p class="description">
+                    <strong>Bio-Hacker Protocol Research</strong><br>
+                    Cellular regeneration, and cognitive enhancement.
+                </p>
+            </div>
+        </section>
+
+        <section class="section physics" onclick="location.href='cosmos.html'">
+            <div class="content">
+                <h2>COSMOS</h2>
+                <p class="description">
+                    <strong>Unified Physics Model</strong><br>
+                    Crystalline time, space geometry, and holographic entanglement.
+                </p>
+            </div>
+        </section>
+
+        <section class="section primal" onclick="location.href='ethos.html'">
+            <div class="content">
+                <h2>ETHOS</h2>
+                <p class="description">
+                    <strong>Alternative Living & Primal Diet</strong><br>
+                    Ancestral raw carnivore nutrition and decentralized education frameworks.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Particle system – now phase-locked to holographic palette
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        let particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.size = Math.random() * 1.8 + 0.6;
+                this.speedX = Math.random() * 0.6 - 0.3;
+                this.speedY = Math.random() * 0.6 - 0.3;
+                this.hue = Math.random() * 60 + 190; // cyan → violet range
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > w) this.speedX *= -1;
+                if (this.y < 0 || this.y > h) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = `hsla(${this.hue}, 90%, 92%, 0.65)`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particles = [];
+            for (let i = 0; i < 140; i++) particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        // IntersectionObserver – triggers coherence wave
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('coherent');
+                }
+            });
+        }, { threshold: 0.6 });
+
+        document.querySelectorAll('.section').forEach(sec => observer.observe(sec));
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            init();
+        });
+
+        init();
+        animate();
+    </script>
+</body>
+
+</html>

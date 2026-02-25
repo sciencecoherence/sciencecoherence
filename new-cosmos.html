@@ -24,25 +24,19 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --accent: #00f2ff;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
         body,
         html {
             margin: 0;
             padding: 0;
-            background: linear-gradient(180deg, #1d5277 0%, #1E3A5F 100%);
+            background: linear-gradient(180deg, #0A1F2E 0%, #1E3A5F 100%);
             color: white;
             font-family: 'Inter', sans-serif;
             height: 100vh;
             overflow: hidden;
+            position: relative;
         }
 
+        /* EXACT HOME BACKGROUND – holographic gradient + crystalline SVG */
         .crystalline-bg {
             position: fixed;
             inset: 0;
@@ -55,50 +49,7 @@
             mix-blend-mode: overlay;
         }
 
-        /* --- BACKGROUND FX --- */
-        body::before,
-        body::after {
-            content: "";
-            position: absolute;
-            width: 140vmax;
-            height: 140vmax;
-            top: -20vmax;
-            left: -20vmax;
-            z-index: 0;
-            opacity: 0.25;
-            pointer-events: none;
-        }
-
-        body::before {
-            background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
-            animation: drift 20s infinite alternate ease-in-out;
-        }
-
-        body::after {
-            background: radial-gradient(circle, #4a00e0 0%, transparent 70%);
-            animation: drift 30s infinite alternate-reverse ease-in-out;
-            right: -20vmax;
-            left: auto;
-        }
-
-
-        @keyframes drift {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-
-            50% {
-                transform: translate(10%, 10%) scale(1.05);
-            }
-
-            100% {
-                transform: translate(-5%, -10%) scale(0.95);
-            }
-        }
-
-
-
-        /* --- LAYOUT --- */
+        /* --- ALL OTHER STYLES EXACTLY AS YOUR ORIGINAL FILE --- */
         .workspace {
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -143,21 +94,20 @@
         }
 
         .btn-return:hover {
-            background: #ffffff;
+            background: rgba(0, 242, 255, 0.15);
             box-shadow: 0 0 15px var(--accent);
         }
 
         .sidebar {
             border-right: 1px solid var(--border);
-            width: 220px;
             padding: 60px 0;
         }
 
         .nav-item {
             font-family: var(--font-title);
             font-size: 0.65rem;
-            padding: 20px 20px;
-            color: rgb(255, 255, 255);
+            padding: 20px 40px;
+            color: rgba(255, 255, 255, 0.2);
             cursor: pointer;
             border-left: 3px solid transparent;
             transition: 0.4s;
@@ -171,7 +121,7 @@
         }
 
         main {
-            padding: 60px 60px 60px 10px;
+            padding: 60px 80px;
             overflow-y: auto;
             scroll-behavior: smooth;
         }
@@ -185,7 +135,6 @@
             box-shadow: 0 0 10px var(--accent);
         }
 
-        /* Common Module Styles (reused across loaded HTML) */
         .module-panel {
             animation: fadeIn 0.8s ease-out forwards;
             max-width: 1200px;
@@ -269,7 +218,6 @@
             margin-bottom: 15px;
         }
 
-        /* Math specific */
         .math-block {
             font-family: 'Space Mono';
             color: #ccc;
@@ -296,6 +244,8 @@
 </head>
 
 <body>
+    <div class="crystalline-bg"></div>
+
     <div class="workspace">
         <header class="shell-header">
             <a href="index.html" class="btn-return">← RETURN TO PORTAL</a>
