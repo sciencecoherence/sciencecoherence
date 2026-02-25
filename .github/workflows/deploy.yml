@@ -3,9 +3,6 @@ name: Site • Deploy to Hostinger
 on:
   push:
     branches: ["main"]
-    paths:
-      - "site/**"
-      - ".github/workflows/deploy.yml"
 
 jobs:
   deploy-site:
@@ -33,10 +30,13 @@ jobs:
           username: ${{ secrets.HOSTINGER_USER }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           port: ${{ secrets.HOSTINGER_PORT }}
-          source: "site/**"
+          source: "**"
           target: ${{ secrets.HOSTINGER_TARGET_DIR }}
-          strip_components: 1
+          # Exclude git and workflow files from deployment
+          rm: false
+          strip_components: 0
+          overwrite: true
 
       - name: Deployment summary
         run: |
-          echo "Deployed site/** to Hostinger target directory after clearing stale files." >> "$GITHUB_STEP_SUMMARY"
+          echo "Deployed all project files to Hostinger target directory: ${{ secrets.HOSTINGER_TARGET_DIR }}" >> "$GITHUB_STEP_SUMMARY"
