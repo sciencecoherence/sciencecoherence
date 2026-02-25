@@ -3,6 +3,12 @@ name: Site • Deploy to Hostinger
 on:
   push:
     branches: ["main"]
+<<<<<<< HEAD:.github/workflows/deploy.yml
+=======
+    paths:
+      - "/**"
+      - ".github/workflows/deploy.yml"
+>>>>>>> 679f79c7ac7024c9677c7a669de29960b6ff7340:.github/workflows/main.yml
 
 jobs:
   deploy-site:
@@ -30,7 +36,11 @@ jobs:
           username: ${{ secrets.HOSTINGER_USER }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           port: ${{ secrets.HOSTINGER_PORT }}
+<<<<<<< HEAD:.github/workflows/deploy.yml
           source: "**"
+=======
+          source: "test/**"
+>>>>>>> 679f79c7ac7024c9677c7a669de29960b6ff7340:.github/workflows/main.yml
           target: ${{ secrets.HOSTINGER_TARGET_DIR }}
           # Exclude git and workflow files from deployment
           rm: false
