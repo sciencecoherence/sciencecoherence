@@ -12,23 +12,6 @@ jobs:
     name: Deploy site files to Hostinger
     runs-on: ubuntu-latest
     steps:
-      - name: Debug Server Path
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOSTINGER_HOST }}
-          username: ${{ secrets.HOSTINGER_USER }}
-          key: ${{ secrets.HOSTINGER_SSH_KEY }}
-          port: ${{ secrets.HOSTINGER_PORT }}
-          script: |
-            echo "--- Server Debug Info ---"
-            echo "Current User: $(whoami)"
-            echo "Current Directory: $(pwd)"
-            echo "listing Root (ls -F):"
-            ls -F
-            echo "listing public_html (ls -F public_html/):"
-            ls -F public_html/ || echo "public_html/ not found"
-            echo "-------------------------"
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
