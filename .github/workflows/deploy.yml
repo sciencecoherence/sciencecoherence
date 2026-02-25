@@ -5,7 +5,7 @@ on:
     branches: ["main"]
     
     paths:
-      - "/**"
+      - "/sciencecoherence**"
       - ".github/workflows/deploy.yml"
 
 jobs:
