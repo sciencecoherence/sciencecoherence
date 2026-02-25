@@ -4,7 +4,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "site/**"
+      - "/**"
       - ".github/workflows/deploy.yml"
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
           username: ${{ secrets.HOSTINGER_USER }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           port: ${{ secrets.HOSTINGER_PORT }}
-          source: "site/**"
+          source: "test/**"
           target: ${{ secrets.HOSTINGER_TARGET_DIR }}
           strip_components: 1
 
