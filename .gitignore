@@ -21,3 +21,4 @@ temp/
 .agent/
 brain/
 *.md # Optional: exclude internal documentation if desired, though task.md/plan.md are usually fine locally
+sciencecoherence.code-workspace
