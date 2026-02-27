@@ -203,6 +203,140 @@
         }
 
         /* Bento Grid Layouts */
+
+        .ethos-manifesto {
+            background-color: #0a0d0f;
+            border: 1px solid #0ff2;
+            border-radius: 4px;
+            padding: 3rem 3.5rem;
+            max-width: 900px;
+            margin: 3rem auto;
+            position: relative;
+        }
+
+        .manifesto-label {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-tag {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.15em;
+            color: #00e5ff;
+            border: 1px solid #00e5ff;
+            padding: 0.25rem 0.65rem;
+            text-transform: uppercase;
+        }
+
+        .ethos-manifesto h2#manifesto-title {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            color: #ffffff;
+            margin: 0.5rem 0 0.25rem;
+            text-transform: uppercase;
+        }
+
+        .manifesto-subtitle {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            color: #00e5ff;
+            margin-bottom: 1.5rem;
+        }
+
+        .manifesto-divider {
+            border: none;
+            border-top: 1px solid #ffffff22;
+            margin-bottom: 2rem;
+        }
+
+        .manifesto-body p {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #c8d4d8;
+            margin-bottom: 1.4rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .manifesto-break {
+            font-size: 1.15rem !important;
+            color: #ffffff !important;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            margin: 1.8rem 0 !important;
+        }
+
+        .manifesto-statement {
+            color: #ffffff !important;
+            font-weight: 500;
+            font-style: italic;
+            border-left: 2px solid #00e5ff;
+            padding-left: 1.2rem;
+            margin: 1.8rem 0 !important;
+        }
+
+        .highlight-cyan {
+            color: #00e5ff;
+            font-weight: 600;
+        }
+
+        .manifesto-axes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+            margin: 2rem 0;
+            border-top: 1px solid #ffffff15;
+            border-bottom: 1px solid #ffffff15;
+            padding: 1.5rem 0;
+        }
+
+        .axis-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .axis-label {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            color: #00e5ff;
+        }
+
+        .axis-desc {
+            font-size: 0.9rem;
+            color: #8a9ba8;
+            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .manifesto-close {
+            font-size: 1rem !important;
+            color: #ffffff !important;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-family: 'Courier New', Courier, monospace !important;
+            margin-top: 1.8rem !important;
+        }
+
+        @media (max-width: 680px) {
+            .ethos-manifesto {
+                padding: 2rem 1.5rem;
+            }
+
+            .manifesto-axes {
+                grid-template-columns: 1fr;
+            }
+
+            .ethos-manifesto h2#manifesto-title {
+                font-size: 1.6rem;
+            }
+        }
+
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
