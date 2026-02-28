@@ -1,0 +1,11 @@
+# Disable caching for HTML files — always fetch fresh
+<FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+</FilesMatch>
+
+# CSS and JS — cache but revalidate
+<FilesMatch "\.(css|js)$">
+    Header set Cache-Control "must-revalidate, max-age=0"
+</FilesMatch>

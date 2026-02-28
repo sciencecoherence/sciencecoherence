@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>SCIENCE OF COHERENCE | Portal</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono&family=Inter:wght@100;300;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=1.2">
 </head>
 
 <body>
@@ -59,46 +62,111 @@
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
-        // Canvas sits behind everything
-        canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.3;pointer-events:none;';
+        canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;';
 
+        let W, H;
         function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
         }
         resize();
         window.addEventListener('resize', resize);
 
-        class Particle {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.2 + 0.3;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(255,255,255,0.6)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+        // Grid config
+        const GRID_LINES = 12;      // lines in each direction
+        const SPEED = 0.4;     // flow speed (lower = slower)
+        const HORIZON = 0.48;    // horizon position (0=top, 1=bottom)
+        const FOV_SPREAD = 2.2;     // perspective spread
+        const LINE_COLOR = '0, 242, 255'; // cyan base
 
-        const particles = Array.from({ length: 120 }, () => new Particle());
+        let offset = 0;
+
+        function drawGrid() {
+            ctx.clearRect(0, 0, W, H);
+
+            const horizonY = H * HORIZON;
+            const vanishX = W * 0.5;
+
+            // How far the grid extends left/right at the bottom
+            const spread = W * FOV_SPREAD;
+
+            // --- HORIZONTAL LINES (receding into horizon) ---
+            for (let i = 0; i <= GRID_LINES; i++) {
+                // t goes from 0 (horizon) to 1 (bottom), with scroll offset
+                let t = ((i / GRID_LINES) + (offset % 1)) % 1;
+
+                // Perspective curve — lines bunch up near horizon
+                const curve = Math.pow(t, 2.2);
+
+                const y = horizonY + (H - horizonY) * curve;
+
+                // Fade out near horizon, fade out near bottom
+                const alpha = Math.sin(t * Math.PI) * 0.5;
+
+                if (alpha < 0.01) continue;
+
+                // x positions spread based on perspective
+                const xLeft = vanishX - spread * curve;
+                const xRight = vanishX + spread * curve;
+
+                ctx.beginPath();
+                ctx.moveTo(xLeft, y);
+                ctx.lineTo(xRight, y);
+                ctx.strokeStyle = `rgba(${LINE_COLOR}, ${alpha})`;
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+            }
+
+            // --- VERTICAL LINES (radiating from vanishing point) ---
+            for (let i = 0; i <= GRID_LINES; i++) {
+                const t = i / GRID_LINES; // 0 = far left, 1 = far right
+
+                // x at bottom
+                const xBottom = vanishX - spread + (spread * 2) * t;
+
+                // Alpha — fade edges
+                const edgeFade = Math.sin(t * Math.PI);
+                const alpha = edgeFade * 0.35;
+
+                if (alpha < 0.01) continue;
+
+                ctx.beginPath();
+                ctx.moveTo(vanishX, horizonY);
+                ctx.lineTo(xBottom, H);
+                ctx.strokeStyle = `rgba(${LINE_COLOR}, ${alpha})`;
+                ctx.lineWidth = 0.6;
+                ctx.stroke();
+            }
+
+            // --- HORIZON GLOW LINE ---
+            const gradient = ctx.createLinearGradient(0, horizonY, W, horizonY);
+            gradient.addColorStop(0, 'rgba(0, 242, 255, 0)');
+            gradient.addColorStop(0.2, 'rgba(0, 242, 255, 0.25)');
+            gradient.addColorStop(0.5, 'rgba(0, 242, 255, 0.5)');
+            gradient.addColorStop(0.8, 'rgba(0, 242, 255, 0.25)');
+            gradient.addColorStop(1, 'rgba(0, 242, 255, 0)');
+
+            ctx.beginPath();
+            ctx.moveTo(0, horizonY);
+            ctx.lineTo(W, horizonY);
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Subtle glow bloom below horizon
+            const bloom = ctx.createLinearGradient(0, horizonY, 0, horizonY + 80);
+            bloom.addColorStop(0, 'rgba(0, 242, 255, 0.06)');
+            bloom.addColorStop(1, 'rgba(0, 242, 255, 0)');
+            ctx.fillStyle = bloom;
+            ctx.fillRect(0, horizonY, W, 80);
+        }
 
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
+            offset += SPEED * 0.003;
+            drawGrid();
             requestAnimationFrame(animate);
         }
+
         animate();
     </script>
 
