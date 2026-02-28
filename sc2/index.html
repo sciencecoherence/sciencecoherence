@@ -13,8 +13,8 @@
 
 <body>
 
-    <div class="scanline"></div>
     <canvas id="bg-canvas"></canvas>
+    <div class="scanline"></div>
 
     <header class="portal-header">
         <h1>Science of Coherence</h1>
@@ -56,9 +56,11 @@
     </main>
 
     <script>
-        // Particle background
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
+
+        // Canvas sits behind everything
+        canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.3;pointer-events:none;';
 
         function resize() {
             canvas.width = window.innerWidth;
@@ -66,8 +68,6 @@
         }
         resize();
         window.addEventListener('resize', resize);
-
-        canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:0.25;pointer-events:none;';
 
         class Particle {
             constructor() { this.reset(); }
