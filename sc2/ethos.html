@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="ethos">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETHOS | The Science of Being</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono&family=Inter:wght@300;400;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-fx">
+
+    <div class="shell">
+
+        <header class="shell-header">
+            <a href="index.html" class="btn-return">← RETURN TO PORTAL</a>
+            <div class="shell-title">ETHOS // <span>THE SCIENCE OF BEING</span></div>
+            <div class="header-meta">
+                <div>SESSION: <span>2026.02.15</span></div>
+                <div>STATUS: <span style="animation: pulse 2s infinite;">COHERENT</span></div>
+            </div>
+        </header>
+
+        <aside class="shell-sidebar">
+            <div id="nav-overview" class="nav-item active" onclick="loadModule('overview')">01. OVERVIEW</div>
+            <div id="nav-purity" class="nav-item" onclick="loadModule('purity')">02. PURITY</div>
+            <div id="nav-rhythm" class="nav-item" onclick="loadModule('rhythm')">03. RHYTHM</div>
+            <div id="nav-resonance" class="nav-item" onclick="loadModule('resonance')">04. RESONANCE</div>
+            <div id="nav-mind" class="nav-item" onclick="loadModule('mind')">05. THE MIND</div>
+        </aside>
+
+        <main id="content-display" class="shell-main"></main>
+
+    </div>
+
+    <script>
+        async function loadModule(name) {
+            const display = document.getElementById('content-display');
+            display.style.opacity = 0.5;
+
+            try {
+                const response = await fetch(`modules/ethos/${name}.html`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                display.innerHTML = await response.text();
+                display.style.opacity = 1;
+                display.scrollTo(0, 0);
+
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                const btn = document.getElementById('nav-' + name);
+                if (btn) btn.classList.add('active');
+
+            } catch (err) {
+                console.error(err);
+                display.innerHTML = `
+                    <div style="padding:40px;border:1px solid red;color:red;font-family:'Space Mono'">
+                        <h3>ERROR_LOAD_FAILED</h3>
+                        <p>Could not load: modules/ethos/${name}.html</p>
+                    </div>`;
+                display.style.opacity = 1;
+            }
+        }
+
+        loadModule('overview');
+    </script>
+
+</body>
+
+</html>
