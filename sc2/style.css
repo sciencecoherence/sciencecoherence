@@ -1,0 +1,792 @@
+/* ============================================================
+   SCIENCE OF COHERENCE — UNIFIED STYLESHEET
+   style.css · v1.0
+   
+   Load this file in every page. Section-specific theming is
+   handled via data-theme on <html> or <body>.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. DESIGN TOKENS
+   ------------------------------------------------------------ */
+
+:root {
+    /* Typography */
+    --font-title: 'Syncopate', sans-serif;
+    --font-data: 'Space Mono', monospace;
+    --font-body: 'Inter', sans-serif;
+
+    /* Base palette */
+    --bg: #010406;
+    --bg-card: rgba(8, 12, 16, 0.5);
+    --bg-card-hover: rgba(8, 12, 16, 0.75);
+    --text-primary: #ffffff;
+    --text-muted: #888888;
+    --text-dim: #555555;
+
+    /* Accent — default cyan, overridden per theme below */
+    --accent: #00f2ff;
+    --accent-glow: rgba(0, 242, 255, 0.15);
+    --accent-border: rgba(0, 242, 255, 0.15);
+    --accent-rgb: 0, 242, 255;
+
+    /* Secondary glow — violet by default */
+    --glow-secondary: #4a00e0;
+
+    /* Borders */
+    --border: rgba(0, 242, 255, 0.15);
+    --border-card: rgba(0, 242, 255, 0.1);
+    --border-subtle: rgba(255, 255, 255, 0.05);
+
+    /* Layout */
+    --sidebar-width: 280px;
+    --header-height: 90px;
+
+    /* Transitions */
+    --transition-fast: 0.3s ease;
+    --transition-slow: 0.4s ease;
+    --transition-portal: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+
+/* ------------------------------------------------------------
+   2. PER-SECTION THEMING
+   data-theme="ethos"     → cyan  (lifestyle, biology)
+   data-theme="cosmos"    → violet (physics, cosmology)
+   data-theme="regenesis" → green  (regeneration, protocols)
+   ------------------------------------------------------------ */
+
+[data-theme="ethos"] {
+    --accent: #00f2ff;
+    --accent-glow: rgba(0, 242, 255, 0.15);
+    --accent-border: rgba(0, 242, 255, 0.15);
+    --accent-rgb: 0, 242, 255;
+    --glow-secondary: #4a00e0;
+    --border: rgba(0, 242, 255, 0.15);
+    --border-card: rgba(0, 242, 255, 0.1);
+}
+
+[data-theme="cosmos"] {
+    --accent: #7000ff;
+    --accent-glow: rgba(112, 0, 255, 0.15);
+    --accent-border: rgba(112, 0, 255, 0.2);
+    --accent-rgb: 112, 0, 255;
+    --glow-secondary: #00f2ff;
+    --border: rgba(112, 0, 255, 0.2);
+    --border-card: rgba(112, 0, 255, 0.1);
+}
+
+[data-theme="regenesis"] {
+    --accent: #00ff88;
+    --accent-glow: rgba(0, 255, 136, 0.15);
+    --accent-border: rgba(0, 255, 136, 0.15);
+    --accent-rgb: 0, 255, 136;
+    --glow-secondary: #4a00e0;
+    --border: rgba(0, 255, 136, 0.15);
+    --border-card: rgba(0, 255, 136, 0.1);
+}
+
+
+/* ------------------------------------------------------------
+   3. RESET & BASE
+   ------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+
+/* ------------------------------------------------------------
+   4. ANIMATED BACKGROUND FX
+   Shared across all section pages (not portal).
+   ------------------------------------------------------------ */
+
+.bg-fx::before,
+.bg-fx::after {
+    content: "";
+    position: fixed;
+    width: 140vmax;
+    height: 140vmax;
+    top: -20vmax;
+    left: -20vmax;
+    z-index: 0;
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.bg-fx::before {
+    background: radial-gradient(circle, var(--accent) 0%, transparent 60%);
+    animation: drift 22s infinite alternate ease-in-out;
+}
+
+.bg-fx::after {
+    background: radial-gradient(circle, var(--glow-secondary) 0%, transparent 70%);
+    animation: drift 32s infinite alternate-reverse ease-in-out;
+    right: -20vmax;
+    left: auto;
+}
+
+@keyframes drift {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(10%, 10%) scale(1.05);
+    }
+
+    100% {
+        transform: translate(-5%, -10%) scale(0.95);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+@keyframes load {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes scanline {
+    0% {
+        bottom: 100%;
+    }
+
+    100% {
+        bottom: -100px;
+    }
+}
+
+
+/* ------------------------------------------------------------
+   5. PORTAL LAYOUT  (index.html only)
+   ------------------------------------------------------------ */
+
+.portal-wrapper {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+.portal-section {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: var(--transition-portal);
+    cursor: pointer;
+    border-right: 1px solid var(--border-subtle);
+    overflow: hidden;
+}
+
+.portal-section:last-child {
+    border-right: none;
+}
+
+.portal-section:hover {
+    flex: 2;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.portal-section--ethos:hover {
+    box-shadow: inset 0 0 120px rgba(0, 242, 255, 0.12);
+}
+
+.portal-section--cosmos:hover {
+    box-shadow: inset 0 0 120px rgba(112, 0, 255, 0.12);
+}
+
+.portal-section--regenesis:hover {
+    box-shadow: inset 0 0 120px rgba(0, 255, 136, 0.12);
+}
+
+.portal-section--ethos .portal-title {
+    color: #00f2ff;
+    text-shadow: 0 0 25px rgba(0, 242, 255, 0.5);
+}
+
+.portal-section--cosmos .portal-title {
+    color: #7000ff;
+    text-shadow: 0 0 25px rgba(112, 0, 255, 0.5);
+}
+
+.portal-section--regenesis .portal-title {
+    color: #00ff88;
+    text-shadow: 0 0 25px rgba(0, 255, 136, 0.5);
+}
+
+.portal-content {
+    text-align: center;
+    padding: 0 40px;
+    opacity: 0.4;
+    transform: translateY(20px);
+    transition: var(--transition-portal);
+}
+
+.portal-section:hover .portal-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.portal-title {
+    font-family: var(--font-title);
+    font-size: 1.8rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    white-space: nowrap;
+}
+
+.portal-label {
+    font-family: var(--font-data);
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.portal-desc {
+    max-width: 300px;
+    font-weight: 300;
+    line-height: 1.8;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.portal-divider {
+    width: 30px;
+    height: 1px;
+    margin: 16px auto;
+    opacity: 0.3;
+}
+
+.portal-section--ethos .portal-divider {
+    background: #00f2ff;
+}
+
+.portal-section--cosmos .portal-divider {
+    background: #7000ff;
+}
+
+.portal-section--regenesis .portal-divider {
+    background: #00ff88;
+}
+
+/* Portal main header */
+.portal-header {
+    position: absolute;
+    top: 5vh;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.portal-header h1 {
+    font-family: var(--font-title);
+    font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+    letter-spacing: 15px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.portal-header p {
+    font-weight: 100;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #00f2ff;
+    margin-top: 10px;
+}
+
+/* Scanline FX */
+.scanline {
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    z-index: 5;
+    background: linear-gradient(0deg,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(255, 255, 255, 0.02) 50%,
+            rgba(0, 0, 0, 0) 100%);
+    opacity: 0.1;
+    bottom: 100%;
+    pointer-events: none;
+    animation: scanline 8s linear infinite;
+}
+
+
+/* ------------------------------------------------------------
+   6. SECTION PAGE SHELL LAYOUT
+   Used by ethos.html, cosmos.html, regenesis.html
+   ------------------------------------------------------------ */
+
+.shell {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: var(--header-height) 1fr;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+    background: rgba(1, 4, 6, 0.65);
+    backdrop-filter: blur(45px);
+}
+
+/* Header */
+.shell-header {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+.shell-title {
+    font-family: var(--font-title);
+    font-size: 0.8rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+}
+
+.shell-title span {
+    color: var(--accent);
+}
+
+.header-meta {
+    font-family: var(--font-data);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    display: flex;
+    gap: 30px;
+}
+
+.header-meta span {
+    color: var(--accent);
+}
+
+.btn-return {
+    font-family: var(--font-data);
+    font-size: 0.65rem;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    transition: var(--transition-fast);
+    background: rgba(var(--accent-rgb), 0.05);
+}
+
+.btn-return:hover {
+    background: rgba(var(--accent-rgb), 0.15);
+    box-shadow: 0 0 15px var(--accent);
+}
+
+/* Sidebar */
+.shell-sidebar {
+    border-right: 1px solid var(--border);
+    padding: 60px 0;
+    overflow-y: auto;
+}
+
+.nav-item {
+    font-family: var(--font-title);
+    font-size: 0.65rem;
+    padding: 20px 40px;
+    color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: var(--transition-slow);
+    letter-spacing: 2px;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.08), transparent);
+}
+
+/* Main content area */
+.shell-main {
+    padding: 60px 80px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.shell-main::-webkit-scrollbar {
+    width: 4px;
+}
+
+.shell-main::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+
+/* ------------------------------------------------------------
+   7. MODULE PANEL (loaded into shell-main)
+   ------------------------------------------------------------ */
+
+.module-panel {
+    animation: fadeIn 0.8s ease-out forwards;
+    max-width: 1200px;
+    padding-top: 10px;
+}
+
+.module-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 40px;
+    margin-bottom: 50px;
+}
+
+.module-header h1 {
+    font-family: var(--font-title);
+    font-size: 2.2rem;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+}
+
+.subtitle {
+    font-family: var(--font-data);
+    color: var(--accent);
+    font-size: 0.7rem;
+    margin-top: 15px;
+    letter-spacing: 2px;
+}
+
+
+/* ------------------------------------------------------------
+   8. TYPOGRAPHY
+   ------------------------------------------------------------ */
+
+h2 {
+    font-family: var(--font-title);
+    color: var(--accent);
+    border-left: 3px solid var(--accent);
+    padding-left: 20px;
+    margin-bottom: 30px;
+    margin-top: 60px;
+    font-size: 0.95rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-family: var(--font-title);
+    color: var(--text-primary);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+strong {
+    color: var(--text-primary);
+}
+
+
+/* ------------------------------------------------------------
+   9. BENTO GRID SYSTEM
+   ------------------------------------------------------------ */
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.bento-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.bento-grid--1 {
+    grid-template-columns: 1fr;
+}
+
+.col-span-2 {
+    grid-column: 1 / -1;
+}
+
+.bento-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    padding: 30px;
+    border-radius: 4px;
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-fast);
+}
+
+.bento-card:hover {
+    border-color: rgba(var(--accent-rgb), 0.3);
+    background: var(--bg-card-hover);
+}
+
+.tag {
+    display: inline-block;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-data);
+    font-size: 0.6rem;
+    padding: 2px 8px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Accent bar under tag */
+.accent-bar {
+    height: 2px;
+    width: 40px;
+    background: var(--accent);
+    margin: 15px 0;
+}
+
+/* Action/result lines */
+.action-line {
+    color: var(--accent);
+    font-size: 0.85rem;
+    margin-top: 12px;
+    display: block;
+}
+
+
+/* ------------------------------------------------------------
+   10. TERMINAL / STATUS COMPONENTS
+   ------------------------------------------------------------ */
+
+.status-bar {
+    padding: 30px;
+    background: rgba(var(--accent-rgb), 0.02);
+    border: 1px solid var(--border-card);
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+.status-bar-labels {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-data);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+}
+
+.status-bar-labels .status-high {
+    color: var(--accent);
+}
+
+.status-track {
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.status-fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(90deg, transparent, var(--accent));
+    box-shadow: 0 0 15px var(--accent);
+}
+
+.status-fill--left {
+    left: 0;
+    right: auto;
+}
+
+.status-fill--animate {
+    animation: load 3s ease-out forwards;
+    width: 0;
+}
+
+.terminal-log {
+    margin-top: 15px;
+    font-family: var(--font-data);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+}
+
+.terminal-log p {
+    margin: 3px 0;
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    line-height: 1.6;
+}
+
+.terminal-log .log-highlight {
+    color: var(--accent);
+    animation: pulse 2s infinite;
+}
+
+.status-readout {
+    text-align: right;
+    color: var(--accent);
+    margin-top: 10px;
+    font-family: var(--font-data);
+    font-size: 0.8rem;
+}
+
+
+/* ------------------------------------------------------------
+   11. MATH BLOCK (Cosmos / Formalism)
+   ------------------------------------------------------------ */
+
+.math-block {
+    font-family: var(--font-data);
+    color: #ccc;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px 20px;
+    border-radius: 4px;
+    margin: 15px 0;
+    font-size: 0.85rem;
+    border-left: 2px solid var(--border-card);
+    line-height: 1.6;
+}
+
+
+/* ------------------------------------------------------------
+   12. UTILITY CLASSES
+   ------------------------------------------------------------ */
+
+.text-accent {
+    color: var(--accent);
+}
+
+.text-white {
+    color: var(--text-primary);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.text-mono {
+    font-family: var(--font-data);
+}
+
+.text-title {
+    font-family: var(--font-title);
+}
+
+.text-upper {
+    text-transform: uppercase;
+}
+
+.text-italic {
+    font-style: italic;
+}
+
+.mt-0 {
+    margin-top: 0;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+.mt-60 {
+    margin-top: 60px;
+}
+
+.border-accent {
+    border-color: rgba(var(--accent-rgb), 0.3) !important;
+}
+
+.glow-text {
+    text-shadow: 0 0 20px var(--accent);
+}
+
+
+/* ------------------------------------------------------------
+   13. RESPONSIVE (basic)
+   ------------------------------------------------------------ */
+
+@media (max-width: 900px) {
+    .shell {
+        grid-template-columns: 1fr;
+        grid-template-rows: var(--header-height) auto 1fr;
+    }
+
+    .shell-sidebar {
+        display: none;
+    }
+
+    .shell-main {
+        padding: 40px 30px;
+    }
+
+    .bento-grid,
+    .bento-grid--3 {
+        grid-template-columns: 1fr;
+    }
+
+    .portal-title {
+        font-size: 1.2rem;
+    }
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCIENCE OF COHERENCE | Portal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono&family=Inter:wght@100;300;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="scanline"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="portal-header">
+        <h1>Science of Coherence</h1>
+        <p>Time-Crystalline Biology · Unified Field Theory · The Science of Being</p>
+    </header>
+
+    <main class="portal-wrapper">
+
+        <section class="portal-section portal-section--regenesis" onclick="location.href='regenesis.html'">
+            <div class="portal-content">
+                <h2 class="portal-title">REGENESIS</h2>
+                <div class="portal-divider"></div>
+                <p class="portal-label">Regenerative Biology</p>
+                <p class="portal-desc">Cellular regeneration, neuroplasticity, and the primal protocols for biological
+                    sovereignty.</p>
+            </div>
+        </section>
+
+        <section class="portal-section portal-section--cosmos" onclick="location.href='cosmos.html'">
+            <div class="portal-content">
+                <h2 class="portal-title">COSMOS</h2>
+                <div class="portal-divider"></div>
+                <p class="portal-label">Unified Physics</p>
+                <p class="portal-desc">Time-crystalline structure, space geometry, and the holographic architecture of
+                    reality.</p>
+            </div>
+        </section>
+
+        <section class="portal-section portal-section--ethos" onclick="location.href='ethos.html'">
+            <div class="portal-content">
+                <h2 class="portal-title">ETHOS</h2>
+                <div class="portal-divider"></div>
+                <p class="portal-label">The Science of Being</p>
+                <p class="portal-desc">The operational framework for aligning human consciousness and biology with the
+                    fundamental laws of nature.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Particle background
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:0.25;pointer-events:none;';
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.2 + 0.3;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255,255,255,0.6)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const particles = Array.from({ length: 120 }, () => new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+
+</body>
+
+</html>
