@@ -11,7 +11,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono&family=Inter:wght@100;300;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1.6">
+    <link rel="stylesheet" href="style.css?v=1.7">
     <style>
         #bg-canvas {
             position: fixed;
@@ -94,38 +94,68 @@
         resize();
         window.addEventListener('resize', resize);
 
-        const blobs = [
-            { x: 0.2, y: 0.3, r: 0.55, color: '0, 242, 255', speed: 0.00018, phase: 0 },
-            { x: 0.8, y: 0.6, r: 0.6, color: '112, 0, 255', speed: 0.00013, phase: 2 },
-            { x: 0.5, y: 0.9, r: 0.48, color: '0, 255, 136', speed: 0.00022, phase: 4 },
-            { x: 0.75, y: 0.2, r: 0.45, color: '112, 0, 255', speed: 0.00016, phase: 1 },
-            { x: 0.15, y: 0.7, r: 0.5, color: '0, 242, 255', speed: 0.00020, phase: 3 },
-        ];
+        const COUNT = 80;   // number of particles
+        const MAX_DIST = 160;  // max distance to draw connection
+        const PARTICLE_R = 1.2;  // dot radius
+        const SPEED = 0.4;  // movement speed
 
-        function draw(t) {
-            ctx.clearRect(0, 0, W, H);
-
-            blobs.forEach(b => {
-                const px = (b.x + Math.sin(t * b.speed * 1000 + b.phase) * 0.18) * W;
-                const py = (b.y + Math.cos(t * b.speed * 800 + b.phase) * 0.14) * H;
-                const breathe = 1 + Math.sin(t * b.speed * 600 + b.phase) * 0.15;
-                const radius = b.r * Math.min(W, H) * breathe;
-
-                const grad = ctx.createRadialGradient(px, py, 0, px, py, radius);
-                grad.addColorStop(0, `rgba(${b.color}, 0.18)`);
-                grad.addColorStop(0.4, `rgba(${b.color}, 0.08)`);
-                grad.addColorStop(1, `rgba(${b.color}, 0)`);
-
-                ctx.fillStyle = grad;
+        class Particle {
+            constructor() { this.reset(true); }
+            reset(randomY = false) {
+                this.x = Math.random() * W;
+                this.y = randomY ? Math.random() * H : Math.random() * H;
+                this.vx = (Math.random() - 0.5) * SPEED;
+                this.vy = (Math.random() - 0.5) * SPEED;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > W) this.vx *= -1;
+                if (this.y < 0 || this.y > H) this.vy *= -1;
+            }
+            draw() {
                 ctx.beginPath();
-                ctx.arc(px, py, radius, 0, Math.PI * 2);
+                ctx.arc(this.x, this.y, PARTICLE_R, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 242, 255, 0.7)';
                 ctx.fill();
-            });
-
-            requestAnimationFrame(draw);
+            }
         }
 
-        requestAnimationFrame(draw);
+        const particles = Array.from({ length: COUNT }, () => new Particle());
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const a = particles[i];
+                    const b = particles[j];
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const d = Math.sqrt(dx * dx + dy * dy);
+
+                    if (d < MAX_DIST) {
+                        // Fade line as distance increases
+                        const alpha = (1 - d / MAX_DIST) * 0.35;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.strokeStyle = `rgba(0, 242, 255, ${alpha})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, W, H);
+
+            drawConnections();
+            particles.forEach(p => { p.update(); p.draw(); });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     </script>
 
 </body>
