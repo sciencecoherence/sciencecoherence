@@ -11,18 +11,31 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono&family=Inter:wght@100;300;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1.2">
+    <link rel="stylesheet" href="style.css?v=1.3">
+    <style>
+        /* Canvas behind everything including body::before/after glows */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
 </head>
 
-<body>
+<body class="portal-bg">
 
-    <canvas id="bg-canvas"></canvas>
     <div class="scanline"></div>
 
     <header class="portal-header">
         <h1>Science of Coherence</h1>
         <p>Time-Crystalline Biology · Unified Field Theory · The Science of Being</p>
     </header>
+
+    <canvas id="bg-canvas"></canvas>
 
     <main class="portal-wrapper">
 
@@ -62,8 +75,6 @@
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
-        canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;';
-
         let W, H;
         function resize() {
             W = canvas.width = window.innerWidth;
@@ -72,12 +83,11 @@
         resize();
         window.addEventListener('resize', resize);
 
-        // Grid config
-        const GRID_LINES = 12;      // lines in each direction
-        const SPEED = 0.4;     // flow speed (lower = slower)
-        const HORIZON = 0.48;    // horizon position (0=top, 1=bottom)
-        const FOV_SPREAD = 2.2;     // perspective spread
-        const LINE_COLOR = '0, 242, 255'; // cyan base
+        const GRID_LINES = 12;
+        const SPEED = 0.4;
+        const HORIZON = 0.48;
+        const FOV_SPREAD = 2.2;
+        const LINE_COLOR = '0, 242, 255';
 
         let offset = 0;
 
@@ -86,29 +96,17 @@
 
             const horizonY = H * HORIZON;
             const vanishX = W * 0.5;
-
-            // How far the grid extends left/right at the bottom
             const spread = W * FOV_SPREAD;
 
-            // --- HORIZONTAL LINES (receding into horizon) ---
+            // Horizontal lines
             for (let i = 0; i <= GRID_LINES; i++) {
-                // t goes from 0 (horizon) to 1 (bottom), with scroll offset
                 let t = ((i / GRID_LINES) + (offset % 1)) % 1;
-
-                // Perspective curve — lines bunch up near horizon
                 const curve = Math.pow(t, 2.2);
-
                 const y = horizonY + (H - horizonY) * curve;
-
-                // Fade out near horizon, fade out near bottom
                 const alpha = Math.sin(t * Math.PI) * 0.5;
-
                 if (alpha < 0.01) continue;
-
-                // x positions spread based on perspective
                 const xLeft = vanishX - spread * curve;
                 const xRight = vanishX + spread * curve;
-
                 ctx.beginPath();
                 ctx.moveTo(xLeft, y);
                 ctx.lineTo(xRight, y);
@@ -117,19 +115,12 @@
                 ctx.stroke();
             }
 
-            // --- VERTICAL LINES (radiating from vanishing point) ---
+            // Vertical lines
             for (let i = 0; i <= GRID_LINES; i++) {
-                const t = i / GRID_LINES; // 0 = far left, 1 = far right
-
-                // x at bottom
+                const t = i / GRID_LINES;
                 const xBottom = vanishX - spread + (spread * 2) * t;
-
-                // Alpha — fade edges
-                const edgeFade = Math.sin(t * Math.PI);
-                const alpha = edgeFade * 0.35;
-
+                const alpha = Math.sin(t * Math.PI) * 0.35;
                 if (alpha < 0.01) continue;
-
                 ctx.beginPath();
                 ctx.moveTo(vanishX, horizonY);
                 ctx.lineTo(xBottom, H);
@@ -138,14 +129,13 @@
                 ctx.stroke();
             }
 
-            // --- HORIZON GLOW LINE ---
+            // Horizon glow line
             const gradient = ctx.createLinearGradient(0, horizonY, W, horizonY);
             gradient.addColorStop(0, 'rgba(0, 242, 255, 0)');
             gradient.addColorStop(0.2, 'rgba(0, 242, 255, 0.25)');
             gradient.addColorStop(0.5, 'rgba(0, 242, 255, 0.5)');
             gradient.addColorStop(0.8, 'rgba(0, 242, 255, 0.25)');
             gradient.addColorStop(1, 'rgba(0, 242, 255, 0)');
-
             ctx.beginPath();
             ctx.moveTo(0, horizonY);
             ctx.lineTo(W, horizonY);
@@ -153,7 +143,7 @@
             ctx.lineWidth = 1.5;
             ctx.stroke();
 
-            // Subtle glow bloom below horizon
+            // Bloom below horizon
             const bloom = ctx.createLinearGradient(0, horizonY, 0, horizonY + 80);
             bloom.addColorStop(0, 'rgba(0, 242, 255, 0.06)');
             bloom.addColorStop(1, 'rgba(0, 242, 255, 0)');
