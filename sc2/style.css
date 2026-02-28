@@ -18,7 +18,7 @@
     --font-body: 'Inter', sans-serif;
 
     /* Base palette */
-    --bg: #010406;
+    --bg: #060d14;
     --bg-card: rgba(8, 12, 16, 0.5);
     --bg-card-hover: rgba(8, 12, 16, 0.75);
     --text-primary: #ffffff;
@@ -124,7 +124,7 @@ body {
     top: -20vmax;
     left: -20vmax;
     z-index: 0;
-    opacity: 0.25;
+    opacity: 0.45;
     pointer-events: none;
 }
 
