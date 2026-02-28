@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #060d14;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            font-family: sans-serif;
+            padding: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="c"></canvas>
+    <div class="content">
+        <h1>CANVAS TEST</h1>
+        <p>If you see the grid below, canvas is working.</p>
+    </div>
+    <script>
+        const canvas = document.getElementById('c');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let W = canvas.width;
+        let H = canvas.height;
+        let offset = 0;
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+
+            const horizonY = H * 0.48;
+            const vanishX = W * 0.5;
+            const spread = W * 2.2;
+
+            for (let i = 0; i <= 12; i++) {
+                let t = ((i / 12) + (offset % 1)) % 1;
+                const curve = Math.pow(t, 2.2);
+                const y = horizonY + (H - horizonY) * curve;
+                const alpha = Math.sin(t * Math.PI) * 0.8;
+                if (alpha < 0.01) continue;
+                ctx.beginPath();
+                ctx.moveTo(vanishX - spread * curve, y);
+                ctx.lineTo(vanishX + spread * curve, y);
+                ctx.strokeStyle = `rgba(0, 242, 255, ${alpha})`;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            for (let i = 0; i <= 12; i++) {
+                const t = i / 12;
+                const xBottom = vanishX - spread + (spread * 2) * t;
+                const alpha = Math.sin(t * Math.PI) * 0.5;
+                if (alpha < 0.01) continue;
+                ctx.beginPath();
+                ctx.moveTo(vanishX, horizonY);
+                ctx.lineTo(xBottom, H);
+                ctx.strokeStyle = `rgba(0, 242, 255, ${alpha})`;
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+            }
+
+            // Horizon line
+            ctx.beginPath();
+            ctx.moveTo(0, horizonY);
+            ctx.lineTo(W, horizonY);
+            ctx.strokeStyle = 'rgba(0, 242, 255, 0.8)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            offset += 0.003;
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+    </script>
+</body>
+
+</html>
