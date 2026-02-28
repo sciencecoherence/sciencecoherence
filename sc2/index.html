@@ -11,65 +11,102 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono&family=Inter:wght@100;300;600&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1.3">
+    <link rel="stylesheet" href="style.css?v=1.4">
     <style>
-        /* Canvas behind everything including body::before/after glows */
         #bg-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: 0;
             pointer-events: none;
+        }
+
+        .portal-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ambient glows */
+        .portal-layer::before,
+        .portal-layer::after {
+            content: "";
+            position: fixed;
+            width: 140vmax;
+            height: 140vmax;
+            top: -20vmax;
+            left: -20vmax;
+            z-index: 0;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .portal-layer::before {
+            background: radial-gradient(circle, #00f2ff 0%, transparent 60%);
+            animation: drift 22s infinite alternate ease-in-out;
+        }
+
+        .portal-layer::after {
+            background: radial-gradient(circle, #7000ff 0%, transparent 70%);
+            animation: drift 32s infinite alternate-reverse ease-in-out;
+            right: -20vmax;
+            left: auto;
         }
     </style>
 </head>
 
-<body class="portal-bg">
-
-    <div class="scanline"></div>
-
-    <header class="portal-header">
-        <h1>Science of Coherence</h1>
-        <p>Time-Crystalline Biology · Unified Field Theory · The Science of Being</p>
-    </header>
+<body>
 
     <canvas id="bg-canvas"></canvas>
+    <div class="scanline"></div>
 
-    <main class="portal-wrapper">
+    <div class="portal-layer">
+        <header class="portal-header">
+            <h1>Science of Coherence</h1>
+            <p>Time-Crystalline Biology · Unified Field Theory · The Science of Being</p>
+        </header>
 
-        <section class="portal-section portal-section--regenesis" onclick="location.href='regenesis.html'">
-            <div class="portal-content">
-                <h2 class="portal-title">REGENESIS</h2>
-                <div class="portal-divider"></div>
-                <p class="portal-label">Regenerative Biology</p>
-                <p class="portal-desc">Cellular regeneration, neuroplasticity, and the primal protocols for biological
-                    sovereignty.</p>
-            </div>
-        </section>
+        <main class="portal-wrapper">
 
-        <section class="portal-section portal-section--cosmos" onclick="location.href='cosmos.html'">
-            <div class="portal-content">
-                <h2 class="portal-title">COSMOS</h2>
-                <div class="portal-divider"></div>
-                <p class="portal-label">Unified Physics</p>
-                <p class="portal-desc">Time-crystalline structure, space geometry, and the holographic architecture of
-                    reality.</p>
-            </div>
-        </section>
+            <section class="portal-section portal-section--regenesis" onclick="location.href='regenesis.html'">
+                <div class="portal-content">
+                    <h2 class="portal-title">REGENESIS</h2>
+                    <div class="portal-divider"></div>
+                    <p class="portal-label">Regenerative Biology</p>
+                    <p class="portal-desc">Cellular regeneration, neuroplasticity, and the primal protocols for
+                        biological sovereignty.</p>
+                </div>
+            </section>
 
-        <section class="portal-section portal-section--ethos" onclick="location.href='ethos.html'">
-            <div class="portal-content">
-                <h2 class="portal-title">ETHOS</h2>
-                <div class="portal-divider"></div>
-                <p class="portal-label">The Science of Being</p>
-                <p class="portal-desc">The operational framework for aligning human consciousness and biology with the
-                    fundamental laws of nature.</p>
-            </div>
-        </section>
+            <section class="portal-section portal-section--cosmos" onclick="location.href='cosmos.html'">
+                <div class="portal-content">
+                    <h2 class="portal-title">COSMOS</h2>
+                    <div class="portal-divider"></div>
+                    <p class="portal-label">Unified Physics</p>
+                    <p class="portal-desc">Time-crystalline structure, space geometry, and the holographic architecture
+                        of reality.</p>
+                </div>
+            </section>
 
-    </main>
+            <section class="portal-section portal-section--ethos" onclick="location.href='ethos.html'">
+                <div class="portal-content">
+                    <h2 class="portal-title">ETHOS</h2>
+                    <div class="portal-divider"></div>
+                    <p class="portal-label">The Science of Being</p>
+                    <p class="portal-desc">The operational framework for aligning human consciousness and biology with
+                        the fundamental laws of nature.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
 
     <script>
         const canvas = document.getElementById('bg-canvas');
@@ -129,7 +166,7 @@
                 ctx.stroke();
             }
 
-            // Horizon glow line
+            // Horizon glow
             const gradient = ctx.createLinearGradient(0, horizonY, W, horizonY);
             gradient.addColorStop(0, 'rgba(0, 242, 255, 0)');
             gradient.addColorStop(0.2, 'rgba(0, 242, 255, 0.25)');
@@ -143,7 +180,7 @@
             ctx.lineWidth = 1.5;
             ctx.stroke();
 
-            // Bloom below horizon
+            // Bloom
             const bloom = ctx.createLinearGradient(0, horizonY, 0, horizonY + 80);
             bloom.addColorStop(0, 'rgba(0, 242, 255, 0.06)');
             bloom.addColorStop(1, 'rgba(0, 242, 255, 0)');
