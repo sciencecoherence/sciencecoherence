@@ -297,7 +297,7 @@ body {
     font-weight: 300;
     line-height: 1.8;
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgb(255, 255, 255);
 }
 
 .portal-divider {
