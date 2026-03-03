@@ -386,46 +386,6 @@ nav.scrolled { padding:16px 72px; background:rgba(4,5,8,.95); backdrop-filter:bl
 .impl-card:hover .impl-link-arrow { transform:translateX(5px); }
 
 /* ============================================================
-   RESONANCE ACCORDION
-   ============================================================ */
-.res-card { border:1px solid var(--border-dim); margin-bottom:-1px; transition:border-color .4s; }
-.res-card.active { border-color:rgba(90,132,200,.25); }
-.res-card-header {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:36px 44px; cursor:none; transition:background .3s;
-}
-.res-card-header:hover { background:rgba(90,132,200,.03); }
-.res-card-num {
-  font-family:var(--font-label); font-size:10px; letter-spacing:.2em;
-  color:var(--text-faint); min-width:28px;
-}
-.res-card-title {
-  font-family:var(--font-display); font-size:clamp(22px,2.8vw,34px);
-  font-style:italic; font-weight:400; color:var(--text-head);
-  letter-spacing:-.02em;
-}
-.res-card-toggle {
-  width:36px; height:36px; border-radius:50%;
-  border:1px solid rgba(200,168,104,.25);
-  display:flex; align-items:center; justify-content:center;
-  transition:border-color .4s, transform .4s;
-  flex-shrink:0;
-}
-.res-card.active .res-card-toggle { border-color:rgba(200,168,104,.5); transform:rotate(45deg); }
-.res-toggle-icon {
-  font-family:var(--font-body); font-size:18px; font-weight:300;
-  color:var(--amber-light); line-height:1;
-}
-.res-card-body {
-  max-height:0; overflow:hidden;
-  transition:max-height .6s cubic-bezier(.16,1,.3,1), padding .5s;
-  padding:0 44px;
-}
-.res-card.active .res-card-body {
-  max-height:900px; padding:8px 44px 52px;
-}
-
-/* ============================================================
    PUBLICATION CTA
    ============================================================ */
 .publication { padding:130px 0; position:relative; overflow:hidden; }
@@ -890,121 +850,6 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
 </section>
 
 <!-- ============================================================
-     RESONANT INTERCONNECTION
-     ============================================================ -->
-<section id="resonance" style="padding:130px 0; border-bottom:1px solid var(--border-dim); position:relative; overflow:hidden;">
-
-  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:700px;background:radial-gradient(ellipse,rgba(90,132,200,.04) 0%,transparent 55%);pointer-events:none;"></div>
-
-  <div class="container">
-
-    <!-- Header — centered -->
-    <div style="text-align:center;margin-bottom:80px;">
-      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:24px;" class="reveal">
-        <div style="width:22px;height:1px;background:var(--cs-core);"></div>
-        <span class="lbl" style="color:var(--cs-light);">Resonant Interconnection</span>
-        <div style="width:22px;height:1px;background:var(--cs-core);"></div>
-      </div>
-      <h2 class="reveal" style="font-family:var(--font-display);font-size:clamp(36px,4.5vw,64px);font-weight:400;font-style:italic;color:var(--text-head);line-height:1.05;letter-spacing:-.025em;margin-bottom:16px;transition-delay:.08s;">
-        Coupling across<br><em style="color:var(--cs-light);font-style:normal;">distance</em>
-      </h2>
-      <p class="reveal" style="font-size:15px;font-weight:300;color:var(--text-dim);font-style:italic;max-width:560px;margin:0 auto;line-height:1.85;transition-delay:.16s;">
-        If Ψ propagates through Ω and couples back to ∆, then any two integration events embedded in the same realized configuration are, in principle, communicable. Long-range coupling is not exotic — it is expected.
-      </p>
-    </div>
-
-    <!-- Centered SVG diagram -->
-    <div style="display:flex;justify-content:center;margin-bottom:80px;" class="reveal">
-      <div style="width:100%;max-width:700px;background:var(--obsidian);border:1px solid var(--border-dim);padding:48px 56px 40px;text-align:center;">
-        <svg viewBox="0 0 580 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
-          <!-- ΨA wave -->
-          <path d="M30,70 Q60,20 90,70 Q120,120 150,70 Q180,20 210,70 Q240,120 270,70 Q300,20 330,70 Q360,120 390,70 Q420,20 450,70 Q480,120 510,70 Q540,20 560,55"
-                stroke="#7aa8e8" stroke-width="1.1" opacity=".45" fill="none"/>
-          <!-- ΨB wave — offset phase -->
-          <path d="M20,105 Q55,55 90,105 Q125,155 160,105 Q195,55 230,105 Q265,155 300,105 Q335,55 370,105 Q405,155 440,105 Q475,55 510,105 Q545,155 560,120"
-                stroke="#a0c0f0" stroke-width="1.1" opacity=".35" fill="none"/>
-          <!-- Interference highlight -->
-          <rect x="200" y="15" width="180" height="150" fill="rgba(90,132,200,.03)" stroke="rgba(90,132,200,.1)" stroke-width=".5" stroke-dasharray="4 6" rx="2"/>
-          <!-- ∆ nodes -->
-          <circle cx="60" cy="70" r="16" fill="rgba(90,132,200,.08)" stroke="rgba(122,168,232,.3)" stroke-width=".7"/>
-          <text x="60" y="74" fill="#a0c0f0" font-size="11" font-family="Playfair Display,Georgia,serif" font-style="italic" text-anchor="middle">∆<tspan font-size="7" baseline-shift="sub">A</tspan></text>
-          <circle cx="520" cy="105" r="16" fill="rgba(90,132,200,.08)" stroke="rgba(160,192,240,.25)" stroke-width=".7"/>
-          <text x="520" y="109" fill="#a0c0f0" font-size="11" font-family="Playfair Display,Georgia,serif" font-style="italic" text-anchor="middle">∆<tspan font-size="7" baseline-shift="sub">B</tspan></text>
-          <!-- Labels -->
-          <text x="30" y="45" fill="#7aa8e8" font-size="9" font-family="Playfair Display,Georgia,serif" font-style="italic" opacity=".5">Ψ<tspan font-size="6" baseline-shift="sub">A</tspan></text>
-          <text x="30" y="140" fill="#a0c0f0" font-size="9" font-family="Playfair Display,Georgia,serif" font-style="italic" opacity=".4">Ψ<tspan font-size="6" baseline-shift="sub">B</tspan></text>
-          <text x="290" y="175" fill="#5a84c8" font-size="7" font-family="Cinzel,serif" text-anchor="middle" opacity=".4" letter-spacing="2">RESONANCE ZONE</text>
-        </svg>
-        <div style="margin-top:20px;font-family:var(--font-display);font-size:15px;font-style:italic;color:var(--cs-pale);opacity:.7;">
-          Ω(∆Ψ<sub>A</sub> + ∆Ψ<sub>B</sub>) ≈ 1
-        </div>
-        <div style="margin-top:6px;font-family:var(--font-label);font-size:7.5px;letter-spacing:.3em;color:var(--text-faint);">
-          PHASE-LOCKING CONDITION
-        </div>
-      </div>
-    </div>
-
-    <!-- Accordion stack -->
-    <div class="res-accordion reveal" style="max-width:960px;margin:0 auto;transition-delay:.2s;">
-
-      <!-- Card 1: Phase-Alignment Coupling -->
-      <div class="res-card" data-res="0">
-        <div class="res-card-header">
-          <div style="display:flex;align-items:center;gap:28px;">
-            <span class="res-card-num">01</span>
-            <span class="res-card-title">Phase-Alignment Coupling</span>
-          </div>
-          <div class="res-card-toggle"><span class="res-toggle-icon">+</span></div>
-        </div>
-        <div class="res-card-body">
-          <p style="font-family:var(--font-display);font-size:clamp(15px,1.5vw,18px);font-style:italic;color:var(--text-body);line-height:1.8;margin-bottom:28px;max-width:800px;">
-            Two integration events ∆<sub>A</sub> and ∆<sub>B</sub> embedded in Ω each generate wave patterns Ψ<sub>A</sub> = W<sub>Ω</sub>(∆<sub>A</sub>) and Ψ<sub>B</sub> = W<sub>Ω</sub>(∆<sub>B</sub>). Where they overlap, if their coherence structures admit a common phase reference, the interference is constructive — producing a sustained correlation mediated by Ψ but not reducible to classical signal transmission.
-          </p>
-          <div style="font-family:var(--font-label);font-size:8px;letter-spacing:.35em;color:var(--cs-core);margin-bottom:12px;">PHASE-LOCKING CONDITION</div>
-          <div style="font-family:var(--font-display);font-size:clamp(20px,2.5vw,34px);font-style:italic;color:var(--cs-pale);letter-spacing:.01em;margin-bottom:20px;">
-            Ω(∆Ψ<sub>A</sub> + ∆Ψ<sub>B</sub>) ≈ 1
-          </div>
-          <p style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.9;max-width:800px;margin-bottom:16px;">
-            ∆Ψ<sub>A</sub> and ∆Ψ<sub>B</sub> are active integration events — not passive wave patterns. Each represents a system doing the recursive work of consolidation, self-modeling, and coherence maintenance that ∆ requires. The realized universe Ω evaluates whether their combined output achieves unit-normalization within the realized configuration.
-          </p>
-          <p style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.9;max-width:800px;">
-            The target value is 1, not 0. Resonance is not terminal stationarity — it is living equilibrium. Because Ω encloses the expression, the condition engages the feedback closure Ω ⇝ ∇Φ: normalization feeds back into the substrate update, reinforcing the conditions that made coupling possible. Resonance is thereby self-sustaining through the full recursion loop — not a momentary phase-lock but a recursively stabilized relation.
-          </p>
-        </div>
-      </div>
-
-      <!-- Card 2: Biological & Cognitive Resonance -->
-      <div class="res-card" data-res="1">
-        <div class="res-card-header">
-          <div style="display:flex;align-items:center;gap:28px;">
-            <span class="res-card-num">02</span>
-            <span class="res-card-title">Biological &amp; Cognitive Resonance</span>
-          </div>
-          <div class="res-card-toggle"><span class="res-toggle-icon">+</span></div>
-        </div>
-        <div class="res-card-body">
-          <p style="font-family:var(--font-display);font-size:clamp(15px,1.5vw,18px);font-style:italic;color:var(--text-body);line-height:1.8;margin-bottom:28px;max-width:800px;">
-            Each organism is a localized region of high-coherence Ψ within Ω — a standing wave pattern sustained by continuous integration. When two organisms share sufficient phase compatibility, the resonance condition predicts measurable correlations between their coherence states.
-          </p>
-          <p style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.9;max-width:800px;margin-bottom:20px;">
-            The channels are not mysterious — they are the same electromagnetic, molecular, and field-mediated pathways through which Ψ propagates in general. What distinguishes resonant coupling from ordinary environmental interaction is its phase-locked character: sustained, specific, and scaling with the coherence of the participating systems rather than with the strength of the classical signal between them.
-          </p>
-          <p style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.9;max-width:800px;margin-bottom:28px;">
-            In cognitive systems, the relevant integration events are those producing conscious experience. Two conscious systems in resonance would exhibit correlated modifications of their internal charts — not through information exchange in the classical sense, but through mutual entrainment of their Ψ fields. The phenomenology: shared attentional states, spontaneous alignment of intention, correlated affective responses beyond shared sensory input.
-          </p>
-          <div style="font-family:var(--font-label);font-size:8px;letter-spacing:.35em;color:var(--amber-light);margin-bottom:10px;">EPISTEMIC STATUS</div>
-          <p style="font-size:13px;font-weight:300;color:var(--text-mid);font-style:italic;line-height:1.85;max-width:800px;">
-            This is a structural prediction, not an empirical claim. What the framework calls <em style="color:var(--text-bright);font-style:normal;">resonant interconnection</em> is resonance-mediated coherence coupling — two systems stabilizing each other's phase structure through the same Ψ dynamics that sustain each individually. The effect, if real, is not a violation of physics but a consequence of it.
-          </p>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- ============================================================
      PUBLICATION
      ============================================================ -->
 <section class="publication">
@@ -1059,7 +904,7 @@ const cur=document.getElementById('cursor'),ring=document.getElementById('ring')
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
 (function a(){rx+=(mx-rx)*.09;ry+=(my-ry)*.09;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
-document.querySelectorAll('a,button,.chain-node-symbol,.concept,.theorem,.impl-card,.stab-card,.res-card-header').forEach(el=>{
+document.querySelectorAll('a,button,.chain-node-symbol,.concept,.theorem,.impl-card,.stab-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.classList.add('hov');ring.classList.add('hov');});
   el.addEventListener('mouseleave',()=>{cur.classList.remove('hov');ring.classList.remove('hov');});
 });
@@ -1158,18 +1003,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   resize();mkStars();draw();
   window.addEventListener('resize',()=>{resize();mkStars();});
 })();
-
-/* Resonance accordion */
-document.querySelectorAll('.res-card-header').forEach(header => {
-  header.addEventListener('click', () => {
-    const card = header.parentElement;
-    const wasActive = card.classList.contains('active');
-    // close all
-    document.querySelectorAll('.res-card').forEach(c => c.classList.remove('active'));
-    // toggle clicked
-    if (!wasActive) card.classList.add('active');
-  });
-});
 </script>
 </body>
 </html>
