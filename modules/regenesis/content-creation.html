@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regenesis | Biological Optimization</title>
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --bg-dark: #0d110f;
+            --bg-panel: #161c18;
+            --text-main: #d4d8d4;
+            --text-muted: #8a968c;
+            --accent-green: #6b8e73;
+            --border-color: #2a362c;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3 {
+            font-family: var(--font-serif);
+            font-weight: normal;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #e8ece8;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+
+        .eyebrow {
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .philosophy-text {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* Layout & Containers */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Header / Nav */
+        header {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .btn {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--accent-green);
+            padding: 0.8rem 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: var(--accent-green);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary {
+            background: var(--accent-green);
+            color: var(--bg-dark);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--accent-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        /* Cards / Panels */
+        .panel {
+            background: var(--bg-panel);
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .panel:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+        }
+
+        ul.tech-list {
+            list-style: none;
+        }
+
+        ul.tech-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            font-family: var(--font-sans);
+        }
+
+        ul.tech-list li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-family: var(--font-mono);
+        }
+
+        /* Lead Magnet Form */
+        .lead-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        input[type="email"] {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            color: var(--text-main);
+            font-family: var(--font-mono);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        input[type="email"]:focus {
+            outline: none;
+            border-color: var(--accent-green);
+        }
+
+        /* Floating Widget */
+        .floating-widget {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--bg-panel);
+            border: 1px solid var(--accent-green);
+            padding: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            z-index: 100;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="container">
+        <a href="#" class="logo">Regenesis.</a>
+        <a href="#optimizer" class="btn">Entry: Health Optimizer</a>
+    </header>
+
+    <section class="hero container">
+        <span class="eyebrow">Branch I</span>
+        <h1>Regenesis</h1>
+        <p class="eyebrow" style="font-size: 1rem; color: var(--text-main); margin-bottom: 2rem;">Biological
+            Optimization & Holistic Regeneration</p>
+
+        <p class="philosophy-text">
+            The body as a biological computer. Protocols, nutrition, and cellular practices that restore physical
+            coherence from the inside out. Accessible biophysics for self-realization.
+        </p>
+
+        <div class="cta-group">
+            <a href="#core-pillars" class="btn btn-primary">Initialize Protocols</a>
+            <a href="#lead-magnet" class="btn">Download Free Core Protocol</a>
+        </div>
+    </section>
+
+    <section class="container" id="philosophy">
+        <div class="grid-2">
+            <div>
+                <h2>The Biological Computer</h2>
+                <p>To understand your health, you must understand your hardware. The universe and the human body operate
+                    as highly complex biological computers. Every choice you make—from the light that hits your eyes to
+                    the nutrients you consume—is a line of code you are programming into your system.</p>
+                <br>
+                <p>Regenesis is a manual of self-realization through biophysics. We aim to delete the malware of modern
+                    living and reinstall your foundational operating system using targeted protocols, resulting in deep
+                    physical coherence.</p>
+            </div>
+            <div class="panel">
+                <h3>Core Tenets</h3>
+                <ul class="tech-list">
+                    <li><strong>Bio-Physical Alignment:</strong> Cellular resonance matters as much as chemistry.</li>
+                    <li><strong>Radical Responsibility:</strong> You are the programmer of your own biology.</li>
+                    <li><strong>Universal Accessibility:</strong> Complex biophysics translated into simple, actionable
+                        daily routines.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="container" id="core-pillars">
+        <h2>System Upgrades</h2>
+        <div class="grid-2">
+
+            <div class="panel">
+                <span class="eyebrow">Module 01</span>
+                <h3>Raw Primal Nutrition Hub</h3>
+                <p>You cannot rebuild a high-performance biological computer using low-quality, synthetic inputs. We
+                    prioritize bio-available, nutrient-dense inputs that our DNA recognizes instantly.</p>
+                <br>
+                <ul class="tech-list">
+                    <li><strong>Structural Fats:</strong> Fatty cuts of meat and pastured egg yolks for cellular repair.
+                    </li>
+                    <li><strong>Organ Meats:</strong> Beef brain and liver to deliver unmatched doses of B-vitamins and
+                        copper required for neurogenesis.</li>
+                    <li><strong>Living Foods:</strong> Raw milk for easily digestible proteins and beneficial microbes
+                        without industrial degradation.</li>
+                </ul>
+            </div>
+
+            <div class="panel">
+                <span class="eyebrow">Module 02</span>
+                <h3>Neuroplasticity & Brain Repair</h3>
+                <p>The brain is entirely plastic. By combining targeted nutrition with specific behavioral protocols, we
+                    can rebuild neural pathways, repair dopamine receptors, and heal from severe systemic burnout.</p>
+                <br>
+                <ul class="tech-list">
+                    <li><strong>Dopamine Baseline Reset:</strong> Scheduled periods devoid of high-stimulation
+                        activities.</li>
+                    <li><strong>Neurogenesis Nutrition:</strong> Flooding the brain with specific lipids to heal myelin
+                        sheaths.</li>
+                    <li><strong>Nervous System Regulation:</strong> Breathwork and thermal contrast to control the
+                        sympathetic state.</li>
+                </ul>
+            </div>
+
+            <div class="panel">
+                <span class="eyebrow">Module 03</span>
+                <h3>Skin & Cellular Regeneration</h3>
+                <p>True skincare provides the skin microbiome exactly what it needs to regenerate at the cellular level,
+                    replacing endocrine-disrupting chemicals with bio-compatible lipids.</p>
+                <br>
+                <ul class="tech-list">
+                    <li><strong>The Lipid Base:</strong> Pure beef tallow, which mirrors human sebum for instant
+                        cellular absorption.</li>
+                    <li><strong>Therapeutic Resins:</strong> Frankincense and Myrrh to reduce cellular inflammation and
+                        promote dermal healing.</li>
+                    <li><strong>Matrix Support:</strong> Ylang Ylang for elasticity and balanced sebum production.</li>
+                </ul>
+            </div>
+
+            <div class="panel">
+                <span class="eyebrow">Module 04</span>
+                <h3>Longevity Systems</h3>
+                <p>Longevity is the byproduct of a biological computer running at maximum energy efficiency. Slow down
+                    the biological clock by optimizing how your cells produce and recycle energy.</p>
+                <br>
+                <ul class="tech-list">
+                    <li><strong>Time-Crystalline Biology:</strong> Aligning bodily rhythms with universal physical laws.
+                    </li>
+                    <li><strong>Autophagy Triggers:</strong> Strategic fasting to recycle senescent cells.</li>
+                    <li><strong>Mitochondrial Uncoupling:</strong> Enhancing energy production without metabolic
+                        exhaust.</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="container" id="lead-magnet">
+        <div class="panel" style="text-align: center; max-width: 800px; margin: 0 auto;">
+            <h3>Start Your Regeneration Journey</h3>
+            <p style="color: var(--text-muted);">Input your email to receive our foundational "Cellular Coherence
+                Protocol" – a step-by-step guide to rebooting your biological systems.</p>
+            <form class="lead-form" onsubmit="event.preventDefault();">
+                <input type="email" placeholder="Enter your email address..." required>
+                <button type="submit" class="btn btn-primary">Initialize</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="floating-widget">
+        [+] WhatsApp AI Assistant
+    </div>
+
+</body>
+
+</html>
