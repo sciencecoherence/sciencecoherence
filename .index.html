@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCIENCE OF COHERENCE | Portal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@100;300;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ghk-blue: #00f2ff;
+            --mb-violet: #7000ff;
+            --primal-gold: #ffcc00;
+            --bg-dark: #02050a;
+            --transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            background: var(--bg-dark);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Ambient Background Logic */
+        .portal-wrapper {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: var(--transition);
+            cursor: pointer;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+
+        /* Hover Expansion Logic */
+        .section:hover {
+            flex: 2;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Header Positioning */
+        .main-header {
+            position: absolute;
+            top: 5vh;
+            width: 100%;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .main-header h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            letter-spacing: 15px;
+            margin: 0;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .main-header p {
+            font-weight: 100;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            color: var(--ghk-blue);
+        }
+
+        /* Section Content */
+        .content {
+            text-align: center;
+            padding: 0 40px;
+            opacity: 0.4;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .section:hover .content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            white-space: nowrap;
+        }
+
+        .description {
+            max-width: 300px;
+            font-weight: 300;
+            line-height: 1.8;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Specific Visual Identities */
+        .bio-hacker:hover {
+            box-shadow: inset 0 0 100px rgba(0, 242, 255, 0.15);
+        }
+
+        .bio-hacker h2 {
+            color: var(--ghk-blue);
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+        }
+
+        .physics:hover {
+            box-shadow: inset 0 0 100px rgba(112, 0, 255, 0.15);
+        }
+
+        .physics h2 {
+            color: var(--mb-violet);
+            text-shadow: 0 0 20px rgba(112, 0, 255, 0.5);
+        }
+
+        .primal:hover {
+            box-shadow: inset 0 0 100px rgba(255, 204, 0, 0.15);
+        }
+
+        .primal h2 {
+            color: var(--primal-gold);
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+        }
+
+        /* Floating Particle Canvas Placeholder */
+        #bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 5;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scanline 8s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% {
+                bottom: 100%;
+            }
+
+            100% {
+                bottom: -100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="scanline"></div>
+    <canvas id="bg-canvas"></canvas>
+
+    <header class="main-header">
+        <h1>Science of Coherence</h1>
+        <p>Time-Crystalline Holographic Universe</p>
+        <p>Opening soon</p>
+    </header>
+
+    <main class="portal-wrapper">
+        <section class="section bio-hacker" onclick="location.href='regenesis.html'">
+            <div class="content">
+                <h2>REGENESIS</h2>
+                <p class="description">
+                    <strong>Bio-Hacker Protocol Research</strong><br>
+                    Cellular regeneration, and cognitive enhancement.
+                </p>
+            </div>
+        </section>
+
+        <section class="section physics" onclick="location.href='cosmos.html'">
+            <div class="content">
+                <h2>COSMOS</h2>
+                <p class="description">
+                    <strong>Unified Physics Model</strong><br>
+                    Crystalline time, space geometry, and holographic entanglement.
+                </p>
+            </div>
+        </section>
+
+        <section class="section primal" onclick="location.href='ethos.html'">
+            <div class="content">
+                <h2>ETHOS</h2>
+                <p class="description">
+                    <strong>Alternative Living & Primal Diet</strong><br>
+                    Ancestral raw carnivore nutrition and decentralized education frameworks.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Subtle Particle Physics for the Background
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+
+</html>
