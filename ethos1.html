@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ethos — Science Coherence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Jost:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   TOKENS
+   ============================================================ */
+:root {
+  --void:        #050505;
+  --obsidian:    #090909;
+  --deep:        #0d0d0d;
+  --surface:     #131313;
+  --raised:      #191919;
+  --border-dim:  #1c1c1c;
+  --border:      #252525;
+
+  --text-faint:  #323232;
+  --text-dim:    #525252;
+  --text-mid:    #787878;
+  --text-body:   #a8a098;
+  --text-bright: #cac4ba;
+  --text-head:   #e8e2d8;
+
+  --parchment:   #c2b298;
+  --amber:       #a07848;
+  --amber-light: #c49a68;
+
+  /* Ethos palette — warm amber / gold */
+  --et-core:     #c8943a;
+  --et-light:    #e0b060;
+  --et-pale:     #f0cc90;
+  --et-mid:      #906618;
+  --et-dark:     #4a3408;
+  --et-dim:      rgba(200,148,58,0.06);
+  --et-glow:     rgba(200,148,58,0.12);
+  --et-trace:    rgba(200,148,58,0.04);
+
+  --cs-core:     #5a84c8;
+  --rg-core:     #6aa85a;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'Jost', sans-serif;
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--void);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  cursor: none;
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: none; font-family: var(--font-body); }
+
+/* ============================================================
+   GRAIN
+   ============================================================ */
+.grain {
+  position: fixed; inset: -50%; width: 200%; height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.03; pointer-events: none; z-index: 9998;
+  animation: grainShift 0.5s steps(2) infinite;
+}
+@keyframes grainShift {
+  0%   { transform: translate(0,0); }   25%  { transform: translate(-2%,-1%); }
+  50%  { transform: translate(1%,2%); } 75%  { transform: translate(-1%,1%); }
+  100% { transform: translate(2%,-2%); }
+}
+
+/* ============================================================
+   CURSOR
+   ============================================================ */
+.cursor {
+  position: fixed; width: 7px; height: 7px;
+  background: var(--et-core); border-radius: 50%;
+  pointer-events: none; z-index: 10000;
+  transform: translate(-50%,-50%);
+  transition: width .3s var(--ease-out), height .3s var(--ease-out);
+}
+.cursor-ring {
+  position: fixed; width: 34px; height: 34px;
+  border: 1px solid rgba(200,148,58,.35); border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: width .4s var(--ease-out), height .4s var(--ease-out), border-color .4s;
+}
+.cursor.hov  { width: 5px; height: 5px; }
+.cursor-ring.hov { width: 52px; height: 52px; border-color: rgba(200,148,58,.18); }
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+.container { max-width: 1360px; margin: 0 auto; padding: 0 72px; }
+.reveal {
+  opacity: 0; transform: translateY(26px);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.lbl { font-family: var(--font-label); font-size: 9px; letter-spacing: .4em; text-transform: uppercase; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 26px 72px; display: flex; align-items: center; justify-content: space-between;
+  transition: padding .5s var(--ease-out), background .5s, border-color .5s;
+  border-bottom: 1px solid transparent;
+}
+nav.scrolled {
+  padding: 16px 72px; background: rgba(5,5,5,.93);
+  backdrop-filter: blur(20px); border-bottom-color: var(--border-dim);
+}
+.nav-left { display: flex; align-items: center; gap: 32px; }
+.nav-back {
+  font-family: var(--font-label); font-size: 9px; letter-spacing: .3em;
+  color: var(--text-dim); display: flex; align-items: center; gap: 10px;
+  transition: color .3s, gap .3s;
+}
+.nav-back:hover { color: var(--text-body); gap: 14px; }
+.nav-back-arrow { font-size: 12px; font-family: serif; }
+.nav-sep { width: 1px; height: 20px; background: var(--border); }
+.nav-brand { display: flex; align-items: center; gap: 12px; }
+.nav-mark { width: 26px; height: 26px; }
+.nav-wordmark { font-family: var(--font-display); font-size: 14px; font-weight: 500; color: var(--text-head); letter-spacing: .04em; }
+.nav-branch-badge {
+  font-family: var(--font-label); font-size: 8px; letter-spacing: .35em;
+  color: var(--et-core); border: 1px solid rgba(200,148,58,.3); padding: 6px 16px;
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden;
+}
+.hero-left { padding: 160px 72px 100px; position: relative; z-index: 2; }
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 36px;
+  opacity: 0; animation: fadeUp 1.1s var(--ease-out) .2s forwards;
+}
+.hero-eyebrow-line { width: 24px; height: 1px; background: var(--et-core); }
+.hero-eyebrow-text { font-family: var(--font-label); font-size: 9px; letter-spacing: .45em; color: var(--et-light); }
+.hero-branch-III {
+  font-family: var(--font-label); font-size: 11px; letter-spacing: .5em;
+  color: var(--text-faint); margin-bottom: 18px;
+  opacity: 0; animation: fadeUp 1.1s var(--ease-out) .3s forwards;
+}
+.hero-title {
+  font-family: var(--font-display); font-size: clamp(64px, 8vw, 108px);
+  font-weight: 400; color: var(--text-head);
+  line-height: .92; letter-spacing: -.03em; margin-bottom: 10px;
+  opacity: 0; animation: fadeUp 1.3s var(--ease-out) .4s forwards;
+}
+.hero-subtitle {
+  font-family: var(--font-display); font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 400; font-style: italic; color: var(--parchment);
+  letter-spacing: -.01em; margin-bottom: 36px;
+  opacity: 0; animation: fadeUp 1.3s var(--ease-out) .52s forwards;
+}
+.hero-body {
+  font-size: 16px; font-weight: 300; color: var(--text-mid);
+  font-style: italic; line-height: 1.9; max-width: 460px; margin-bottom: 52px;
+  opacity: 0; animation: fadeUp 1.3s var(--ease-out) .65s forwards;
+}
+.hero-actions {
+  display: flex; align-items: center; gap: 28px;
+  opacity: 0; animation: fadeUp 1.2s var(--ease-out) .8s forwards;
+}
+.btn-et {
+  font-family: var(--font-label); font-size: 9px; letter-spacing: .35em;
+  color: var(--void); background: var(--et-light); padding: 16px 36px;
+  border: none; outline: none; display: inline-block;
+  transition: background .4s, transform .3s var(--ease-out);
+}
+.btn-et:hover { background: var(--et-pale); transform: translateY(-1px); }
+.btn-outline-et {
+  font-family: var(--font-label); font-size: 9px; letter-spacing: .3em;
+  color: var(--et-core); background: none;
+  border: 1px solid rgba(200,148,58,.3); padding: 16px 28px; outline: none;
+  display: inline-block; transition: border-color .4s, color .3s;
+}
+.btn-outline-et:hover { border-color: var(--et-core); color: var(--et-light); }
+
+/* Hero right — mandala diagram */
+.hero-right {
+  display: flex; align-items: center; justify-content: center;
+  padding: 100px 72px 100px 0; position: relative;
+}
+.hero-right::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 60% 50%, rgba(200,148,58,.05) 0%, transparent 65%);
+}
+.mind-diagram { width: 100%; max-width: 500px; position: relative; }
+.mind-diagram svg { width: 100%; height: auto; }
+.md-ring-1 { animation: mindSpin1 180s linear infinite; transform-origin: 50% 50%; }
+.md-ring-2 { animation: mindSpin1 120s linear infinite reverse; transform-origin: 50% 50%; }
+.md-ring-3 { animation: mindPulse 5s ease-in-out infinite; transform-origin: 50% 50%; }
+@keyframes mindSpin1  { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes mindPulse  { 0%,100%{opacity:.4} 50%{opacity:.9} }
+
+.hero-scroll {
+  position: absolute; bottom: 48px; left: 72px;
+  display: flex; align-items: center; gap: 14px;
+  opacity: 0; animation: fadeUp 1s var(--ease-out) 1.3s forwards;
+}
+.scroll-line {
+  width: 1px; height: 44px;
+  background: linear-gradient(var(--et-core), transparent);
+  animation: scrollPulse 2.4s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:.9} }
+.scroll-text {
+  font-family: var(--font-label); font-size: 8px; letter-spacing: .35em;
+  color: var(--text-faint); writing-mode: vertical-rl; transform: rotate(180deg);
+}
+@keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+/* ============================================================
+   PHILOSOPHY STRIP
+   ============================================================ */
+.philosophy {
+  padding: 88px 0;
+  border-top: 1px solid var(--border-dim);
+  border-bottom: 1px solid var(--border-dim);
+}
+.philosophy-inner {
+  display: grid; grid-template-columns: 280px 1fr; gap: 100px; align-items: center;
+}
+.phil-label { color: var(--et-core); margin-bottom: 16px; }
+.phil-source { font-family: var(--font-label); font-size: 8px; letter-spacing: .3em; color: var(--text-faint); margin-top: 20px; }
+.phil-text {
+  font-family: var(--font-display); font-size: clamp(20px, 2.4vw, 32px);
+  font-weight: 400; font-style: italic; color: var(--text-bright);
+  line-height: 1.5; letter-spacing: -.015em;
+}
+.phil-text em { color: var(--et-light); font-style: normal; }
+
+/* ============================================================
+   PILLARS (Three Axes)
+   ============================================================ */
+.pillars { padding: 130px 0; border-bottom: 1px solid var(--border-dim); }
+.pillars-header { margin-bottom: 80px; }
+.pillars-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.pillars-eyebrow-line { width: 22px; height: 1px; background: var(--et-core); }
+.pillars-title {
+  font-family: var(--font-display); font-size: clamp(38px, 4.5vw, 64px);
+  font-weight: 400; font-style: italic; color: var(--text-head);
+  line-height: 1.02; letter-spacing: -.022em; margin-bottom: 16px;
+}
+.pillars-title em { color: var(--et-light); font-style: normal; }
+.pillars-sub { font-size: 15px; font-weight: 300; color: var(--text-dim); font-style: italic; max-width: 560px; line-height: 1.85; }
+.pillars-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--border-dim); }
+.pillar-card {
+  background: var(--obsidian); overflow: hidden;
+  transition: background .5s; position: relative;
+}
+.pillar-card:hover { background: var(--deep); }
+.pillar-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+  background: radial-gradient(ellipse at 50% 110%, rgba(200,148,58,.07) 0%, transparent 70%);
+  opacity: 0; transition: opacity .6s;
+}
+.pillar-card:hover::after { opacity: 1; }
+.pillar-top { padding: 52px 44px 36px; position: relative; }
+.pillar-top::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--et-core); opacity: .35; transition: opacity .4s;
+}
+.pillar-card:hover .pillar-top::before { opacity: .85; }
+.pillar-roman { font-family: var(--font-label); font-size: 9px; letter-spacing: .45em; color: var(--text-faint); margin-bottom: 20px; }
+.pillar-glyph { font-family: var(--font-display); font-size: 52px; color: rgba(200,148,58,.2); line-height: 1; margin-bottom: 18px; transition: color .4s; }
+.pillar-card:hover .pillar-glyph { color: rgba(200,148,58,.42); }
+.pillar-name { font-family: var(--font-display); font-size: 26px; font-weight: 400; font-style: italic; color: var(--text-head); margin-bottom: 8px; line-height: 1.1; }
+.pillar-subtitle { font-family: var(--font-label); font-size: 8px; letter-spacing: .3em; color: var(--et-core); margin-bottom: 18px; }
+.pillar-desc { font-size: 13px; font-weight: 300; color: var(--text-dim); font-style: italic; line-height: 1.9; }
+.pillar-bottom { padding: 24px 44px 44px; border-top: 1px solid var(--border-dim); }
+.pillar-topics { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.pillar-topic {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px; font-weight: 300; color: var(--text-dim); font-style: italic;
+}
+.pillar-topic::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--et-mid); flex-shrink: 0; }
+
+/* ============================================================
+   CONSCIOUSNESS — deep dive
+   ============================================================ */
+.consciousness {
+  padding: 130px 0; border-bottom: 1px solid var(--border-dim);
+  position: relative; overflow: hidden;
+}
+.consciousness::before {
+  content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+  background: radial-gradient(ellipse at 80% 40%, rgba(200,148,58,.04) 0%, transparent 65%);
+  pointer-events: none;
+}
+.con-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; align-items: center; }
+.con-left {}
+.con-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+.con-eyebrow-line { width: 22px; height: 1px; background: var(--et-core); }
+.con-title {
+  font-family: var(--font-display); font-size: clamp(36px, 4vw, 56px);
+  font-weight: 400; color: var(--text-head);
+  line-height: 1.05; letter-spacing: -.022em; margin-bottom: 22px;
+}
+.con-title em { font-style: italic; color: var(--et-light); display: block; }
+.con-body { font-size: 15px; font-weight: 300; color: var(--text-mid); font-style: italic; line-height: 1.9; margin-bottom: 44px; }
+.con-stages { display: flex; flex-direction: column; gap: 2px; }
+.con-stage {
+  background: var(--surface); border: 1px solid var(--border-dim);
+  padding: 22px 28px; display: grid; grid-template-columns: 28px 1fr;
+  gap: 16px; align-items: start; transition: border-color .4s, background .4s;
+}
+.con-stage:hover { border-color: rgba(200,148,58,.22); background: var(--raised); }
+.cs-num { font-family: var(--font-label); font-size: 8px; letter-spacing: .3em; color: var(--et-mid); padding-top: 3px; }
+.cs-name { font-family: var(--font-display); font-size: 16px; font-style: italic; color: var(--text-bright); margin-bottom: 5px; }
+.cs-text { font-size: 12px; font-weight: 300; color: var(--text-dim); font-style: italic; line-height: 1.8; }
+/* Right — visual */
+.con-right { display: flex; align-items: center; justify-content: center; }
+.con-right svg { width: 100%; max-width: 460px; }
+
+/* ============================================================
+   PHILOSOPHY SECTION — actionable philosophy
+   ============================================================ */
+.actionable {
+  padding: 130px 0; border-bottom: 1px solid var(--border-dim);
+  background: var(--obsidian); position: relative; overflow: hidden;
+}
+.actionable::before {
+  content: ''; position: absolute; top: -10%; left: -10%; width: 60%; height: 80%;
+  background: radial-gradient(ellipse at 20% 30%, rgba(200,148,58,.04) 0%, transparent 65%);
+  pointer-events: none;
+}
+.ac-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; align-items: start; }
+.ac-left {}
+.ac-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+.ac-eyebrow-line { width: 22px; height: 1px; background: var(--et-core); }
+.ac-title {
+  font-family: var(--font-display); font-size: clamp(36px, 4vw, 56px);
+  font-weight: 400; color: var(--text-head);
+  line-height: 1.05; letter-spacing: -.022em; margin-bottom: 22px;
+}
+.ac-title em { font-style: italic; color: var(--et-light); display: block; }
+.ac-body { font-size: 15px; font-weight: 300; color: var(--text-mid); font-style: italic; line-height: 1.9; margin-bottom: 12px; }
+.ac-right { display: flex; flex-direction: column; gap: 2px; padding-top: 8px; }
+.ac-law {
+  background: var(--surface); border: 1px solid var(--border-dim);
+  padding: 34px 36px; position: relative; overflow: hidden;
+  transition: border-color .4s, background .4s;
+}
+.ac-law:hover { border-color: rgba(200,148,58,.22); background: var(--raised); }
+.ac-law::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--et-core); transform: scaleY(0);
+  transform-origin: top; transition: transform .5s var(--ease-out);
+}
+.ac-law:hover::before { transform: scaleY(1); }
+.al-num { font-family: var(--font-label); font-size: 8px; letter-spacing: .38em; color: var(--text-faint); margin-bottom: 12px; }
+.al-name { font-family: var(--font-display); font-size: 20px; font-style: italic; color: var(--text-head); margin-bottom: 9px; }
+.al-text { font-size: 13px; font-weight: 300; color: var(--text-dim); font-style: italic; line-height: 1.85; }
+.al-text strong { color: var(--text-body); font-weight: 400; }
+
+/* ============================================================
+   ENVIRONMENT — biophilic living
+   ============================================================ */
+.environment {
+  padding: 130px 0; border-bottom: 1px solid var(--border-dim);
+  position: relative; overflow: hidden;
+}
+.env-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; align-items: start; }
+.env-left { position: sticky; top: 120px; }
+.env-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.env-eyebrow-line { width: 22px; height: 1px; background: var(--et-core); }
+.env-title {
+  font-family: var(--font-display); font-size: clamp(36px, 4vw, 54px);
+  font-weight: 400; color: var(--text-head);
+  line-height: 1.05; letter-spacing: -.022em; margin-bottom: 20px;
+}
+.env-title em { font-style: italic; color: var(--et-light); display: block; }
+.env-body { font-size: 15px; font-weight: 300; color: var(--text-mid); font-style: italic; line-height: 1.9; margin-bottom: 32px; }
+.env-right { display: flex; flex-direction: column; gap: 2px; }
+.env-card {
+  background: var(--obsidian); border: 1px solid var(--border-dim);
+  padding: 40px; transition: border-color .4s, background .4s; position: relative; overflow: hidden;
+}
+.env-card:hover { border-color: rgba(200,148,58,.2); background: var(--deep); }
+.env-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, var(--et-core), transparent); opacity: .3;
+  transition: opacity .4s;
+}
+.env-card:hover::before { opacity: .7; }
+.ec-icon { font-family: var(--font-display); font-size: 32px; color: rgba(200,148,58,.22); line-height: 1; margin-bottom: 16px; transition: color .4s; }
+.env-card:hover .ec-icon { color: rgba(200,148,58,.5); }
+.ec-label { font-family: var(--font-label); font-size: 8px; letter-spacing: .35em; color: var(--et-core); margin-bottom: 10px; }
+.ec-name { font-family: var(--font-display); font-size: 22px; font-style: italic; color: var(--text-head); margin-bottom: 10px; }
+.ec-text { font-size: 13px; font-weight: 300; color: var(--text-dim); font-style: italic; line-height: 1.85; }
+
+/* ============================================================
+   INTEGRATION — daily practice
+   ============================================================ */
+.integration {
+  padding: 130px 0; border-bottom: 1px solid var(--border-dim);
+  background: var(--obsidian); position: relative;
+}
+.int-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; align-items: start; }
+.int-left {}
+.int-eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+.int-eyebrow-line { width: 22px; height: 1px; background: var(--et-core); }
+.int-title {
+  font-family: var(--font-display); font-size: clamp(36px, 4vw, 54px);
+  font-weight: 400; color: var(--text-head);
+  line-height: 1.05; letter-spacing: -.022em; margin-bottom: 20px;
+}
+.int-title em { font-style: italic; color: var(--et-light); display: block; }
+.int-body { font-size: 15px; font-weight: 300; color: var(--text-mid); font-style: italic; line-height: 1.9; margin-bottom: 40px; }
+.int-arc {
+  border: 1px solid var(--border-dim); background: var(--surface); padding: 28px;
+}
+.int-arc-title { font-family: var(--font-label); font-size: 8px; letter-spacing: .35em; color: var(--text-faint); margin-bottom: 20px; text-align: center; }
+.int-row {
+  display: grid; grid-template-columns: 80px 1fr 52px;
+  align-items: center; padding: 11px 0; border-bottom: 1px solid var(--border-dim);
+}
+.int-row:last-child { border-bottom: none; }
+.int-time { font-family: var(--font-label); font-size: 7.5px; letter-spacing: .18em; color: var(--et-core); }
+.int-act { font-family: var(--font-label); font-size: 7.5px; letter-spacing: .18em; color: var(--text-mid); text-align: center; }
+.int-axis { font-family: var(--font-label); font-size: 7px; letter-spacing: .12em; color: var(--text-faint); text-align: right; }
+.int-right { display: flex; flex-direction: column; gap: 2px; }
+.int-protocol {
+  background: var(--surface); border: 1px solid var(--border-dim);
+  display: grid; grid-template-columns: 56px 1fr;
+  transition: border-color .4s;
+}
+.int-protocol:hover { border-color: rgba(200,148,58,.22); }
+.ip-axis { padding: 28px 0 28px 24px; display: flex; align-items: center; justify-content: center; }
+.ip-axis-label { font-family: var(--font-label); font-size: 7px; letter-spacing: .25em; color: var(--et-core); writing-mode: vertical-rl; transform: rotate(180deg); }
+.ip-body { padding: 28px; border-left: 1px solid var(--border-dim); }
+.ip-name { font-family: var(--font-display); font-size: 18px; font-style: italic; color: var(--text-head); margin-bottom: 8px; }
+.ip-text { font-size: 12px; font-weight: 300; color: var(--text-dim); font-style: italic; line-height: 1.8; margin-bottom: 12px; }
+.ip-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.ip-tag { font-family: var(--font-label); font-size: 7px; letter-spacing: .25em; color: var(--et-core); border: 1px solid rgba(200,148,58,.2); padding: 4px 10px; }
+
+/* ============================================================
+   THREE-BRANCH ARC
+   ============================================================ */
+.arc {
+  padding: 120px 0; border-bottom: 1px solid var(--border-dim);
+  position: relative; overflow: hidden;
+}
+.arc::before {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%); width: 800px; height: 600px;
+  background: radial-gradient(ellipse, rgba(200,148,58,.04) 0%, transparent 65%);
+  pointer-events: none;
+}
+.arc-header { text-align: center; margin-bottom: 72px; }
+.arc-title {
+  font-family: var(--font-display); font-size: clamp(36px, 4vw, 56px);
+  font-weight: 400; font-style: italic; color: var(--text-head);
+  letter-spacing: -.022em; margin-bottom: 12px;
+}
+.arc-title em { color: var(--et-light); }
+.arc-sub { font-size: 15px; font-weight: 300; color: var(--text-dim); font-style: italic; max-width: 500px; margin: 0 auto; line-height: 1.85; }
+.arc-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--border-dim); }
+.arc-card {
+  background: var(--obsidian); padding: 52px 40px;
+  transition: background .5s; position: relative; overflow: hidden;
+}
+.arc-card:hover { background: var(--deep); }
+.arc-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  opacity: .5; transition: opacity .4s;
+}
+.arc-card:hover::before { opacity: 1; }
+.arc-card.c-regen::before  { background: var(--rg-core); }
+.arc-card.c-cosmos::before { background: var(--cs-core); }
+.arc-card.c-ethos::before  { background: var(--et-core); }
+.arc-branch { font-family: var(--font-label); font-size: 8px; letter-spacing: .35em; margin-bottom: 20px; }
+.arc-card.c-regen  .arc-branch { color: var(--rg-core); }
+.arc-card.c-cosmos .arc-branch { color: var(--cs-core); }
+.arc-card.c-ethos  .arc-branch { color: var(--et-core); }
+.arc-name { font-family: var(--font-display); font-size: 22px; font-style: italic; color: var(--text-head); margin-bottom: 12px; line-height: 1.2; }
+.arc-text { font-size: 13px; font-weight: 300; color: var(--text-dim); font-style: italic; line-height: 1.85; margin-bottom: 24px; }
+.arc-link {
+  font-family: var(--font-label); font-size: 8px; letter-spacing: .3em;
+  display: flex; align-items: center; gap: 10px; opacity: .4;
+  transition: opacity .3s, gap .4s var(--ease-out);
+}
+.arc-card:hover .arc-link { opacity: 1; gap: 14px; }
+.arc-card.c-regen  .arc-link { color: var(--rg-core); }
+.arc-card.c-cosmos .arc-link { color: var(--cs-core); }
+.arc-card.c-ethos  .arc-link { color: var(--et-core); }
+
+/* ============================================================
+   BRANCH CTA
+   ============================================================ */
+.branch-cta {
+  padding: 140px 0; position: relative; overflow: hidden; text-align: center;
+}
+.branch-cta::before {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%,-50%); width: 900px; height: 700px;
+  background: radial-gradient(ellipse, rgba(200,148,58,.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+.bcta-eyebrow { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 28px; }
+.bcta-line { width: 22px; height: 1px; background: var(--et-core); }
+.bcta-title {
+  font-family: var(--font-display); font-size: clamp(40px, 5vw, 72px);
+  font-weight: 400; color: var(--text-head);
+  line-height: 1.05; letter-spacing: -.025em; margin-bottom: 20px;
+}
+.bcta-title em { font-style: italic; color: var(--et-light); }
+.bcta-body { font-size: 16px; font-weight: 300; color: var(--text-mid); font-style: italic; max-width: 480px; margin: 0 auto 48px; line-height: 1.85; }
+.bcta-actions { display: flex; justify-content: center; gap: 20px; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  border-top: 1px solid var(--border-dim);
+  padding: 56px 72px 44px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-left { display: flex; flex-direction: column; gap: 8px; }
+.footer-brand { font-family: var(--font-display); font-size: 14px; font-weight: 500; color: var(--text-head); letter-spacing: .04em; }
+.footer-branch-tag { font-family: var(--font-label); font-size: 8px; letter-spacing: .35em; color: var(--et-core); }
+.footer-right { display: flex; gap: 36px; }
+.footer-right a { font-family: var(--font-label); font-size: 8px; letter-spacing: .3em; color: var(--text-faint); transition: color .3s; }
+.footer-right a:hover { color: var(--et-light); }
+
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav id="nav">
+  <div class="nav-left">
+    <a href="index.html" class="nav-back">
+      <span class="nav-back-arrow">←</span>
+      Science Coherence
+    </a>
+    <div class="nav-sep"></div>
+    <div class="nav-brand">
+      <svg class="nav-mark" viewBox="0 0 26 26" fill="none">
+        <circle cx="13" cy="13" r="9" stroke="#c2b298" stroke-width=".4" opacity=".25"/>
+        <circle cx="13" cy="13" r="5.5" stroke="#c2b298" stroke-width=".4" opacity=".18"/>
+        <line x1="4" y1="13" x2="22" y2="13" stroke="#c2b298" stroke-width=".35" opacity=".18"/>
+        <line x1="13" y1="4"  x2="13" y2="22" stroke="#c2b298" stroke-width=".35" opacity=".18"/>
+        <line x1="7"  y1="7"  x2="19" y2="19" stroke="#c2b298" stroke-width=".3"  opacity=".12"/>
+        <line x1="19" y1="7"  x2="7"  y2="19" stroke="#c2b298" stroke-width=".3"  opacity=".12"/>
+        <circle cx="13" cy="13" r="2.2" fill="#c8a058" opacity=".75"/>
+        <circle cx="13" cy="13" r=".9"  fill="#e8d8b0"/>
+      </svg>
+      <span class="nav-wordmark">Science Coherence</span>
+    </div>
+  </div>
+  <div class="nav-branch-badge">Branch III — Ethos</div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Branch III — Science Coherence</span>
+    </div>
+    <div class="hero-branch-III">III</div>
+    <h1 class="hero-title">Ethos</h1>
+    <div class="hero-subtitle">The Science of Being &amp; Harmonious Living</div>
+    <p class="hero-body">
+      The synthesis. Where biology meets philosophy and both become a way of living. Translating the first two branches into actionable frameworks for consciousness, self-realization, and harmonious existence.
+    </p>
+    <div class="hero-actions">
+      <a href="#consciousness" class="btn-et">Self-Realization</a>
+      <a href="#actionable" class="btn-outline-et">Philosophy of Living</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="mind-diagram">
+      <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer static rings -->
+        <circle cx="260" cy="260" r="230" stroke="#c8943a" stroke-width=".5" opacity=".07"/>
+        <circle cx="260" cy="260" r="190" stroke="#c8943a" stroke-width=".4" opacity=".06" stroke-dasharray="3 9"/>
+        <circle cx="260" cy="260" r="150" stroke="#c8943a" stroke-width=".5" opacity=".08"/>
+        <circle cx="260" cy="260" r="110" stroke="#c8943a" stroke-width=".4" opacity=".1"/>
+        <circle cx="260" cy="260" r="72"  stroke="#c8943a" stroke-width=".5" opacity=".13"/>
+        <circle cx="260" cy="260" r="36"  stroke="#c8943a" stroke-width=".5" opacity=".2"/>
+
+        <!-- Rotating outer ring of nodes -->
+        <g class="md-ring-1">
+          <circle cx="490" cy="260" r="5"   fill="#c8943a" opacity=".35"/>
+          <circle cx="30"  cy="260" r="5"   fill="#c8943a" opacity=".35"/>
+          <circle cx="260" cy="30"  r="5"   fill="#c8943a" opacity=".35"/>
+          <circle cx="260" cy="490" r="5"   fill="#c8943a" opacity=".35"/>
+          <circle cx="422" cy="98"  r="4"   fill="#c8943a" opacity=".28"/>
+          <circle cx="98"  cy="422" r="4"   fill="#c8943a" opacity=".28"/>
+          <circle cx="422" cy="422" r="4"   fill="#c8943a" opacity=".28"/>
+          <circle cx="98"  cy="98"  r="4"   fill="#c8943a" opacity=".28"/>
+          <!-- Cross-lines at outer ring -->
+          <line x1="490" y1="260" x2="30"  y2="260" stroke="#c8943a" stroke-width=".25" opacity=".06"/>
+          <line x1="260" y1="30"  x2="260" y2="490" stroke="#c8943a" stroke-width=".25" opacity=".06"/>
+          <line x1="422" y1="98"  x2="98"  y2="422" stroke="#c8943a" stroke-width=".2"  opacity=".05"/>
+          <line x1="98"  y1="98"  x2="422" y2="422" stroke="#c8943a" stroke-width=".2"  opacity=".05"/>
+        </g>
+
+        <!-- Rotating mid ring -->
+        <g class="md-ring-2">
+          <ellipse cx="260" cy="260" rx="150" ry="32" stroke="#e0b060" stroke-width=".3" opacity=".07"/>
+          <ellipse cx="260" cy="260" rx="150" ry="32" stroke="#e0b060" stroke-width=".3" opacity=".07" transform="rotate(60 260 260)"/>
+          <ellipse cx="260" cy="260" rx="150" ry="32" stroke="#e0b060" stroke-width=".3" opacity=".07" transform="rotate(120 260 260)"/>
+          <circle cx="410" cy="260" r="4.5" fill="#e0b060" opacity=".5"/>
+          <circle cx="110" cy="260" r="4"   fill="#d4a040" opacity=".42"/>
+          <circle cx="335" cy="130" r="4.5" fill="#e0b060" opacity=".48"/>
+          <circle cx="185" cy="130" r="4"   fill="#d4a040" opacity=".42"/>
+          <circle cx="185" cy="390" r="4.5" fill="#e0b060" opacity=".48"/>
+          <circle cx="335" cy="390" r="4"   fill="#d4a040" opacity=".42"/>
+        </g>
+
+        <!-- Centre pulse -->
+        <g class="md-ring-3">
+          <circle cx="260" cy="260" r="24" fill="rgba(200,148,58,.1)" stroke="#c8943a" stroke-width=".6" opacity=".5"/>
+        </g>
+
+        <!-- Static centre -->
+        <circle cx="260" cy="260" r="14" fill="rgba(200,148,58,.18)" stroke="#d4a040" stroke-width=".6" opacity=".75"/>
+        <circle cx="260" cy="260" r="6"  fill="rgba(200,148,58,.4)"  stroke="#e8c060" stroke-width=".5" opacity=".9"/>
+        <circle cx="260" cy="260" r="2.5" fill="#f0cc90" opacity=".95"/>
+
+        <!-- Axis lines -->
+        <line x1="30"  y1="260" x2="490" y2="260" stroke="#c8943a" stroke-width=".2" opacity=".04"/>
+        <line x1="260" y1="30"  x2="260" y2="490" stroke="#c8943a" stroke-width=".2" opacity=".04"/>
+
+        <!-- Radial spokes from mid ring to centre -->
+        <line x1="410" y1="260" x2="284" y2="260" stroke="#c8943a" stroke-width=".3" opacity=".12" stroke-dasharray="3 6"/>
+        <line x1="110" y1="260" x2="236" y2="260" stroke="#c8943a" stroke-width=".3" opacity=".1"  stroke-dasharray="3 6"/>
+        <line x1="335" y1="130" x2="274" y2="240" stroke="#c8943a" stroke-width=".3" opacity=".1"  stroke-dasharray="3 6"/>
+        <line x1="185" y1="130" x2="246" y2="240" stroke="#c8943a" stroke-width=".3" opacity=".1"  stroke-dasharray="3 6"/>
+        <line x1="185" y1="390" x2="246" y2="280" stroke="#c8943a" stroke-width=".3" opacity=".1"  stroke-dasharray="3 6"/>
+        <line x1="335" y1="390" x2="274" y2="280" stroke="#c8943a" stroke-width=".3" opacity=".1"  stroke-dasharray="3 6"/>
+
+        <!-- Field labels -->
+        <text x="260" y="22"  fill="#c8943a" font-size="8" font-family="Cinzel,serif" text-anchor="middle" opacity=".5" letter-spacing="2">SELF</text>
+        <text x="260" y="510" fill="#c8943a" font-size="8" font-family="Cinzel,serif" text-anchor="middle" opacity=".45" letter-spacing="2">WORLD</text>
+        <text x="500" y="264" fill="#c8943a" font-size="8" font-family="Cinzel,serif" opacity=".45" letter-spacing="1.5">MIND</text>
+        <text x="10"  y="264" fill="#c8943a" font-size="8" font-family="Cinzel,serif" text-anchor="end" opacity=".45" letter-spacing="1.5">BODY</text>
+        <text x="260" y="258" fill="#e0b060" font-size="11" font-family="Playfair Display,serif" font-style="italic" text-anchor="middle">∆Ψ</text>
+        <text x="260" y="273" fill="#565030" font-size="7.5" font-family="Cinzel,serif" text-anchor="middle" letter-spacing="2">COHERENCE</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     PHILOSOPHY STRIP
+     ============================================================ -->
+<div class="philosophy">
+  <div class="container">
+    <div class="philosophy-inner">
+      <div class="reveal">
+        <div class="lbl phil-label">The Ethos Axiom</div>
+        <div class="phil-source" style="margin-top:16px">Science Coherence Institute</div>
+      </div>
+      <p class="phil-text reveal" style="transition-delay:.12s">
+        "The way you live is the way you compute. Every thought pattern, every relational habit, every environmental choice is a write operation to the substrate — shaping your <em>biological coherence</em> and your capacity for self-knowledge."
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     PILLARS — Three Axes of Ethos
+     ============================================================ -->
+<section class="pillars" id="pillars">
+  <div class="container">
+    <div class="pillars-header">
+      <div class="pillars-eyebrow reveal">
+        <div class="pillars-eyebrow-line"></div>
+        <span class="lbl" style="color:var(--et-light)">The Architecture of Ethos</span>
+      </div>
+      <h2 class="pillars-title reveal" style="transition-delay:.08s">Three axes.<br><em>One coherent life.</em></h2>
+      <p class="pillars-sub reveal" style="transition-delay:.16s">Ethos is organized across three interlocking domains — the inner life, the daily practice, and the relational field. Each is distinct; none is complete without the others.</p>
+    </div>
+
+    <div class="pillars-grid">
+
+      <div class="pillar-card reveal">
+        <div class="pillar-top">
+          <div class="pillar-roman">I</div>
+          <div class="pillar-glyph">Ψ</div>
+          <div class="pillar-name">The Inner Life</div>
+          <div class="pillar-subtitle">Consciousness &amp; Self-Realization</div>
+          <p class="pillar-desc">The domain of perception, attention, and inner clarity. Cultivating the capacity to observe one's own patterns, recognize conditioning, and move progressively from reactive drift toward sovereign, coherent being.</p>
+        </div>
+        <div class="pillar-bottom">
+          <ul class="pillar-topics">
+            <li class="pillar-topic">Consciousness &amp; awareness training</li>
+            <li class="pillar-topic">Self-realization as a dynamic process</li>
+            <li class="pillar-topic">Cognitive sovereignty &amp; OS reprogramming</li>
+            <li class="pillar-topic">Inner architecture mapping</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pillar-card reveal" style="transition-delay:.1s">
+        <div class="pillar-top">
+          <div class="pillar-roman">II</div>
+          <div class="pillar-glyph">∆</div>
+          <div class="pillar-name">The Daily Practice</div>
+          <div class="pillar-subtitle">Integration &amp; Actionable Philosophy</div>
+          <p class="pillar-desc">The domain of embodied living — how theoretical understanding becomes daily rhythm, chosen action, and intentional architecture. Philosophy is not an abstraction here; it is the structure of how you inhabit your hours.</p>
+        </div>
+        <div class="pillar-bottom">
+          <ul class="pillar-topics">
+            <li class="pillar-topic">Actionable frameworks for living</li>
+            <li class="pillar-topic">Daily coherence architecture</li>
+            <li class="pillar-topic">Intentional use of time &amp; attention</li>
+            <li class="pillar-topic">Integration of Regenesis &amp; Cosmos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pillar-card reveal" style="transition-delay:.2s">
+        <div class="pillar-top">
+          <div class="pillar-roman">III</div>
+          <div class="pillar-glyph">Ω</div>
+          <div class="pillar-name">The Relational Field</div>
+          <div class="pillar-subtitle">Environment, Harmony &amp; Living Spaces</div>
+          <p class="pillar-desc">The domain of relationship — with other people, with the built and natural environment, with the electromagnetic and biological field you inhabit. Coherent beings phase-lock with coherent environments.</p>
+        </div>
+        <div class="pillar-bottom">
+          <ul class="pillar-topics">
+            <li class="pillar-topic">Biophilic &amp; harmonious environments</li>
+            <li class="pillar-topic">Organic-modern living architecture</li>
+            <li class="pillar-topic">Relational coherence &amp; field dynamics</li>
+            <li class="pillar-topic">Community as coherence amplifier</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONSCIOUSNESS — self-realization stages
+     ============================================================ -->
+<section class="consciousness" id="consciousness">
+  <div class="container">
+    <div class="con-inner">
+
+      <div class="con-left">
+        <div class="con-eyebrow reveal">
+          <div class="con-eyebrow-line"></div>
+          <span class="lbl" style="color:var(--et-light)">The Inner Life</span>
+        </div>
+        <h2 class="con-title reveal" style="transition-delay:.1s">
+          The arc of<br><em>self-realization.</em>
+        </h2>
+        <p class="con-body reveal" style="transition-delay:.18s">
+          Self-realization is not a mystical event — it is a dynamical process. The recursion correcting itself toward coherence. Every stage has a distinct phenomenology and a distinct relationship between how you experience yourself and what you actually are. The map does not create the territory; but without the map, the territory remains invisible.
+        </p>
+        <div class="con-stages reveal" style="transition-delay:.26s">
+          <div class="con-stage">
+            <div class="cs-num">I</div>
+            <div>
+              <div class="cs-name">Reactive Drift</div>
+              <p class="cs-text">Driven by conditioning, environment, and inherited patterns. Identity is borrowed from roles and reactions. The signal-to-noise ratio is high; coherence is low.</p>
+            </div>
+          </div>
+          <div class="con-stage">
+            <div class="cs-num">II</div>
+            <div>
+              <div class="cs-name">Conscious Seeking</div>
+              <p class="cs-text">The gap between actual state and potential coherence becomes perceptible. Restlessness, questioning, and a beginning orientation toward something more signal a first stirring of the recursion correcting itself.</p>
+            </div>
+          </div>
+          <div class="con-stage">
+            <div class="cs-num">III</div>
+            <div>
+              <div class="cs-name">Pattern Recognition</div>
+              <p class="cs-text">Conditioned structures become visible as structures — not as reality itself. The observer begins to separate from the observed. Neuroplastic rewiring accelerates. Cognitive sovereignty becomes possible.</p>
+            </div>
+          </div>
+          <div class="con-stage">
+            <div class="cs-num">IV</div>
+            <div>
+              <div class="cs-name">Active Integration</div>
+              <p class="cs-text">Understanding is tested against the full texture of a life. Biological substrate (Regenesis), theoretical comprehension (Cosmos), and lived practice (Ethos) operate simultaneously. The three branches converge.</p>
+            </div>
+          </div>
+          <div class="con-stage">
+            <div class="cs-num">V</div>
+            <div>
+              <div class="cs-name">Coherence Equilibrium</div>
+              <p class="cs-text">The dual stabilization condition holds: substrate normalized, internal map stationary. Not a final destination — the living ground from which the next iteration begins. The recursion recognizes itself.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SVG: the five-stage arc diagram -->
+      <div class="con-right reveal" style="transition-delay:.2s">
+        <svg viewBox="0 0 460 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Rings -->
+          <circle cx="230" cy="230" r="200" stroke="#c8943a" stroke-width=".4" opacity=".07"/>
+          <circle cx="230" cy="230" r="160" stroke="#c8943a" stroke-width=".4" opacity=".09"/>
+          <circle cx="230" cy="230" r="115" stroke="#c8943a" stroke-width=".35" opacity=".11"/>
+          <circle cx="230" cy="230" r="70"  stroke="#c8943a" stroke-width=".35" opacity=".15"/>
+          <circle cx="230" cy="230" r="32"  stroke="#c8943a" stroke-width=".4" opacity=".22"/>
+          <!-- Stage arcs — opacity increases with stage -->
+          <path d="M230,30 A200,200 0 0,1 396,130" stroke="#c8943a" stroke-width="1.2" opacity=".15" fill="none"/>
+          <path d="M396,130 A200,200 0 0,1 374,404" stroke="#c8943a" stroke-width="1.3" opacity=".28" fill="none"/>
+          <path d="M374,404 A200,200 0 0,1 86,404" stroke="#c8943a" stroke-width="1.5" opacity=".45" fill="none"/>
+          <path d="M86,404 A200,200 0 0,1 64,130" stroke="#c8943a" stroke-width="1.7" opacity=".64" fill="none"/>
+          <path d="M64,130 A200,200 0 0,1 230,30" stroke="#c8943a" stroke-width="2.0" opacity=".88" fill="none"/>
+          <!-- Stage dots -->
+          <circle cx="230" cy="30"  r="5"   fill="#c8943a" opacity=".22"/>
+          <circle cx="396" cy="130" r="5.5" fill="#c8943a" opacity=".38"/>
+          <circle cx="374" cy="404" r="6"   fill="#c8943a" opacity=".55"/>
+          <circle cx="86"  cy="404" r="6.5" fill="#c8943a" opacity=".72"/>
+          <circle cx="64"  cy="130" r="7"   fill="#c8943a" opacity=".92"/>
+          <!-- Stage labels -->
+          <text x="230" y="19"  fill="#353018" font-size="8.5" font-family="Cinzel,serif" text-anchor="middle" letter-spacing="1.5">I — DRIFT</text>
+          <text x="415" y="130" fill="#4a3408" font-size="8.5" font-family="Cinzel,serif" letter-spacing="1">II — SEEKING</text>
+          <text x="374" y="426" fill="#705010" font-size="8.5" font-family="Cinzel,serif" text-anchor="middle" letter-spacing="1">III — RECOGNITION</text>
+          <text x="85"  y="426" fill="#a07020" font-size="8.5" font-family="Cinzel,serif" text-anchor="middle" letter-spacing="1">IV — INTEGRATION</text>
+          <text x="15"  y="130" fill="#c8943a" font-size="8.5" font-family="Cinzel,serif" text-anchor="start" letter-spacing="1">V — EQUILIBRIUM</text>
+          <!-- Centre -->
+          <circle cx="230" cy="230" r="18" fill="rgba(200,148,58,.1)" stroke="#c8943a" stroke-width=".5" opacity=".5"/>
+          <circle cx="230" cy="230" r="7"  fill="rgba(200,148,58,.25)" stroke="#e0b060" stroke-width=".5"/>
+          <circle cx="230" cy="230" r="2.8" fill="#f0cc90" opacity=".9"/>
+          <text x="230" y="228" fill="#c8943a" font-size="12" font-family="Playfair Display,serif" font-style="italic" text-anchor="middle">Ψ</text>
+          <!-- Bottom label -->
+          <text x="230" y="475" fill="#2a2010" font-size="8.5" font-family="Cinzel,serif" text-anchor="middle" letter-spacing="2.5">SELF-ACTUALIZING RECURSION</text>
+        </svg>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ACTIONABLE PHILOSOPHY
+     ============================================================ -->
+<section class="actionable" id="actionable">
+  <div class="container">
+    <div class="ac-inner">
+
+      <div class="ac-left">
+        <div class="ac-eyebrow reveal">
+          <div class="ac-eyebrow-line"></div>
+          <span class="lbl" style="color:var(--et-light)">Axis II — Daily Practice</span>
+        </div>
+        <h2 class="ac-title reveal" style="transition-delay:.1s">
+          Philosophy<br><em>with teeth.</em>
+        </h2>
+        <p class="ac-body reveal" style="transition-delay:.18s">
+          Ethos does not offer abstract wisdom. It offers operational principles — frameworks that function as structural upgrades to the biological computer's operating system. These are the governing laws of a coherent life, derived from the same physics that underlies Cosmos and the same biological imperatives that drive Regenesis.
+        </p>
+        <p class="ac-body reveal" style="transition-delay:.24s">
+          The goal is not adherence to rules. It is the internalization of coherence principles so deeply that the aligned action becomes the natural action — the path of least resistance from a sufficiently upgraded substrate.
+        </p>
+      </div>
+
+      <div class="ac-right">
+        <div class="ac-law reveal">
+          <div class="al-num">Principle I</div>
+          <div class="al-name">Attention is the primary write operation</div>
+          <p class="al-text">What you attend to becomes more real — not metaphorically, but physically. Directed attention modifies the biological substrate through neuroplastic change and epigenetic expression. <strong>Every sustained attentional choice is a long-term vote on who you become.</strong></p>
+        </div>
+        <div class="ac-law reveal" style="transition-delay:.08s">
+          <div class="al-num">Principle II</div>
+          <div class="al-name">Coherence is generative, not conserved</div>
+          <p class="al-text">Coherence compounds. A coherent system generates further coherence; an incoherent one amplifies noise. <strong>Small, consistent increases in signal fidelity accumulate into qualitatively different modes of being.</strong> The converse is equally true and equally compounding.</p>
+        </div>
+        <div class="ac-law reveal" style="transition-delay:.16s">
+          <div class="al-num">Principle III</div>
+          <div class="al-name">The field precedes the form</div>
+          <p class="al-text">Coherent outcomes cannot be forced from an incoherent state. Change the field — the attentional, relational, and biological coherence conditions — and <strong>appropriate forms follow naturally.</strong> Imposing form on an incoherent substrate is the source of all unsustainable change.</p>
+        </div>
+        <div class="ac-law reveal" style="transition-delay:.24s">
+          <div class="al-num">Principle IV</div>
+          <div class="al-name">Resistance encodes information</div>
+          <p class="al-text">Every point of friction — physical, psychological, relational — is a signal about where coherence has not been established. <strong>What is this resistance encoding?</strong> Resistance suppressed accumulates as incoherence debt, repaid with compound interest in biological or psychological breakdown.</p>
+        </div>
+        <div class="ac-law reveal" style="transition-delay:.32s">
+          <div class="al-num">Principle V</div>
+          <div class="al-name">Purity, Rhythm, Resonance</div>
+          <p class="al-text">The three pillars of biological coherence are simultaneously the three pillars of a coherent life. <strong>Purity</strong> — eliminate synthetic interference. <strong>Rhythm</strong> — align with natural temporal cycles. <strong>Resonance</strong> — phase-lock with the fundamental geometry of existence.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ENVIRONMENT — biophilic living spaces
+     ============================================================ -->
+<section class="environment" id="environment">
+  <div class="container">
+    <div class="env-inner">
+
+      <div class="env-left reveal">
+        <div class="env-eyebrow">
+          <div class="env-eyebrow-line"></div>
+          <span class="lbl" style="color:var(--et-light)">Axis III — The Relational Field</span>
+        </div>
+        <h2 class="env-title">
+          Living spaces as<br><em>coherence fields.</em>
+        </h2>
+        <p class="env-body">
+          The environments we inhabit are not neutral containers — they are active participants in our biological coherence. Light spectra, material composition, spatial geometry, electromagnetic signal density, and the presence or absence of living systems all continuously write to the body's operating state.
+        </p>
+        <p class="env-body">
+          Biophilic and organic-modern design is not an aesthetic preference — it is an optimization strategy. The built environment can either amplify or degrade the coherence conditions that all Regenesis and Ethos practice depends on.
+        </p>
+      </div>
+
+      <div class="env-right">
+        <div class="env-card reveal">
+          <div class="ec-icon">◌</div>
+          <div class="ec-label">Light Architecture</div>
+          <div class="ec-name">Spectral Coherence</div>
+          <p class="ec-text">Full-spectrum natural light exposure calibrates circadian oscillators, regulates melatonin and cortisol rhythms, and maintains the photoperiodic entrainment essential to the sleep architecture Regenesis depends on. The elimination of artificial blue-spectrum dominance at night is one of the highest-leverage environmental interventions available.</p>
+        </div>
+        <div class="env-card reveal" style="transition-delay:.1s">
+          <div class="ec-icon">⬡</div>
+          <div class="ec-label">Material Substrate</div>
+          <div class="ec-name">Biological Compatibility</div>
+          <p class="ec-text">Synthetic materials off-gas volatile organic compounds, disrupt endocrine signaling, and introduce electromagnetic interference that degrades cellular coherence. Organic materials — stone, hardwood, clay, linen, wool — are information-compatible with the biological systems that evolved alongside them. The substrate of your living space is part of your biological environment.</p>
+        </div>
+        <div class="env-card reveal" style="transition-delay:.2s">
+          <div class="ec-icon">✦</div>
+          <div class="ec-label">Spatial Geometry</div>
+          <div class="ec-name">Proportional Resonance</div>
+          <p class="ec-text">Spatial proportions that align with naturally recurring geometric relationships — found throughout biological structures and cosmological organization — appear to reduce cortisol load and support parasympathetic nervous system tone. This is the basis of sacred geometry in traditional architecture, reframed as a biophysical design principle rather than a mystical one.</p>
+        </div>
+        <div class="env-card reveal" style="transition-delay:.3s">
+          <div class="ec-icon">∿</div>
+          <div class="ec-label">Electromagnetic Environment</div>
+          <div class="ec-name">Signal Hygiene</div>
+          <p class="ec-text">The body is an electromagnetic system operating within the Earth's natural Schumann resonance field. Dense artificial EMF environments — WiFi, cellular, 5G — introduce competing oscillatory inputs that degrade the phase-lock fidelity the nervous system depends on. Signal hygiene is the management of this electromagnetic environment as a component of biological coherence.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INTEGRATION — daily practice protocols
+     ============================================================ -->
+<section class="integration" id="integration">
+  <div class="container">
+    <div class="int-inner">
+
+      <div class="int-left reveal">
+        <div class="int-eyebrow">
+          <div class="int-eyebrow-line"></div>
+          <span class="lbl" style="color:var(--et-light)">Axis II — Applied</span>
+        </div>
+        <h2 class="int-title">
+          Daily<br><em>coherence architecture.</em>
+        </h2>
+        <p class="int-body">
+          The three branches are not independent modules — they are layers of a single integrated practice. Ethos provides the structural template that unifies Regenesis (biological substrate) and Cosmos (theoretical orientation) into the texture of lived time.
+        </p>
+        <p class="int-body">
+          The coherence architecture is not a rigid schedule — it is a framework for respecting the body's natural temporal structure: the oscillatory, phase-sensitive nature of a biological computer that computes best when its cycles are honored.
+        </p>
+        <div class="int-arc">
+          <div class="int-arc-title">DAILY COHERENCE TEMPLATE</div>
+          <div class="int-row">
+            <div class="int-time">04:30–07:00</div>
+            <div class="int-act">Dawn coherence window</div>
+            <div class="int-axis">Inner</div>
+          </div>
+          <div class="int-row">
+            <div class="int-time">07:00–12:00</div>
+            <div class="int-act">Peak integration — deep work</div>
+            <div class="int-axis">Outer</div>
+          </div>
+          <div class="int-row">
+            <div class="int-time">12:00–15:00</div>
+            <div class="int-act">Embodied presence</div>
+            <div class="int-axis">Body</div>
+          </div>
+          <div class="int-row">
+            <div class="int-time">15:00–18:00</div>
+            <div class="int-act">Relational field work</div>
+            <div class="int-axis">Relational</div>
+          </div>
+          <div class="int-row">
+            <div class="int-time">18:00–21:00</div>
+            <div class="int-act">Reflection &amp; integration</div>
+            <div class="int-axis">Inner</div>
+          </div>
+          <div class="int-row">
+            <div class="int-time">21:00–04:30</div>
+            <div class="int-act">Deep restoration — Regenesis</div>
+            <div class="int-axis">Sleep</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="int-right">
+        <div class="int-protocol reveal">
+          <div class="ip-axis"><div class="ip-axis-label">Inner Axis</div></div>
+          <div class="ip-body">
+            <div class="ip-name">Contemplative Practice</div>
+            <p class="ip-text">Daily periods of directed inner attention — not passive meditation but active self-inquiry. The question is not "how do I feel?" but "what is the state of the recursion? Where is the signal-to-noise ratio highest? Where is coherence degrading?" This is the primary diagnostic tool of the inner life.</p>
+            <div class="ip-tags">
+              <span class="ip-tag">Self-Inquiry</span>
+              <span class="ip-tag">Attention Training</span>
+              <span class="ip-tag">Pattern Recognition</span>
+            </div>
+          </div>
+        </div>
+        <div class="int-protocol reveal" style="transition-delay:.08s">
+          <div class="ip-axis"><div class="ip-axis-label">Outer Axis</div></div>
+          <div class="ip-body">
+            <div class="ip-name">Intentional Architecture</div>
+            <p class="ip-text">The design of physical and temporal environment as an optimization parameter. Light protocol, spatial arrangement, electromagnetic hygiene, material selection — these are not aesthetic choices but operating conditions for the biological computer that Ethos practice runs on. Environment is hardware.</p>
+            <div class="ip-tags">
+              <span class="ip-tag">Light Hygiene</span>
+              <span class="ip-tag">Space Design</span>
+              <span class="ip-tag">Temporal Structure</span>
+            </div>
+          </div>
+        </div>
+        <div class="int-protocol reveal" style="transition-delay:.16s">
+          <div class="ip-axis"><div class="ip-axis-label">Relational</div></div>
+          <div class="ip-body">
+            <div class="ip-name">Coherent Relating</div>
+            <p class="ip-text">Relationships are coherence fields — they amplify or degrade the phase-lock fidelity of everyone in them. Coherent relating is the practice of bringing full biological and attentional presence into every significant interaction. Community built on these principles functions as a collective coherence amplifier.</p>
+            <div class="ip-tags">
+              <span class="ip-tag">Deep Presence</span>
+              <span class="ip-tag">Field Dynamics</span>
+              <span class="ip-tag">Community</span>
+            </div>
+          </div>
+        </div>
+        <div class="int-protocol reveal" style="transition-delay:.24s">
+          <div class="ip-axis"><div class="ip-axis-label">Regenesis</div></div>
+          <div class="ip-body">
+            <div class="ip-name">Biological Foundation</div>
+            <p class="ip-text">Ethos practice without Regenesis is philosophy on an inadequate substrate. The quality of sleep, nutrition, and cellular coherence set the ceiling for every attentional, relational, and philosophical practice. The three branches are one integrated system — this is the load-bearing base.</p>
+            <div class="ip-tags">
+              <span class="ip-tag">Sleep Architecture</span>
+              <span class="ip-tag">Primal Nutrition</span>
+              <span class="ip-tag">Cellular Coherence</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THREE-BRANCH ARC
+     ============================================================ -->
+<section class="arc">
+  <div class="container">
+    <div class="arc-header">
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:20px;" class="reveal">
+        <div style="width:22px;height:1px;background:var(--et-core)"></div>
+        <span class="lbl" style="color:var(--et-light)">The Complete Framework</span>
+        <div style="width:22px;height:1px;background:var(--et-core)"></div>
+      </div>
+      <h2 class="arc-title reveal" style="transition-delay:.08s">Ethos completes <em>the field.</em></h2>
+      <p class="arc-sub reveal" style="transition-delay:.16s">Regenesis builds the substrate. Cosmos maps the architecture. Ethos is the practice of living from within that map — every day, in every choice, until the map and the territory are one.</p>
+    </div>
+    <div class="arc-grid">
+      <div class="arc-card c-regen reveal">
+        <div class="arc-branch">Branch I — Regenesis</div>
+        <div class="arc-name">The biological foundation</div>
+        <p class="arc-text">Sleep architecture, primal nutrition, and cellular coherence — building the substrate that all Ethos practice requires. The hardware layer.</p>
+        <a href="regenesis.html" class="arc-link">Explore Regenesis <span style="font-size:13px;font-family:serif">→</span></a>
+      </div>
+      <div class="arc-card c-cosmos reveal" style="transition-delay:.1s">
+        <div class="arc-branch">Branch II — Cosmos</div>
+        <div class="arc-name">The theoretical engine</div>
+        <p class="arc-text">Time-crystalline biology, the biological computer model, and the cosmological framework from which Ethos derives its principles. The map layer.</p>
+        <a href="cosmos.html" class="arc-link">Explore Cosmos <span style="font-size:13px;font-family:serif">→</span></a>
+      </div>
+      <div class="arc-card c-ethos reveal" style="transition-delay:.2s">
+        <div class="arc-branch">The Model — Ethos of Being</div>
+        <div class="arc-name">The formal framework</div>
+        <p class="arc-text">The self-actualizing recursion, dual stabilization, and the mechanics of consciousness — the theoretical spine underlying all three branches.</p>
+        <a href="model.html" class="arc-link">Read the Model <span style="font-size:13px;font-family:serif">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BRANCH CTA
+     ============================================================ -->
+<section class="branch-cta">
+  <div class="container">
+    <div class="bcta-eyebrow reveal">
+      <div class="bcta-line"></div>
+      <span class="lbl" style="color:var(--et-light)">Begin</span>
+      <div class="bcta-line"></div>
+    </div>
+    <h2 class="bcta-title reveal" style="transition-delay:.1s">
+      Live<br>with <em>full coherence.</em>
+    </h2>
+    <p class="bcta-body reveal" style="transition-delay:.2s">
+      The recursion is already running. The only question is whether you are participating in it consciously — or drifting through it by default.
+    </p>
+    <div class="bcta-actions reveal" style="transition-delay:.3s">
+      <a href="ethos-theory.html" class="btn-et">The Science of Living — Deep Dive</a>
+      <a href="index.html" class="btn-outline-et">Return to Framework</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-left">
+    <div class="footer-brand">Science Coherence</div>
+    <div class="footer-branch-tag">Branch III — Ethos of Being</div>
+  </div>
+  <div class="footer-right">
+    <a href="index.html">Home</a>
+    <a href="regenesis.html">Regenesis</a>
+    <a href="cosmos.html">Cosmos</a>
+    <a href="model.html">The Model</a>
+  </div>
+</footer>
+
+<script>
+/* ── Cursor ─────────────────────────────────────────────── */
+const cur  = document.getElementById('cursor');
+const ring = document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx+'px'; cur.style.top = my+'px';
+});
+(function animRing(){
+  rx += (mx-rx)*.09; ry += (my-ry)*.09;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.pillar-card,.ac-law,.env-card,.con-stage,.int-protocol,.arc-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ cur.classList.add('hov'); ring.classList.add('hov'); });
+  el.addEventListener('mouseleave',()=>{ cur.classList.remove('hov'); ring.classList.remove('hov'); });
+});
+
+/* ── Nav scroll ─────────────────────────────────────────── */
+window.addEventListener('scroll', ()=>{
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── Reveal on scroll ───────────────────────────────────── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); ro.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+/* ── Smooth anchor scroll ───────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({ behavior:'smooth', block:'start' }); }
+  });
+});
+</script>
+</body>
+</html>
