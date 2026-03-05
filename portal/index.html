@@ -8,42 +8,40 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500&family=Cinzel:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap"
     rel="stylesheet">
   <style>
     :root {
-      --void: #050505;
-      --obsidian: #0a0a0d;
-      --deep: #101015;
-      --surface: #17171d;
-      --surface-2: #1e1e26;
-      --border: #2c2c35;
-      --border-dim: #21212a;
+      --void: #040405;
+      --obsidian: #0a0b0f;
+      --ink: #11131a;
+      --surface: #161922;
+      --surface-2: #1d202b;
+      --line: #2b2f3d;
+      --line-soft: #212431;
 
-      --text-faint: #4f5264;
-      --text-dim: #71768d;
-      --text-body: #a9afc4;
-      --text-head: #e6e9f3;
+      --text-head: #e7ebf6;
+      --text-body: #a7aec4;
+      --text-dim: #727a95;
+      --text-faint: #4a5068;
 
-      --parchment: #cdb896;
-      --amber: #aa8454;
-      --amber-soft: rgba(170, 132, 84, 0.16);
+      --gold: #c9a978;
+      --gold-soft: rgba(201, 169, 120, 0.24);
+      --jade: #7cb272;
+      --azure: #6a95d0;
 
-      --regenesis: #77ae68;
-      --cosmos: #638fcc;
-      --ethos: #c79b58;
+      --shadow: 0 28px 70px rgba(0, 0, 0, 0.44);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
       --font-display: 'Playfair Display', Georgia, serif;
       --font-label: 'Cinzel', serif;
       --font-body: 'Jost', 'Helvetica Neue', sans-serif;
-
-      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     html {
@@ -52,7 +50,11 @@
 
     body {
       min-height: 100vh;
-      background: var(--void);
+      background:
+        radial-gradient(1200px 620px at 12% -8%, rgba(106, 149, 208, 0.19), transparent 48%),
+        radial-gradient(980px 560px at 87% 0%, rgba(124, 178, 114, 0.13), transparent 52%),
+        radial-gradient(800px 620px at 50% 100%, rgba(201, 169, 120, 0.08), transparent 60%),
+        linear-gradient(140deg, var(--void), var(--obsidian) 50%, #0d1118);
       color: var(--text-body);
       font-family: var(--font-body);
       font-weight: 300;
@@ -61,16 +63,28 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    .grid-map {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(110, 125, 160, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(110, 125, 160, 0.045) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(circle at 50% 35%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    }
+
     .grain {
       position: fixed;
       inset: -50%;
       width: 200%;
       height: 200%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      opacity: 0.028;
       pointer-events: none;
       z-index: 1;
-      animation: grainShift 0.55s steps(2) infinite;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.84' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      animation: grainShift 0.56s steps(2) infinite;
     }
 
     @keyframes grainShift {
@@ -95,146 +109,185 @@
       }
     }
 
-    .background-glow {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background:
-        radial-gradient(circle at 16% 24%, rgba(99, 143, 204, 0.15), transparent 32%),
-        radial-gradient(circle at 82% 18%, rgba(119, 174, 104, 0.13), transparent 36%),
-        radial-gradient(circle at 52% 82%, rgba(199, 155, 88, 0.09), transparent 45%);
-    }
-
     .portal-shell {
       position: relative;
       z-index: 2;
-      width: min(1200px, 100%);
+      width: min(1280px, 100%);
       margin: 0 auto;
-      padding: 56px 22px 70px;
+      padding: 34px 24px 56px;
     }
 
     .hero {
-      border: 1px solid var(--border-dim);
-      background: linear-gradient(160deg, rgba(26, 27, 36, 0.92), rgba(15, 15, 21, 0.96));
-      padding: clamp(30px, 5vw, 62px);
+      border: 1px solid var(--line-soft);
+      background:
+        linear-gradient(160deg, rgba(30, 35, 48, 0.72), rgba(15, 17, 24, 0.95)),
+        radial-gradient(circle at 20% 20%, rgba(106, 149, 208, 0.12), transparent 45%);
+      box-shadow: var(--shadow);
+      padding: clamp(30px, 5.8vw, 72px);
       position: relative;
       overflow: hidden;
+      isolation: isolate;
+      animation: riseIn 900ms var(--ease-out) both;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(to right,
+          transparent 0%,
+          transparent 28%,
+          rgba(201, 169, 120, 0.08) 42%,
+          transparent 58%,
+          transparent 100%);
+      transform: translateX(-115%);
+      animation: heroSweep 5.2s var(--ease-out) infinite;
+    }
+
+    @keyframes heroSweep {
+
+      0%,
+      52% {
+        transform: translateX(-115%);
+        opacity: 0;
+      }
+
+      58% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateX(115%);
+        opacity: 0;
+      }
     }
 
     .hero::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, transparent 0%, rgba(170, 132, 84, 0.08) 38%, transparent 100%);
-      transform: translateX(-100%);
-      animation: sweep 4.4s var(--ease-out) infinite;
+      width: 460px;
+      height: 460px;
+      right: -150px;
+      top: -170px;
+      border-radius: 50%;
+      border: 1px solid rgba(201, 169, 120, 0.2);
+      box-shadow: 0 0 0 56px rgba(106, 149, 208, 0.045), 0 0 0 128px rgba(124, 178, 114, 0.03);
       pointer-events: none;
-    }
-
-    @keyframes sweep {
-
-      0%,
-      45% {
-        transform: translateX(-100%);
-        opacity: 0;
-      }
-
-      55% {
-        opacity: 1;
-      }
-
-      100% {
-        transform: translateX(110%);
-        opacity: 0;
-      }
+      z-index: -1;
     }
 
     .label {
       font-family: var(--font-label);
       font-size: 9px;
-      letter-spacing: 0.38em;
-      color: var(--parchment);
+      letter-spacing: 0.44em;
       text-transform: uppercase;
+      color: var(--gold);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .hero h1 {
-      margin-top: 22px;
+    .label::before {
+      content: "";
+      width: 26px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    h1 {
+      margin-top: 18px;
       font-family: var(--font-display);
       font-style: italic;
       font-weight: 500;
       color: var(--text-head);
-      line-height: 0.96;
-      letter-spacing: -0.015em;
-      font-size: clamp(46px, 8vw, 96px);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      font-size: clamp(54px, 10vw, 136px);
+      text-wrap: balance;
     }
 
     .hero p {
-      margin-top: 18px;
-      max-width: 68ch;
+      margin-top: 20px;
       color: var(--text-dim);
-      font-size: clamp(15px, 2.1vw, 20px);
+      max-width: 70ch;
+      font-size: clamp(15px, 2.2vw, 20px);
+    }
+
+    .hero-meta {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      background: rgba(16, 19, 27, 0.75);
+      color: var(--text-body);
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 7px 10px;
     }
 
     .route-grid {
-      margin-top: 20px;
+      margin-top: 18px;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: stretch;
     }
 
     .route-card {
-      border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(32, 33, 43, 0.82), rgba(20, 20, 28, 0.96));
-      padding: 26px 22px 24px;
+      --mx: 50%;
+      --my: 50%;
       position: relative;
-      transition: transform 0.35s var(--ease-out), border-color 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
-      opacity: 0;
-      transform: translateY(20px);
-      animation: cardIn 0.9s var(--ease-out) forwards;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(560px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.06), transparent 42%),
+        linear-gradient(180deg, rgba(26, 30, 41, 0.84), rgba(15, 18, 26, 0.96));
+      padding: 28px 22px 22px;
+      overflow: hidden;
+      transition: transform 0.45s var(--ease-out), border-color 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+      animation: riseIn 900ms var(--ease-out) both;
     }
 
     .route-card:nth-child(2) {
-      animation-delay: 0.1s;
-    }
-
-    @keyframes cardIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      animation-delay: 100ms;
     }
 
     .route-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(205, 184, 150, 0.32);
-      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.38);
+      transform: translateY(-5px);
+      border-color: rgba(201, 169, 120, 0.4);
+      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.35);
     }
 
-    .route-card.main::after,
-    .route-card.model::after {
+    .route-card::before {
       content: "";
       position: absolute;
-      top: 0;
       left: 0;
       right: 0;
+      top: 0;
       height: 1px;
     }
 
-    .route-card.main::after {
-      background: linear-gradient(to right, var(--regenesis), var(--ethos), transparent 88%);
+    .route-card.main::before {
+      background: linear-gradient(90deg, var(--jade), var(--gold), transparent 86%);
     }
 
-    .route-card.model::after {
-      background: linear-gradient(to right, var(--cosmos), var(--ethos), transparent 88%);
+    .route-card.model::before {
+      background: linear-gradient(90deg, var(--azure), var(--gold), transparent 86%);
     }
 
     .route-title {
       font-family: var(--font-display);
-      color: var(--text-head);
       font-style: italic;
-      font-size: clamp(26px, 3.7vw, 38px);
-      line-height: 1.05;
+      font-weight: 500;
+      color: var(--text-head);
+      font-size: clamp(28px, 3.9vw, 42px);
+      line-height: 1.03;
     }
 
     .route-note {
@@ -243,27 +296,49 @@
       font-size: 15px;
     }
 
+    .route-note code,
+    .footer-note code {
+      color: var(--gold);
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.96em;
+    }
+
     .link-list {
       margin-top: 18px;
       display: grid;
-      gap: 9px;
+      gap: 8px;
     }
 
     .portal-link {
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       gap: 10px;
-      border: 1px solid var(--border);
-      background: rgba(17, 17, 24, 0.75);
+      border: 1px solid var(--line-soft);
+      background: rgba(13, 15, 22, 0.84);
       color: var(--text-body);
+      text-decoration: none;
       font-family: var(--font-label);
       font-size: 8px;
       letter-spacing: 0.24em;
       text-transform: uppercase;
       padding: 11px 12px 11px 14px;
-      text-decoration: none;
+      position: relative;
+      isolation: isolate;
       transition: border-color 0.24s, color 0.24s, transform 0.24s var(--ease-out), background 0.24s;
+    }
+
+    .portal-link::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+      opacity: 0.5;
+      transition: opacity 0.24s;
     }
 
     .portal-link span:last-child {
@@ -272,38 +347,59 @@
     }
 
     .portal-link:hover {
-      border-color: rgba(205, 184, 150, 0.4);
+      border-color: rgba(201, 169, 120, 0.42);
+      background: rgba(20, 23, 33, 0.96);
       color: var(--text-head);
-      transform: translateX(2px);
-      background: rgba(25, 25, 34, 0.84);
+      transform: translateX(3px);
+    }
+
+    .portal-link:hover::before {
+      opacity: 1;
     }
 
     .portal-link:hover span:last-child {
-      color: var(--parchment);
+      color: var(--gold);
       transform: translateX(2px);
     }
 
     .footer-note {
       margin-top: 14px;
       padding-top: 12px;
-      border-top: 1px solid var(--border-dim);
+      border-top: 1px solid var(--line-soft);
       color: var(--text-faint);
       font-size: 12px;
+    }
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(26px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (max-width: 980px) {
       .route-grid {
         grid-template-columns: 1fr;
       }
-    }
 
-    @media (max-width: 640px) {
       .portal-shell {
-        padding: 22px 12px 26px;
+        padding: 24px 14px 32px;
       }
 
       .hero {
-        padding: 26px 16px 20px;
+        padding: clamp(26px, 6vw, 40px);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .label {
+        font-size: 8px;
+        letter-spacing: 0.3em;
       }
 
       .hero p {
@@ -315,16 +411,36 @@
       }
 
       .portal-link {
-        font-size: 7.5px;
-        letter-spacing: 0.2em;
-        padding: 10px 10px 10px 12px;
+        font-size: 7px;
+        letter-spacing: 0.18em;
+        padding: 9px 10px 9px 11px;
+      }
+
+      .hero-meta {
+        gap: 7px;
+      }
+
+      .chip {
+        font-size: 7px;
+        letter-spacing: 0.18em;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="background-glow" aria-hidden="true"></div>
+  <div class="grid-map" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
   <main class="portal-shell">
@@ -332,6 +448,11 @@
       <p class="label">Science Coherence Institute Projects</p>
       <h1>Portal</h1>
       <p>Current website and projects in preview, actively building and reviewing current development.</p>
+      <div class="hero-meta" aria-label="Portal metadata">
+        <span class="chip">Main branch</span>
+        <span class="chip">Live routes</span>
+        <span class="chip">Design preview</span>
+      </div>
     </header>
 
     <section class="route-grid" aria-label="Website portals">
@@ -340,32 +461,43 @@
         <p class="route-note">Files in <code>sciencecoherence-project</code>.</p>
         <div class="link-list">
           <a class="portal-link" href="../sciencecoherence-project/index.html"><span>Main
-              Landing</span><span>&rarr;</span></a>
+              Page</span><span>&rarr;</span></a>
           <a class="portal-link"
             href="../sciencecoherence-project/regenesis.html"><span>Regenesis</span><span>&rarr;</span></a>
+          <a class="portal-link" href="../sciencecoherence-project/sciencecoherence-architecture.html"><span>Website
+              Architecture 1A</span><span>&rarr;</span></a>
           <a class="portal-link"
-            href="../sciencecoherence-project/cosmos.html"><span>Cosmos</span><span>&rarr;</span></a>
-          <a class="portal-link" href="../sciencecoherence-project/ethos.html"><span>Ethos</span><span>&rarr;</span></a>
-          <a class="portal-link"
-            href="../sciencecoherence-project/sciencecoherence-architecture.html"><span>Architecture</span><span>&rarr;</span></a>
-          <a class="portal-link"
-            href="../sciencecoherence-project/sciencecoherence-architecture-1B.html"><span>Architecture
+            href="../sciencecoherence-project/sciencecoherence-architecture-1B.html"><span>WebsiteArchitecture
               1B</span><span>&rarr;</span></a>
         </div>
       </article>
 
       <article class="route-card model">
-        <h2 class="route-title">Model + Guidee</h2>
+        <h2 class="route-title">Model + Guide + Cosmos</h2>
         <p class="route-note">Files in <code>cohera-project</code>.</p>
         <div class="link-list">
-          <a class="portal-link" href="../cohera-project/index.html"><span>Model Landing</span><span>&rarr;</span></a>
-          <a class="portal-link" href="../cohera-project/ethos.html"><span>Model Guide</span><span>&rarr;</span></a>
+          <a class="portal-link" href="../cohera-project/index.html"><span>Model Page</span><span>&rarr;</span></a>
+          <a class="portal-link" href="../cohera-project/ethos.html"><span>Ethos Guide</span><span>&rarr;</span></a>
           <a class="portal-link" href="../cohera-project/cosmos.html"><span>Cosmos View</span><span>&rarr;</span></a>
         </div>
         <p class="footer-note">Paths are relative to <code>portal/index.html</code>.</p>
       </article>
     </section>
   </main>
+
+  <script>
+    const cards = document.querySelectorAll('.route-card');
+
+    cards.forEach((card) => {
+      card.addEventListener('pointermove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        card.style.setProperty('--mx', `${x}px`);
+        card.style.setProperty('--my', `${y}px`);
+      });
+    });
+  </script>
 </body>
 
 </html>
