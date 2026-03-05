@@ -30,6 +30,9 @@
       --gold-soft: rgba(226, 189, 138, 0.2);
       --azure: #78aae9;
       --jade: #82c491;
+      --glow-blue: rgba(120, 170, 235, 0.28);
+      --glow-jade: rgba(130, 196, 145, 0.22);
+      --glow-gold: rgba(226, 189, 138, 0.22);
 
       --font-display: 'Bodoni Moda', 'Times New Roman', serif;
       --font-label: 'Cinzel', serif;
@@ -76,6 +79,30 @@
         linear-gradient(90deg, rgba(148, 171, 220, 0.055) 1px, transparent 1px);
       background-size: 48px 48px;
       mask-image: radial-gradient(circle at 50% 30%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    }
+
+    .bloom-layer {
+      position: fixed;
+      inset: -8%;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(40% 34% at 18% 14%, var(--glow-blue), transparent 70%),
+        radial-gradient(35% 30% at 82% 18%, var(--glow-jade), transparent 72%),
+        radial-gradient(45% 38% at 50% 88%, var(--glow-gold), transparent 74%);
+      filter: blur(52px) saturate(115%);
+      opacity: 0.52;
+      animation: bloomFloat 18s var(--ease-out) infinite alternate;
+    }
+
+    @keyframes bloomFloat {
+      from {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+
+      to {
+        transform: translate3d(1.5%, -1.5%, 0) scale(1.04);
+      }
     }
 
     .grain {
@@ -130,6 +157,10 @@
       gap: 12px;
       padding: 10px 14px;
       margin-bottom: 14px;
+      box-shadow:
+        inset 0 0 0 1px rgba(120, 170, 235, 0.04),
+        0 0 28px rgba(120, 170, 235, 0.12),
+        0 0 22px rgba(226, 189, 138, 0.09);
     }
 
     .topline-left,
@@ -139,6 +170,16 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text-faint);
+    }
+
+    .topline-right {
+      text-decoration: none;
+      transition: color 0.24s var(--ease-out), text-shadow 0.24s var(--ease-out);
+    }
+
+    .topline-right:hover {
+      color: var(--gold);
+      text-shadow: 0 0 14px rgba(226, 189, 138, 0.35);
     }
 
     .topline-left {
@@ -152,6 +193,7 @@
       width: 18px;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--gold));
+      box-shadow: 0 0 12px rgba(226, 189, 138, 0.35);
     }
 
     .hero {
@@ -159,7 +201,10 @@
       background:
         radial-gradient(620px 340px at 82% 16%, rgba(120, 170, 235, 0.16), transparent 66%),
         linear-gradient(152deg, rgba(24, 34, 54, 0.74), rgba(10, 15, 28, 0.97));
-      box-shadow: var(--shadow-main);
+      box-shadow:
+        var(--shadow-main),
+        0 0 54px rgba(120, 170, 235, 0.2),
+        0 0 66px rgba(226, 189, 138, 0.14);
       position: relative;
       overflow: hidden;
       isolation: isolate;
@@ -180,6 +225,16 @@
         radial-gradient(circle at 14% 84%, rgba(130, 196, 145, 0.08), transparent 56%);
       transform: translateX(-100%);
       animation: sweep 6.4s var(--ease-out) infinite;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border: 1px solid rgba(226, 189, 138, 0.12);
+      pointer-events: none;
+      opacity: 0.55;
+      mix-blend-mode: screen;
     }
 
     @keyframes sweep {
@@ -214,6 +269,7 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
+      text-shadow: 0 0 18px rgba(226, 189, 138, 0.25);
     }
 
     .label::before {
@@ -232,6 +288,9 @@
       letter-spacing: -0.022em;
       color: var(--text-head);
       text-wrap: balance;
+      text-shadow:
+        0 0 20px rgba(120, 170, 235, 0.2),
+        0 0 36px rgba(226, 189, 138, 0.15);
     }
 
     .hero p {
@@ -257,6 +316,7 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       padding: 6px 10px;
+      box-shadow: 0 0 16px rgba(120, 170, 235, 0.12);
     }
 
     .hero-note {
@@ -268,6 +328,10 @@
       align-content: start;
       position: relative;
       overflow: hidden;
+      box-shadow:
+        inset 0 0 0 1px rgba(120, 170, 235, 0.08),
+        0 0 34px rgba(120, 170, 235, 0.14),
+        0 0 20px rgba(226, 189, 138, 0.1);
     }
 
     .hero-note::before {
@@ -298,6 +362,9 @@
       line-height: 1.15;
       color: var(--text-head);
       max-width: 14ch;
+      text-shadow:
+        0 0 16px rgba(120, 170, 235, 0.18),
+        0 0 24px rgba(226, 189, 138, 0.12);
     }
 
     .note-rule {
@@ -305,6 +372,7 @@
       z-index: 1;
       height: 1px;
       background: linear-gradient(90deg, var(--gold-soft), transparent);
+      box-shadow: 0 0 14px rgba(226, 189, 138, 0.3);
     }
 
     .note-meta {
@@ -334,7 +402,10 @@
         radial-gradient(560px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.08), transparent 44%),
         linear-gradient(180deg, rgba(22, 30, 47, 0.88), rgba(10, 14, 24, 0.99)) padding-box,
         linear-gradient(135deg, rgba(120, 170, 235, 0.34), rgba(226, 189, 138, 0.4), rgba(130, 196, 145, 0.3)) border-box;
-      box-shadow: var(--shadow-card);
+      box-shadow:
+        var(--shadow-card),
+        0 0 32px rgba(120, 170, 235, 0.16),
+        0 0 26px rgba(226, 189, 138, 0.12);
       padding: 24px 22px 22px;
       position: relative;
       overflow: hidden;
@@ -343,13 +414,21 @@
       isolation: isolate;
     }
 
+    .route-card>* {
+      position: relative;
+      z-index: 1;
+    }
+
     .route-card:nth-child(2) {
       animation-delay: 90ms;
     }
 
     .route-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 30px 64px rgba(0, 0, 0, 0.52);
+      box-shadow:
+        0 30px 64px rgba(0, 0, 0, 0.52),
+        0 0 52px rgba(120, 170, 235, 0.24),
+        0 0 42px rgba(226, 189, 138, 0.2);
     }
 
     .route-card::before {
@@ -359,6 +438,19 @@
       right: 0;
       top: 0;
       height: 1px;
+    }
+
+    .route-card::after {
+      content: "";
+      position: absolute;
+      inset: -35%;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 12% 16%, rgba(120, 170, 235, 0.22), transparent 46%),
+        radial-gradient(circle at 88% 84%, rgba(226, 189, 138, 0.18), transparent 44%);
+      filter: blur(42px);
+      opacity: 0.45;
+      z-index: 0;
     }
 
     .route-card.main::before {
@@ -375,6 +467,9 @@
       line-height: 1.02;
       letter-spacing: -0.01em;
       color: var(--text-head);
+      text-shadow:
+        0 0 16px rgba(120, 170, 235, 0.16),
+        0 0 24px rgba(226, 189, 138, 0.1);
     }
 
     .route-note {
@@ -413,7 +508,10 @@
       padding: 11px 12px 11px 14px;
       position: relative;
       overflow: hidden;
-      transition: border-color 0.24s, color 0.24s, transform 0.24s var(--ease-out);
+      transition: border-color 0.24s, color 0.24s, transform 0.24s var(--ease-out), box-shadow 0.24s;
+      box-shadow:
+        inset 0 0 0 1px rgba(120, 170, 235, 0.05),
+        0 0 18px rgba(120, 170, 235, 0.12);
     }
 
     .portal-link::before {
@@ -446,6 +544,10 @@
       border-color: rgba(226, 189, 138, 0.45);
       color: var(--text-head);
       transform: translateX(3px);
+      box-shadow:
+        inset 0 0 0 1px rgba(226, 189, 138, 0.08),
+        0 0 28px rgba(120, 170, 235, 0.18),
+        0 0 24px rgba(226, 189, 138, 0.14);
     }
 
     .portal-link:hover::before {
@@ -564,19 +666,20 @@
 
 <body>
   <div class="grid-layer" aria-hidden="true"></div>
+  <div class="bloom-layer" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
 
   <main class="portal-shell">
     <div class="topline" aria-hidden="true">
       <span class="topline-left">Science Coherence Editorial Portal</span>
-      <span class="topline-right">Edition 03</span>
+      <a class="topline-right" href="mailto:sciencecoherence@proton.me">Contact</a>
     </div>
 
     <header class="hero">
       <div class="hero-copy">
         <p class="label">Science Coherence Institute Projects</p>
         <h1>Portal</h1>
-        <p>Current website and projects in preview, actively building and reviewing current development.</p>
+        <p>Current projects in preview, actively building and reviewing current development.</p>
         <div class="hero-meta" aria-label="Portal metadata">
           <span class="chip">Main branch</span>
           <span class="chip">Live routes</span>
