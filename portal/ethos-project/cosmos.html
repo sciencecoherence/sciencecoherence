@@ -2116,133 +2116,6 @@
   </section>
 
   <!-- ============================================================
-     TIME-CRYSTAL
-     ============================================================ -->
-  <section class="timecrystal" id="timecrystal">
-    <div class="container">
-      <div class="tc-inner">
-
-        <!-- Visual -->
-        <div class="tc-visual reveal">
-          <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Static lattice background -->
-            <line x1="50" y1="250" x2="450" y2="250" stroke="#5a84c8" stroke-width=".4" opacity=".08" />
-            <line x1="250" y1="50" x2="250" y2="450" stroke="#5a84c8" stroke-width=".4" opacity=".08" />
-            <line x1="103" y1="103" x2="397" y2="397" stroke="#5a84c8" stroke-width=".3" opacity=".06" />
-            <line x1="397" y1="103" x2="103" y2="397" stroke="#5a84c8" stroke-width=".3" opacity=".06" />
-
-            <!-- Lattice nodes -->
-            <circle cx="250" cy="50" r="2.5" fill="#5a84c8" opacity=".3" />
-            <circle cx="450" cy="250" r="2.5" fill="#5a84c8" opacity=".3" />
-            <circle cx="250" cy="450" r="2.5" fill="#5a84c8" opacity=".3" />
-            <circle cx="50" cy="250" r="2.5" fill="#5a84c8" opacity=".3" />
-
-            <!-- Outer static ring -->
-            <circle cx="250" cy="250" r="195" stroke="#5a84c8" stroke-width=".5" opacity=".1" stroke-dasharray="4 10" />
-
-            <!-- Rotating rings (time crystal layers) -->
-            <g class="tc-orbit-a">
-              <ellipse cx="250" cy="250" rx="160" ry="55" stroke="#7aa8e8" stroke-width=".5" opacity=".2" />
-              <circle cx="410" cy="250" r="5" fill="#7aa8e8" opacity=".6" />
-              <circle cx="90" cy="250" r="4" fill="#5a84c8" opacity=".4" />
-            </g>
-            <g class="tc-orbit-b">
-              <ellipse cx="250" cy="250" rx="120" ry="40" stroke="#a0c0f0" stroke-width=".5" opacity=".25"
-                transform="rotate(60 250 250)" />
-              <circle cx="370" cy="208" r="4" fill="#a0c0f0" opacity=".55" />
-              <circle cx="130" cy="292" r="3" fill="#7aa8e8" opacity=".4" />
-            </g>
-            <g class="tc-orbit-c">
-              <ellipse cx="250" cy="250" rx="75" ry="25" stroke="#c0d8f8" stroke-width=".5" opacity=".3"
-                transform="rotate(-30 250 250)" />
-              <circle cx="323" cy="228" r="3" fill="#c0d8f8" opacity=".6" />
-            </g>
-
-            <!-- Pulsing nucleus -->
-            <g class="tc-pulse">
-              <circle cx="250" cy="250" r="28" fill="rgba(90,132,200,.08)" stroke="#5a84c8" stroke-width=".6"
-                opacity=".5" />
-            </g>
-            <circle cx="250" cy="250" r="14" fill="rgba(90,132,200,.18)" stroke="#7aa8e8" stroke-width=".6"
-              opacity=".7" />
-            <circle cx="250" cy="250" r="5.5" fill="#7aa8e8" opacity=".7" />
-            <circle cx="250" cy="250" r="2" fill="#c0d8f8" opacity=".95" />
-
-            <!-- Time axis labels -->
-            <text x="250" y="38" fill="#5a84c8" font-size="8" font-family="serif" text-anchor="middle" opacity=".5"
-              letter-spacing="2">T+0</text>
-            <text x="250" y="470" fill="#5a84c8" font-size="8" font-family="serif" text-anchor="middle" opacity=".4"
-              letter-spacing="2">T+n</text>
-            <text x="462" y="254" fill="#5a84c8" font-size="8" font-family="serif" opacity=".4"
-              letter-spacing="1">SPACE</text>
-            <text x="28" y="254" fill="#5a84c8" font-size="8" font-family="serif" text-anchor="end" opacity=".4"
-              letter-spacing="1">SPACE</text>
-            <text x="250" y="254" fill="#a0c0f0" font-size="7" font-family="serif" text-anchor="middle" opacity=".7"
-              letter-spacing="1">NUCLEUS</text>
-
-            <!-- Temporal wave overlay -->
-            <path d="M50,350 Q125,320 200,350 Q275,380 350,350 Q425,320 450,340" stroke="#5a84c8" stroke-width=".5"
-              opacity=".2" fill="none" />
-            <path d="M50,370 Q125,340 200,370 Q275,400 350,370 Q425,340 450,360" stroke="#7aa8e8" stroke-width=".4"
-              opacity=".15" fill="none" />
-            <text x="460" y="344" fill="#5a84c8" font-size="7" font-family="serif" opacity=".35"
-              letter-spacing="1">t</text>
-          </svg>
-        </div>
-
-        <!-- Content -->
-        <div class="tc-content">
-          <div class="tc-eyebrow reveal">
-            <div class="tc-eyebrow-line"></div>
-            <span class="lbl" style="color:var(--cs-light)">Flagship Theory</span>
-          </div>
-          <h2 class="tc-title reveal" style="transition-delay:.1s">
-            Time-Crystalline<br>
-            <em>Biology</em>
-          </h2>
-          <p class="tc-body reveal" style="transition-delay:.2s">
-            In 2012, physicist Frank Wilczek proposed the existence of time crystals — systems that exhibit periodic
-            structure in time rather than space, breaking time-translation symmetry at their ground state. By 2021,
-            Google confirmed their existence in quantum systems. Cosmos extends this framework into biology: living
-            systems as temporal oscillators — ordered not merely in three-dimensional space but in the fourth dimension
-            of time.
-          </p>
-          <ul class="tc-points reveal" style="transition-delay:.28s">
-            <li class="tc-point">
-              <div class="tc-pt-num">01</div>
-              <div class="tc-pt-text"><strong>Circadian clocks as time crystals.</strong> Biological clocks are not
-                metaphors — they are literal temporal ordering mechanisms operating at the molecular level, analogous to
-                crystalline periodicity in time.</div>
-            </li>
-            <li class="tc-point">
-              <div class="tc-pt-num">02</div>
-              <div class="tc-pt-text"><strong>Coherence as the signal of health.</strong> A time-coherent biological
-                system maintains phase relationships between its oscillatory subsystems. Disease is fundamentally a loss
-                of temporal coherence — desynchronization at the cellular scale.</div>
-            </li>
-            <li class="tc-point">
-              <div class="tc-pt-num">03</div>
-              <div class="tc-pt-text"><strong>Regenesis as temporal restoration.</strong> Every Regenesis protocol can
-                be re-read through this lens: nutrition, sleep, light exposure, and fasting are not just chemical
-                interventions — they are <strong>temporal entrainment mechanisms</strong> that restore the body's
-                time-crystalline order.</div>
-            </li>
-            <li class="tc-point">
-              <div class="tc-pt-num">04</div>
-              <div class="tc-pt-text"><strong>Consciousness as the temporal integrator.</strong> Awareness itself may be
-                the process by which biological time-crystal layers are integrated into a unified subjective present —
-                the felt sense of "now."</div>
-            </li>
-          </ul>
-          <a href="#" class="btn-outline-cs reveal" style="transition-delay:.36s;display:inline-block">Read Full Paper
-            →</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
      TIME-CRYSTAL — expanded with paper's formulation
      ============================================================ -->
   <section class="timecrystal" id="timecrystal">
@@ -2362,6 +2235,133 @@
                 nutrition, sleep, light, fasting — is not merely a chemical intervention. Read through this lens, each
                 is a <strong>temporal entrainment mechanism</strong>: restoring the body's phase-lock fidelity with the
                 universal time-crystalline update cycle.</div>
+            </li>
+          </ul>
+          <a href="#" class="btn-outline-cs reveal" style="transition-delay:.36s;display:inline-block">Read Full Paper
+            →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     TIME-CRYSTAL
+     ============================================================ -->
+  <section class="timecrystal" id="timecrystal">
+    <div class="container">
+      <div class="tc-inner">
+
+        <!-- Visual -->
+        <div class="tc-visual reveal">
+          <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Static lattice background -->
+            <line x1="50" y1="250" x2="450" y2="250" stroke="#5a84c8" stroke-width=".4" opacity=".08" />
+            <line x1="250" y1="50" x2="250" y2="450" stroke="#5a84c8" stroke-width=".4" opacity=".08" />
+            <line x1="103" y1="103" x2="397" y2="397" stroke="#5a84c8" stroke-width=".3" opacity=".06" />
+            <line x1="397" y1="103" x2="103" y2="397" stroke="#5a84c8" stroke-width=".3" opacity=".06" />
+
+            <!-- Lattice nodes -->
+            <circle cx="250" cy="50" r="2.5" fill="#5a84c8" opacity=".3" />
+            <circle cx="450" cy="250" r="2.5" fill="#5a84c8" opacity=".3" />
+            <circle cx="250" cy="450" r="2.5" fill="#5a84c8" opacity=".3" />
+            <circle cx="50" cy="250" r="2.5" fill="#5a84c8" opacity=".3" />
+
+            <!-- Outer static ring -->
+            <circle cx="250" cy="250" r="195" stroke="#5a84c8" stroke-width=".5" opacity=".1" stroke-dasharray="4 10" />
+
+            <!-- Rotating rings (time crystal layers) -->
+            <g class="tc-orbit-a">
+              <ellipse cx="250" cy="250" rx="160" ry="55" stroke="#7aa8e8" stroke-width=".5" opacity=".2" />
+              <circle cx="410" cy="250" r="5" fill="#7aa8e8" opacity=".6" />
+              <circle cx="90" cy="250" r="4" fill="#5a84c8" opacity=".4" />
+            </g>
+            <g class="tc-orbit-b">
+              <ellipse cx="250" cy="250" rx="120" ry="40" stroke="#a0c0f0" stroke-width=".5" opacity=".25"
+                transform="rotate(60 250 250)" />
+              <circle cx="370" cy="208" r="4" fill="#a0c0f0" opacity=".55" />
+              <circle cx="130" cy="292" r="3" fill="#7aa8e8" opacity=".4" />
+            </g>
+            <g class="tc-orbit-c">
+              <ellipse cx="250" cy="250" rx="75" ry="25" stroke="#c0d8f8" stroke-width=".5" opacity=".3"
+                transform="rotate(-30 250 250)" />
+              <circle cx="323" cy="228" r="3" fill="#c0d8f8" opacity=".6" />
+            </g>
+
+            <!-- Pulsing nucleus -->
+            <g class="tc-pulse">
+              <circle cx="250" cy="250" r="28" fill="rgba(90,132,200,.08)" stroke="#5a84c8" stroke-width=".6"
+                opacity=".5" />
+            </g>
+            <circle cx="250" cy="250" r="14" fill="rgba(90,132,200,.18)" stroke="#7aa8e8" stroke-width=".6"
+              opacity=".7" />
+            <circle cx="250" cy="250" r="5.5" fill="#7aa8e8" opacity=".7" />
+            <circle cx="250" cy="250" r="2" fill="#c0d8f8" opacity=".95" />
+
+            <!-- Time axis labels -->
+            <text x="250" y="38" fill="#5a84c8" font-size="8" font-family="serif" text-anchor="middle" opacity=".5"
+              letter-spacing="2">T+0</text>
+            <text x="250" y="470" fill="#5a84c8" font-size="8" font-family="serif" text-anchor="middle" opacity=".4"
+              letter-spacing="2">T+n</text>
+            <text x="462" y="254" fill="#5a84c8" font-size="8" font-family="serif" opacity=".4"
+              letter-spacing="1">SPACE</text>
+            <text x="28" y="254" fill="#5a84c8" font-size="8" font-family="serif" text-anchor="end" opacity=".4"
+              letter-spacing="1">SPACE</text>
+            <text x="250" y="254" fill="#a0c0f0" font-size="7" font-family="serif" text-anchor="middle" opacity=".7"
+              letter-spacing="1">NUCLEUS</text>
+
+            <!-- Temporal wave overlay -->
+            <path d="M50,350 Q125,320 200,350 Q275,380 350,350 Q425,320 450,340" stroke="#5a84c8" stroke-width=".5"
+              opacity=".2" fill="none" />
+            <path d="M50,370 Q125,340 200,370 Q275,400 350,370 Q425,340 450,360" stroke="#7aa8e8" stroke-width=".4"
+              opacity=".15" fill="none" />
+            <text x="460" y="344" fill="#5a84c8" font-size="7" font-family="serif" opacity=".35"
+              letter-spacing="1">t</text>
+          </svg>
+        </div>
+
+        <!-- Content -->
+        <div class="tc-content">
+          <div class="tc-eyebrow reveal">
+            <div class="tc-eyebrow-line"></div>
+            <span class="lbl" style="color:var(--cs-light)">Flagship Theory</span>
+          </div>
+          <h2 class="tc-title reveal" style="transition-delay:.1s">
+            Time-Crystalline<br>
+            <em>Biology</em>
+          </h2>
+          <p class="tc-body reveal" style="transition-delay:.2s">
+            In 2012, physicist Frank Wilczek proposed the existence of time crystals — systems that exhibit periodic
+            structure in time rather than space, breaking time-translation symmetry at their ground state. By 2021,
+            Google confirmed their existence in quantum systems. Cosmos extends this framework into biology: living
+            systems as temporal oscillators — ordered not merely in three-dimensional space but in the fourth dimension
+            of time.
+          </p>
+          <ul class="tc-points reveal" style="transition-delay:.28s">
+            <li class="tc-point">
+              <div class="tc-pt-num">01</div>
+              <div class="tc-pt-text"><strong>Circadian clocks as time crystals.</strong> Biological clocks are not
+                metaphors — they are literal temporal ordering mechanisms operating at the molecular level, analogous to
+                crystalline periodicity in time.</div>
+            </li>
+            <li class="tc-point">
+              <div class="tc-pt-num">02</div>
+              <div class="tc-pt-text"><strong>Coherence as the signal of health.</strong> A time-coherent biological
+                system maintains phase relationships between its oscillatory subsystems. Disease is fundamentally a loss
+                of temporal coherence — desynchronization at the cellular scale.</div>
+            </li>
+            <li class="tc-point">
+              <div class="tc-pt-num">03</div>
+              <div class="tc-pt-text"><strong>Regenesis as temporal restoration.</strong> Every Regenesis protocol can
+                be re-read through this lens: nutrition, sleep, light exposure, and fasting are not just chemical
+                interventions — they are <strong>temporal entrainment mechanisms</strong> that restore the body's
+                time-crystalline order.</div>
+            </li>
+            <li class="tc-point">
+              <div class="tc-pt-num">04</div>
+              <div class="tc-pt-text"><strong>Consciousness as the temporal integrator.</strong> Awareness itself may be
+                the process by which biological time-crystal layers are integrated into a unified subjective present —
+                the felt sense of "now."</div>
             </li>
           </ul>
           <a href="#" class="btn-outline-cs reveal" style="transition-delay:.36s;display:inline-block">Read Full Paper
