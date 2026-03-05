@@ -1,0 +1,21 @@
+RewriteEngine On
+
+# --- Serve /Portal as the site root (internal rewrite) ---
+RewriteCond %{REQUEST_URI} !^/Portal/
+RewriteRule ^(.*)$ /Portal/$1 [L]
+
+# --- Force fresh load (disable caching) ---
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+  Header set Pragma "no-cache"
+  Header set Expires "0"
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive Off
+</IfModule>
+
+FileETag None
+<IfModule mod_headers.c>
+  Header unset ETag
+</IfModule>
