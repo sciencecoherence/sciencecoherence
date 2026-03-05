@@ -1,0 +1,1642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cohera App | Ethos Interactive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#040509;
+  --obsidian:#060811;
+  --deep:#0a1020;
+  --surface:#10192e;
+  --raised:#151f38;
+  --line:#2a3554;
+  --line-soft:#1d2740;
+  --line-bright:rgba(153,178,234,.42);
+
+  --text-head:#e7ecfa;
+  --text-bright:#c9d4ef;
+  --text-body:#98a7c7;
+  --text-dim:#6a7795;
+  --text-faint:#4f5a75;
+
+  --amber:#cf9b57;
+  --amber-soft:#e5bf86;
+  --amber-glow:rgba(207,155,87,.22);
+
+  --blue:#7096db;
+  --blue-soft:#9eb7eb;
+  --blue-glow:rgba(112,150,219,.24);
+
+  --green:#6eb69a;
+  --rose:#d07b95;
+
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-label:'Cinzel',serif;
+  --font-body:'Jost',system-ui,-apple-system,Segoe UI,sans-serif;
+
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:var(--font-body);
+  background:
+    radial-gradient(1200px 700px at 0% -10%,rgba(112,150,219,.14),transparent 58%),
+    radial-gradient(1000px 640px at 92% -10%,rgba(207,155,87,.13),transparent 54%),
+    linear-gradient(155deg,var(--void) 0%,var(--obsidian) 54%,var(--deep) 100%);
+  color:var(--text-body);
+  line-height:1.58;
+  overflow-x:hidden;
+}
+
+a{color:inherit;text-decoration:none}
+
+.field{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+  pointer-events:none;
+  opacity:.6;
+}
+
+.grain{
+  position:fixed;
+  inset:-50%;
+  width:200%;
+  height:200%;
+  pointer-events:none;
+  z-index:1;
+  opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.84' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grainShift .58s steps(2) infinite;
+}
+
+@keyframes grainShift{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(-1.6%,-.8%)}
+  50%{transform:translate(.7%,1.2%)}
+  75%{transform:translate(-.5%,.6%)}
+  100%{transform:translate(1.2%,-1.2%)}
+}
+
+.page{position:relative;z-index:2}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:20;
+  backdrop-filter:blur(20px);
+  background:rgba(6,9,16,.84);
+  border-bottom:1px solid rgba(153,178,234,.12);
+}
+
+.top-inner{
+  max-width:1260px;
+  margin:0 auto;
+  padding:14px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand-dot{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:1px solid rgba(153,178,234,.42);
+  background:
+    radial-gradient(circle at 30% 30%,rgba(229,191,134,.9),transparent 42%),
+    radial-gradient(circle at 70% 72%,rgba(112,150,219,.85),rgba(18,26,46,.96));
+  box-shadow:0 0 34px rgba(153,178,234,.18);
+}
+
+.brand-copy{display:grid;gap:2px}
+.brand-sub{
+  font-family:var(--font-label);
+  font-size:8px;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+}
+.brand-title{
+  font-family:var(--font-display);
+  font-size:1.05rem;
+  color:var(--text-head);
+  letter-spacing:.02em;
+}
+
+.nav-links{display:flex;gap:14px;align-items:center}
+.nav-link{
+  font-family:var(--font-label);
+  font-size:8px;
+  letter-spacing:.3em;
+  color:var(--text-dim);
+  text-transform:uppercase;
+  transition:color .25s var(--ease);
+}
+.nav-link:hover{color:var(--amber-soft)}
+
+.chips{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.chip{
+  border:1px solid rgba(153,178,234,.24);
+  background:rgba(16,25,46,.74);
+  color:var(--text-bright);
+  font-size:.76rem;
+  border-radius:999px;
+  padding:7px 11px;
+  white-space:nowrap;
+}
+
+.chip strong{color:var(--text-head);font-weight:600}
+
+.shell{
+  max-width:1260px;
+  margin:0 auto;
+  padding:30px 24px 74px;
+  display:grid;
+  gap:20px;
+}
+
+.section{
+  border-radius:22px;
+  border:1px solid rgba(153,178,234,.15);
+  background:linear-gradient(155deg,rgba(14,22,40,.92),rgba(9,14,28,.88));
+  box-shadow:0 16px 50px rgba(0,0,0,.35);
+  overflow:hidden;
+  position:relative;
+}
+
+.section::before{
+  content:'';
+  position:absolute;
+  inset:auto -10% 55% auto;
+  width:320px;
+  height:320px;
+  border-radius:50%;
+  background:radial-gradient(circle,var(--blue-glow),transparent 68%);
+  pointer-events:none;
+}
+
+.section-inner{padding:24px clamp(18px,2.8vw,34px)}
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--font-label);
+  font-size:8px;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:var(--amber-soft);
+}
+.eyebrow::before,
+.eyebrow::after{
+  content:'';
+  width:18px;
+  height:1px;
+  background:rgba(229,191,134,.66);
+}
+
+h1,h2,h3{font-weight:400;color:var(--text-head)}
+
+.hero{
+  min-height:420px;
+}
+
+.hero .section-inner{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:22px;
+  align-items:stretch;
+}
+
+.hero-copy{position:relative;z-index:2}
+
+.hero-title{
+  margin-top:14px;
+  font-family:var(--font-display);
+  font-size:clamp(2.1rem,6.2vw,4.25rem);
+  line-height:.96;
+  letter-spacing:-.02em;
+  max-width:12ch;
+}
+
+.hero-sub{
+  margin-top:16px;
+  font-size:1.02rem;
+  color:var(--text-bright);
+  max-width:62ch;
+}
+
+.hero-body{
+  margin-top:12px;
+  max-width:58ch;
+  color:var(--text-body);
+  font-size:1rem;
+}
+
+.hero-actions{
+  margin-top:22px;
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+button,.btn-link{
+  border:none;
+  border-radius:999px;
+  padding:11px 18px;
+  font-family:var(--font-label);
+  font-size:8.5px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:transform .24s var(--ease),border-color .24s var(--ease),background .24s var(--ease),color .24s var(--ease);
+}
+button:hover,.btn-link:hover{transform:translateY(-1px)}
+
+.btn-primary{
+  background:linear-gradient(120deg,#ddb373,#f0ce9d);
+  color:#10131b;
+  box-shadow:0 10px 26px rgba(207,155,87,.28);
+}
+
+.btn-secondary{
+  border:1px solid rgba(153,178,234,.44);
+  background:rgba(112,150,219,.13);
+  color:var(--blue-soft);
+}
+
+.btn-ghost{
+  border:1px solid rgba(153,178,234,.36);
+  background:transparent;
+  color:var(--text-bright);
+}
+
+.hero-side{
+  position:relative;
+  border:1px solid rgba(153,178,234,.16);
+  border-radius:16px;
+  background:linear-gradient(155deg,rgba(18,28,49,.88),rgba(12,18,31,.88));
+  overflow:hidden;
+}
+
+.hero-mandala{
+  position:absolute;
+  inset:-70px -120px auto auto;
+  width:420px;
+  opacity:.68;
+  pointer-events:none;
+}
+.hero-mandala svg{width:100%;height:auto}
+.ring-a{animation:spinA 190s linear infinite;transform-origin:50% 50%}
+.ring-b{animation:spinB 118s linear infinite reverse;transform-origin:50% 50%}
+.ring-c{animation:pulse 5.2s ease-in-out infinite;transform-origin:50% 50%}
+@keyframes spinA{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes spinB{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:.44}50%{opacity:.92}}
+
+.hero-stats{
+  position:relative;
+  z-index:2;
+  padding:16px;
+  display:grid;
+  gap:10px;
+  margin-top:180px;
+}
+
+.stat-card{
+  border:1px solid rgba(153,178,234,.2);
+  border-radius:12px;
+  background:rgba(10,16,29,.72);
+  padding:10px 11px;
+}
+
+.stat-k{
+  font-family:var(--font-label);
+  font-size:8px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+}
+
+.stat-v{margin-top:5px;color:var(--text-head);font-size:.98rem}
+
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.title{font-family:var(--font-display);font-size:clamp(1.55rem,3.3vw,2.5rem);line-height:1.06}
+.sub{margin-top:8px;max-width:68ch;color:var(--text-body)}
+
+.tour-grid{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(290px,.76fr);
+  gap:14px;
+}
+
+.progress-label{font-size:.85rem;color:var(--text-dim)}
+.progress{
+  margin-top:8px;
+  height:10px;
+  border:1px solid rgba(153,178,234,.25);
+  border-radius:99px;
+  overflow:hidden;
+  background:rgba(24,38,68,.55);
+}
+.bar{height:100%;width:0;background:linear-gradient(120deg,var(--blue),var(--amber));transition:width .3s var(--ease)}
+
+.tour-card{
+  margin-top:12px;
+  border:1px solid rgba(153,178,234,.2);
+  border-radius:14px;
+  background:linear-gradient(160deg,rgba(15,24,44,.92),rgba(10,17,33,.85));
+  padding:14px;
+}
+
+.tour-title{
+  font-family:var(--font-display);
+  font-size:clamp(1.2rem,2.2vw,1.75rem);
+}
+
+.tour-copy{margin-top:9px;color:var(--text-bright)}
+
+.points{margin-top:12px;display:grid;gap:8px}
+.point{
+  border:1px solid rgba(153,178,234,.18);
+  background:rgba(8,13,25,.8);
+  border-radius:10px;
+  padding:9px 10px;
+  font-size:.92rem;
+  color:var(--text-body);
+}
+
+.prompt{
+  margin-top:12px;
+  border-left:2px solid var(--amber);
+  background:rgba(207,155,87,.12);
+  border-radius:0 9px 9px 0;
+  padding:9px 11px;
+  color:var(--amber-soft);
+  font-size:.9rem;
+}
+
+.tour-actions{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+
+.rail{display:grid;gap:10px}
+.rail-card{
+  border:1px solid rgba(153,178,234,.19);
+  background:rgba(9,14,26,.75);
+  border-radius:12px;
+  padding:11px;
+}
+.rail-k{
+  font-family:var(--font-label);
+  font-size:8px;
+  letter-spacing:.3em;
+  color:var(--text-faint);
+  text-transform:uppercase;
+}
+.rail-v{margin-top:6px;color:var(--text-bright);font-size:.9rem}
+
+.rail-steps{display:grid;gap:6px;margin-top:8px}
+.rail-step{
+  border:1px solid rgba(153,178,234,.2);
+  background:rgba(14,22,40,.82);
+  border-radius:10px;
+  text-align:left;
+  padding:8px 9px;
+  color:var(--text-body);
+  font-size:.84rem;
+  font-family:var(--font-body);
+  letter-spacing:0;
+  text-transform:none;
+}
+.rail-step.active{
+  border-color:rgba(207,155,87,.56);
+  background:rgba(207,155,87,.14);
+  color:var(--amber-soft);
+}
+
+.studio-grid{
+  margin-top:16px;
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:12px;
+}
+
+.panel{
+  border:1px solid rgba(153,178,234,.18);
+  background:linear-gradient(160deg,rgba(13,21,39,.9),rgba(9,14,27,.82));
+  border-radius:14px;
+  padding:13px;
+  position:relative;
+  overflow:hidden;
+}
+
+.panel::after{
+  content:'';
+  position:absolute;
+  inset:auto auto -120px -90px;
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(112,150,219,.13),transparent 66%);
+  pointer-events:none;
+}
+
+.panel h3{font-family:var(--font-display);font-size:1.34rem}
+.panel p{margin-top:5px;font-size:.92rem;color:var(--text-body);max-width:64ch}
+
+.model{grid-column:span 7}
+.domains{grid-column:span 5}
+.phases{grid-column:span 7}
+.laws{grid-column:span 5}
+.reflect{grid-column:span 7}
+.plan{grid-column:span 5}
+
+.element-grid{margin-top:11px;display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1fr);gap:10px;align-items:center}
+
+.element-wheel{
+  position:relative;
+  min-height:280px;
+  border:1px solid rgba(153,178,234,.18);
+  background:radial-gradient(circle at 50% 50%,rgba(207,155,87,.06),rgba(7,11,21,.92));
+  border-radius:12px;
+}
+
+.wheel-orbit,
+.wheel-ring,
+.wheel-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.wheel-orbit{width:218px;height:218px;border:1px dashed rgba(153,178,234,.33);border-radius:50%;animation:spinA 90s linear infinite}
+.wheel-ring{width:160px;height:160px;border:1px solid rgba(207,155,87,.3);border-radius:50%}
+.wheel-core{
+  width:94px;
+  height:94px;
+  border-radius:50%;
+  border:1px solid rgba(207,155,87,.4);
+  background:radial-gradient(circle,rgba(207,155,87,.2),rgba(15,24,42,.9));
+  display:grid;
+  place-items:center;
+  text-align:center;
+  font-family:var(--font-label);
+  font-size:8px;
+  letter-spacing:.21em;
+  color:var(--amber-soft);
+  text-transform:uppercase;
+  padding:10px;
+}
+
+.wheel-node{
+  position:absolute;
+  width:84px;
+  border:1px solid rgba(153,178,234,.32);
+  background:rgba(16,25,43,.88);
+  border-radius:10px;
+  padding:8px 7px;
+  color:var(--text-body);
+  text-align:center;
+  font-family:var(--font-body);
+  font-size:.76rem;
+  letter-spacing:0;
+  text-transform:none;
+}
+.wheel-node .sym{font-family:var(--font-display);font-size:1.05rem;color:var(--amber-soft);line-height:1}
+.wheel-node .lbl{margin-top:2px;font-size:.72rem;color:var(--text-bright)}
+.wheel-node.active{border-color:rgba(207,155,87,.55);background:rgba(207,155,87,.14);color:var(--amber-soft)}
+
+.wheel-node.n1{left:calc(50% - 42px);top:12px}
+.wheel-node.n2{right:14px;top:72px}
+.wheel-node.n3{right:38px;bottom:18px}
+.wheel-node.n4{left:38px;bottom:18px}
+.wheel-node.n5{left:14px;top:72px}
+
+.element-nav{display:flex;flex-wrap:wrap;gap:7px}
+.elem-chip{
+  border:1px solid rgba(153,178,234,.28);
+  background:rgba(16,25,46,.74);
+  border-radius:999px;
+  padding:7px 10px;
+  color:var(--text-body);
+  font-size:.78rem;
+}
+.elem-chip.active{border-color:rgba(207,155,87,.56);background:rgba(207,155,87,.16);color:var(--amber-soft)}
+
+.element-detail{
+  margin-top:8px;
+  border:1px solid rgba(153,178,234,.17);
+  background:rgba(8,13,25,.72);
+  border-radius:10px;
+  padding:10px;
+}
+.elem-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.elem-symbol{font-family:var(--font-display);font-size:1.52rem;color:var(--amber-soft)}
+.elem-title{font-size:1rem;color:var(--text-head)}
+.elem-copy{margin-top:7px;font-size:.9rem;color:var(--text-body)}
+
+.domain-list{margin-top:9px;display:grid;gap:8px}
+.domain-row{border:1px solid rgba(153,178,234,.19);background:rgba(13,20,36,.82);border-radius:10px;padding:8px}
+.domain-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.domain-name{font-size:.94rem;color:var(--text-head)}
+.domain-score{font-size:.82rem;color:var(--amber-soft)}
+input[type='range']{width:100%;margin-top:6px;accent-color:var(--amber)}
+textarea,input[type='text']{
+  width:100%;
+  margin-top:7px;
+  border-radius:9px;
+  border:1px solid rgba(153,178,234,.26);
+  background:rgba(6,10,18,.9);
+  color:var(--text-head);
+  padding:9px;
+  font-family:var(--font-body);
+  font-size:.9rem;
+}
+textarea{min-height:68px;resize:vertical}
+
+.radar{margin-top:9px;border:1px solid rgba(153,178,234,.18);border-radius:10px;padding:8px;background:rgba(8,12,21,.82)}
+.radar svg{width:100%;height:auto}
+
+.phase-grid{margin-top:10px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.phase-btn{
+  border:1px solid rgba(153,178,234,.22);
+  background:rgba(15,23,40,.82);
+  border-radius:10px;
+  text-align:left;
+  padding:9px;
+  color:var(--text-body);
+  font-family:var(--font-body);
+  font-size:.88rem;
+  letter-spacing:0;
+  text-transform:none;
+}
+.phase-btn.active{border-color:rgba(207,155,87,.58);background:rgba(207,155,87,.15);color:var(--amber-soft)}
+.phase-name{font-size:.92rem;font-weight:600}
+.phase-copy{margin-top:4px;font-size:.81rem;color:inherit}
+
+.law-list{margin-top:10px;display:grid;gap:8px}
+.law-row{display:flex;gap:8px;border:1px solid rgba(153,178,234,.2);background:rgba(14,22,38,.76);border-radius:10px;padding:8px}
+.law-row input{margin-top:4px;accent-color:var(--amber)}
+.law-name{font-size:.9rem;color:var(--text-head)}
+.law-copy{margin-top:2px;font-size:.8rem;color:var(--text-dim)}
+
+.ref-grid{margin-top:9px;display:grid;gap:8px}
+.field-label{font-family:var(--font-label);font-size:8px;letter-spacing:.25em;color:var(--text-faint);text-transform:uppercase}
+
+.commit-add{margin-top:9px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.commit-list{margin-top:9px;display:grid;gap:7px}
+.commit-item{display:flex;justify-content:space-between;gap:8px;align-items:center;border:1px solid rgba(153,178,234,.2);background:rgba(13,20,36,.78);border-radius:9px;padding:8px;font-size:.88rem;color:var(--text-bright)}
+.commit-item button{
+  border:1px solid rgba(208,123,149,.5);
+  background:rgba(208,123,149,.15);
+  color:#f3bed0;
+  font-family:var(--font-body);
+  letter-spacing:0;
+  text-transform:none;
+  font-size:.76rem;
+  padding:5px 9px;
+}
+
+.plan-shell{margin-top:10px}
+.empty{color:var(--text-dim);font-size:.88rem;margin-top:8px}
+.plan-box{
+  border:1px solid rgba(110,182,154,.42);
+  background:rgba(110,182,154,.1);
+  border-radius:10px;
+  padding:10px;
+}
+.plan-title{font-family:var(--font-display);font-size:1.06rem;color:var(--text-head)}
+.plan-meta{margin-top:4px;color:var(--text-dim);font-size:.82rem}
+.plan-steps{margin-top:8px;display:grid;gap:6px}
+.plan-step{border:1px solid rgba(110,182,154,.3);border-radius:8px;background:rgba(8,12,20,.82);padding:7px 8px;color:var(--text-bright);font-size:.88rem}
+
+.check-actions{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px}
+.check-list{margin-top:10px;display:grid;gap:8px}
+.check-item{border:1px solid rgba(153,178,234,.2);background:rgba(10,16,29,.8);border-radius:10px;padding:9px}
+.check-meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--text-dim);font-size:.8rem}
+.check-copy{margin-top:6px;color:var(--text-bright);font-size:.88rem}
+
+.footer{
+  text-align:center;
+  color:var(--text-faint);
+  font-size:.8rem;
+  padding:2px 0 4px;
+}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .95s var(--ease),transform .95s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media (max-width:1120px){
+  .hero .section-inner{grid-template-columns:1fr}
+  .hero-side{min-height:300px}
+  .hero-stats{margin-top:128px}
+  .tour-grid{grid-template-columns:1fr}
+  .model,.domains,.phases,.laws,.reflect,.plan{grid-column:span 12}
+  .element-grid{grid-template-columns:1fr}
+}
+
+@media (max-width:760px){
+  .top-inner{flex-wrap:wrap;justify-content:center}
+  .brand{width:100%;justify-content:center}
+  .nav-links{order:3;width:100%;justify-content:center}
+  .chips{justify-content:center}
+  .shell{padding:18px 10px 44px}
+  .section{border-radius:15px}
+  .section-inner{padding:14px}
+  .title{font-size:clamp(1.38rem,6.2vw,1.8rem)}
+  .hero-title{font-size:clamp(1.95rem,10vw,2.9rem)}
+  .hero-mandala{width:310px;inset:-58px -90px auto auto}
+  .hero-stats{margin-top:108px}
+  .chip{font-size:.72rem}
+}
+</style>
+</head>
+<body>
+<canvas class="field" id="field" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="page">
+  <header class="topbar">
+    <div class="top-inner">
+      <div class="brand">
+        <div class="brand-dot" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <div class="brand-sub">Science Coherence</div>
+          <div class="brand-title">Cohera Ethos App</div>
+        </div>
+      </div>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link" href="#tour">Tour</a>
+        <a class="nav-link" href="#studio">Studio</a>
+        <a class="nav-link" href="#checkins">Timeline</a>
+      </nav>
+
+      <div class="chips">
+        <div class="chip">Tour <strong id="chipTour">1/5</strong></div>
+        <div class="chip">Coherence <strong id="chipScore">--</strong></div>
+        <div class="chip">Saved <strong id="chipSaved">Not yet</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="section hero reveal" id="home">
+      <div class="section-inner">
+        <div class="hero-copy">
+          <div class="eyebrow">Guided model and lived practice</div>
+          <h1 class="hero-title">Understand the model, then embody the higher self.</h1>
+          <p class="hero-sub">A single coherent flow inspired by Ethos: first a high-clarity guided tour, then an interactive studio where people map their state, choose phase-aware actions, and track growth over time.</p>
+          <p class="hero-body">This version is designed as a smooth, premium surface for deep reflection and concrete implementation. Progress is saved automatically in this browser.</p>
+          <div class="hero-actions">
+            <button type="button" class="btn-primary" id="startTour">Start Guided Tour</button>
+            <a href="#studio" class="btn-link btn-secondary">Open Ethos Studio</a>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="hero-mandala" aria-hidden="true">
+            <svg viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g class="ring-a" opacity=".55">
+                <circle cx="230" cy="230" r="190" stroke="#7096db" stroke-width=".9"/>
+                <circle cx="230" cy="230" r="160" stroke="#7096db" stroke-width=".6"/>
+                <path d="M230 40 L230 420 M40 230 L420 230" stroke="#7096db" stroke-width=".5" opacity=".7"/>
+              </g>
+              <g class="ring-b" opacity=".62">
+                <polygon points="230,62 355,134 355,276 230,348 105,276 105,134" stroke="#cf9b57" stroke-width=".7"/>
+                <polygon points="230,94 329,151 329,265 230,322 131,265 131,151" stroke="#cf9b57" stroke-width=".6"/>
+              </g>
+              <g class="ring-c" opacity=".8">
+                <circle cx="230" cy="230" r="78" stroke="#e5bf86" stroke-width=".9"/>
+                <circle cx="230" cy="230" r="40" fill="rgba(229,191,134,.16)" stroke="#e5bf86" stroke-width=".8"/>
+                <circle cx="230" cy="230" r="8" fill="#e5bf86"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="stat-k">Current phase</div>
+              <div class="stat-v" id="chipPhase">Seeking</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-k">Active element</div>
+              <div class="stat-v" id="chipElement">Primitive Differential</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-k">Saved check-ins</div>
+              <div class="stat-v" id="chipCheckins">0</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section reveal" id="tour">
+      <div class="section-inner">
+        <div class="head">
+          <div>
+            <div class="eyebrow">Part I</div>
+            <h2 class="title">Guided Tour of the Ethos Model</h2>
+            <p class="sub">Move through five structural steps, then continue directly into interactive application.</p>
+          </div>
+        </div>
+
+        <div class="tour-grid">
+          <div>
+            <div class="progress-label" id="tourLabel">Step 1 of 5</div>
+            <div class="progress"><div class="bar" id="tourBar"></div></div>
+
+            <article class="tour-card">
+              <h3 class="tour-title" id="tourTitle"></h3>
+              <p class="tour-copy" id="tourCopy"></p>
+              <div class="points" id="tourPoints"></div>
+              <div class="prompt" id="tourPrompt"></div>
+              <div class="tour-actions">
+                <button type="button" class="btn-ghost" id="tourPrev">Back</button>
+                <button type="button" class="btn-primary" id="tourNext">Next</button>
+              </div>
+            </article>
+          </div>
+
+          <aside class="rail">
+            <div class="rail-card">
+              <div class="rail-k">Tour status</div>
+              <div class="rail-v" id="tourStatus">In progress</div>
+            </div>
+            <div class="rail-card">
+              <div class="rail-k">Step rail</div>
+              <div class="rail-steps" id="tourRail"></div>
+            </div>
+            <div class="rail-card">
+              <div class="rail-k">Next stage</div>
+              <div class="rail-v">Ethos Studio: domains, phase, laws, commitments, and generated plan.</div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="studio">
+      <div class="section-inner">
+        <div class="head">
+          <div>
+            <div class="eyebrow">Part II</div>
+            <h2 class="title">Ethos Interaction Studio</h2>
+            <p class="sub">Use the framework in a practical way: choose focus element, evaluate domain coherence, locate phase, and synthesize specific next actions.</p>
+          </div>
+        </div>
+
+        <div class="studio-grid">
+          <article class="panel model">
+            <h3>Five Core Elements</h3>
+            <p>Select your active element to orient today&apos;s interpretation and action.</p>
+            <div class="element-grid">
+              <div class="element-wheel" id="elementWheel">
+                <div class="wheel-orbit" aria-hidden="true"></div>
+                <div class="wheel-ring" aria-hidden="true"></div>
+                <div class="wheel-core" aria-hidden="true">Coherence loop</div>
+              </div>
+              <div>
+                <div class="element-nav" id="elementNav"></div>
+                <div class="element-detail" id="elementDetail"></div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel domains">
+            <h3>Three Domains of Life</h3>
+            <p>Score your current coherence profile and log one observation per domain.</p>
+            <div class="domain-list" id="domainList"></div>
+            <div class="radar">
+              <svg viewBox="0 0 300 300" role="img" aria-label="Domain coherence radar">
+                <polygon points="150,44 242,206 58,206" fill="none" stroke="rgba(153,178,234,.34)" stroke-width="1"></polygon>
+                <polygon points="150,78 214,191 86,191" fill="none" stroke="rgba(153,178,234,.22)" stroke-width="1"></polygon>
+                <line x1="150" y1="150" x2="150" y2="44" stroke="rgba(153,178,234,.22)" stroke-width="1"></line>
+                <line x1="150" y1="150" x2="242" y2="206" stroke="rgba(153,178,234,.22)" stroke-width="1"></line>
+                <line x1="150" y1="150" x2="58" y2="206" stroke="rgba(153,178,234,.22)" stroke-width="1"></line>
+                <polygon id="radarShape" points="150,150 150,150 150,150" fill="rgba(207,155,87,.3)" stroke="rgba(229,191,134,.95)" stroke-width="2"></polygon>
+                <text x="150" y="30" text-anchor="middle" fill="#9eb7eb" font-size="12">Inner</text>
+                <text x="255" y="222" text-anchor="middle" fill="#9eb7eb" font-size="12">Embodied</text>
+                <text x="45" y="222" text-anchor="middle" fill="#9eb7eb" font-size="12">Relational</text>
+              </svg>
+            </div>
+          </article>
+
+          <article class="panel phases">
+            <h3>Self-Realization Phase</h3>
+            <p>Select where you are now in the process from drift to realization.</p>
+            <div class="phase-grid" id="phaseGrid"></div>
+          </article>
+
+          <article class="panel laws">
+            <h3>Laws of Coherent Living</h3>
+            <p>Mark the laws you actively practiced today.</p>
+            <div class="law-list" id="lawList"></div>
+          </article>
+
+          <article class="panel reflect">
+            <h3>Reflection and Commitments</h3>
+            <div class="ref-grid">
+              <div>
+                <label class="field-label" for="nameInput">Name (optional)</label>
+                <input id="nameInput" type="text" placeholder="How should the plan address you?">
+              </div>
+              <div>
+                <label class="field-label" for="aspInput">Higher-self aspiration</label>
+                <textarea id="aspInput" placeholder="Describe the person you are becoming..."></textarea>
+              </div>
+              <div>
+                <label class="field-label" for="resInput">Main resistance signal</label>
+                <textarea id="resInput" placeholder="Where do you notice friction, avoidance, or collapse?"></textarea>
+              </div>
+            </div>
+
+            <div class="commit-add">
+              <input id="commitInput" type="text" placeholder="Add one concrete commitment with context or timing">
+              <button type="button" class="btn-secondary" id="addCommit">Add</button>
+            </div>
+            <div class="commit-list" id="commitList"></div>
+          </article>
+
+          <article class="panel plan">
+            <h3>Higher-Self Plan</h3>
+            <p>Generate a tailored action sequence from your current profile.</p>
+            <div class="hero-actions" style="margin-top:11px">
+              <button type="button" class="btn-primary" id="genPlan">Generate Plan</button>
+            </div>
+            <div class="plan-shell" id="planArea">
+              <div class="empty">Generate a plan to see your tailored action sequence.</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="checkins">
+      <div class="section-inner">
+        <div class="head">
+          <div>
+            <div class="eyebrow">Part III</div>
+            <h2 class="title">Check-In Timeline</h2>
+            <p class="sub">Save snapshots of state and follow the evolution of your coherence profile.</p>
+          </div>
+        </div>
+
+        <div class="check-actions">
+          <button type="button" class="btn-primary" id="saveCheck">Save Check-In</button>
+          <button type="button" class="btn-ghost" id="resetAll">Reset All Data</button>
+        </div>
+
+        <div class="check-list" id="checkList"></div>
+      </div>
+    </section>
+
+    <footer class="footer">Cohera App premium v2 | Inspired by Ethos design language and optimized for interactive framework practice.</footer>
+  </main>
+</div>
+
+<script>
+(() => {
+  const KEY = 'cohera_app_premium_v2';
+
+  const TOUR = [
+    {
+      t: 'Recursion Architecture',
+      c: 'Reality is modeled as a loop: differentiation, coherence selection, realization, and reintegration continuously update one another.',
+      p: [
+        'Difference appears first, then coherence determines what persists.',
+        'Realized structure constrains future possibilities.',
+        'The observer is an active participant, not an external spectator.'
+      ],
+      q: 'Reflection: where are you treating outcomes as final instead of recursive?'
+    },
+    {
+      t: 'Five Core Elements',
+      c: 'The model is expressed through five operations that connect information dynamics and lived experience.',
+      p: [
+        'Primitive Differential: directional contrast that initiates pattern.',
+        'Coherence Selection: filtering toward stable structures.',
+        'Realized Universe: stabilized world-state feeding back constraints.',
+        'Integration: self-model update across scales.',
+        'Mind-like Wave: propagated coherence signal.'
+      ],
+      q: 'Reflection: which element is underdeveloped in your current routines?'
+    },
+    {
+      t: 'Dual Stabilization',
+      c: 'Sustained coherent action requires both substrate stabilization and representational stabilization.',
+      p: [
+        'Informational stabilization: your system is quiet enough to be legible.',
+        'Representational stabilization: your internal model stops random drift.',
+        'When both hold, strategic action gets cleaner and lighter.'
+      ],
+      q: 'Reflection: what destabilizes your substrate most this week?'
+    },
+    {
+      t: 'Three Domains of Ethos',
+      c: 'Ethos practice integrates inner clarity, embodied architecture, and relational coherence as one field.',
+      p: [
+        'Inner life: attention quality and observer clarity.',
+        'Embodied life: rhythm, environment, and physiological capacity.',
+        'Relational life: communication patterns and co-resonance.'
+      ],
+      q: 'Reflection: what one upgrade would improve your weakest domain now?'
+    },
+    {
+      t: 'Self-Realization Path',
+      c: 'The path is dynamic: drift, seeking, awakening, integration, and realization.',
+      p: [
+        'Drift to seeking: coherence pressure starts rising.',
+        'Seeking to awakening: patterns become legible.',
+        'Integration to realization: insight becomes stable behavior.'
+      ],
+      q: 'Reflection: what would integration look like this week in concrete action?'
+    }
+  ];
+
+  const ELEMENTS = [
+    { id: 'differential', l: 'Primitive Differential', short: 'Differential', s: 'dPhi', n: 'Directional Difference', c: 'The minimal directional change that seeds structure and meaningful contrast.' },
+    { id: 'selection', l: 'Coherence Selection', short: 'Selection', s: 'Lambda', n: 'Selection Pressure', c: 'Filters stable relational patterns from a large space of noise and variability.' },
+    { id: 'realized', l: 'Realized Universe', short: 'Universe', s: 'Omega', n: 'Stabilized World-State', c: 'Emergent coherent world-state that then constrains what changes can occur next.' },
+    { id: 'integration', l: 'Integration', short: 'Integration', s: 'Delta', n: 'Self-Model Update', c: 'Refines self-models so the local observer can participate with increasing precision.' },
+    { id: 'wave', l: 'Mind-like Wave', short: 'Wave', s: 'Psi', n: 'Coherence Signal', c: 'Phase-carrying expression of integration, linking lived experience and physical propagation.' }
+  ];
+
+  const DOMAINS = [
+    { id: 'inner', l: 'Inner Life' },
+    { id: 'embodied', l: 'Embodied Life' },
+    { id: 'relational', l: 'Relational Life' }
+  ];
+
+  const PHASES = [
+    { id: 'drift', l: 'Drift', b: 'Pulled by conditioning and noise.' },
+    { id: 'seeking', l: 'Seeking', b: 'The gap is felt; orientation starts shifting.' },
+    { id: 'awakening', l: 'Awakening', b: 'New pattern legibility and recognition.' },
+    { id: 'integration', l: 'Integration', b: 'Insights tested in real daily complexity.' },
+    { id: 'realization', l: 'Realization', b: 'Coherence stabilizes as baseline state.' }
+  ];
+
+  const LAWS = [
+    { id: 'law1', n: 'Attention shapes substrate', b: 'Where attention goes, identity follows.' },
+    { id: 'law2', n: 'Coherence compounds', b: 'Small aligned gains create major state change.' },
+    { id: 'law3', n: 'Field precedes form', b: 'State quality sets the limit of outcomes.' },
+    { id: 'law4', n: 'Resistance is information', b: 'Friction is data for coherence restoration.' }
+  ];
+
+  const BASE = {
+    tourStep: 0,
+    tourDone: false,
+    activeElement: 'differential',
+    scores: { inner: 58, embodied: 56, relational: 57 },
+    notes: { inner: '', embodied: '', relational: '' },
+    phase: 'seeking',
+    laws: { law1: false, law2: false, law3: false, law4: false },
+    name: '',
+    asp: '',
+    res: '',
+    commits: [],
+    plan: null,
+    checkins: [],
+    saved: ''
+  };
+
+  const state = load();
+
+  const E = {
+    field: id('field'),
+    chipTour: id('chipTour'),
+    chipScore: id('chipScore'),
+    chipSaved: id('chipSaved'),
+    chipPhase: id('chipPhase'),
+    chipElement: id('chipElement'),
+    chipCheckins: id('chipCheckins'),
+
+    startTour: id('startTour'),
+
+    tourLabel: id('tourLabel'),
+    tourBar: id('tourBar'),
+    tourTitle: id('tourTitle'),
+    tourCopy: id('tourCopy'),
+    tourPoints: id('tourPoints'),
+    tourPrompt: id('tourPrompt'),
+    tourStatus: id('tourStatus'),
+    tourPrev: id('tourPrev'),
+    tourNext: id('tourNext'),
+    tourRail: id('tourRail'),
+
+    elementWheel: id('elementWheel'),
+    elementNav: id('elementNav'),
+    elementDetail: id('elementDetail'),
+
+    domainList: id('domainList'),
+    radarShape: id('radarShape'),
+
+    phaseGrid: id('phaseGrid'),
+    lawList: id('lawList'),
+
+    nameInput: id('nameInput'),
+    aspInput: id('aspInput'),
+    resInput: id('resInput'),
+
+    commitInput: id('commitInput'),
+    addCommit: id('addCommit'),
+    commitList: id('commitList'),
+
+    genPlan: id('genPlan'),
+    planArea: id('planArea'),
+
+    saveCheck: id('saveCheck'),
+    resetAll: id('resetAll'),
+    checkList: id('checkList')
+  };
+
+  init();
+
+  function init() {
+    initField();
+    initReveal();
+
+    buildTourRail();
+    buildElements();
+    buildDomains();
+    buildPhases();
+    buildLaws();
+
+    E.nameInput.value = state.name;
+    E.aspInput.value = state.asp;
+    E.resInput.value = state.res;
+
+    bind();
+
+    renderTour();
+    renderElements();
+    renderDomains();
+    renderPhases();
+    renderLaws();
+    renderCommits();
+    renderPlan();
+    renderCheckins();
+    renderTop();
+  }
+
+  function bind() {
+    E.startTour.addEventListener('click', () => id('tour').scrollIntoView({ behavior: 'smooth', block: 'start' }));
+
+    E.tourPrev.addEventListener('click', () => {
+      if (state.tourStep > 0) {
+        state.tourStep -= 1;
+        persist();
+        renderTour();
+        renderTop();
+      }
+    });
+
+    E.tourNext.addEventListener('click', () => {
+      if (state.tourStep < TOUR.length - 1) {
+        state.tourStep += 1;
+      } else {
+        state.tourDone = true;
+        id('studio').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      persist();
+      renderTour();
+      renderTop();
+    });
+
+    E.nameInput.addEventListener('input', () => { state.name = E.nameInput.value.trim(); persist(); });
+    E.aspInput.addEventListener('input', () => { state.asp = E.aspInput.value.trim(); persist(); });
+    E.resInput.addEventListener('input', () => { state.res = E.resInput.value.trim(); persist(); });
+
+    E.addCommit.addEventListener('click', addCommit);
+    E.commitInput.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter') {
+        ev.preventDefault();
+        addCommit();
+      }
+    });
+
+    E.genPlan.addEventListener('click', () => {
+      state.plan = buildPlan();
+      persist();
+      renderPlan();
+    });
+
+    E.saveCheck.addEventListener('click', saveCheckin);
+    E.resetAll.addEventListener('click', () => {
+      if (confirm('Erase all saved app data in this browser?')) {
+        localStorage.removeItem(KEY);
+        location.reload();
+      }
+    });
+  }
+
+  function buildTourRail() {
+    E.tourRail.innerHTML = '';
+    TOUR.forEach((step, index) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'rail-step';
+      btn.dataset.index = String(index);
+      btn.textContent = `${index + 1}. ${step.t}`;
+      btn.addEventListener('click', () => {
+        state.tourStep = index;
+        persist();
+        renderTour();
+        renderTop();
+      });
+      E.tourRail.appendChild(btn);
+    });
+  }
+
+  function buildElements() {
+    E.elementNav.innerHTML = '';
+
+    ELEMENTS.forEach((item) => {
+      const navBtn = document.createElement('button');
+      navBtn.type = 'button';
+      navBtn.className = 'elem-chip';
+      navBtn.dataset.id = item.id;
+      navBtn.textContent = item.short;
+      navBtn.addEventListener('click', () => {
+        state.activeElement = item.id;
+        persist();
+        renderElements();
+        renderTop();
+      });
+      E.elementNav.appendChild(navBtn);
+    });
+
+    const nodes = ['n1', 'n2', 'n3', 'n4', 'n5'];
+    ELEMENTS.forEach((item, idx) => {
+      const node = document.createElement('button');
+      node.type = 'button';
+      node.className = `wheel-node ${nodes[idx]}`;
+      node.dataset.id = item.id;
+      node.innerHTML = `<div class="sym">${item.s}</div><div class="lbl">${item.short}</div>`;
+      node.addEventListener('click', () => {
+        state.activeElement = item.id;
+        persist();
+        renderElements();
+        renderTop();
+      });
+      E.elementWheel.appendChild(node);
+    });
+  }
+
+  function buildDomains() {
+    E.domainList.innerHTML = '';
+
+    DOMAINS.forEach((domain) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'domain-row';
+      wrap.innerHTML = `
+        <div class="domain-top">
+          <div class="domain-name">${domain.l}</div>
+          <div class="domain-score" id="score_${domain.id}"></div>
+        </div>
+        <input id="range_${domain.id}" type="range" min="0" max="100" step="1">
+        <textarea id="note_${domain.id}" placeholder="${domain.l}: one observation from today"></textarea>
+      `;
+      E.domainList.appendChild(wrap);
+
+      const range = id(`range_${domain.id}`);
+      const note = id(`note_${domain.id}`);
+
+      range.value = String(state.scores[domain.id]);
+      note.value = state.notes[domain.id] || '';
+
+      range.addEventListener('input', () => {
+        state.scores[domain.id] = Number(range.value);
+        persist();
+        renderDomains();
+        renderTop();
+      });
+
+      note.addEventListener('input', () => {
+        state.notes[domain.id] = note.value.trim();
+        persist();
+      });
+    });
+  }
+
+  function buildPhases() {
+    E.phaseGrid.innerHTML = '';
+
+    PHASES.forEach((phase) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'phase-btn';
+      btn.dataset.id = phase.id;
+      btn.innerHTML = `<div class="phase-name">${phase.l}</div><div class="phase-copy">${phase.b}</div>`;
+      btn.addEventListener('click', () => {
+        state.phase = phase.id;
+        persist();
+        renderPhases();
+        renderTop();
+      });
+      E.phaseGrid.appendChild(btn);
+    });
+  }
+
+  function buildLaws() {
+    E.lawList.innerHTML = '';
+
+    LAWS.forEach((law) => {
+      const row = document.createElement('label');
+      row.className = 'law-row';
+
+      const box = document.createElement('input');
+      box.type = 'checkbox';
+      box.checked = !!state.laws[law.id];
+      box.addEventListener('change', () => {
+        state.laws[law.id] = box.checked;
+        persist();
+        renderTop();
+      });
+
+      const body = document.createElement('div');
+      body.innerHTML = `<div class="law-name">${law.n}</div><div class="law-copy">${law.b}</div>`;
+
+      row.appendChild(box);
+      row.appendChild(body);
+      E.lawList.appendChild(row);
+    });
+  }
+
+  function renderTour() {
+    const step = TOUR[state.tourStep] || TOUR[0];
+
+    E.tourLabel.textContent = `Step ${state.tourStep + 1} of ${TOUR.length}`;
+    E.tourBar.style.width = `${((state.tourStep + 1) / TOUR.length) * 100}%`;
+    E.tourTitle.textContent = step.t;
+    E.tourCopy.textContent = step.c;
+    E.tourPrompt.textContent = step.q;
+
+    E.tourPoints.innerHTML = '';
+    step.p.forEach((line) => {
+      const item = document.createElement('div');
+      item.className = 'point';
+      item.textContent = line;
+      E.tourPoints.appendChild(item);
+    });
+
+    E.tourPrev.disabled = state.tourStep === 0;
+    E.tourPrev.style.opacity = state.tourStep === 0 ? '.45' : '1';
+    E.tourNext.textContent = state.tourStep === TOUR.length - 1 ? 'Complete Tour' : 'Next';
+    E.tourStatus.textContent = state.tourDone ? 'Completed' : 'In progress';
+
+    [...E.tourRail.children].forEach((button, index) => {
+      button.classList.toggle('active', index === state.tourStep);
+    });
+  }
+
+  function renderElements() {
+    const current = ELEMENTS.find((entry) => entry.id === state.activeElement) || ELEMENTS[0];
+
+    [...E.elementNav.children].forEach((btn) => btn.classList.toggle('active', btn.dataset.id === current.id));
+    [...E.elementWheel.querySelectorAll('.wheel-node')].forEach((btn) => btn.classList.toggle('active', btn.dataset.id === current.id));
+
+    E.elementDetail.innerHTML = `
+      <div class="elem-head">
+        <div class="elem-symbol">${current.s}</div>
+        <div class="elem-title">${current.n}</div>
+      </div>
+      <div class="elem-copy">${current.c}</div>
+    `;
+  }
+
+  function renderDomains() {
+    DOMAINS.forEach((domain) => {
+      const score = state.scores[domain.id];
+      const scoreEl = id(`score_${domain.id}`);
+      const rangeEl = id(`range_${domain.id}`);
+      const noteEl = id(`note_${domain.id}`);
+
+      if (scoreEl) scoreEl.textContent = `${score}/100`;
+      if (rangeEl && Number(rangeEl.value) !== score) rangeEl.value = String(score);
+      if (noteEl && noteEl.value !== state.notes[domain.id]) noteEl.value = state.notes[domain.id];
+    });
+
+    drawRadar();
+  }
+
+  function drawRadar() {
+    const center = { x: 150, y: 150 };
+    const radius = 108;
+    const angles = [-90, 30, 150];
+    const values = [state.scores.inner / 100, state.scores.embodied / 100, state.scores.relational / 100];
+
+    const points = values.map((value, index) => {
+      const angle = (angles[index] * Math.PI) / 180;
+      const x = center.x + Math.cos(angle) * radius * value;
+      const y = center.y + Math.sin(angle) * radius * value;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    });
+
+    E.radarShape.setAttribute('points', points.join(' '));
+  }
+
+  function renderPhases() {
+    const current = PHASES.find((phase) => phase.id === state.phase) || PHASES[1];
+
+    [...E.phaseGrid.children].forEach((btn) => {
+      btn.classList.toggle('active', btn.dataset.id === state.phase);
+    });
+
+    E.chipPhase.textContent = current.l;
+  }
+
+  function renderLaws() {
+    [...E.lawList.querySelectorAll('input[type="checkbox"]')].forEach((box, index) => {
+      box.checked = !!state.laws[LAWS[index].id];
+    });
+  }
+
+  function addCommit() {
+    const text = E.commitInput.value.trim();
+    if (!text) return;
+
+    state.commits.push(text);
+    E.commitInput.value = '';
+    persist();
+    renderCommits();
+  }
+
+  function renderCommits() {
+    E.commitList.innerHTML = '';
+
+    if (!state.commits.length) {
+      E.commitList.innerHTML = '<div class="empty">No commitments yet.</div>';
+      return;
+    }
+
+    state.commits.forEach((item, index) => {
+      const row = document.createElement('div');
+      row.className = 'commit-item';
+
+      const text = document.createElement('span');
+      text.textContent = item;
+
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.textContent = 'Remove';
+      del.addEventListener('click', () => {
+        state.commits.splice(index, 1);
+        persist();
+        renderCommits();
+      });
+
+      row.appendChild(text);
+      row.appendChild(del);
+      E.commitList.appendChild(row);
+    });
+  }
+
+  function buildPlan() {
+    const score = overall();
+    const phaseIndex = Math.max(0, PHASES.findIndex((phase) => phase.id === state.phase));
+    const currentPhase = PHASES[phaseIndex] || PHASES[1];
+    const nextPhase = PHASES[Math.min(PHASES.length - 1, phaseIndex + 1)] || PHASES[PHASES.length - 1];
+
+    const weakest = Object.entries(state.scores).sort((a, b) => a[1] - b[1])[0][0];
+    const weakestDomain = DOMAINS.find((domain) => domain.id === weakest) || DOMAINS[0];
+
+    const pendingLaw = LAWS.find((law) => !state.laws[law.id]);
+
+    const title = `${state.name ? `${state.name}'s` : 'Your'} Higher-Self Alignment Plan`;
+
+    const stepOne = state.notes[weakest]
+      ? `Stabilize ${weakestDomain.l}: ${state.notes[weakest]}`
+      : `Stabilize ${weakestDomain.l}: capture one concrete observation and one micro-upgrade.`;
+
+    const stepTwo = pendingLaw
+      ? `Activate '${pendingLaw.n}' in one non-negotiable behavior block today.`
+      : 'All four laws are active. Protect consistency and avoid unnecessary complexity.';
+
+    const stepThree = state.res
+      ? `Translate resistance into information: '${state.res}'. Define trigger, signal, and response.`
+      : 'Track one resistance signal today and treat it as diagnostic information.';
+
+    const stepFour = state.asp
+      ? `Anchor behavior in aspiration: '${state.asp}'. Review before your first high-value task.`
+      : 'Write one sentence naming who you are becoming and review it at day start.';
+
+    const stepFive = state.commits.length
+      ? `Protect commitments: ${state.commits.slice(0, 2).join(' | ')}.`
+      : 'Add at least one commitment with explicit time and context.';
+
+    return {
+      title,
+      score,
+      target: `${currentPhase.l} -> ${nextPhase.l}`,
+      steps: [stepOne, stepTwo, stepThree, stepFour, stepFive]
+    };
+  }
+
+  function renderPlan() {
+    if (!state.plan) {
+      E.planArea.innerHTML = '<div class="empty">Generate a plan to see your tailored action sequence.</div>';
+      return;
+    }
+
+    const steps = state.plan.steps.map((step) => `<div class="plan-step">${esc(step)}</div>`).join('');
+
+    E.planArea.innerHTML = `
+      <div class="plan-box">
+        <div class="plan-title">${esc(state.plan.title)}</div>
+        <div class="plan-meta">Phase target: ${esc(state.plan.target)} | Coherence score: ${state.plan.score}</div>
+        <div class="plan-steps">${steps}</div>
+      </div>
+    `;
+  }
+
+  function saveCheckin() {
+    const currentPhase = PHASES.find((phase) => phase.id === state.phase) || PHASES[1];
+    const lawCount = Object.values(state.laws).filter(Boolean).length;
+    const summary = state.plan ? state.plan.steps[0] : 'Snapshot saved before plan generation.';
+
+    state.checkins.push({
+      ts: Date.now(),
+      phase: currentPhase.l,
+      score: overall(),
+      laws: lawCount,
+      summary
+    });
+
+    if (state.checkins.length > 60) {
+      state.checkins = state.checkins.slice(-60);
+    }
+
+    persist();
+    renderCheckins();
+    renderTop();
+  }
+
+  function renderCheckins() {
+    E.checkList.innerHTML = '';
+
+    if (!state.checkins.length) {
+      E.checkList.innerHTML = '<div class="empty">No check-ins yet. Save one after generating your plan.</div>';
+      E.chipCheckins.textContent = '0';
+      return;
+    }
+
+    [...state.checkins].sort((a, b) => b.ts - a.ts).slice(0, 14).forEach((entry) => {
+      const row = document.createElement('article');
+      row.className = 'check-item';
+      row.innerHTML = `
+        <div class="check-meta">
+          <span>${esc(new Date(entry.ts).toLocaleString())}</span>
+          <span>Phase: ${esc(entry.phase)}</span>
+          <span>Score: ${entry.score}</span>
+          <span>Laws active: ${entry.laws}</span>
+        </div>
+        <div class="check-copy">${esc(entry.summary)}</div>
+      `;
+      E.checkList.appendChild(row);
+    });
+
+    E.chipCheckins.textContent = String(state.checkins.length);
+  }
+
+  function renderTop() {
+    const element = ELEMENTS.find((entry) => entry.id === state.activeElement) || ELEMENTS[0];
+
+    E.chipTour.textContent = `${state.tourStep + 1}/${TOUR.length}`;
+    E.chipScore.textContent = `${overall()}/100`;
+    E.chipSaved.textContent = state.saved ? new Date(state.saved).toLocaleTimeString() : 'Not yet';
+    E.chipElement.textContent = element.l;
+  }
+
+  function overall() {
+    const avg = (state.scores.inner + state.scores.embodied + state.scores.relational) / 3;
+    const lawBonus = Object.values(state.laws).filter(Boolean).length * 4;
+    const tourBonus = Math.round(((state.tourStep + 1) / TOUR.length) * 6);
+    const commitBonus = Math.min(6, state.commits.length * 2);
+    return Math.min(100, Math.round(avg + lawBonus + tourBonus + commitBonus));
+  }
+
+  function initReveal() {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: .1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach((node) => obs.observe(node));
+  }
+
+  function initField() {
+    const canvas = E.field;
+    const ctx = canvas.getContext('2d');
+    let w = 0;
+    let h = 0;
+    let stars = [];
+    let t = 0;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      stars = [];
+      const count = Math.max(120, Math.floor((w * h) / 16000));
+      for (let i = 0; i < count; i += 1) {
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 1.1 + .2,
+          o: Math.random() * .45 + .08,
+          p: Math.random() * Math.PI * 2,
+          s: Math.random() * .00035 + .00008
+        });
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      t += .016;
+
+      for (let i = 0; i < stars.length; i += 1) {
+        const st = stars[i];
+        const alpha = st.o * (.55 + .45 * Math.sin(t * 800 * st.s + st.p));
+        ctx.beginPath();
+        ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(142,166,216,${alpha})`;
+        ctx.fill();
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    resize();
+    draw();
+    window.addEventListener('resize', resize);
+  }
+
+  function persist() {
+    state.saved = new Date().toISOString();
+    localStorage.setItem(KEY, JSON.stringify(state));
+  }
+
+  function load() {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return clone(BASE);
+
+    try {
+      const parsed = JSON.parse(raw);
+      return {
+        ...clone(BASE),
+        ...parsed,
+        scores: { ...BASE.scores, ...(parsed.scores || {}) },
+        notes: { ...BASE.notes, ...(parsed.notes || {}) },
+        laws: { ...BASE.laws, ...(parsed.laws || {}) },
+        commits: Array.isArray(parsed.commits) ? parsed.commits : [],
+        checkins: Array.isArray(parsed.checkins) ? parsed.checkins : []
+      };
+    } catch (_err) {
+      return clone(BASE);
+    }
+  }
+
+  function clone(data) {
+    return JSON.parse(JSON.stringify(data));
+  }
+
+  function id(name) {
+    return document.getElementById(name);
+  }
+
+  function esc(value) {
+    return String(value)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+  }
+})();
+</script>
+</body>
+</html>
