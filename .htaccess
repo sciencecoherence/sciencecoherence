@@ -1,8 +1,8 @@
 RewriteEngine On
 
 # --- Serve /Portal as the site root (internal rewrite) ---
-RewriteCond %{REQUEST_URI} !^/Portal/
-RewriteRule ^(.*)$ /Portal/$1 [L]
+RewriteCond %{REQUEST_URI} !^/portal/
+RewriteRule ^(.*)$ /portal/$1 [L]
 
 # --- Force fresh load (disable caching) ---
 <IfModule mod_headers.c>
