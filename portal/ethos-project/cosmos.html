@@ -1184,6 +1184,217 @@
     }
 
     /* ============================================================
+   MORPHOGENETIC FIELDS
+   ============================================================ */
+    .morphofield {
+      padding: 130px 0;
+      border-bottom: 1px solid var(--border-dim);
+      position: relative;
+      overflow: hidden;
+      background: var(--obsidian);
+    }
+
+    .morphofield::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55%;
+      height: 100%;
+      background: radial-gradient(ellipse at 80% 40%, rgba(90, 132, 200, .04) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .mf-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 120px;
+      align-items: start;
+    }
+
+    .mf-left {
+      position: sticky;
+      top: 120px;
+    }
+
+    .mf-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .mf-eyebrow-line {
+      width: 22px;
+      height: 1px;
+      background: var(--cs-core);
+    }
+
+    .mf-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4vw, 54px);
+      font-weight: 400;
+      color: var(--text-head);
+      line-height: 1.08;
+      letter-spacing: -.022em;
+      margin-bottom: 24px;
+    }
+
+    .mf-title em {
+      font-style: italic;
+      color: var(--cs-light);
+      display: block;
+    }
+
+    .mf-body {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-mid);
+      font-style: italic;
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .mf-source-block {
+      margin-top: 36px;
+      border-left: 2px solid rgba(90, 132, 200, .3);
+      padding-left: 20px;
+    }
+
+    .mf-source-label {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .35em;
+      color: var(--cs-core);
+      margin-bottom: 10px;
+    }
+
+    .mf-source-text {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-style: italic;
+      color: var(--text-body);
+      line-height: 1.75;
+      margin-bottom: 10px;
+    }
+
+    .mf-source-attr {
+      font-family: var(--font-label);
+      font-size: 7px;
+      letter-spacing: .25em;
+      color: var(--text-faint);
+    }
+
+    .mf-right {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding-top: 8px;
+    }
+
+    .mf-node {
+      border: 1px solid var(--border-dim);
+      background: var(--surface);
+      padding: 32px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .4s, background .4s;
+    }
+
+    .mf-node:hover {
+      border-color: rgba(90, 132, 200, .2);
+      background: var(--deep);
+    }
+
+    .mf-node::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--cs-core);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform .5s var(--ease-out);
+    }
+
+    .mf-node:hover::before {
+      transform: scaleY(1);
+    }
+
+    .mf-node-header {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+
+    .mf-node-num {
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: .35em;
+      color: var(--cs-mid);
+      padding-top: 3px;
+    }
+
+    .mf-node-title {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-style: italic;
+      color: var(--text-head);
+      line-height: 1.2;
+    }
+
+    .mf-node-text {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.85;
+      margin-bottom: 18px;
+      padding-left: 50px;
+    }
+
+    .mf-node-data {
+      padding-left: 50px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .mf-node-data span {
+      font-family: var(--font-label);
+      font-size: 7px;
+      letter-spacing: .22em;
+      color: var(--text-faint);
+      border: 1px solid var(--border-dim);
+      padding: 4px 10px;
+    }
+
+    /* Hypothesis node variant */
+    .mf-node-hyp {
+      border-color: rgba(90, 132, 200, .18);
+      background: rgba(90, 132, 200, .03);
+    }
+
+    .mf-node-hyp:hover {
+      border-color: rgba(90, 132, 200, .35);
+    }
+
+    .mf-node-hyp-tag {
+      font-family: var(--font-label);
+      font-size: 7px;
+      letter-spacing: .35em;
+      color: var(--cs-core);
+      border: 1px solid rgba(90, 132, 200, .25);
+      padding: 4px 12px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    /* ============================================================
    FREQUENCY / FIELD THEORY
    ============================================================ */
     .frequency {
