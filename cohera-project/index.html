@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Ethos of Being — Science Coherence</title>
+<title>Cohera — The Ethos of Being | Science Coherence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Jost:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -386,6 +386,46 @@ nav.scrolled { padding:16px 72px; background:rgba(4,5,8,.95); backdrop-filter:bl
 .impl-card:hover .impl-link-arrow { transform:translateX(5px); }
 
 /* ============================================================
+   RESONANCE ACCORDION
+   ============================================================ */
+.res-card { border:1px solid var(--border-dim); margin-bottom:-1px; transition:border-color .4s; }
+.res-card.active { border-color:rgba(90,132,200,.25); }
+.res-card-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:36px 44px; cursor:none; transition:background .3s;
+}
+.res-card-header:hover { background:rgba(90,132,200,.03); }
+.res-card-num {
+  font-family:var(--font-label); font-size:10px; letter-spacing:.2em;
+  color:var(--text-faint); min-width:28px;
+}
+.res-card-title {
+  font-family:var(--font-display); font-size:clamp(22px,2.8vw,34px);
+  font-style:italic; font-weight:400; color:var(--text-head);
+  letter-spacing:-.02em;
+}
+.res-card-toggle {
+  width:36px; height:36px; border-radius:50%;
+  border:1px solid rgba(200,168,104,.25);
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .4s, transform .4s;
+  flex-shrink:0;
+}
+.res-card.active .res-card-toggle { border-color:rgba(200,168,104,.5); transform:rotate(45deg); }
+.res-toggle-icon {
+  font-family:var(--font-body); font-size:18px; font-weight:300;
+  color:var(--amber-light); line-height:1;
+}
+.res-card-body {
+  max-height:0; overflow:hidden;
+  transition:max-height .6s cubic-bezier(.16,1,.3,1), padding .5s;
+  padding:0 44px;
+}
+.res-card.active .res-card-body {
+  max-height:900px; padding:8px 44px 52px;
+}
+
+/* ============================================================
    PUBLICATION CTA
    ============================================================ */
 .publication { padding:130px 0; position:relative; overflow:hidden; }
@@ -457,9 +497,7 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
     </a>
   </div>
   <div style="display:flex;align-items:center;gap:32px;">
-    <a href="cosmos.html" class="nav-link">Cosmos</a>
-    <a href="regenesis.html" class="nav-link">Regenesis</a>
-    <a href="ethos.html" class="nav-link">Ethos</a>
+    <a href="ethos.html" class="nav-link">Ethos Practice</a>
   </div>
 </nav>
 
@@ -479,7 +517,7 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
     <h1 class="hero-title">The Ethos<br>of Being</h1>
     <div class="hero-subtitle">Coherence, Alignment, and Emergence</div>
     <p class="hero-body" style="margin:0 auto 52px;">
-      A structural model of reality as a self-actualizing recursion — linking generative differentiation, coherence selection, realized configuration, and recursive integration into a closed loop from which existence, experience, and consciousness emerge without external driver.
+      A structural model of reality as a self-actualizing recursion — linking generative differentiation, structural articulation, realized configuration, and instantiated structure into a closed loop from which existence, experience, and consciousness emerge without external driver.
     </p>
     <div class="hero-actions" style="justify-content:center;">
       <a href="#diagram" class="btn-outline">Explore the Model</a>
@@ -503,7 +541,7 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
         Self-Actualizing Chain<br>of <em>Reality</em>
       </h2>
       <p class="diagram-sub reveal" style="transition-delay:.2s">
-        A closed recursion in which the primitive differential coherence domain generates local articulation, realizes an informational universe, and returns through closure to re-instantiate itself. No external driver. The chain is the engine.
+        A closed recursion in which the primitive differential coherence domain generates local structural articulation, realizes an informational universe, and returns through a closure configuration to re-instantiate itself. No external driver. The chain is the engine.
       </p>
     </div>
 
@@ -522,108 +560,108 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
           <!--
             LAYOUT  viewBox 900 x 500
             ─────────────────────────────────────────────────
-            Boxes:      top=160  bottom=250  mid-y=205  w=110 h=90
+            Boxes:      top=160  bottom=250  mid-y=205  w=110 h=90   cx: 180, 360, 540, 720
             Sub-labels: y=268, y=282
             ─────────────────────────────────────────────────
             TOP ARC  (green)  Ω ⇝ ∇Φ
-              Departs: top-centre Ω      (490, 160)  ← ABOVE box
-              Peak:    y=75              ← well above boxes
-              Arrives: top edge ∇Φ box  (130, 160)  ← touches box top
+              Departs: top-centre Ω      (540, 160)
+              Peak:    y=75
+              Arrives: top edge ∇Φ box  (180, 160)
               Arrowhead: pointing DOWN, tip at y=160 (box top edge)
               Label: BELOW the arc line, at y=108
 
             BOTTOM ARC (amber) ∆ ⇝ Λ
-              Departs: below sub-label ∆  (670, 300)  ← below last sub-label
-              Trough:  y=370              ← well below all text
-              Arrives: below sub-label Λ  (310, 300)  ← below last sub-label
+              Departs: below sub-label ∆  (720, 300)
+              Trough:  y=370
+              Arrives: below sub-label Λ  (360, 300)
               Arrowhead: pointing UP, tip at y=300 (below sub-label, NOT into box)
               Label: BELOW the trough line, at y=388
           -->
 
           <!-- TOP ARC: Ω ⇝ ∇Φ (green) -->
           <!-- departs top of Ω box, arcs over, arrives top of ∇Φ box -->
-          <path d="M490,160 L490,91 Q490,75 474,75 L146,75 Q130,75 130,91 L130,160"
+          <path d="M540,160 L540,91 Q540,75 524,75 L196,75 Q180,75 180,91 L180,160"
                 stroke="#6aa85a" stroke-width="1.1" opacity=".6" fill="none"
                 stroke-linecap="round" stroke-linejoin="round"/>
           <!-- arrowhead tip exactly at box top (y=160), pointing down -->
-          <polygon points="123,151 130,160 137,151" fill="#6aa85a" opacity=".7"/>
+          <polygon points="173,151 180,160 187,151" fill="#6aa85a" opacity=".7"/>
           <!-- label BELOW the arc line (arc travels at y=75, label at y=108) -->
-          <text x="310" y="108" fill="#6aa85a" font-size="9" font-family="Cinzel,serif"
+          <text x="360" y="108" fill="#6aa85a" font-size="9" font-family="Cinzel,serif"
                 text-anchor="middle" opacity=".6" letter-spacing="2">Ω ⇝ ∇Φ — GLOBAL BOUNDARY DEPENDENCE</text>
 
           <!-- FORWARD ARROWS (blue) — mid-y of boxes = 205 -->
-          <line x1="186" y1="205" x2="248" y2="205" stroke="#7aa8e8" stroke-width="1.1" opacity=".65"/>
-          <polygon points="243,199 257,205 243,211" fill="#7aa8e8" opacity=".65"/>
+          <line x1="236" y1="205" x2="298" y2="205" stroke="#7aa8e8" stroke-width="1.1" opacity=".65"/>
+          <polygon points="293,199 307,205 293,211" fill="#7aa8e8" opacity=".65"/>
 
-          <line x1="366" y1="205" x2="428" y2="205" stroke="#7aa8e8" stroke-width="1.1" opacity=".65"/>
-          <polygon points="423,199 437,205 423,211" fill="#7aa8e8" opacity=".65"/>
+          <line x1="416" y1="205" x2="478" y2="205" stroke="#7aa8e8" stroke-width="1.1" opacity=".65"/>
+          <polygon points="473,199 487,205 473,211" fill="#7aa8e8" opacity=".65"/>
 
-          <line x1="546" y1="205" x2="608" y2="205" stroke="#7aa8e8" stroke-width="1.1" opacity=".65"/>
-          <polygon points="603,199 617,205 603,211" fill="#7aa8e8" opacity=".65"/>
+          <line x1="596" y1="205" x2="658" y2="205" stroke="#7aa8e8" stroke-width="1.1" opacity=".65"/>
+          <polygon points="653,199 667,205 653,211" fill="#7aa8e8" opacity=".65"/>
 
           <!-- NODE BOXES — drawn OVER the arcs so lines don't show inside boxes -->
-          <!-- ∇Φ cx=130 -->
-          <rect x="75" y="160" width="110" height="90" rx="2"
+          <!-- ∇Φ cx=180 -->
+          <rect x="125" y="160" width="110" height="90" rx="2"
                 fill="url(#nodeFill)" stroke="rgba(90,132,200,.4)" stroke-width=".9"/>
-          <text x="130" y="215" fill="#a0c0f0" font-size="32" font-family="Playfair Display,Georgia,serif"
+          <text x="180" y="215" fill="#a0c0f0" font-size="32" font-family="Playfair Display,Georgia,serif"
                 font-style="italic" text-anchor="middle">∇Φ</text>
-          <text x="130" y="240" fill="#3a3e58" font-size="7.5" font-family="Cinzel,serif"
+          <text x="180" y="240" fill="#3a3e58" font-size="7.5" font-family="Cinzel,serif"
                 text-anchor="middle" letter-spacing="2">DIFFERENTIAL</text>
 
-          <!-- Λ cx=310 -->
-          <rect x="255" y="160" width="110" height="90" rx="2"
+          <!-- Λ cx=360 -->
+          <rect x="305" y="160" width="110" height="90" rx="2"
                 fill="url(#nodeFill)" stroke="rgba(90,132,200,.4)" stroke-width=".9"/>
-          <text x="310" y="215" fill="#a0c0f0" font-size="32" font-family="Playfair Display,Georgia,serif"
+          <text x="360" y="215" fill="#a0c0f0" font-size="32" font-family="Playfair Display,Georgia,serif"
                 font-style="italic" text-anchor="middle">Λ</text>
-          <text x="310" y="240" fill="#3a3e58" font-size="7.5" font-family="Cinzel,serif"
+          <text x="360" y="240" fill="#3a3e58" font-size="7.5" font-family="Cinzel,serif"
                 text-anchor="middle" letter-spacing="2">SELECTION</text>
 
-          <!-- Ω cx=490 -->
-          <rect x="435" y="160" width="110" height="90" rx="2"
+          <!-- Ω cx=540 -->
+          <rect x="485" y="160" width="110" height="90" rx="2"
                 fill="url(#nodeFill)" stroke="rgba(90,132,200,.4)" stroke-width=".9"/>
-          <text x="490" y="215" fill="#a0c0f0" font-size="32" font-family="Playfair Display,Georgia,serif"
+          <text x="540" y="215" fill="#a0c0f0" font-size="32" font-family="Playfair Display,Georgia,serif"
                 font-style="italic" text-anchor="middle">Ω</text>
-          <text x="490" y="240" fill="#3a3e58" font-size="7.5" font-family="Cinzel,serif"
+          <text x="540" y="240" fill="#3a3e58" font-size="7.5" font-family="Cinzel,serif"
                 text-anchor="middle" letter-spacing="2">REALIZATION</text>
 
-          <!-- ∆ cx=670 -->
-          <rect x="615" y="160" width="110" height="90" rx="2"
+          <!-- ∆ cx=720 -->
+          <rect x="665" y="160" width="110" height="90" rx="2"
                 fill="url(#nodeFill)" stroke="rgba(90,132,200,.4)" stroke-width=".9"/>
-          <text x="670" y="215" fill="#a0c0f0" font-size="32" font-family="Playfair Display,Georgia,serif"
+          <text x="720" y="215" fill="#a0c0f0" font-size="32" font-family="Playfair Display,Georgia,serif"
                 font-style="italic" text-anchor="middle">∆</text>
-          <text x="670" y="240" fill="#3a3e58" font-size="7.5" font-family="Cinzel,serif"
+          <text x="720" y="240" fill="#3a3e58" font-size="7.5" font-family="Cinzel,serif"
                 text-anchor="middle" letter-spacing="2">INTEGRATION</text>
 
           <!-- SUB-LABELS below boxes (box bottom=250, labels at 268/282) -->
-          <text x="130" y="268" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Primitive Differential</text>
-          <text x="130" y="282" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">&amp; Holography</text>
+          <text x="180" y="268" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Primitive Differential</text>
+          <text x="180" y="282" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">&amp; Holography</text>
 
-          <text x="310" y="268" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Coherence</text>
-          <text x="310" y="282" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Selection</text>
+          <text x="360" y="268" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Coherence</text>
+          <text x="360" y="282" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Selection</text>
 
-          <text x="490" y="268" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Realized</text>
-          <text x="490" y="282" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Universe</text>
+          <text x="540" y="268" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Realized</text>
+          <text x="540" y="282" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Universe</text>
 
-          <text x="670" y="268" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Integration &amp;</text>
-          <text x="670" y="282" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Self-Modeling</text>
+          <text x="720" y="268" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Integration &amp;</text>
+          <text x="720" y="282" fill="#6e7490" font-size="9" font-family="Cinzel,serif" text-anchor="middle" letter-spacing=".5">Self-Modeling</text>
 
           <!-- BOTTOM ARC: ∆ ⇝ Λ (amber) -->
           <!-- departs BELOW sub-labels of ∆ (y=300), trough y=370, arrives BELOW sub-labels of Λ (y=300) -->
           <!-- arrowhead tip at y=300, pointing UP — sits under "Coherence / Selection" text, NOT into the box -->
-          <path d="M670,300 L670,354 Q670,370 654,370 L326,370 Q310,370 310,354 L310,300"
+          <path d="M720,300 L720,354 Q720,370 704,370 L376,370 Q360,370 360,354 L360,300"
                 stroke="#c8a868" stroke-width="1.1" opacity=".6" fill="none"
                 stroke-linecap="round" stroke-linejoin="round"/>
           <!-- arrowhead pointing UP, tip at y=300 -->
-          <polygon points="303,308 310,297 317,308" fill="#c8a868" opacity=".7"/>
+          <polygon points="353,308 360,297 367,308" fill="#c8a868" opacity=".7"/>
           <!-- label BELOW the trough (trough at y=370, label at y=388) -->
-          <text x="490" y="358" fill="#c8a868" font-size="9" font-family="Cinzel,serif"
+          <text x="540" y="358" fill="#c8a868" font-size="9" font-family="Cinzel,serif"
                 text-anchor="middle" opacity=".6" letter-spacing="2">∆ ⇝ Λ — RECURSIVE LEARNING</text>
 
           <!-- Ψ FOOTNOTE -->
           <line x1="60" y1="422" x2="840" y2="422" stroke="#1a1b24" stroke-width=".8"/>
           <text x="450" y="444" fill="#4a4e66" font-size="10" font-family="Playfair Display,Georgia,serif"
                 font-style="italic" text-anchor="middle">
-            Ψ := WΩ(∆) — the mind-like wave variable: propagating expression of each integration event ∆ within Ω
+            Ψ := WΩ(∆) — the mind-like wave variable: the propagating expression of each integration event ∆ within the realized universe Ω
           </text>
 
         </svg>
@@ -640,7 +678,7 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
         <div class="diagram-line"></div>
       </div>
       <p style="font-size:14px;font-weight:300;color:var(--text-dim);font-style:italic;max-width:540px;margin:0 auto;">
-        Coherence equilibrium is defined by two simultaneous stabilization conditions — one for the informational substrate, one for the internal chart of experience.
+        Coherence equilibrium is not thermal rest. It is coherence stabilization — defined by two simultaneous conditions: one for the informational substrate, one for the internal chart of experience. When both hold, the universe is locally phase-locked.
       </p>
     </div>
 
@@ -652,7 +690,7 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
           ∇<span class="stab-eq-sub">ρ</span>Φ(ρ) <span class="stab-eq-val">= 1</span>
         </div>
         <div class="stab-name">The substrate stabilizes</div>
-        <p class="stab-text">The informational configuration is held in a stable, normalized regime. The substrate is quiet enough to be readable — its coherence pattern stops reconfiguring in any essential way.</p>
+        <p class="stab-text">The informational configuration is held in a stable, normalized regime. The substrate is quiet enough to be readable — its coherence pattern stops reconfiguring in any essential way. Knowing does not add facts on top of flux; it quiets the flux into a unit-stable configuration.</p>
       </div>
 
       <div class="stab-card">
@@ -661,7 +699,7 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
           ∆<span class="stab-eq-sub">x</span>Ψ(x) <span class="stab-eq-val">= 0</span>
         </div>
         <div class="stab-name">The chart becomes stationary</div>
-        <p class="stab-text">The internal chart Ψ has no residual update under ∆. The self-model ceases to drift. When both conditions hold simultaneously: geometry emerges as their stable expression. The universe recognizes itself.</p>
+        <p class="stab-text">The internal chart Ψ has no residual update under ∆ across geometric space-time coordinates. The self-model ceases to drift. When both conditions hold simultaneously, geometry is not imposed as a third constraint — it is the stable expression of these two stabilizations. The universe locally recognizes itself.</p>
       </div>
 
     </div>
@@ -787,7 +825,7 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
             </div>
           </div>
           <p style="font-size:15px;font-weight:300;color:var(--text-body);font-style:italic;line-height:1.9;">
-            The framework's minimal notion of difference or directional change. It acts on the substrate's evolving configuration and induces a directional holographic structure Φ — a distributed encoding of how local relations fit into a global pattern. ∇Φ is not a field living in spacetime; it is part of what makes a coherent, spacetime-like description possible at all.
+            The primitive differential ∇ is the framework's minimal notion of difference or directional change. It acts on the substrate's evolving configuration — not a fixed background space, but the substrate's own relational organization — and induces a directional holographic structure Φ: a distributed encoding of how local relations fit into a global pattern. ∇Φ is not a field living in spacetime; it is part of what makes a coherent, spacetime-like description possible at all.
           </p>
         </div>
 
@@ -800,7 +838,7 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
             </div>
           </div>
           <p style="font-size:15px;font-weight:300;color:var(--text-body);font-style:italic;line-height:1.9;">
-            The emergent world as a coherent, time-extended structure — not an inert output. Ω is a global organization with memory and constraint. Once present, it imposes consistency requirements on what can happen next, acting as a boundary condition on subsequent updates of ∇Φ. The realized universe shapes what counts as a valid local differential. Emergence is not one-way.
+            The emergent world as a coherent, time-extended structure — not an inert output. Ω is a global organization with memory and constraint. Once present, it imposes consistency requirements on what can happen next, acting as a boundary condition on subsequent updates of ∇Φ. The realized universe shapes what counts as a valid local differential and what directions of change remain coherent. Emergence is not one-way: once a stable universe exists, it constrains the very substrate that generated it.
           </p>
         </div>
 
@@ -813,7 +851,7 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
             </div>
           </div>
           <p style="font-size:15px;font-weight:300;color:var(--text-body);font-style:italic;line-height:1.9;">
-            The recursive integrator — the operation by which the system forms and refines an internal self-model that can act back on the selection process. Integration across scales, consolidation of stable representations, adaptive modification of what is selected as relevant. In the language of being, ∆ is the integrative act of the local "I" that participates in the recursion rather than merely witnessing it.
+            The recursive integrator — the operation by which the system forms and refines an internal self-model that can act back on the selection process. In physical terms, ∆ is where observer-like structure appears: integration across scales, consolidation of stable representations, and adaptive modification of what is selected as relevant. In the language of being, ∆ is the integrative act of the local "I" that participates in the recursion rather than merely witnessing it.
           </p>
         </div>
 
@@ -822,11 +860,11 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
             <span style="font-family:var(--font-display);font-size:48px;font-style:italic;color:var(--amber-light);line-height:1;">Λ</span>
             <div>
               <div style="font-family:var(--font-label);font-size:8px;letter-spacing:.35em;color:var(--text-faint);margin-bottom:6px;">SECOND ELEMENT</div>
-              <div style="font-family:var(--font-display);font-size:22px;font-style:italic;color:var(--text-head);">Coherence Selection</div>
+              <div style="font-family:var(--font-display);font-size:22px;font-style:italic;color:var(--text-head);">Coherence Selection &amp; Usable Representation</div>
             </div>
           </div>
           <p style="font-size:15px;font-weight:300;color:var(--text-body);font-style:italic;line-height:1.9;">
-            Where total reality becomes usable from within. Selects and stabilizes relational patterns that persist under repeated updating — compressing the substrate's raw degrees of freedom into effective regularities: the practical content of laws, constants, and constraints as experienced internally. Only a small fraction of the substrate's possibilities remain coherent under iteration; Λ is the process that filters toward that coherent fraction.
+            The map where total reality becomes usable from within. Λ selects and stabilizes relational patterns that persist under repeated updating — compressing the substrate's raw degrees of freedom into effective regularities: the practical content of laws, constants, and constraints as experienced internally. This is also the stage where local informational patterns are continuously created, dissolved, and transformed. Only a small fraction of the substrate's possibilities remain coherent under iteration; Λ is the operation that filters toward that coherent fraction.
           </p>
         </div>
 
@@ -839,11 +877,131 @@ footer { border-top:1px solid var(--border-dim); padding:56px 72px 44px; display
             </div>
           </div>
           <p style="font-size:15px;font-weight:300;color:var(--text-body);font-style:italic;line-height:1.9;">
-            Any integration event ∆ occurring inside Ω generates a corresponding wave-pattern Ψ — the propagating electromagnetic expression of integration. Physically: electromagnetic-like propagation, radiative, oscillatory, phase-carrying. Experientially: what it feels like from within for integration to occur. Ψ is both the physical carrier of coherence in Ω and the experiential interface through which instantiated structures participate in the world they are stabilizing.
+            Any integration event ∆ occurring inside Ω generates a corresponding wave-pattern Ψ — the propagating electromagnetic expression of integration. Formally: Ψ := W<sub style="font-size:.7em">Ω</sub>(∆), where W<sub style="font-size:.7em">Ω</sub> denotes the universal wave-realization within Ω. Physically: electromagnetic-like propagation, radiative, oscillatory, phase-carrying. Experientially: what it feels like from within for integration to occur. Because Ψ propagates through Ω, it can couple distant or multi-scale integration events, enabling coordination, resonance, and collective stabilization.
           </p>
         </div>
 
       </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     RESONANT INTERCONNECTION
+     ============================================================ -->
+<section id="resonance" style="padding:130px 0; border-bottom:1px solid var(--border-dim); position:relative; overflow:hidden;">
+
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;height:700px;background:radial-gradient(ellipse,rgba(90,132,200,.04) 0%,transparent 55%);pointer-events:none;"></div>
+
+  <div class="container">
+
+    <!-- Header — centered -->
+    <div style="text-align:center;margin-bottom:80px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:24px;" class="reveal">
+        <div style="width:22px;height:1px;background:var(--amber-light);"></div>
+        <span class="lbl" style="color:var(--amber-light);">Resonant Interconnection</span>
+        <div style="width:22px;height:1px;background:var(--amber-light);"></div>
+      </div>
+      <h2 class="reveal" style="font-family:var(--font-display);font-size:clamp(36px,4.5vw,64px);font-weight:400;font-style:italic;color:var(--text-head);line-height:1.05;letter-spacing:-.025em;margin-bottom:16px;transition-delay:.08s;">
+        Coupling across<br><em style="color:var(--amber-light);font-style:normal;">distance</em>
+      </h2>
+      <p class="reveal" style="font-size:15px;font-weight:300;color:var(--text-dim);font-style:italic;max-width:560px;margin:0 auto;line-height:1.85;transition-delay:.16s;">
+        If Ψ propagates through Ω and couples back to ∆, then any two integration events embedded in the same realized configuration are, in principle, communicable. Long-range coupling is not exotic — it is expected.
+      </p>
+    </div>
+
+    <!-- Centered SVG diagram -->
+    <div style="display:flex;justify-content:center;margin-bottom:80px;" class="reveal">
+      <div style="width:100%;max-width:700px;background:var(--obsidian);border:1px solid var(--border-dim);padding:48px 56px 40px;text-align:center;">
+        <svg viewBox="0 0 580 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
+          <!-- ΨA wave -->
+          <path d="M30,70 Q60,20 90,70 Q120,120 150,70 Q180,20 210,70 Q240,120 270,70 Q300,20 330,70 Q360,120 390,70 Q420,20 450,70 Q480,120 510,70 Q540,20 560,55"
+                stroke="#7aa8e8" stroke-width="1.1" opacity=".45" fill="none"/>
+          <!-- ΨB wave — offset phase -->
+          <path d="M20,105 Q55,55 90,105 Q125,155 160,105 Q195,55 230,105 Q265,155 300,105 Q335,55 370,105 Q405,155 440,105 Q475,55 510,105 Q545,155 560,120"
+                stroke="#a0c0f0" stroke-width="1.1" opacity=".35" fill="none"/>
+          <!-- Interference highlight -->
+          <rect x="200" y="15" width="180" height="150" fill="rgba(90,132,200,.03)" stroke="rgba(90,132,200,.1)" stroke-width=".5" stroke-dasharray="4 6" rx="2"/>
+          <!-- ∆ nodes -->
+          <circle cx="60" cy="70" r="16" fill="rgba(90,132,200,.08)" stroke="rgba(122,168,232,.3)" stroke-width=".7"/>
+          <text x="60" y="74" fill="#a0c0f0" font-size="11" font-family="Playfair Display,Georgia,serif" font-style="italic" text-anchor="middle">∆<tspan font-size="7" baseline-shift="sub">A</tspan></text>
+          <circle cx="520" cy="105" r="16" fill="rgba(90,132,200,.08)" stroke="rgba(160,192,240,.25)" stroke-width=".7"/>
+          <text x="520" y="109" fill="#a0c0f0" font-size="11" font-family="Playfair Display,Georgia,serif" font-style="italic" text-anchor="middle">∆<tspan font-size="7" baseline-shift="sub">B</tspan></text>
+          <!-- Labels -->
+          <text x="30" y="45" fill="#7aa8e8" font-size="9" font-family="Playfair Display,Georgia,serif" font-style="italic" opacity=".5">Ψ<tspan font-size="6" baseline-shift="sub">A</tspan></text>
+          <text x="30" y="140" fill="#a0c0f0" font-size="9" font-family="Playfair Display,Georgia,serif" font-style="italic" opacity=".4">Ψ<tspan font-size="6" baseline-shift="sub">B</tspan></text>
+          <text x="290" y="175" fill="#5a84c8" font-size="7" font-family="Cinzel,serif" text-anchor="middle" opacity=".4" letter-spacing="2">RESONANCE ZONE</text>
+        </svg>
+        <div style="margin-top:20px;font-family:var(--font-display);font-size:15px;font-style:italic;color:var(--cs-pale);opacity:.7;">
+          Ω(∆Ψ<sub>A</sub> + ∆Ψ<sub>B</sub>) ≈ 1
+        </div>
+        <div style="margin-top:6px;font-family:var(--font-label);font-size:7.5px;letter-spacing:.3em;color:var(--text-faint);">
+          PHASE-LOCKING CONDITION
+        </div>
+      </div>
+    </div>
+
+    <!-- Accordion stack -->
+    <div class="res-accordion reveal" style="max-width:960px;margin:0 auto;transition-delay:.2s;">
+
+      <!-- Card 1: Phase-Alignment Coupling -->
+      <div class="res-card" data-res="0">
+        <div class="res-card-header">
+          <div style="display:flex;align-items:center;gap:28px;">
+            <span class="res-card-num">01</span>
+            <span class="res-card-title">Phase-Alignment Coupling</span>
+          </div>
+          <div class="res-card-toggle"><span class="res-toggle-icon">+</span></div>
+        </div>
+        <div class="res-card-body">
+          <p style="font-family:var(--font-display);font-size:clamp(15px,1.5vw,18px);font-style:italic;color:var(--text-body);line-height:1.8;margin-bottom:28px;max-width:800px;">
+            Two integration events ∆<sub>A</sub> and ∆<sub>B</sub> embedded in Ω each generate wave patterns Ψ<sub>A</sub> = W<sub>Ω</sub>(∆<sub>A</sub>) and Ψ<sub>B</sub> = W<sub>Ω</sub>(∆<sub>B</sub>). Where they overlap, if their coherence structures admit a common phase reference, the interference is constructive — producing a sustained correlation mediated by Ψ but not reducible to classical signal transmission.
+          </p>
+          <div style="font-family:var(--font-label);font-size:8px;letter-spacing:.35em;color:var(--cs-core);margin-bottom:12px;">PHASE-LOCKING CONDITION</div>
+          <div style="font-family:var(--font-display);font-size:clamp(20px,2.5vw,34px);font-style:italic;color:var(--cs-pale);letter-spacing:.01em;margin-bottom:20px;">
+            Ω(∆Ψ<sub>A</sub> + ∆Ψ<sub>B</sub>) ≈ 1
+          </div>
+          <p style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.9;max-width:800px;margin-bottom:16px;">
+            ∆Ψ<sub>A</sub> and ∆Ψ<sub>B</sub> are active integration events — not passive wave patterns. Each represents a system doing the recursive work of consolidation, self-modeling, and coherence maintenance that ∆ requires. The realized universe Ω evaluates whether their combined output achieves unit-normalization within the realized configuration.
+          </p>
+          <p style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.9;max-width:800px;">
+            The target value is 1, not 0. Resonance is not terminal stationarity — it is living equilibrium. Because Ω encloses the expression, the condition engages the feedback closure Ω ⇝ ∇Φ: normalization feeds back into the substrate update, reinforcing the conditions that made coupling possible. Resonance is thereby self-sustaining through the full recursion loop — not a momentary phase-lock but a recursively stabilized relation.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 2: Biological & Cognitive Resonance -->
+      <div class="res-card" data-res="1">
+        <div class="res-card-header">
+          <div style="display:flex;align-items:center;gap:28px;">
+            <span class="res-card-num">02</span>
+            <span class="res-card-title">Biological &amp; Cognitive Resonance</span>
+          </div>
+          <div class="res-card-toggle"><span class="res-toggle-icon">+</span></div>
+        </div>
+        <div class="res-card-body">
+          <p style="font-family:var(--font-display);font-size:clamp(15px,1.5vw,18px);font-style:italic;color:var(--text-body);line-height:1.8;margin-bottom:28px;max-width:800px;">
+            Each organism is a localized region of high-coherence Ψ within Ω — a standing wave pattern sustained by continuous integration. When two organisms share sufficient phase compatibility, the resonance condition predicts measurable correlations between their coherence states.
+          </p>
+          <p style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.9;max-width:800px;margin-bottom:20px;">
+            The channels are not mysterious — they are the same electromagnetic, molecular, and field-mediated pathways through which Ψ propagates in general. What distinguishes resonant coupling from ordinary environmental interaction is its phase-locked character: sustained, specific, and scaling with the coherence of the participating systems rather than with the strength of the classical signal between them.
+          </p>
+          <p style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.9;max-width:800px;margin-bottom:28px;">
+            In cognitive systems, the relevant integration events are those producing conscious experience. Two conscious systems in resonance would exhibit correlated modifications of their internal charts — not through information exchange in the classical sense, but through mutual entrainment of their Ψ fields. The phenomenology: shared attentional states, spontaneous alignment of intention, correlated affective responses beyond shared sensory input.
+          </p>
+          <div style="font-family:var(--font-label);font-size:8px;letter-spacing:.35em;color:var(--amber-light);margin-bottom:10px;">EPISTEMIC STATUS</div>
+          <p style="font-size:13px;font-weight:300;color:var(--text-mid);font-style:italic;line-height:1.85;max-width:800px;">
+            This is a structural prediction, not an empirical claim. What the framework calls <em style="color:var(--text-bright);font-style:normal;">resonant interconnection</em> is resonance-mediated coherence coupling — two systems stabilizing each other's phase structure through the same Ψ dynamics that sustain each individually. The effect, if real, is not a violation of physics but a consequence of it.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Ethos link -->
+    <div style="text-align:center;margin-top:72px;" class="reveal">
+      <a href="ethos.html" style="display:inline-block;padding:22px 64px;background:var(--amber-light);color:var(--obsidian);font-family:var(--font-label);font-size:10px;letter-spacing:.35em;text-decoration:none;transition:background .3s,transform .3s;" onmouseenter="this.style.background='#e0c070'" onmouseleave="this.style.background='var(--amber-light)'">Enter the Practice</a>
     </div>
 
   </div>
@@ -904,7 +1062,7 @@ const cur=document.getElementById('cursor'),ring=document.getElementById('ring')
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
 (function a(){rx+=(mx-rx)*.09;ry+=(my-ry)*.09;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
-document.querySelectorAll('a,button,.chain-node-symbol,.concept,.theorem,.impl-card,.stab-card').forEach(el=>{
+document.querySelectorAll('a,button,.chain-node-symbol,.concept,.theorem,.impl-card,.stab-card,.res-card-header').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.classList.add('hov');ring.classList.add('hov');});
   el.addEventListener('mouseleave',()=>{cur.classList.remove('hov');ring.classList.remove('hov');});
 });
@@ -1003,6 +1161,18 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   resize();mkStars();draw();
   window.addEventListener('resize',()=>{resize();mkStars();});
 })();
+
+/* Resonance accordion */
+document.querySelectorAll('.res-card-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const card = header.parentElement;
+    const wasActive = card.classList.contains('active');
+    // close all
+    document.querySelectorAll('.res-card').forEach(c => c.classList.remove('active'));
+    // toggle clicked
+    if (!wasActive) card.classList.add('active');
+  });
+});
 </script>
 </body>
 </html>
