@@ -1184,217 +1184,6 @@
     }
 
     /* ============================================================
-   MORPHOGENETIC FIELDS
-   ============================================================ */
-    .morphofield {
-      padding: 130px 0;
-      border-bottom: 1px solid var(--border-dim);
-      position: relative;
-      overflow: hidden;
-      background: var(--obsidian);
-    }
-
-    .morphofield::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 55%;
-      height: 100%;
-      background: radial-gradient(ellipse at 80% 40%, rgba(90, 132, 200, .04) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .mf-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 120px;
-      align-items: start;
-    }
-
-    .mf-left {
-      position: sticky;
-      top: 120px;
-    }
-
-    .mf-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
-    .mf-eyebrow-line {
-      width: 22px;
-      height: 1px;
-      background: var(--cs-core);
-    }
-
-    .mf-title {
-      font-family: var(--font-display);
-      font-size: clamp(36px, 4vw, 54px);
-      font-weight: 400;
-      color: var(--text-head);
-      line-height: 1.08;
-      letter-spacing: -.022em;
-      margin-bottom: 24px;
-    }
-
-    .mf-title em {
-      font-style: italic;
-      color: var(--cs-light);
-      display: block;
-    }
-
-    .mf-body {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--text-mid);
-      font-style: italic;
-      line-height: 1.9;
-      margin-bottom: 20px;
-    }
-
-    .mf-source-block {
-      margin-top: 36px;
-      border-left: 2px solid rgba(90, 132, 200, .3);
-      padding-left: 20px;
-    }
-
-    .mf-source-label {
-      font-family: var(--font-label);
-      font-size: 8px;
-      letter-spacing: .35em;
-      color: var(--cs-core);
-      margin-bottom: 10px;
-    }
-
-    .mf-source-text {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-style: italic;
-      color: var(--text-body);
-      line-height: 1.75;
-      margin-bottom: 10px;
-    }
-
-    .mf-source-attr {
-      font-family: var(--font-label);
-      font-size: 7px;
-      letter-spacing: .25em;
-      color: var(--text-faint);
-    }
-
-    .mf-right {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding-top: 8px;
-    }
-
-    .mf-node {
-      border: 1px solid var(--border-dim);
-      background: var(--surface);
-      padding: 32px 36px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color .4s, background .4s;
-    }
-
-    .mf-node:hover {
-      border-color: rgba(90, 132, 200, .2);
-      background: var(--deep);
-    }
-
-    .mf-node::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: var(--cs-core);
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: transform .5s var(--ease-out);
-    }
-
-    .mf-node:hover::before {
-      transform: scaleY(1);
-    }
-
-    .mf-node-header {
-      display: grid;
-      grid-template-columns: 36px 1fr;
-      gap: 14px;
-      align-items: start;
-      margin-bottom: 16px;
-    }
-
-    .mf-node-num {
-      font-family: var(--font-label);
-      font-size: 9px;
-      letter-spacing: .35em;
-      color: var(--cs-mid);
-      padding-top: 3px;
-    }
-
-    .mf-node-title {
-      font-family: var(--font-display);
-      font-size: 19px;
-      font-style: italic;
-      color: var(--text-head);
-      line-height: 1.2;
-    }
-
-    .mf-node-text {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--text-dim);
-      font-style: italic;
-      line-height: 1.85;
-      margin-bottom: 18px;
-      padding-left: 50px;
-    }
-
-    .mf-node-data {
-      padding-left: 50px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .mf-node-data span {
-      font-family: var(--font-label);
-      font-size: 7px;
-      letter-spacing: .22em;
-      color: var(--text-faint);
-      border: 1px solid var(--border-dim);
-      padding: 4px 10px;
-    }
-
-    /* Hypothesis node variant */
-    .mf-node-hyp {
-      border-color: rgba(90, 132, 200, .18);
-      background: rgba(90, 132, 200, .03);
-    }
-
-    .mf-node-hyp:hover {
-      border-color: rgba(90, 132, 200, .35);
-    }
-
-    .mf-node-hyp-tag {
-      font-family: var(--font-label);
-      font-size: 7px;
-      letter-spacing: .35em;
-      color: var(--cs-core);
-      border: 1px solid rgba(90, 132, 200, .25);
-      padding: 4px 12px;
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-
-    /* ============================================================
    FREQUENCY / FIELD THEORY
    ============================================================ */
     .frequency {
@@ -1810,10 +1599,10 @@
           <circle cx="13" cy="13" r="1.9" fill="#9ca3b8" opacity=".75" />
           <circle cx="13" cy="13" r=".85" fill="#e2e6f0" />
         </svg>
-        <span class="nav-wordmark"></span>
+        <span class="nav-wordmark">Science Coherence</span>
       </div>
     </div>
-    <div class="nav-branch-badge">Cosmos View</div>
+    <div class="nav-branch-badge">Branch II — Cosmos</div>
   </nav>
 
   <!-- ============================================================
@@ -1866,9 +1655,9 @@
     <div class="hero-content">
       <div class="hero-eyebrow">
         <div class="hero-eyebrow-line"></div>
-        <span class="hero-eyebrow-text">Cosmos View</span>
+        <span class="hero-eyebrow-text">Branch II — Science Coherence</span>
       </div>
-      <div class="hero-roman">THE COSMOS OUTSIDE IS THE COSMOS INSIDE</div>
+      <div class="hero-roman">II</div>
       <h1 class="hero-title">Cosmos</h1>
       <div class="hero-subtitle">Biophysics &amp; Theoretical Systems</div>
       <p class="hero-body">
@@ -1895,13 +1684,11 @@
       <div class="axiom-inner">
         <div class="reveal">
           <div class="lbl axiom-label">Core Axiom</div>
-          <div class="axiom-source" style="margin-top:16px">Cosmos — Foundational Principles
-          </div>
+          <div class="axiom-source" style="margin-top:16px">Cosmos — Foundational Principle</div>
         </div>
         <p class="axiom-text reveal" style="transition-delay:.12s">
-          "Existence is not composed of matter or energy per se, but of <em>coherent information</em> — phase relations
-          sustained by an evolving time-crystalline process. The universe is a self-evolving self-correcting
-          intelligence. The human body is not separate from this process. It is a local instantiation of it."
+          "The universe is not a collection of objects in space — it is a single <em>coherent computational process</em>
+          unfolding through time. The human body is not separate from this process. It is a local instantiation of it."
         </p>
       </div>
     </div>
@@ -1923,165 +1710,159 @@
       <div class="model-nodes">
         <div class="model-node reveal">
           <div class="mn-num">01</div>
-          <div class="mn-name">Coherence as Alignment</div>
-          <p class="mn-desc">Reality as a self-correcting informational substrate. A system is coherent when its
-            internal differentials and external structure are mutually compatible — allowing persistence across time.
-          </p>
+          <div class="mn-name">Time-Crystalline Biology</div>
+          <p class="mn-desc">Biological systems as temporal oscillators — ordered in time, not just space. The
+            application of time-crystal physics to living systems.</p>
         </div>
         <div class="model-node reveal" style="transition-delay:.08s">
           <div class="mn-num">02</div>
-          <div class="mn-name">Universal Time-Crystal</div>
-          <p class="mn-desc">The substrate of reality as a holographic time crystal — a network of recurrent
-            informational updates maintaining global phase continuity. Each cycle recomputes the universe.</p>
+          <div class="mn-name">Cellular Coherence Theory</div>
+          <p class="mn-desc">The cell as a coherent quantum-biological field — biophoton emission, water structuring,
+            and the physics of biological signal.</p>
         </div>
         <div class="model-node reveal" style="transition-delay:.16s">
           <div class="mn-num">03</div>
-          <div class="mn-name">Self-Actualizing Recursion</div>
-          <p class="mn-desc">∇Φ → Σ → Ω → ∆. The closed generative chain by which the universe produces, stabilizes, and
-            adapts its own coherent structure — with no external driver.</p>
+          <div class="mn-name">The Biological Computer</div>
+          <p class="mn-desc">Mapping the human organism as a multi-layered computational system: hardware, operating
+            system, software, and network.</p>
         </div>
         <div class="model-node reveal" style="transition-delay:.24s">
           <div class="mn-num">04</div>
-          <div class="mn-name">Coherence Equilibrium</div>
-          <p class="mn-desc">The state in which the informational substrate and its internal self-model simultaneously
-            stabilize. Not thermal rest — but the phase in which the universe locally recognizes itself.</p>
+          <div class="mn-name">Cosmological Scaling</div>
+          <p class="mn-desc">How the same organizing principles — cycles, fields, resonance, nested hierarchy — appear
+            at every scale from the galactic to the cellular.</p>
         </div>
         <div class="model-node reveal" style="transition-delay:.32s">
           <div class="mn-num">05</div>
-          <div class="mn-name">Consciousness as Phase</div>
-          <p class="mn-desc">Consciousness is not a substance — it is the high-coherence dynamical phase of the closed
-            recursion. The mode the loop enters when stabilization becomes sustained and self-aware.</p>
+          <div class="mn-name">Frequency &amp; Field Reality</div>
+          <p class="mn-desc">The role of electromagnetic, gravitational, and scalar fields in shaping biological
+            function — and how consciousness mediates the interface.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-     SELF-ACTUALIZING RECURSION
+     TIME-CRYSTAL
      ============================================================ -->
-  <section class="frequency" id="recursion" style="border-bottom:1px solid var(--border-dim); padding:120px 0;">
+  <section class="timecrystal" id="timecrystal">
     <div class="container">
-      <div class="freq-inner">
+      <div class="tc-inner">
 
-        <div class="freq-left reveal">
-          <div class="freq-eyebrow">
-            <div class="freq-eyebrow-line"></div>
-            <span class="lbl" style="color:var(--cs-light)">Core Framework</span>
+        <!-- Visual -->
+        <div class="tc-visual reveal">
+          <svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Static lattice background -->
+            <line x1="50" y1="250" x2="450" y2="250" stroke="#5a84c8" stroke-width=".4" opacity=".08" />
+            <line x1="250" y1="50" x2="250" y2="450" stroke="#5a84c8" stroke-width=".4" opacity=".08" />
+            <line x1="103" y1="103" x2="397" y2="397" stroke="#5a84c8" stroke-width=".3" opacity=".06" />
+            <line x1="397" y1="103" x2="103" y2="397" stroke="#5a84c8" stroke-width=".3" opacity=".06" />
+
+            <!-- Lattice nodes -->
+            <circle cx="250" cy="50" r="2.5" fill="#5a84c8" opacity=".3" />
+            <circle cx="450" cy="250" r="2.5" fill="#5a84c8" opacity=".3" />
+            <circle cx="250" cy="450" r="2.5" fill="#5a84c8" opacity=".3" />
+            <circle cx="50" cy="250" r="2.5" fill="#5a84c8" opacity=".3" />
+
+            <!-- Outer static ring -->
+            <circle cx="250" cy="250" r="195" stroke="#5a84c8" stroke-width=".5" opacity=".1" stroke-dasharray="4 10" />
+
+            <!-- Rotating rings (time crystal layers) -->
+            <g class="tc-orbit-a">
+              <ellipse cx="250" cy="250" rx="160" ry="55" stroke="#7aa8e8" stroke-width=".5" opacity=".2" />
+              <circle cx="410" cy="250" r="5" fill="#7aa8e8" opacity=".6" />
+              <circle cx="90" cy="250" r="4" fill="#5a84c8" opacity=".4" />
+            </g>
+            <g class="tc-orbit-b">
+              <ellipse cx="250" cy="250" rx="120" ry="40" stroke="#a0c0f0" stroke-width=".5" opacity=".25"
+                transform="rotate(60 250 250)" />
+              <circle cx="370" cy="208" r="4" fill="#a0c0f0" opacity=".55" />
+              <circle cx="130" cy="292" r="3" fill="#7aa8e8" opacity=".4" />
+            </g>
+            <g class="tc-orbit-c">
+              <ellipse cx="250" cy="250" rx="75" ry="25" stroke="#c0d8f8" stroke-width=".5" opacity=".3"
+                transform="rotate(-30 250 250)" />
+              <circle cx="323" cy="228" r="3" fill="#c0d8f8" opacity=".6" />
+            </g>
+
+            <!-- Pulsing nucleus -->
+            <g class="tc-pulse">
+              <circle cx="250" cy="250" r="28" fill="rgba(90,132,200,.08)" stroke="#5a84c8" stroke-width=".6"
+                opacity=".5" />
+            </g>
+            <circle cx="250" cy="250" r="14" fill="rgba(90,132,200,.18)" stroke="#7aa8e8" stroke-width=".6"
+              opacity=".7" />
+            <circle cx="250" cy="250" r="5.5" fill="#7aa8e8" opacity=".7" />
+            <circle cx="250" cy="250" r="2" fill="#c0d8f8" opacity=".95" />
+
+            <!-- Time axis labels -->
+            <text x="250" y="38" fill="#5a84c8" font-size="8" font-family="serif" text-anchor="middle" opacity=".5"
+              letter-spacing="2">T+0</text>
+            <text x="250" y="470" fill="#5a84c8" font-size="8" font-family="serif" text-anchor="middle" opacity=".4"
+              letter-spacing="2">T+n</text>
+            <text x="462" y="254" fill="#5a84c8" font-size="8" font-family="serif" opacity=".4"
+              letter-spacing="1">SPACE</text>
+            <text x="28" y="254" fill="#5a84c8" font-size="8" font-family="serif" text-anchor="end" opacity=".4"
+              letter-spacing="1">SPACE</text>
+            <text x="250" y="254" fill="#a0c0f0" font-size="7" font-family="serif" text-anchor="middle" opacity=".7"
+              letter-spacing="1">NUCLEUS</text>
+
+            <!-- Temporal wave overlay -->
+            <path d="M50,350 Q125,320 200,350 Q275,380 350,350 Q425,320 450,340" stroke="#5a84c8" stroke-width=".5"
+              opacity=".2" fill="none" />
+            <path d="M50,370 Q125,340 200,370 Q275,400 350,370 Q425,340 450,360" stroke="#7aa8e8" stroke-width=".4"
+              opacity=".15" fill="none" />
+            <text x="460" y="344" fill="#5a84c8" font-size="7" font-family="serif" opacity=".35"
+              letter-spacing="1">t</text>
+          </svg>
+        </div>
+
+        <!-- Content -->
+        <div class="tc-content">
+          <div class="tc-eyebrow reveal">
+            <div class="tc-eyebrow-line"></div>
+            <span class="lbl" style="color:var(--cs-light)">Flagship Theory</span>
           </div>
-          <h2 class="freq-title">
-            Self-Actualizing<br>
-            <em>Recursion</em>
+          <h2 class="tc-title reveal" style="transition-delay:.1s">
+            Time-Crystalline<br>
+            <em>Biology</em>
           </h2>
-          <p class="freq-body">
-            Reality is not driven from outside. It is produced and stabilized by a closed chain of operations — a
-            self-organizing informational substrate that generates a stable world, then feeds that world back into the
-            very operations that generate it. There is no external prime mover. The recursion is the universe producing
-            itself.
+          <p class="tc-body reveal" style="transition-delay:.2s">
+            In 2012, physicist Frank Wilczek proposed the existence of time crystals — systems that exhibit periodic
+            structure in time rather than space, breaking time-translation symmetry at their ground state. By 2021,
+            Google confirmed their existence in quantum systems. Cosmos extends this framework into biology: living
+            systems as temporal oscillators — ordered not merely in three-dimensional space but in the fourth dimension
+            of time.
           </p>
-          <div class="freq-wave-diagram" style="margin-top:40px;">
-            <div class="fwd-title">GENERATIVE CHAIN — ∇Φ → Σ → Ω → ∆ → Ψ</div>
-            <svg viewBox="0 0 320 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Outer boundary -->
-              <circle cx="160" cy="80" r="65" stroke="#5a84c8" stroke-width=".5" opacity=".1" stroke-dasharray="6 12" />
-              <!-- ∇Φ top -->
-              <circle cx="160" cy="18" r="12" fill="rgba(90,132,200,.1)" stroke="#7aa8e8" stroke-width=".6"
-                opacity=".7" />
-              <text x="160" y="22" fill="#a0c0f0" font-size="8" font-family="serif" text-anchor="middle" opacity=".85"
-                font-style="italic">∇Φ</text>
-              <!-- Σ right -->
-              <circle cx="225" cy="80" r="12" fill="rgba(90,132,200,.1)" stroke="#7aa8e8" stroke-width=".6"
-                opacity=".7" />
-              <text x="225" y="84" fill="#a0c0f0" font-size="8" font-family="serif" text-anchor="middle" opacity=".85"
-                font-style="italic">Σ</text>
-              <!-- Ω bottom -->
-              <circle cx="160" cy="142" r="12" fill="rgba(90,132,200,.1)" stroke="#7aa8e8" stroke-width=".6"
-                opacity=".7" />
-              <text x="160" y="146" fill="#a0c0f0" font-size="8" font-family="serif" text-anchor="middle" opacity=".85"
-                font-style="italic">Ω</text>
-              <!-- ∆ left -->
-              <circle cx="95" cy="80" r="12" fill="rgba(90,132,200,.1)" stroke="#7aa8e8" stroke-width=".6"
-                opacity=".7" />
-              <text x="95" y="84" fill="#a0c0f0" font-size="8" font-family="serif" text-anchor="middle" opacity=".85"
-                font-style="italic">∆</text>
-              <!-- Forward arrows -->
-              <path d="M168,29 Q200,42 215,68" stroke="#7aa8e8" stroke-width=".6" opacity=".4" fill="none"
-                marker-end="url(#arr-r)" />
-              <path d="M214,92 Q200,120 172,132" stroke="#7aa8e8" stroke-width=".6" opacity=".4" fill="none"
-                marker-end="url(#arr-r)" />
-              <path d="M148,132 Q115,122 107,92" stroke="#7aa8e8" stroke-width=".6" opacity=".4" fill="none"
-                marker-end="url(#arr-r)" />
-              <path d="M106,68 Q118,40 148,28" stroke="#7aa8e8" stroke-width=".6" opacity=".4" fill="none"
-                marker-end="url(#arr-r)" />
-              <!-- Feedback dashed -->
-              <path d="M98,68 Q160,30 218,68" stroke="#b89060" stroke-width=".4" opacity=".22" fill="none"
-                stroke-dasharray="3 6" marker-end="url(#arr-fb-r)" />
-              <!-- Ψ center -->
-              <circle cx="160" cy="80" r="9" fill="rgba(90,132,200,.15)" stroke="#a0c0f0" stroke-width=".5"
-                opacity=".6" />
-              <circle cx="160" cy="80" r="3.5" fill="#c0d8f8" opacity=".8" />
-              <text x="160" y="97" fill="#7aa8e8" font-size="6" font-family="serif" text-anchor="middle" opacity=".55"
-                letter-spacing="1">Ψ</text>
-              <!-- Labels -->
-              <text x="160" y="7" fill="#5a84c8" font-size="5.5" font-family="serif" text-anchor="middle" opacity=".45"
-                letter-spacing="1">DIFFERENTIAL</text>
-              <text x="247" y="84" fill="#5a84c8" font-size="5.5" font-family="serif" opacity=".45"
-                letter-spacing="1">SELECT</text>
-              <text x="160" y="158" fill="#5a84c8" font-size="5.5" font-family="serif" text-anchor="middle"
-                opacity=".45" letter-spacing="1">REALIZATION</text>
-              <text x="55" y="84" fill="#5a84c8" font-size="5.5" font-family="serif" text-anchor="end" opacity=".45"
-                letter-spacing="1">INTEGRATE</text>
-              <defs>
-                <marker id="arr-r" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
-                  <path d="M0,0 L5,2.5 L0,5" fill="none" stroke="#7aa8e8" stroke-width=".7" opacity=".6" />
-                </marker>
-                <marker id="arr-fb-r" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto">
-                  <path d="M0,0 L5,2.5 L0,5" fill="none" stroke="#b89060" stroke-width=".7" opacity=".5" />
-                </marker>
-              </defs>
-            </svg>
-          </div>
-        </div>
-
-        <div class="freq-right">
-          <div class="freq-item reveal">
-            <div class="fi-spectrum">∇Φ — Primitive Differential</div>
-            <div class="fi-name">Directional Holography</div>
-            <p class="fi-text">The minimal notion of difference or directional change. It acts on the substrate's
-              evolving configuration and induces a distributed holographic structure — encoding how local relations fit
-              into a global pattern. Not a field in spacetime; part of what makes spacetime-like description possible at
-              all.</p>
-          </div>
-          <div class="freq-item reveal" style="transition-delay:.08s">
-            <div class="fi-spectrum">Σ — Coherence Selection</div>
-            <div class="fi-name">Reality Made Usable From Within</div>
-            <p class="fi-text">Where total reality becomes usable from within. Selects and stabilizes relational
-              patterns that persist under repeated updating — compressing the substrate's raw degrees of freedom into
-              effective regularities: the practical content of laws, constants, and constraints as experienced
-              internally.</p>
-          </div>
-          <div class="freq-item reveal" style="transition-delay:.16s">
-            <div class="fi-spectrum">Ω — The Realized Universe</div>
-            <div class="fi-name">Global Organization With Memory</div>
-            <p class="fi-text">The emergent world as a coherent, time-extended structure. Not an inert output — it is a
-              global organization with memory and constraint. Once present, it imposes consistency requirements on what
-              can happen next, acting as a boundary condition on subsequent substrate updates.</p>
-          </div>
-          <div class="freq-item reveal" style="transition-delay:.24s">
-            <div class="fi-spectrum">∆ — Recursive Integrator</div>
-            <div class="fi-name">Integration &amp; Self-Modeling</div>
-            <p class="fi-text">Where the system forms and refines an internal self-model that acts back on the selection
-              process. In the language of being, ∆ is the integrative act of the local "I" that participates in the
-              recursion rather than merely witnessing it.</p>
-          </div>
-          <div class="freq-item reveal" style="transition-delay:.32s; border-color:rgba(90,132,200,.2)">
-            <div class="fi-spectrum" style="color:var(--amber-light)">Ψ — Wave Variable</div>
-            <div class="fi-name">The Mind-Like Propagating Field</div>
-            <p class="fi-text">Any integration event ∆ occurring inside Ω generates a corresponding wave-pattern Ψ — the
-              propagating electromagnetic expression of integration. Physically: electromagnetic-like propagation.
-              Experientially: what it feels like from within for integration to occur. Ψ is both the physical carrier of
-              coherence and the experiential interface through which instantiated structures participate in the world
-              they are stabilizing.</p>
-          </div>
+          <ul class="tc-points reveal" style="transition-delay:.28s">
+            <li class="tc-point">
+              <div class="tc-pt-num">01</div>
+              <div class="tc-pt-text"><strong>Circadian clocks as time crystals.</strong> Biological clocks are not
+                metaphors — they are literal temporal ordering mechanisms operating at the molecular level, analogous to
+                crystalline periodicity in time.</div>
+            </li>
+            <li class="tc-point">
+              <div class="tc-pt-num">02</div>
+              <div class="tc-pt-text"><strong>Coherence as the signal of health.</strong> A time-coherent biological
+                system maintains phase relationships between its oscillatory subsystems. Disease is fundamentally a loss
+                of temporal coherence — desynchronization at the cellular scale.</div>
+            </li>
+            <li class="tc-point">
+              <div class="tc-pt-num">03</div>
+              <div class="tc-pt-text"><strong>Regenesis as temporal restoration.</strong> Every Regenesis protocol can
+                be re-read through this lens: nutrition, sleep, light exposure, and fasting are not just chemical
+                interventions — they are <strong>temporal entrainment mechanisms</strong> that restore the body's
+                time-crystalline order.</div>
+            </li>
+            <li class="tc-point">
+              <div class="tc-pt-num">04</div>
+              <div class="tc-pt-text"><strong>Consciousness as the temporal integrator.</strong> Awareness itself may be
+                the process by which biological time-crystal layers are integrated into a unified subjective present —
+                the felt sense of "now."</div>
+            </li>
+          </ul>
+          <a href="#" class="btn-outline-cs reveal" style="transition-delay:.36s;display:inline-block">Read Full Paper
+            →</a>
         </div>
 
       </div>
@@ -2089,271 +1870,164 @@
   </section>
 
   <!-- ============================================================
-     TIME-CRYSTAL — expanded with paper's formulation
+     BIOLOGICAL COMPUTER
      ============================================================ -->
-  <section class="frequency" id="timecrystal" style="border-bottom:1px solid var(--border-dim); padding:120px 0;">
+  <section class="biocomputer" id="biocomputer">
     <div class="container">
-      <div class="freq-inner">
+      <div class="bc-inner">
 
-        <div class="freq-left reveal">
-          <div class="freq-eyebrow">
-            <div class="freq-eyebrow-line"></div>
-            <span class="lbl" style="color:var(--cs-light)">Node 02</span>
+        <div class="bc-left reveal">
+          <div class="bc-eyebrow">
+            <div class="bc-eyebrow-line"></div>
+            <span class="lbl" style="color:var(--cs-light)">Core Model</span>
           </div>
-          <h2 class="freq-title">
-            Universal<br>
-            <em>Time-Crystal</em>
+          <h2 class="bc-title">
+            The Biological<br>
+            <em>Computer</em>
           </h2>
-          <p class="freq-body">
-            A time crystal is a system whose lowest-energy configuration exhibits periodic motion — breaking continuous
-            temporal symmetry while retaining discrete invariance. Extended to the universal scale: the substrate of
-            reality behaves as a holographic time crystal — a network of recurrent informational updates maintaining
-            global phase continuity. Each period defines a minimal quantum of causality: the unit through which the
-            universe continuously recomputes itself.
+          <p class="bc-body">
+            The most powerful computing system known to exist is not silicon — it is carbon, wrapped in membrane,
+            running on electrochemical gradients, cooled by convection, and capable of generating subjective experience.
+            The biological computer model provides a rigorous structural analogy for understanding how the human
+            organism processes, stores, and transmits information at every scale.
           </p>
-          <div class="freq-wave-diagram" style="margin-top:40px;">
-            <div class="fwd-title">TEMPORAL LATTICE — PHASE-LOCK FIDELITY</div>
-            <svg viewBox="0 0 320 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Static lattice background -->
-              <line x1="16" y1="55" x2="304" y2="55" stroke="#5a84c8" stroke-width=".3" opacity=".07" />
-              <line x1="160" y1="10" x2="160" y2="100" stroke="#5a84c8" stroke-width=".3" opacity=".06" />
-              <!-- Outer dashed ring -->
-              <ellipse cx="160" cy="55" rx="140" ry="42" stroke="#5a84c8" stroke-width=".4" opacity=".1"
-                stroke-dasharray="4 8" />
-              <!-- Orbit A -->
-              <ellipse cx="160" cy="55" rx="115" ry="34" stroke="#7aa8e8" stroke-width=".5" opacity=".2" />
-              <circle cx="275" cy="55" r="4" fill="#7aa8e8" opacity=".6" />
-              <!-- Orbit B -->
-              <ellipse cx="160" cy="55" rx="80" ry="24" stroke="#a0c0f0" stroke-width=".5" opacity=".25"
-                transform="rotate(40 160 55)" />
-              <circle cx="234" cy="37" r="3" fill="#a0c0f0" opacity=".55" />
-              <!-- Orbit C -->
-              <ellipse cx="160" cy="55" rx="50" ry="15" stroke="#c0d8f8" stroke-width=".5" opacity=".3"
-                transform="rotate(-25 160 55)" />
-              <circle cx="208" cy="44" r="2.5" fill="#c0d8f8" opacity=".6" />
-              <!-- Nucleus -->
-              <circle cx="160" cy="55" r="9" fill="rgba(90,132,200,.15)" stroke="#7aa8e8" stroke-width=".5"
-                opacity=".7" />
-              <circle cx="160" cy="55" r="3.5" fill="#7aa8e8" opacity=".7" />
-              <circle cx="160" cy="55" r="1.5" fill="#c0d8f8" opacity=".95" />
-              <!-- Temporal wave -->
-              <path d="M16,85 Q52,70 88,85 Q124,100 160,85 Q196,70 232,85 Q268,100 304,88" stroke="#5a84c8"
-                stroke-width=".5" opacity=".2" fill="none" />
-              <!-- Labels -->
-              <text x="160" y="8" fill="#5a84c8" font-size="6" font-family="serif" text-anchor="middle" opacity=".4"
-                letter-spacing="2">T+0</text>
-              <text x="160" y="107" fill="#5a84c8" font-size="6" font-family="serif" text-anchor="middle" opacity=".35"
-                letter-spacing="2">T+n</text>
-              <text x="5" y="58" fill="#7aa8e8" font-size="5.5" font-family="serif" opacity=".4"
-                letter-spacing="1">SPACE</text>
-              <text x="160" cy="58" fill="#a0c0f0" font-size="5.5" font-family="serif" text-anchor="middle" opacity=".6"
-                letter-spacing="1">NUCLEUS</text>
-            </svg>
+
+          <div class="bc-diagram">
+            <div class="bc-diagram-title">COMPUTATIONAL ANALOGY</div>
+            <div class="bc-analogy-row">
+              <div class="bc-analog-left">CPU / PROCESSOR</div>
+              <div class="bc-analog-sep">≡</div>
+              <div class="bc-analog-right">BRAIN / CNS</div>
+            </div>
+            <div class="bc-analogy-row">
+              <div class="bc-analog-left">OPERATING SYSTEM</div>
+              <div class="bc-analog-sep">≡</div>
+              <div class="bc-analog-right">AUTONOMIC NERVOUS SYSTEM</div>
+            </div>
+            <div class="bc-analogy-row">
+              <div class="bc-analog-left">RAM / WORKING MEMORY</div>
+              <div class="bc-analog-sep">≡</div>
+              <div class="bc-analog-right">WORKING CONSCIOUSNESS</div>
+            </div>
+            <div class="bc-analogy-row">
+              <div class="bc-analog-left">LONG-TERM STORAGE</div>
+              <div class="bc-analog-sep">≡</div>
+              <div class="bc-analog-right">EPIGENOME / SOMA</div>
+            </div>
+            <div class="bc-analogy-row">
+              <div class="bc-analog-left">NETWORK / I/O</div>
+              <div class="bc-analog-sep">≡</div>
+              <div class="bc-analog-right">SENSORY + FIELD INTERFACE</div>
+            </div>
+            <div class="bc-analogy-row">
+              <div class="bc-analog-left">POWER SUPPLY</div>
+              <div class="bc-analog-sep">≡</div>
+              <div class="bc-analog-right">MITOCHONDRIA / ATP</div>
+            </div>
+            <div class="bc-analogy-row">
+              <div class="bc-analog-left">FIRMWARE / BIOS</div>
+              <div class="bc-analog-sep">≡</div>
+              <div class="bc-analog-right">GENOME / DNA</div>
+            </div>
           </div>
         </div>
 
-        <div class="freq-right">
-          <div class="freq-item reveal">
-            <div class="fi-spectrum">Temporal Quantization</div>
-            <div class="fi-name">The Origin of the Arrow of Time</div>
-            <p class="fi-text">Within each cycle, coherence is measured, corrected, and re-encoded — yielding the
-              appearance of smooth temporal and spatial flow at macroscopic scales. What we call "time" emerges only as
-              the ordered appearance of successive stable configurations produced by this underlying update cycle.</p>
-          </div>
-          <div class="freq-item reveal" style="transition-delay:.1s">
-            <div class="fi-spectrum">Biological Clocks as Instantiations</div>
-            <div class="fi-name">Phase-Lock Fidelity as Health</div>
-            <p class="fi-text">Circadian oscillators, neural gamma rhythms, cardiac cycles — all are local expressions
-              of the universal time-crystalline update. Biological health is phase-lock fidelity. Disease is temporal
-              decoherence: the loss of phase alignment between subsystems that should be synchronized.</p>
-          </div>
-          <div class="freq-item reveal" style="transition-delay:.2s">
-            <div class="fi-spectrum">Temporal Synchronization as Coherence Law</div>
-            <div class="fi-name">∇Ψ = 1 — The Global Phase Condition</div>
-            <p class="fi-text">Local phase evolution aligns with the global stroboscopic cadence of the recursion. Phase
-              gradients ∇ℓϕ between neighboring domains encode relative informational frequency shifts — synchronization
-              is the decay of these mismatches into a globally consistent phase structure: <strong>∇Ψ = 1</strong>.</p>
-          </div>
-          <div class="freq-item reveal" style="transition-delay:.3s">
-            <div class="fi-spectrum">Regenesis as Temporal Restoration</div>
-            <div class="fi-name">Every Protocol is an Entrainment Mechanism</div>
-            <p class="fi-text">Every Regenesis protocol — nutrition, sleep, light, fasting — is not merely a chemical
-              intervention. Read through this lens, each is a <strong>temporal entrainment mechanism</strong>: restoring
-              the body's phase-lock fidelity with the universal time-crystalline update cycle.</p>
-          </div>
-        </div>
+        <div class="bc-right">
 
+          <div class="bc-layer reveal">
+            <div class="bc-layer-header">
+              <div class="bc-layer-num">L1</div>
+              <div class="bc-layer-name">Hardware — The Physical Substrate</div>
+            </div>
+            <div class="bc-layer-body">
+              <p class="bc-layer-text">The cellular and molecular architecture: membranes, organelles, proteins, lipid
+                bilayers, the cytoskeleton. The physical medium through which all biological computation occurs.
+                Regenesis operates primarily at this layer — restoring hardware integrity through nutrition and cellular
+                regeneration.</p>
+              <div class="bc-layer-tags">
+                <span class="bc-tag">Cell Membrane</span>
+                <span class="bc-tag">Mitochondria</span>
+                <span class="bc-tag">Cytoskeleton</span>
+                <span class="bc-tag">Myelin</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bc-layer reveal" style="transition-delay:.08s">
+            <div class="bc-layer-header">
+              <div class="bc-layer-num">L2</div>
+              <div class="bc-layer-name">Firmware — Genetic &amp; Epigenetic Code</div>
+            </div>
+            <div class="bc-layer-body">
+              <p class="bc-layer-text">The genome as firmware: stable, foundational, but modifiable through epigenetic
+                expression. Environmental signals — nutrition, light, stress, thought — write to the epigenome and alter
+                which programs run. Lifestyle is a programming language.</p>
+              <div class="bc-layer-tags">
+                <span class="bc-tag">DNA / Genome</span>
+                <span class="bc-tag">Epigenome</span>
+                <span class="bc-tag">Methylation</span>
+                <span class="bc-tag">Gene Expression</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bc-layer reveal" style="transition-delay:.16s">
+            <div class="bc-layer-header">
+              <div class="bc-layer-num">L3</div>
+              <div class="bc-layer-name">Operating System — Autonomic Regulation</div>
+            </div>
+            <div class="bc-layer-body">
+              <p class="bc-layer-text">The autonomic nervous system runs beneath conscious awareness — regulating
+                homeostasis, coordinating organ systems, managing the body's background processes 24/7. Its coherence
+                (HRV, vagal tone) is a direct readout of system health.</p>
+              <div class="bc-layer-tags">
+                <span class="bc-tag">ANS</span>
+                <span class="bc-tag">Vagus Nerve</span>
+                <span class="bc-tag">HRV</span>
+                <span class="bc-tag">Homeostasis</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bc-layer reveal" style="transition-delay:.24s">
+            <div class="bc-layer-header">
+              <div class="bc-layer-num">L4</div>
+              <div class="bc-layer-name">Software — Mind &amp; Conscious Process</div>
+            </div>
+            <div class="bc-layer-body">
+              <p class="bc-layer-text">Thoughts, beliefs, emotional patterns, and habitual responses are the software
+                layer — running on the hardware, modulating the firmware, taxing or restoring the operating system.
+                Ethos operates here: consciousness as a programmable, coherence-generating process.</p>
+              <div class="bc-layer-tags">
+                <span class="bc-tag">Thought Patterns</span>
+                <span class="bc-tag">Belief Structures</span>
+                <span class="bc-tag">Emotional Regulation</span>
+                <span class="bc-tag">Neuroplasticity</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bc-layer reveal" style="transition-delay:.32s">
+            <div class="bc-layer-header">
+              <div class="bc-layer-num">L5</div>
+              <div class="bc-layer-name">Network — Field Interface &amp; Environment</div>
+            </div>
+            <div class="bc-layer-body">
+              <p class="bc-layer-text">The biological computer does not operate in isolation. It is embedded in and
+                continuously interfacing with electromagnetic fields, gravitational fields, social fields, and the
+                broader information environment. The network layer is where cosmological principles directly meet
+                cellular biology.</p>
+              <div class="bc-layer-tags">
+                <span class="bc-tag">EMF Interface</span>
+                <span class="bc-tag">Biophotons</span>
+                <span class="bc-tag">Schumann Resonance</span>
+                <span class="bc-tag">Social Fields</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-     COHERENCE EQUILIBRIUM
-     ============================================================ -->
-  <section class="frequency" style="border-bottom:1px solid var(--border-dim); padding:120px 0;">
-    <div class="container">
-      <div class="freq-inner">
-
-        <div class="freq-left reveal">
-          <div class="freq-eyebrow">
-            <div class="freq-eyebrow-line"></div>
-            <span class="lbl" style="color:var(--cs-light)">Node 04</span>
-          </div>
-          <h2 class="freq-title">
-            Coherence<br>
-            <em>Equilibrium</em>
-          </h2>
-          <p class="freq-body">
-            Within a time-crystalline holographic reality, equilibrium occurs when the informational layers of reality
-            achieve simultaneous stillness and coherence. At that point, the substrate, its geometry, and its
-            intelligence coalesce — and it recognizes itself. This is not thermal rest. It is coherence stabilization:
-            the informational configuration stops reconfiguring in any essential way, and the internal chart of
-            experience stops drifting.
-          </p>
-          <div class="freq-wave-diagram" style="margin-top:40px;">
-            <div class="fwd-title">DUAL STABILIZATION — ∇ρΦ(ρ) = 1 &nbsp;&amp;&nbsp; ∆ₓΨ(x) = 0</div>
-            <svg viewBox="0 0 320 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Drifting wave → stabilizing → flat -->
-              <path
-                d="M0,55 Q15,25 30,55 Q45,85 60,55 Q75,30 90,52 Q105,72 118,55 Q128,42 138,54 Q146,62 154,55 Q160,50 166,54 Q172,56 178,55 Q200,55 320,55"
-                stroke="#7aa8e8" stroke-width=".9" opacity=".5" fill="none" />
-              <!-- Ψ wave — settling -->
-              <path
-                d="M0,75 Q15,55 30,75 Q45,95 60,75 Q75,58 90,72 Q102,82 114,73 Q122,67 130,72 Q136,75 144,72 Q150,70 160,72 Q200,72 320,72"
-                stroke="#a0c0f0" stroke-width=".7" opacity=".35" fill="none" stroke-dasharray="3 5" />
-              <!-- Equilibrium line -->
-              <line x1="165" y1="20" x2="165" y2="95" stroke="#5a84c8" stroke-width=".4" opacity=".3"
-                stroke-dasharray="3 6" />
-              <text x="168" y="30" fill="#5a84c8" font-size="6.5" font-family="serif" opacity=".5"
-                letter-spacing="1">EQUILIBRIUM</text>
-              <text x="5" y="100" fill="#7aa8e8" font-size="6" font-family="serif" opacity=".45">Φ — informational
-                config</text>
-              <text x="5" y="110" fill="#a0c0f0" font-size="6" font-family="serif" opacity=".35">Ψ — internal
-                chart</text>
-            </svg>
-          </div>
-        </div>
-
-        <div class="freq-right">
-          <div class="freq-item reveal">
-            <div class="fi-spectrum">Dual Stabilization Law</div>
-            <div class="fi-name">∇ρΦ(ρ) = 1 &nbsp;&nbsp; ∆ₓΨ(x) = 0</div>
-            <p class="fi-text">Two simultaneous conditions define coherence equilibrium. The first stabilizes the
-              informational configuration — held in a normalized, unit-stable regime. The second stabilizes the internal
-              self-representation — the internal chart Ψ ceases to drift under the recursive update ∆. Geometry is not a
-              third constraint to satisfy; it is the stable expression of these two stabilizations occurring together.
-            </p>
-          </div>
-          <div class="freq-item reveal" style="transition-delay:.1s">
-            <div class="fi-spectrum">Knowing as Re-cohering</div>
-            <div class="fi-name">Knowledge is not static — it is an event</div>
-            <p class="fi-text">Every act of perception, inference, or attention is a local correction that reduces
-              mismatch between the stabilized informational configuration and the internal chart. When this correction
-              succeeds, coherence is restored in place. Knowledge is not a description of reality but the recurring
-              event by which reality re-aligns with itself. Knowing ≡ Re-cohering.</p>
-          </div>
-          <div class="freq-item reveal" style="transition-delay:.2s">
-            <div class="fi-spectrum">The Biological Application</div>
-            <div class="fi-name">Coherence equilibrium in the body</div>
-            <p class="fi-text">In biological terms, coherence equilibrium is the state in which the autonomic system is
-              phase-locked, the internal self-model is stable, and the organism is not in reactive drift. This is not a
-              meditative ideal — it is a measurable physiological state. High HRV, stable gamma oscillation, and
-              synchronized circadian architecture are its signatures. Regenesis and Ethos together are the path toward
-              it.</p>
-          </div>
-          <div class="freq-item reveal" style="transition-delay:.3s">
-            <div class="fi-spectrum">The One-State Paradox</div>
-            <div class="fi-name">Why multiplicity persists</div>
-            <p class="fi-text">The dual stabilization law is a phase condition — it may hold locally without holding
-              globally. Outside the equilibrium regime, there exist actively updating regions in which at least one
-              stabilization does not hold. Multiplicity persists because differentiation and selection are internal to
-              the recursion itself: the universe avoids the one-state limit for the same reason it can ever evolve.
-              Observation is an internal alignment event — not an external intervention.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-     CONSCIOUSNESS
-     ============================================================ -->
-  <section style="padding:120px 0; border-bottom:1px solid var(--border-dim); position:relative; overflow:hidden;">
-    <div
-      style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(ellipse,rgba(90,132,200,.04) 0%,transparent 65%);pointer-events:none;">
-    </div>
-    <div class="container">
-
-      <div style="text-align:center; margin-bottom:80px;">
-        <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:24px;" class="reveal">
-          <div style="width:22px;height:1px;background:var(--cs-core)"></div>
-          <span class="lbl" style="color:var(--cs-light)">Node 05</span>
-          <div style="width:22px;height:1px;background:var(--cs-core)"></div>
-        </div>
-        <h2 class="reveal"
-          style="font-family:var(--font-display);font-size:clamp(40px,5vw,72px);font-weight:400;color:var(--text-head);line-height:1.05;letter-spacing:-.025em;margin-bottom:16px;transition-delay:.1s">
-          Awareness<br>as <em style="font-style:italic;color:var(--cs-light)">Phase</em>
-        </h2>
-        <p class="reveal"
-          style="font-size:17px;font-weight:300;color:var(--text-mid);font-style:italic;max-width:620px;margin:0 auto;line-height:1.9;transition-delay:.2s">
-          Consciousness is not introduced as an additional substance or external principle. It is a consequence of
-          coherence dynamics reaching a sufficiently stable, internally consistent regime — the mode the recursion
-          enters when stabilization becomes sustained and self-aware.
-        </p>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--border-dim);">
-
-        <div class="freq-item reveal" style="background:var(--obsidian);padding:48px 40px;">
-          <div class="fi-spectrum">First Feature</div>
-          <div class="fi-name">A Phase, Not an Entity</div>
-          <p class="fi-text">Consciousness is the mode the recursion enters when stabilization becomes sustained within
-            the coherence dynamics — not a separate thing, not a substance produced by neurons, not an emergent
-            epiphenomenon. It is the high-coherence dynamical phase of the closed recursion ∇Φ → Σ → Ω → ∆. When the
-            loop runs with sufficient fidelity, consciousness is what the loop is doing.</p>
-        </div>
-
-        <div class="freq-item reveal" style="background:var(--obsidian);padding:48px 40px;transition-delay:.1s">
-          <div class="fi-spectrum">Second Feature</div>
-          <div class="fi-name">Intrinsically Self-Aware</div>
-          <p class="fi-text">Once Ψ is stationary under ∆, the system carries a stable internal chart of its own state.
-            Self-awareness is not imported by an external observer — it is the recursion recognizing its own
-            configuration through internal alignment. The "I" is not separate from the process: it is ∆, the integrative
-            act of the local instance of the recursion that participates in reality rather than merely witnessing it.
-          </p>
-        </div>
-
-        <div class="freq-item reveal" style="background:var(--obsidian);padding:48px 40px;transition-delay:.2s">
-          <div class="fi-spectrum">Third Feature</div>
-          <div class="fi-name">Resonant Interconnection</div>
-          <p class="fi-text">Long-range coupling between biological and cognitive systems is not exotic — it is a
-            natural effect of coherence dynamics. Ψ propagates through Ω and can couple distant or multi-scale
-            integration events, enabling coordination, resonance, and collective stabilization. What the framework calls
-            resonant interconnection — coherence correlations sustained by resonant fields, molecular interfaces, and
-            closure-consistent coupling — is the physics of what has historically been gestured at as non-local mind.
-          </p>
-        </div>
-
-      </div>
-
-      <div class="reveal"
-        style="margin-top:48px;padding:40px;border:1px solid rgba(90,132,200,.2);background:var(--obsidian);transition-delay:.25s">
-        <div
-          style="font-family:var(--font-label);font-size:9px;letter-spacing:.4em;color:var(--cs-core);margin-bottom:16px;">
-          FORMAL DEFINITION</div>
-        <p
-          style="font-family:var(--font-display);font-size:clamp(18px,2.2vw,26px);font-style:italic;color:var(--text-bright);line-height:1.5;letter-spacing:-.01em;">
-          "Consciousness is the high-coherence dynamical phase aware of its own state — information recognizing itself
-          through internal alignment rather than external measurement — in which stabilization is sustained: information
-          becomes internally legible because the informational configuration is held unit-stable and the internal chart
-          is stationary."
-        </p>
-        <div
-          style="font-family:var(--font-label);font-size:8px;letter-spacing:.3em;color:var(--text-faint);margin-top:16px;">
-          The Ethos of Being — Steff, Science Coherence Institute</div>
-      </div>
-
     </div>
   </section>
 
@@ -2368,8 +2042,7 @@
           <span class="lbl" style="color:var(--cs-light)">Cosmological Framework</span>
         </div>
         <h2 class="cosmo-title reveal" style="transition-delay:.08s">The cosmos<br><em>lives in you.</em></h2>
-        <p class="cosmo-sub reveal" style="transition-delay:.16s">The same organizing and mathematical structures that
-          govern the universe at cosmological scales appear at the cellular scale. Principles that structure the
+        <p class="cosmo-sub reveal" style="transition-delay:.16s">The same organizing principles that structure the
           universe at astronomical scale — cycles, fields, nested hierarchy, resonance — are not merely metaphors for
           biology. They are the architecture biology inherited. The body did not evolve in isolation from the cosmos; it
           evolved within it.</p>
@@ -2380,20 +2053,18 @@
         <div class="cosmo-card reveal">
           <div class="cosmo-card-top">
             <div class="cc-num">Principle 01</div>
-            <div class="cc-title">Solar Radiation &amp; Photobiology</div>
-            <p class="cc-text">The sun is not ambient background — it is the primary energetic input that drives
-              biological function at every layer. Solar radiation activates melanopsin-expressing retinal ganglion cells
-              independent of visual processing, directly entraining the suprachiasmatic nucleus. Near-infrared
-              wavelengths penetrate tissue and stimulate cytochrome c oxidase in the mitochondrial electron transport
-              chain, measurably increasing ATP synthesis. UV-B photons catalyze 7-dehydrocholesterol conversion in the
-              skin — the foundational step in the steroid hormone cascade. Every major endocrine signal downstream of
-              cortisol and testosterone begins with light.</p>
+            <div class="cc-title">Stellar Nucleosynthesis &amp; Biological Chemistry</div>
+            <p class="cc-text">Every atom in the human body heavier than hydrogen was forged inside a star. Carbon,
+              oxygen, nitrogen, phosphorus, iron — the elemental substrate of biological life — are stellar exhaust,
+              distributed through the galaxy by supernova events over billions of years. This is not poetic license: it
+              is nuclear physics. The body is literally composed of cosmic material, assembled by stellar processes that
+              preceded Earth's formation by billions of years.</p>
           </div>
           <div class="cosmo-card-bottom">
             <div class="cc-bridge-label">Biological Bridge</div>
-            <p class="cc-bridge">Block solar input entirely and the hormonal cascade degrades within days — cortisol
-              rhythm flattens, melatonin amplitude drops, testosterone suppresses. <strong>Light is not a mood enhancer;
-                it is a primary biological input</strong> as non-negotiable as substrate nutrition.</p>
+            <p class="cc-bridge">The iron in hemoglobin, the calcium in bone, the phosphorus in ATP — <strong>every
+                high-energy biological molecule traces its atomic origin to stellar nucleosynthesis.</strong> Biology is
+              the universe's most complex post-stellar chemistry.</p>
           </div>
         </div>
 
@@ -2418,20 +2089,18 @@
         <div class="cosmo-card reveal" style="transition-delay:.1s">
           <div class="cosmo-card-top">
             <div class="cc-num">Principle 03</div>
-            <div class="cc-title">Geomagnetic Field &amp; Magnetoreception</div>
-            <p class="cc-text">Earth maintains a continuous dipole magnetic field of 25–65 microtesla — a
-              planetary-scale electromagnetic environment within which all life has evolved for hundreds of millions of
-              years. Cryptochrome proteins, present in the retinal cells of mammals including humans, function as
-              radical-pair magnetoreceptors sensitive to field orientation. Pulsed electromagnetic field (PEMF) therapy
-              at biologically relevant intensities produces reproducible effects on bone mineral density, inflammatory
-              cytokine expression, and autonomic tone. The geomagnetic field is not passive geography — it is a
-              measurable biological input the nervous system actively reads.</p>
+            <div class="cc-title">Gravitational Fields &amp; Biological Structure</div>
+            <p class="cc-text">Gravity is the most pervasive force in the universe — shaping galaxies, star formation,
+              and planetary orbits across cosmological scales. At the biological scale, it is equally fundamental: every
+              structural system in the human body — the skeletal architecture, the cardiovascular system's pressure
+              gradients, the vestibular system's orientation — has been shaped by and operates in continuous response to
+              Earth's gravitational field. Remove gravity and biological structure begins to fail within days.</p>
           </div>
           <div class="cosmo-card-bottom">
             <div class="cc-bridge-label">Biological Bridge</div>
-            <p class="cc-bridge">PEMF protocols at 10–50 Hz produce measurable reductions in inflammatory markers and
-              improvements in HRV — demonstrating that <strong>the body's field interface is a tunable system, not a
-                fixed constant.</strong> Geomagnetic coherence is a recoverable biological variable.</p>
+            <p class="cc-bridge">Astronauts in microgravity lose bone density, muscle mass, and cardiovascular
+              efficiency measurably within weeks. <strong>Gravity is not a passive backdrop — it is an active biological
+                input</strong> that the body requires as continuously as it requires oxygen or nutrition.</p>
           </div>
         </div>
 
@@ -2451,6 +2120,95 @@
             <p class="cc-bridge">Kleiber's law — that metabolic rate scales with body mass to the ¾ power across all
               living organisms — follows the same fractal geometry found in <strong>galactic structure and river
                 networks.</strong> The universe builds at every scale with the same mathematical toolkit.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     FREQUENCY
+     ============================================================ -->
+  <section class="frequency">
+    <div class="container">
+      <div class="freq-inner">
+
+        <div class="freq-left reveal">
+          <div class="freq-eyebrow">
+            <div class="freq-eyebrow-line"></div>
+            <span class="lbl" style="color:var(--cs-light)">Field Theory</span>
+          </div>
+          <h2 class="freq-title">
+            Frequency<br>
+            <em>shapes reality.</em>
+          </h2>
+          <p class="freq-body">
+            Matter is not fundamental — it is a stable pattern of energy. Frequency is the organizing principle beneath
+            material existence. From the Schumann resonance of the Earth's electromagnetic cavity to the oscillatory
+            dynamics of DNA transcription, reality is structured vibration — and biology is exquisitely sensitive to it.
+          </p>
+
+          <div class="freq-wave-diagram">
+            <div class="fwd-title">FREQUENCY SPECTRUM — BIOLOGICAL RELEVANCE</div>
+            <svg viewBox="0 0 320 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Wave 1 — low freq -->
+              <path
+                d="M0,50 Q20,20 40,50 Q60,80 80,50 Q100,20 120,50 Q140,80 160,50 Q180,20 200,50 Q220,80 240,50 Q260,20 280,50 Q300,80 320,50"
+                stroke="#5a84c8" stroke-width=".8" opacity=".3" fill="none" />
+              <!-- Wave 2 — mid freq -->
+              <path
+                d="M0,50 Q10,30 20,50 Q30,70 40,50 Q50,30 60,50 Q70,70 80,50 Q90,30 100,50 Q110,70 120,50 Q130,30 140,50 Q150,70 160,50 Q170,30 180,50 Q190,70 200,50 Q210,30 220,50 Q230,70 240,50 Q250,30 260,50 Q270,70 280,50 Q290,30 300,50 Q310,70 320,50"
+                stroke="#7aa8e8" stroke-width=".7" opacity=".4" fill="none" />
+              <!-- Wave 3 — high freq -->
+              <path
+                d="M0,50 Q5,35 10,50 Q15,65 20,50 Q25,35 30,50 Q35,65 40,50 Q45,35 50,50 Q55,65 60,50 Q65,35 70,50 Q75,65 80,50 Q85,35 90,50 Q95,65 100,50 Q105,35 110,50 Q115,65 120,50 Q125,35 130,50 Q135,65 140,50 Q145,35 150,50 Q155,65 160,50 Q165,35 170,50 Q175,65 180,50 Q185,35 190,50 Q195,65 200,50 Q205,35 210,50 Q215,65 220,50 Q225,35 230,50 Q235,65 240,50 Q245,35 250,50 Q255,65 260,50 Q265,35 270,50 Q275,65 280,50 Q285,35 290,50 Q295,65 300,50 Q305,35 310,50 Q315,65 320,50"
+                stroke="#a0c0f0" stroke-width=".5" opacity=".35" fill="none" />
+              <text x="2" y="96" fill="#5a84c8" font-size="6" font-family="serif" opacity=".5">0.1 Hz</text>
+              <text x="148" y="96" fill="#7aa8e8" font-size="6" font-family="serif" opacity=".5"
+                text-anchor="middle">Schumann ~7.8 Hz</text>
+              <text x="316" y="96" fill="#a0c0f0" font-size="6" font-family="serif" opacity=".5" text-anchor="end">40
+                Hz+</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="freq-right">
+          <div class="freq-item reveal">
+            <div class="fi-spectrum">7.83 Hz — Schumann Resonance</div>
+            <div class="fi-name">Earth's Electromagnetic Heartbeat</div>
+            <p class="fi-text">The Schumann resonance — the fundamental frequency of Earth's electromagnetic cavity —
+              sits at 7.83 Hz. The human brain's alpha wave range (8–12 Hz) overlaps precisely with this frequency. This
+              is not coincidence: biological systems evolved in this electromagnetic bath and are entrained to it.
+              Disruption of this resonance — through artificial EMF environments — is measurable in cellular coherence
+              and autonomic function.</p>
+          </div>
+          <div class="freq-item reveal" style="transition-delay:.1s">
+            <div class="fi-spectrum">Biophotons — Ultra-weak Luminescence</div>
+            <div class="fi-name">Cellular Light Signaling</div>
+            <p class="fi-text">Living cells emit ultra-weak photons — biophotons — at intensities far below the
+              threshold of human perception but measurable with sensitive photomultipliers. These emissions are not
+              metabolic noise: they are coherent, laser-like in their spectral properties, and appear to function as
+              long-range signaling within and between cells. Biophotonic coherence may be the physical substrate of
+              biological field coordination.</p>
+          </div>
+          <div class="freq-item reveal" style="transition-delay:.2s">
+            <div class="fi-spectrum">DNA — Phononic Oscillation</div>
+            <div class="fi-name">The Genome as Antenna</div>
+            <p class="fi-text">DNA is not merely a static information archive — it is a dynamic oscillating molecule
+              with phononic (sound-like vibrational) modes that respond to electromagnetic frequencies. Research in
+              quantum biology suggests that DNA base-pair dynamics involve quantum coherence, and that the genome may
+              function as an antenna for environmental frequency information — translating field signals into epigenetic
+              expression changes.</p>
+          </div>
+          <div class="freq-item reveal" style="transition-delay:.3s">
+            <div class="fi-spectrum">Consciousness — 40 Hz Gamma</div>
+            <div class="fi-name">The Binding Frequency</div>
+            <p class="fi-text">Gamma oscillations in the 30–80 Hz range — particularly the 40 Hz frequency — are
+              associated with conscious awareness, perceptual binding, and the integration of distributed neural
+              processing into unified subjective experience. The hypothesis: consciousness is not produced by neural
+              activity but is the state of temporal coherence between oscillating neural assemblies — a time-crystalline
+              phenomenon at the cognitive scale.</p>
           </div>
         </div>
 
@@ -2490,7 +2248,7 @@
         </div>
         <div class="reading-card reveal" style="transition-delay:.1s">
           <div class="rc-type">
-            <div class="rc-dot"></div>Model Essay
+            <div class="rc-dot"></div>Model Paper
           </div>
           <div class="rc-title">The Five-Layer Biological Computer: A Unified Architecture of the Human System</div>
           <div class="rc-meta" style="margin-top:auto">
@@ -2504,16 +2262,6 @@
           </div>
           <div class="rc-title">The Cosmos Within: How Solar, Gravitational, and Stellar Forces Shape the Biology of
             Every Living Body</div>
-          <div class="rc-meta" style="margin-top:auto">
-            <span>7 min read</span>
-            <span>Cosmological</span>
-          </div>
-        </div>
-        <div class="reading-card reveal" style="transition-delay:.2s">
-          <div class="rc-type">
-            <div class="rc-dot"></div>Bridge Essay
-          </div>
-          <div class="rc-title">From Black Holes to Cell Nuclei: Structural Isomorphisms Across Scale</div>
           <div class="rc-meta" style="margin-top:auto">
             <span>7 min read</span>
             <span>Cosmological</span>
@@ -2546,13 +2294,14 @@
       </div>
     </div>
   </section>
+
   <!-- ============================================================
      FOOTER
      ============================================================ -->
   <footer>
     <div class="footer-left">
       <div class="footer-brand">Science Coherence</div>
-      <div class="footer-branch-tag">Cosmos</div>
+      <div class="footer-branch-tag">Branch II — Cosmos</div>
     </div>
     <div class="footer-right">
       <a href="#">Regenesis →</a>
