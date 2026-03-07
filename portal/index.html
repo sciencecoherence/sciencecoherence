@@ -1392,6 +1392,51 @@
   <script>
     (function () {
 
+      /* ================================================================
+    UPDATE LOG
+    Add new entries to the TOP of this array whenever you update a page.
+    Fields:
+      date   — "DD Mon YYYY"
+      stream — "living" | "model" | "tcb" | "biohack" | "portal"
+      tag    — short label e.g. "New Page", "Revision", "Structure"
+      text   — one-line description of the change
+ ================================================================ */
+      var UPDATES = [
+        { date: '06 Mar 2026', stream: 'portal', tag: 'New Stream', text: 'Bio-Hacking stream initialised — architecture in progress.' },
+        { date: '06 Mar 2026', stream: 'tcb', tag: 'New Stream', text: 'Time-Crystalline Biology framework main page live.' },
+        { date: '06 Mar 2026', stream: 'portal', tag: 'Rename', text: 'Streams renamed to Science of Living & Science of Being.' },
+        { date: '05 Mar 2026', stream: 'living', tag: 'Structure', text: 'Architecture 1B module published — full cross-link matrix.' },
+        { date: '04 Mar 2026', stream: 'living', tag: 'Structure', text: 'Architecture 1A master document completed.' },
+        { date: '02 Mar 2026', stream: 'model', tag: 'New Page', text: 'Cosmos Theory page added to cohera stream.' },
+        { date: '28 Feb 2026', stream: 'model', tag: 'New Page', text: 'Ethos Theory page drafted and published.' },
+        { date: '20 Feb 2026', stream: 'living', tag: 'New Page', text: 'Ethos branch page live on main project.' },
+        { date: '15 Feb 2026', stream: 'living', tag: 'New Page', text: 'Cosmos branch page published.' },
+        { date: '10 Feb 2026', stream: 'living', tag: 'New Page', text: 'Regenesis branch page launched.' }
+      ];
+
+      var listEl = document.getElementById('update-list');
+      var countEl = document.getElementById('update-count');
+      if (listEl) {
+        if (countEl) countEl.textContent = UPDATES.length + ' entries';
+        if (UPDATES.length === 0) {
+          listEl.innerHTML = '<p class="update-empty">No updates logged yet.</p>';
+        } else {
+          listEl.innerHTML = UPDATES.map(function (u) {
+            return '<div class="update-item">'
+              + '<span class="update-dot stream-' + u.stream + '"></span>'
+              + '<div class="update-body">'
+              + '<div class="update-meta">'
+              + '<span class="update-date">' + u.date + '</span>'
+              + '<span class="update-tag">' + u.tag + '</span>'
+              + '</div>'
+              + '<p class="update-text">' + u.text + '</p>'
+              + '</div>'
+              + '</div>';
+          }).join('');
+        }
+      }
+
+
       /* ---- CURSOR ---- */
       var dot = document.getElementById('cursor-dot');
       var ring = document.getElementById('cursor-ring');
