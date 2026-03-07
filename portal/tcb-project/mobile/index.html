@@ -1,0 +1,2716 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Time-Crystalline Biology — Science Coherence Institute</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Jost:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --void: #040508;
+      --obsidian: #07080e;
+      --deep: #0c0d14;
+      --surface: #111218;
+      --raised: #17181f;
+      --border-dim: #1a1b24;
+      --border: #232430;
+      --text-faint: #2e3040;
+      --text-dim: #4a4e66;
+      --text-mid: #6e7490;
+      --text-body: #9ca3b8;
+      --text-bright: #c0c6d8;
+      --text-head: #e2e6f0;
+      --parchment: #b8b0a0;
+      --amber: #9a7848;
+      --amber-light: #b89060;
+      --cs-core: #5a84c8;
+      --cs-light: #7aa8e8;
+      --tc: #3a9488;
+      --tc-light: #5ab8aa;
+      --tc-dim: rgba(58, 148, 136, 0.12);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-label: 'Cinzel', serif;
+      --font-body: 'Jost', sans-serif;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--void);
+      color: var(--text-body);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ── GRAIN ── */
+    .grain {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .025;
+      pointer-events: none;
+      z-index: 9998;
+      animation: grainShift .5s steps(2) infinite;
+    }
+
+    @keyframes grainShift {
+      0% {
+        transform: translate(0, 0)
+      }
+
+      25% {
+        transform: translate(-2%, -1%)
+      }
+
+      50% {
+        transform: translate(1%, 2%)
+      }
+
+      75% {
+        transform: translate(-1%, 1%)
+      }
+
+      100% {
+        transform: translate(2%, -2%)
+      }
+    }
+
+    /* ── STARFIELD ── */
+    .starfield {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── CONTAINER ── */
+    .container {
+      padding: 0 20px;
+      max-width: 100%;
+    }
+
+    /* ── UTILS ── */
+    .lbl {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .9s var(--ease-out), transform .9s var(--ease-out);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .5s, border-color .5s;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.scrolled {
+      background: rgba(4, 5, 8, .96);
+      backdrop-filter: blur(20px);
+      border-bottom-color: var(--border-dim);
+    }
+
+    .nav-back {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .3em;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-badge {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .3em;
+      color: var(--tc-light);
+      border: 1px solid rgba(90, 180, 168, .25);
+      padding: 5px 12px;
+    }
+
+    /* Mobile nav — hide text links, show hamburger */
+    .nav-links {
+      display: none;
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--text-mid);
+      transition: all .3s;
+    }
+
+    /* Drawer */
+    .nav-drawer {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 72vw;
+      max-width: 280px;
+      height: 100vh;
+      background: var(--obsidian);
+      border-left: 1px solid var(--border-dim);
+      z-index: 1001;
+      padding: 72px 32px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      transition: right .4s var(--ease-out);
+    }
+
+    .nav-drawer.open {
+      right: 0;
+    }
+
+    .drawer-link {
+      font-family: var(--font-label);
+      font-size: 10px;
+      letter-spacing: .35em;
+      color: var(--text-dim);
+      transition: color .3s;
+    }
+
+    .drawer-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text-mid);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .6);
+      z-index: 1000;
+      display: none;
+    }
+
+    .drawer-overlay.open {
+      display: block;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 100px 20px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow-1 {
+      position: absolute;
+      top: -10%;
+      left: -15%;
+      width: 110%;
+      height: 60%;
+      background: radial-gradient(ellipse at 30% 30%, rgba(58, 148, 136, .08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-glow-2 {
+      position: absolute;
+      bottom: 0;
+      right: -10%;
+      width: 80%;
+      height: 50%;
+      background: radial-gradient(ellipse at 70% 80%, rgba(90, 132, 200, .05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Rings — smaller, in background */
+    .hero-rings {
+      position: absolute;
+      top: 12%;
+      right: -10%;
+      width: 70vw;
+      max-width: 320px;
+      aspect-ratio: 1;
+      opacity: .4;
+      pointer-events: none;
+    }
+
+    .hero-rings svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 1.1s var(--ease-out) .2s forwards;
+    }
+
+    .hero-eyebrow-line {
+      width: 20px;
+      height: 1px;
+      background: var(--tc-light);
+    }
+
+    .hero-eyebrow-text {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .4em;
+      color: var(--tc-light);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(42px, 11vw, 64px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-head);
+      line-height: .93;
+      letter-spacing: -.03em;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 1.3s var(--ease-out) .35s forwards;
+    }
+
+    .hero-title em {
+      color: var(--tc-light);
+      font-style: normal;
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--parchment);
+      letter-spacing: .01em;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 1.3s var(--ease-out) .5s forwards;
+    }
+
+    .hero-body {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-mid);
+      font-style: italic;
+      line-height: 1.9;
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fadeUp 1.3s var(--ease-out) .65s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 1.2s var(--ease-out) .8s forwards;
+    }
+
+    .btn-primary {
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: .35em;
+      color: var(--void);
+      background: var(--tc-light);
+      padding: 16px 28px;
+      border: none;
+      display: inline-block;
+      text-align: center;
+      transition: background .4s;
+    }
+
+    .btn-outline {
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: .3em;
+      color: var(--tc-light);
+      border: 1px solid rgba(90, 180, 168, .3);
+      padding: 16px 28px;
+      display: inline-block;
+      text-align: center;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* ── ABSTRACT ── */
+    .abstract {
+      padding: 60px 0;
+      border-top: 1px solid var(--border-dim);
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .abstract-text {
+      font-family: var(--font-display);
+      font-size: clamp(15px, 4vw, 18px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-bright);
+      line-height: 1.7;
+      letter-spacing: -.01em;
+    }
+
+    .abstract-text em {
+      color: var(--tc-light);
+      font-style: normal;
+    }
+
+    .abstract-text strong {
+      color: var(--cs-light);
+      font-weight: 400;
+    }
+
+    /* ── AXIS HEADER ── */
+    .axis-header {
+      padding: 56px 0 40px;
+      border-bottom: 1px solid var(--border-dim);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .axis-numeral {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(64px, 20vw, 100px);
+      font-weight: 400;
+      font-style: italic;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(58, 148, 136, .1);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .axis-tag {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .5em;
+      color: var(--tc);
+      margin-bottom: 10px;
+    }
+
+    .axis-rule {
+      width: 32px;
+      height: 1px;
+      background: var(--tc);
+      margin-bottom: 16px;
+    }
+
+    .axis-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 7vw, 40px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-head);
+      line-height: 1.1;
+      letter-spacing: -.022em;
+      margin-bottom: 12px;
+    }
+
+    .axis-title em {
+      color: var(--tc-light);
+      font-style: normal;
+    }
+
+    .axis-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.85;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .4em;
+      color: var(--text-faint);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .section-label::before {
+      content: '';
+      flex: 0 0 24px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-dim);
+    }
+
+    .section-label.tc {
+      color: var(--tc);
+    }
+
+    .section-label.tc::before,
+    .section-label.tc::after {
+      background: rgba(58, 148, 136, .25);
+    }
+
+    /* ── LAYER CARDS ── */
+    .lc {
+      background: var(--obsidian);
+      border: 1px solid var(--border-dim);
+      padding: 24px 22px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2px;
+      transition: border-color .4s;
+    }
+
+    .lc::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--tc);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform .5s var(--ease-out);
+    }
+
+    .lc.open::before {
+      transform: scaleY(1);
+    }
+
+    .lc-tag {
+      font-family: var(--font-label);
+      font-size: 7.5px;
+      letter-spacing: .3em;
+      color: var(--tc);
+      margin-bottom: 8px;
+    }
+
+    .lc-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-style: italic;
+      color: var(--text-head);
+      margin-bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .lc-chevron {
+      flex-shrink: 0;
+      font-size: 10px;
+      color: var(--tc);
+      margin-top: 4px;
+      transition: transform .3s;
+      display: inline-block;
+    }
+
+    .lc.open .lc-chevron {
+      transform: rotate(180deg);
+    }
+
+    .lc-body {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.85;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .5s var(--ease-out), margin-top .3s;
+    }
+
+    .lc.open .lc-body {
+      max-height: 600px;
+      margin-top: 10px;
+    }
+
+    /* ── FREQ GRID ── */
+    .freq-hierarchy {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border-dim);
+      margin-top: 20px;
+    }
+
+    .freq-band {
+      background: var(--surface);
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .freq-label {
+      font-family: var(--font-label);
+      font-size: 7px;
+      letter-spacing: .3em;
+      color: var(--tc);
+    }
+
+    .freq-name {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-style: italic;
+      color: var(--text-head);
+    }
+
+    .freq-desc {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    /* ── LAYER 0 FEATURE ── */
+    .layer-0-feature {
+      background: var(--obsidian);
+      border: 1px solid rgba(58, 148, 136, .2);
+      border-top: 2px solid var(--tc);
+      padding: 32px 24px;
+      margin-bottom: 2px;
+    }
+
+    .layer-0-feature .section-intro {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-mid);
+      font-style: italic;
+      line-height: 1.9;
+      margin-bottom: 16px;
+    }
+
+    /* ── WORKING MODEL ── */
+    .working-model {
+      border-left: 2px solid var(--amber-light);
+      padding: 18px 20px;
+      background: rgba(154, 120, 72, .04);
+      margin-top: 20px;
+    }
+
+    .wm-tag {
+      font-family: var(--font-label);
+      font-size: 7px;
+      letter-spacing: .4em;
+      color: var(--amber-light);
+      margin-bottom: 6px;
+    }
+
+    .wm-text {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.85;
+    }
+
+    /* ── THREEFOLD ── */
+    .threefold {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .threefold-header {
+      margin-bottom: 32px;
+    }
+
+    .tf-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .tf-card {
+      background: var(--obsidian);
+      padding: 36px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: background .5s;
+    }
+
+    .tf-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+    }
+
+    .tf-card:nth-child(1)::before {
+      background: var(--tc);
+    }
+
+    .tf-card:nth-child(2)::before {
+      background: var(--cs-core);
+    }
+
+    .tf-card:nth-child(3)::before {
+      background: rgba(154, 120, 72, .6);
+    }
+
+    .tf-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-style: italic;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .tf-tag {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .35em;
+      margin-bottom: 8px;
+    }
+
+    .tf-card:nth-child(1) .tf-tag {
+      color: var(--tc);
+    }
+
+    .tf-card:nth-child(2) .tf-tag {
+      color: var(--cs-core);
+    }
+
+    .tf-card:nth-child(3) .tf-tag {
+      color: var(--amber);
+    }
+
+    .tf-title {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-style: italic;
+      color: var(--text-head);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .tf-body {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.85;
+    }
+
+    /* ── DECOHERENCE CASCADE ── */
+    .cascade-section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .cascade-title {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 7vw, 36px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-head);
+      line-height: 1.1;
+      letter-spacing: -.022em;
+      margin-bottom: 10px;
+    }
+
+    .cascade-title em {
+      color: var(--amber-light);
+    }
+
+    .decoherence-chain {
+      background: var(--obsidian);
+      border: 1px solid var(--border-dim);
+      padding: 32px 24px;
+    }
+
+    .dc-title {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .4em;
+      color: var(--amber-light);
+      margin-bottom: 28px;
+    }
+
+    .dc-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 2px;
+    }
+
+    .dc-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(154, 100, 80, .5);
+      flex-shrink: 0;
+      margin-top: 18px;
+    }
+
+    .dc-step-inner {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      padding: 16px 18px;
+      flex: 1;
+    }
+
+    .dc-step-num {
+      font-family: var(--font-label);
+      font-size: 7px;
+      letter-spacing: .3em;
+      color: var(--text-faint);
+      margin-bottom: 4px;
+    }
+
+    .dc-step-text {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-mid);
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    .dc-step-text em {
+      color: var(--amber-light);
+      font-style: normal;
+    }
+
+    .dc-connector {
+      width: 1px;
+      height: 20px;
+      background: linear-gradient(var(--border-dim), rgba(154, 100, 80, .3));
+      margin-left: 18px;
+    }
+
+    .dc-terminal {
+      background: rgba(80, 20, 10, .3);
+      border: 1px solid rgba(120, 40, 20, .4);
+      padding: 20px 24px;
+      margin-top: 2px;
+    }
+
+    .dc-terminal-text {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-style: italic;
+      color: rgba(200, 120, 90, .7);
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    /* ── FEEDBACK LOOP ── */
+    .feedback-loop {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .fl-title {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 7vw, 36px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-head);
+      line-height: 1.1;
+      letter-spacing: -.022em;
+      margin-bottom: 12px;
+    }
+
+    .fl-title em {
+      color: var(--tc-light);
+    }
+
+    .fl-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.85;
+      margin-bottom: 36px;
+    }
+
+    .fl-nodes {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-bottom: 2px;
+    }
+
+    .fl-node {
+      background: var(--surface);
+      padding: 24px 20px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border-dim);
+    }
+
+    .fl-node::before {
+      content: '';
+      position: absolute;
+      width: 3px;
+      top: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .fl-node:nth-child(1)::before {
+      background: var(--tc);
+    }
+
+    .fl-node:nth-child(2)::before {
+      background: var(--cs-core);
+    }
+
+    .fl-node:nth-child(3)::before {
+      background: var(--amber);
+    }
+
+    .fl-node:nth-child(4)::before {
+      background: rgba(106, 168, 90, .8);
+    }
+
+    .fl-node-num {
+      font-family: var(--font-label);
+      font-size: 7.5px;
+      letter-spacing: .4em;
+      color: var(--tc);
+      margin-bottom: 6px;
+    }
+
+    .fl-node:nth-child(2) .fl-node-num {
+      color: var(--cs-core);
+    }
+
+    .fl-node:nth-child(3) .fl-node-num {
+      color: var(--amber-light);
+    }
+
+    .fl-node:nth-child(4) .fl-node-num {
+      color: #6aa85a;
+    }
+
+    .fl-node-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-head);
+      margin-bottom: 4px;
+    }
+
+    .fl-node-arrow {
+      font-family: var(--font-label);
+      font-size: 7px;
+      letter-spacing: .25em;
+      color: var(--text-faint);
+      margin-bottom: 6px;
+    }
+
+    .fl-node-body {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.85;
+    }
+
+    /* Attractors — stacked on mobile */
+    .fl-attractor {
+      background: var(--deep);
+      border: 1px solid var(--border-dim);
+      border-top: 2px solid var(--tc);
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .fl-attractor-col {}
+
+    .fl-attractor-label {
+      font-family: var(--font-label);
+      font-size: 7.5px;
+      letter-spacing: .4em;
+      margin-bottom: 8px;
+    }
+
+    .fl-attractor-col.positive .fl-attractor-label {
+      color: var(--tc-light);
+    }
+
+    .fl-attractor-col.negative .fl-attractor-label {
+      color: rgba(200, 100, 70, .7);
+    }
+
+    .fl-attractor-title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-style: italic;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .fl-attractor-col.positive .fl-attractor-title {
+      color: var(--text-head);
+    }
+
+    .fl-attractor-col.negative .fl-attractor-title {
+      color: rgba(180, 90, 70, .8);
+    }
+
+    .fl-attractor-chain {
+      font-size: 12px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 2;
+    }
+
+    .fl-attractor-col.positive .fl-attractor-chain {
+      color: var(--text-dim);
+    }
+
+    .fl-attractor-col.negative .fl-attractor-chain {
+      color: var(--text-faint);
+    }
+
+    .fl-attractor-col.positive .fl-attractor-chain em {
+      color: var(--tc);
+      font-style: normal;
+    }
+
+    .fl-attractor-col.negative .fl-attractor-chain em {
+      color: rgba(200, 100, 70, .6);
+      font-style: normal;
+    }
+
+    .fl-attractor-divider {
+      height: 1px;
+      background: var(--border-dim);
+    }
+
+    .fl-epigenetic {
+      background: var(--obsidian);
+      border: 1px solid var(--border-dim);
+      border-left: 2px solid var(--amber-light);
+      padding: 28px 20px;
+      margin-top: 2px;
+    }
+
+    .fl-epi-label {
+      font-family: var(--font-label);
+      font-size: 7.5px;
+      letter-spacing: .35em;
+      color: var(--amber-light);
+      margin-bottom: 8px;
+    }
+
+    .fl-epi-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--text-head);
+      margin-bottom: 16px;
+    }
+
+    .fl-epi-body {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.9;
+    }
+
+    .fl-epi-timescales {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-bottom: 20px;
+    }
+
+    .fl-epi-scale {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .fl-epi-scale-name {
+      font-family: var(--font-label);
+      font-size: 7.5px;
+      letter-spacing: .25em;
+      color: var(--text-faint);
+    }
+
+    .fl-epi-scale-val {
+      font-size: 11px;
+      font-style: italic;
+      color: var(--text-body);
+    }
+
+    .fl-formal {
+      border-left: 2px solid var(--tc);
+      padding: 24px 20px;
+      background: rgba(58, 148, 136, .04);
+      margin-top: 36px;
+    }
+
+    .fl-formal-label {
+      font-family: var(--font-label);
+      font-size: 7.5px;
+      letter-spacing: .4em;
+      color: var(--tc);
+      margin-bottom: 10px;
+    }
+
+    .fl-formal-text {
+      font-family: var(--font-display);
+      font-size: clamp(14px, 4vw, 18px);
+      font-style: italic;
+      color: var(--text-bright);
+      line-height: 1.65;
+      letter-spacing: -.01em;
+    }
+
+    .fl-formal-text em {
+      color: var(--tc-light);
+      font-style: normal;
+    }
+
+    /* ── CONSCIOUSNESS ── */
+    .consciousness {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border-dim);
+      background: var(--obsidian);
+    }
+
+    .con-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .con-eyebrow-line {
+      width: 16px;
+      height: 1px;
+      background: var(--cs-core);
+    }
+
+    .con-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 8vw, 40px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-head);
+      line-height: 1.1;
+      letter-spacing: -.022em;
+      margin-bottom: 16px;
+    }
+
+    .con-title em {
+      color: var(--cs-light);
+      font-style: normal;
+    }
+
+    .con-body {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-mid);
+      font-style: italic;
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .con-formula {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      border-left: 2px solid var(--cs-core);
+      padding: 24px 20px;
+      margin-bottom: 20px;
+    }
+
+    .con-formula-label {
+      font-family: var(--font-label);
+      font-size: 7.5px;
+      letter-spacing: .35em;
+      color: var(--cs-core);
+      margin-bottom: 10px;
+    }
+
+    .con-formula-eq {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 6vw, 32px);
+      font-style: italic;
+      color: var(--text-head);
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+
+    .con-formula-eq em {
+      color: var(--cs-light);
+      font-style: normal;
+    }
+
+    .con-formula-sub {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-top: 6px;
+      line-height: 1.7;
+    }
+
+    .orch-card {
+      background: var(--deep);
+      border: 1px solid var(--border-dim);
+      border-top: 2px solid var(--cs-core);
+      padding: 32px 24px;
+    }
+
+    .orch-tag {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .4em;
+      color: var(--cs-core);
+      margin-bottom: 12px;
+    }
+
+    .orch-title {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-style: italic;
+      color: var(--text-head);
+      margin-bottom: 8px;
+    }
+
+    .orch-eq {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 8vw, 44px);
+      font-style: italic;
+      color: #a0c0f0;
+      letter-spacing: -.02em;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .orch-eq-def {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    .orch-body {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.85;
+      margin-top: 12px;
+    }
+
+    /* ── REGENESIS ── */
+    .regenesis {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .regen-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .regen-eyebrow-line {
+      width: 16px;
+      height: 1px;
+      background: var(--tc);
+    }
+
+    .regen-eyebrow-text {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .4em;
+      color: var(--tc);
+    }
+
+    .regen-title {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 7vw, 38px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-head);
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 14px;
+    }
+
+    .regen-title em {
+      color: var(--tc-light);
+      font-style: normal;
+    }
+
+    .regen-intro {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-mid);
+      font-style: italic;
+      line-height: 1.9;
+      margin-bottom: 32px;
+    }
+
+    .regen-card {
+      background: var(--obsidian);
+      border: 1px solid var(--border-dim);
+      padding: 24px 20px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 2px;
+      transition: border-color .4s;
+    }
+
+    .regen-card-icon {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .regen-card-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .regen-card-tag {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .35em;
+      color: var(--tc);
+      margin-bottom: 4px;
+    }
+
+    .regen-card-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-head);
+      margin-bottom: 6px;
+    }
+
+    .regen-card-body {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.85;
+    }
+
+    /* ── FORMAL CLAIM ── */
+    .claim-section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border-dim);
+      background: var(--obsidian);
+    }
+
+    .claim-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .claim-card {
+      background: var(--obsidian);
+      padding: 40px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .claim-card.primary {
+      background: var(--deep);
+    }
+
+    .claim-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      opacity: .7;
+    }
+
+    .claim-card.primary::before {
+      background: linear-gradient(90deg, var(--tc), var(--cs-core));
+    }
+
+    .claim-card.secondary::before {
+      background: linear-gradient(90deg, var(--amber-light), transparent);
+    }
+
+    .claim-tag {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .4em;
+      color: var(--tc-light);
+      margin-bottom: 16px;
+    }
+
+    .claim-text {
+      font-family: var(--font-display);
+      font-size: clamp(15px, 4vw, 18px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-bright);
+      line-height: 1.7;
+      letter-spacing: -.01em;
+    }
+
+    .claim-text em {
+      color: var(--tc-light);
+      font-style: normal;
+    }
+
+    /* ── PUBLICATION ── */
+    .publication {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .pub-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .pub-eyebrow-line {
+      width: 18px;
+      height: 1px;
+      background: var(--amber-light);
+    }
+
+    .pub-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 8vw, 40px);
+      font-weight: 400;
+      color: var(--text-head);
+      line-height: 1.05;
+      letter-spacing: -.022em;
+      margin-bottom: 16px;
+    }
+
+    .pub-title em {
+      font-style: italic;
+      color: var(--amber-light);
+      display: block;
+    }
+
+    .pub-body {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-mid);
+      font-style: italic;
+      line-height: 1.9;
+      margin-bottom: 28px;
+    }
+
+    .pub-status {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .pub-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--tc-light);
+      animation: statusPulse 2.5s ease-in-out infinite;
+    }
+
+    @keyframes statusPulse {
+
+      0%,
+      100% {
+        opacity: .4
+      }
+
+      50% {
+        opacity: 1
+      }
+    }
+
+    .pub-status-text {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .3em;
+      color: var(--tc-light);
+    }
+
+    .pub-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: .3em;
+      color: var(--void);
+      background: var(--parchment);
+      padding: 16px 24px;
+      margin-bottom: 32px;
+    }
+
+    .pub-card {
+      background: var(--surface);
+      border: 1px solid var(--border-dim);
+      padding: 32px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pub-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--tc), var(--cs-core), transparent);
+      opacity: .7;
+    }
+
+    .pub-card-label {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .35em;
+      color: var(--tc-light);
+      margin-bottom: 16px;
+    }
+
+    .pub-card-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-style: italic;
+      color: var(--text-head);
+      margin-bottom: 4px;
+    }
+
+    .pub-card-sub {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .pub-card-divider {
+      height: 1px;
+      background: var(--border-dim);
+      margin-bottom: 16px;
+    }
+
+    .pub-card-field {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border-dim);
+      font-size: 11px;
+    }
+
+    .pub-card-field:last-child {
+      border-bottom: none;
+    }
+
+    .pub-card-key {
+      font-family: var(--font-label);
+      font-size: 7.5px;
+      letter-spacing: .25em;
+      color: var(--text-faint);
+    }
+
+    .pub-card-val {
+      color: var(--text-body);
+      font-weight: 300;
+      font-style: italic;
+    }
+
+    /* ── BRANCHES ── */
+    .branches {
+      padding: 64px 0;
+      border-top: 1px solid var(--border-dim);
+    }
+
+    .branches-header {
+      margin-bottom: 40px;
+    }
+
+    .branches-title {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 7vw, 36px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--text-head);
+      letter-spacing: -.022em;
+      margin-bottom: 10px;
+    }
+
+    .branches-title em {
+      color: var(--tc-light);
+    }
+
+    .branches-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.85;
+    }
+
+    .branch-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .branch-card {
+      background: var(--obsidian);
+      padding: 36px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: background .5s;
+    }
+
+    .branch-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      opacity: .7;
+    }
+
+    .branch-card.cosmos::before {
+      background: var(--cs-core);
+    }
+
+    .branch-card.regenesis::before {
+      background: #6aa85a;
+    }
+
+    .branch-card.ethos::before {
+      background: #b89050;
+    }
+
+    .branch-tag {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .35em;
+      margin-bottom: 12px;
+    }
+
+    .branch-card.cosmos .branch-tag {
+      color: var(--cs-core);
+    }
+
+    .branch-card.regenesis .branch-tag {
+      color: #6aa85a;
+    }
+
+    .branch-card.ethos .branch-tag {
+      color: #b89050;
+    }
+
+    .branch-name {
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-style: italic;
+      color: var(--text-head);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .branch-body {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+
+    .branch-link {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .3em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: .6;
+    }
+
+    .branch-card.cosmos .branch-link {
+      color: var(--cs-core);
+    }
+
+    .branch-card.regenesis .branch-link {
+      color: #6aa85a;
+    }
+
+    .branch-card.ethos .branch-link {
+      color: #b89050;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border-dim);
+      padding: 36px 20px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-head);
+      letter-spacing: .04em;
+    }
+
+    .footer-tag {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .35em;
+      color: var(--tc);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 24px;
+      margin-top: 4px;
+    }
+
+    .footer-links a {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .3em;
+      color: var(--text-faint);
+    }
+
+    /* ── SPACING SECTIONS ── */
+    .section-pad {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    /* Scroll indicator */
+    .hero-scroll-mobile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 32px;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-out) 1.3s forwards;
+    }
+
+    .scroll-line-m {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(var(--tc-light), transparent);
+      animation: scrollPulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+
+      0%,
+      100% {
+        opacity: .3
+      }
+
+      50% {
+        opacity: .9
+      }
+    }
+
+    .scroll-text-m {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: .35em;
+      color: var(--text-faint);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain"></div>
+  <div class="starfield"><canvas id="stars"></canvas></div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="../index.html" class="nav-back">
+      <span style="font-size:12px;font-family:serif">&#8592;</span>
+      Science Coherence
+    </a>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="nav-badge">TCB</span>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- DRAWER -->
+  <div class="drawer-overlay" id="overlay"></div>
+  <div class="nav-drawer" id="drawer">
+    <button class="drawer-close" id="drawerClose">&#215;</button>
+    <a href="#axis-i" class="drawer-link">Ontology</a>
+    <a href="#axis-ii" class="drawer-link">Biology</a>
+    <a href="#axis-iii" class="drawer-link">Nourishment</a>
+    <a href="#publication" class="drawer-link">Paper</a>
+    <a href="#consciousness" class="drawer-link">Consciousness</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+    <div class="hero-rings">
+      <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="rg1" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#3a9488" stop-opacity="0.15" />
+            <stop offset="100%" stop-color="#3a9488" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+        <circle cx="300" cy="300" r="280" stroke="#3a9488" stroke-opacity="0.05" stroke-width="1" />
+        <circle cx="300" cy="300" r="220" stroke="#3a9488" stroke-opacity="0.07" stroke-width="1" />
+        <circle cx="300" cy="300" r="160" stroke="#3a9488" stroke-opacity="0.10" stroke-width="1" />
+        <circle cx="300" cy="300" r="100" stroke="#3a9488" stroke-opacity="0.14" stroke-width="1.5" />
+        <circle cx="300" cy="300" r="50" stroke="#5ab8aa" stroke-opacity="0.2" stroke-width="1.5" />
+        <circle cx="300" cy="300" r="280" fill="url(#rg1)" />
+        <g style="transform-origin:300px 300px;animation:ringRotate1 40s linear infinite">
+          <circle cx="300" cy="60" r="3" fill="#3a9488" opacity="0.4" />
+          <circle cx="540" cy="300" r="3" fill="#3a9488" opacity="0.4" />
+          <circle cx="300" cy="540" r="3" fill="#3a9488" opacity="0.4" />
+          <circle cx="60" cy="300" r="3" fill="#3a9488" opacity="0.4" />
+        </g>
+      </svg>
+    </div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Foundational Framework</span>
+      </div>
+      <h1 class="hero-title">
+        Time-Crystalline<em>Biology</em>
+      </h1>
+      <div class="hero-subtitle">Toward an Informational Theory of Life, Health, and Nourishment</div>
+      <p class="hero-body">
+        Living systems are not analogous to time crystals — they are time-crystalline structures.
+        Health is phase-lock fidelity. Disease is its degradation.
+      </p>
+      <div class="hero-actions">
+        <a href="#axis-i" class="btn-primary">Enter the Framework</a>
+        <a href="#publication" class="btn-outline">Read the Paper</a>
+      </div>
+      <div class="hero-scroll-mobile">
+        <div class="scroll-line-m"></div>
+        <span class="scroll-text-m">Scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABSTRACT -->
+  <section class="abstract">
+    <div class="container">
+      <p class="abstract-text reveal">
+        Living systems <em>are</em> time-crystalline structures — temporal oscillators whose order is expressed in the
+        fourth dimension as rigorously as a quartz lattice expresses order in the first three. <strong>Axis I</strong>
+        establishes the ontological foundation: information is primary, matter is stabilized organization.
+        <strong>Axis II</strong> develops the biological mechanics across five nested scales — from microtubules as
+        <em>polyatomic time crystals</em> through to planetary entrainment.
+        <strong>Axis III</strong> applies the framework to nourishment: thermal processing above 42°C constitutes
+        morphogenetic disruption, collapsing the quantum-coherent lattice architecture on which all higher biological
+        organization depends.
+      </p>
+    </div>
+  </section>
+
+  <!-- AXIS I -->
+  <section class="axis-header" id="axis-i">
+    <div class="container" style="position:relative;">
+      <div class="axis-numeral">I</div>
+      <div class="axis-tag reveal">Axis I of III</div>
+      <div class="axis-rule reveal"></div>
+      <h2 class="axis-title reveal">Foundational <em>Ontology</em></h2>
+      <p class="axis-sub reveal">Five premises on which the entire framework depends. These are foundational positions —
+        the reader is invited to interrogate them; Axes II and III stand or fall on whether they are granted.</p>
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="container">
+      <div class="section-label tc reveal">Premises</div>
+
+      <div class="lc reveal">
+        <div class="lc-tag">§1 — Information as Primary</div>
+        <div class="lc-title" onclick="toggleCard(this)">
+          The universe is not made of stuff that has information
+          <span class="lc-chevron">▾</span>
+        </div>
+        <div class="lc-body">Information is not a property of matter. Matter is a stable configuration of information.
+          The organism is not a material system that processes information — it is an informational system that
+          maintains a material expression. The first question of biology is not "what chemicals are present?" but "what
+          organizational structure is maintained?"</div>
+      </div>
+
+      <div class="lc reveal" style="transition-delay:.08s">
+        <div class="lc-tag">§2 — Matter as Stabilized Organization</div>
+        <div class="lc-title" onclick="toggleCard(this)">
+          Periodicity in time is a thermodynamic attractor
+          <span class="lc-chevron">▾</span>
+        </div>
+        <div class="lc-body">A spatial crystal is minimum-energy organization in space. A time crystal extends this to
+          the temporal axis: the ground state is not static but periodically moving. For the right class of systems,
+          oscillation is what stability looks like. Stasis is the higher-energy state. This inverts the ordinary
+          intuition that rest is default and motion is imposed.</div>
+      </div>
+
+      <div class="lc reveal" style="transition-delay:.16s">
+        <div class="lc-tag">§3 — Life as Coherence</div>
+        <div class="lc-title" onclick="toggleCard(this)">
+          What ceases at death is not matter but coherence
+          <span class="lc-chevron">▾</span>
+        </div>
+        <div class="lc-body">A living cell and the same cell one second after death share identical chemistry. They do
+          not share identical organization. Life is the mode in which information-as-organization becomes
+          self-maintaining. Health is the high-fidelity maintenance of this coherence. Disease is its progressive
+          degradation. Death is its terminal collapse.</div>
+      </div>
+
+      <div class="lc reveal" style="transition-delay:.24s">
+        <div class="lc-tag">§4 — Morphogenetic Fields</div>
+        <div class="lc-title" onclick="toggleCard(this)">
+          Voltage maps encode anatomy, independently of DNA
+          <span class="lc-chevron">▾</span>
+        </div>
+        <div class="lc-body">Chemistry alone cannot account for biological form. The morphogenetic field — the
+          bioelectric and biophotonic information layer encoding the organism's target anatomy — carries instructions
+          not contained in the genome. Levin's work: alter the membrane voltage map and you alter the anatomy. Restore
+          the voltage map and you restore the anatomy. The field is primary; the chemistry is secondary.</div>
+      </div>
+
+      <div class="lc reveal" style="transition-delay:.32s">
+        <div class="lc-tag">§5 — Time, Rhythm, and Living Order</div>
+        <div class="lc-title" onclick="toggleCard(this)">
+          The body holds its form because it holds its rhythm
+          <span class="lc-chevron">▾</span>
+        </div>
+        <div class="lc-body">Temporal periodicity is constitutive of life, not incidental to it. Coherence in time is
+          what enables coherence in space. The architecture of living order is temporal before it is spatial — and the
+          measure of biological health is the fidelity of that temporal architecture across every scale of organization.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AXIS II -->
+  <section class="axis-header" id="axis-ii">
+    <div class="container" style="position:relative;">
+      <div class="axis-numeral">II</div>
+      <div class="axis-tag reveal">Axis II of III</div>
+      <div class="axis-rule reveal"></div>
+      <h2 class="axis-title reveal">Informational <em>Biology</em></h2>
+      <p class="axis-sub reveal">The biological mechanics of time-crystalline organization across five nested scales —
+        from the quantum-coherent intracellular lattice to the planetary electromagnetic interface.</p>
+    </div>
+  </section>
+
+  <!-- Layer 0 -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="section-label tc reveal">The Intracellular Substrate</div>
+      <div class="layer-0-feature reveal">
+        <div
+          style="font-family:var(--font-label);font-size:7.5px;letter-spacing:.4em;color:var(--tc);margin-bottom:10px;">
+          Layer 0 — Foundation</div>
+        <h3
+          style="font-family:var(--font-display);font-size:clamp(22px,6vw,32px);font-weight:400;font-style:italic;color:var(--text-head);line-height:1.1;margin-bottom:14px;">
+          Microtubules as Polyatomic <span style="color:var(--tc-light)">Time Crystals</span>
+        </h3>
+        <p class="section-intro">Before time-crystalline organization can manifest at the cellular or organism scale, it
+          requires a physical substrate capable of generating, sustaining, and transmitting coherent oscillation. That
+          substrate is the microtubule network — present in every eukaryotic cell, operating as a polyatomic time
+          crystal across four simultaneous frequency domains.</p>
+        <p class="section-intro" style="margin-bottom:0;">The THz and GHz resonances of the tubulin lattice act as
+          resonant optical cavities. The biophotonic field is the <em
+            style="color:var(--tc-light);font-style:normal;">far-field expression</em> of near-field microtubule quantum
+          dynamics. Destroy the lattice, and you simultaneously collapse the optical infrastructure the entire
+          organismic biophotonic field depends on.</p>
+        <div class="freq-hierarchy">
+          <div class="freq-band">
+            <div class="freq-label">Layer 0.1</div>
+            <div class="freq-name">Terahertz</div>
+            <div class="freq-desc">Aromatic π-electron transitions within tubulin proteins</div>
+          </div>
+          <div class="freq-band">
+            <div class="freq-label">Layer 0.2</div>
+            <div class="freq-name">Gigahertz</div>
+            <div class="freq-desc">Resonances of ordered water confined within the hollow microtubule core</div>
+          </div>
+          <div class="freq-band">
+            <div class="freq-label">Layer 0.3</div>
+            <div class="freq-name">Megahertz</div>
+            <div class="freq-desc">Lattice phonons and electromechanical solitons propagating along the tubulin polymer
+            </div>
+          </div>
+          <div class="freq-band">
+            <div class="freq-label">Layer 0.4</div>
+            <div class="freq-name">Kilohertz</div>
+            <div class="freq-desc">C-termini tail oscillations interacting with surrounding cytoplasmic ions</div>
+          </div>
+        </div>
+        <div class="working-model">
+          <div class="wm-tag">Fröhlich Coherence</div>
+          <div class="wm-text">Under continuous mitochondrial ATP input, the tubulin lattice undergoes condensation:
+            vibrational energy funnels into a dominant low-entropy mode that actively resists thermal decoherence — not
+            by shielding from heat, but by using metabolic energy to re-establish the coherent mode faster than thermal
+            noise destroys it.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:32px;">
+        <div class="section-label tc reveal">Nested Oscillatory Hierarchy</div>
+        <div class="lc reveal">
+          <div class="lc-tag">Layer 1 — Molecular Clock</div>
+          <div class="lc-title" onclick="toggleCard(this)">CLOCK / BMAL1 Transcription-Translation Loop<span
+              class="lc-chevron">▾</span></div>
+          <div class="lc-body">A biological limit cycle oscillator with intrinsic ~24-hour period set by kinetic
+            parameters alone. Isolated cells in constant darkness maintain circadian rhythms for weeks. The SCN —
+            ~20,000 neurons synchronizing through GABAergic coupling — drifts less than one hour per day without any
+            external time cue. It does not compute the time. It <em>is</em> a time crystal.</div>
+        </div>
+        <div class="lc reveal" style="transition-delay:.08s">
+          <div class="lc-tag">Layer 2 — Cellular Network</div>
+          <div class="lc-title" onclick="toggleCard(this)">Gap Junctions and Bioelectric Coupling<span
+              class="lc-chevron">▾</span></div>
+          <div class="lc-body">Kuramoto synchronization mathematics predicts that oscillators with similar natural
+            frequencies, coupled above a critical threshold, spontaneously achieve phase coherence. This is precisely
+            what gap junction networks produce across every tissue type — cardiac pacemakers, pancreatic beta cells,
+            intestinal smooth muscle. The mechanism is identical at every scale: coupled oscillators achieving temporal
+            order.</div>
+        </div>
+        <div class="lc reveal" style="transition-delay:.16s">
+          <div class="lc-tag">Layer 3 — Organismic Field</div>
+          <div class="lc-title" onclick="toggleCard(this)">Biophotonic Coherence and Phase Memory<span
+              class="lc-chevron">▾</span></div>
+          <div class="lc-body">Popp demonstrated photon antibunching in biophotonic emission — a quantum optical
+            signature of coherent light rather than thermal noise. Cancer cells exhibit elevated but <em>decoherent</em>
+            emission: amplitude preserved, phase structure destroyed. This is the signature of a time crystal undergoing
+            decoherence. The field carries memory of the organism's coherence history.</div>
+        </div>
+        <div class="lc reveal" style="transition-delay:.24s">
+          <div class="lc-tag">Layer 4 — Chronobiological Interface</div>
+          <div class="lc-title" onclick="toggleCard(this)">Solar and Geomagnetic Entrainment<span
+              class="lc-chevron">▾</span></div>
+          <div class="lc-body">Cryptochrome proteins — core clock components — are also radical-pair magnetoreceptors.
+            The same molecular element driving the transcription-translation loop responds to geomagnetic field
+            orientation through quantum coherence mechanisms. The Schumann resonance (7.83 Hz) overlaps with the brain's
+            alpha range (8–12 Hz). The organism's temporal structure is nested within the Earth's own electromagnetic
+            architecture.</div>
+        </div>
+      </div>
+
+      <!-- Disease as Decoherence -->
+      <div style="margin-top:32px;">
+        <div class="section-label tc reveal">The Unified Disease Model</div>
+        <div class="lc reveal">
+          <div class="lc-tag">First-Order Decoherence</div>
+          <div class="lc-title" onclick="toggleCard(this)">Phase Drift Between Existing Oscillators<span
+              class="lc-chevron">▾</span></div>
+          <div class="lc-body">Decoherence begins when phase relationships drift. Noise amplification follows: the
+            signal-to-noise ratio of the body's signaling architecture increases as coherent oscillations desynchronize.
+            Processes requiring temporal gating — cell cycle checkpoints, circadian-gated gene expression — begin to
+            fail as gates lose phase precision.</div>
+        </div>
+        <div class="lc reveal" style="transition-delay:.08s">
+          <div class="lc-tag">Second-Order Decoherence</div>
+          <div class="lc-title" onclick="toggleCard(this)">Epigenetic Dismantling of the Substrate<span
+              class="lc-chevron">▾</span></div>
+          <div class="lc-body">Sustained decoherence writes to the genome. A cell locked into chronic decoherence
+            methylates and silences the genes encoding gap junction proteins, ion channels, clock components, and
+            mitochondrial biogenesis factors — progressively reducing the amplitude and coupling capacity of the
+            oscillators themselves. The epigenome is written to dismantle the time crystal's own substrate.</div>
+        </div>
+        <div class="lc reveal" style="transition-delay:.16s">
+          <div class="lc-tag">Trauma as Field Decoherence</div>
+          <div class="lc-title" onclick="toggleCard(this)">When the Emergency Configuration Becomes Permanent<span
+              class="lc-chevron">▾</span></div>
+          <div class="lc-body">Trauma is what happens when the acute decoherence event is too severe or prolonged for
+            recovery to complete. The emergency phase configuration becomes the new resting state. Decoherent
+            biophotonic emission propagates through gap junction networks, driving neighboring cells toward the same
+            mode. Effective resolution requires simultaneous re-entrainment across field, epigenome, and temporal
+            architecture.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONSCIOUSNESS -->
+  <section class="consciousness" id="consciousness">
+    <div class="container">
+      <div class="con-eyebrow reveal">
+        <div class="con-eyebrow-line"></div>
+        <span class="lbl" style="color:var(--cs-core)">§11 — Consciousness</span>
+      </div>
+      <h2 class="con-title reveal">The Felt <em>Now</em></h2>
+      <p class="con-body reveal">
+        The binding problem dissolves when reframed temporally. Conscious experience is not spatially unified — it is
+        temporally unified. The felt sense of "now" is the phenomenal expression of multi-scale temporal coherence
+        achieving integration across the neural oscillatory hierarchy.
+      </p>
+      <p class="con-body reveal" style="transition-delay:.1s;">
+        Gamma oscillations (30–80 Hz, centred on ~40 Hz) are the only frequency band reliably correlating with conscious
+        awareness. The correlate of consciousness is not neural activity. It is temporal coherence.
+      </p>
+      <div class="con-formula reveal" style="transition-delay:.15s;">
+        <div class="con-formula-label">Formal Model — Science Coherence</div>
+        <div class="con-formula-eq">Ψ <em>Δ</em></div>
+        <div class="con-formula-sub">when the propagating wave expression Ψ is stationary under the recursive integrator
+          Δ — when phase relationships across the neural time-crystal hierarchy are coherent enough for the system to
+          recognize itself from within.</div>
+      </div>
+      <div class="orch-card reveal" style="transition-delay:.2s;margin-top:16px;">
+        <div class="orch-tag">Working Model — Orch OR</div>
+        <div class="orch-title">Orchestrated Objective Reduction</div>
+        <p
+          style="font-size:12px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.85;margin:10px 0 16px;">
+          The Penrose-Hameroff hypothesis: quantum superpositions maintained within tubulin lattices are the physical
+          basis of conscious moments. When the superposed mass-energy reaches a critical threshold, the wavefunction
+          undergoes objective reduction determined by the geometry of spacetime itself.</p>
+        <div class="orch-eq">τ = ℏ / E<sub style="font-size:.5em">G</sub></div>
+        <div class="orch-eq-def">
+          <strong style="color:var(--text-body);font-weight:400;">τ</strong> — timescale of objective reduction<br>
+          <strong style="color:var(--text-body);font-weight:400;">E<sub style="font-size:.8em">G</sub></strong> —
+          gravitational self-energy of the superposed mass distribution
+        </div>
+        <div class="orch-body">Fröhlich coherence allows microtubule quantum superpositions to persist long enough at
+          biological temperatures to reach the E<sub>G</sub> threshold. Each reduction event is a discrete moment of
+          proto-conscious integration.</div>
+        <div class="working-model" style="margin-top:16px;">
+          <div class="wm-tag">Epistemic Status</div>
+          <div class="wm-text">Orch OR remains outside mainstream neuroscience and lacks direct experimental
+            confirmation. It is presented as the most physically rigorous account of how microtubule dynamics could
+            produce the integration events the framework identifies as Δ.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AXIS III -->
+  <section class="axis-header" id="axis-iii">
+    <div class="container" style="position:relative;">
+      <div class="axis-numeral">III</div>
+      <div class="axis-tag reveal">Axis III of III</div>
+      <div class="axis-rule reveal"></div>
+      <h2 class="axis-title reveal">Nourishment &amp; <em>Regeneration</em></h2>
+      <p class="axis-sub reveal">If biological health is the maintenance of phase-lock fidelity, then the primary
+        question of nutrition is not chemical but informational: does the substrate arrive as a coherent field system or
+        as incoherent material?</p>
+    </div>
+  </section>
+
+  <!-- Three-fold -->
+  <section class="threefold">
+    <div class="container">
+      <div class="threefold-header">
+        <div class="section-label tc reveal">§14 — Cooking as Morphogenetic Disruption</div>
+        <h2 class="reveal"
+          style="font-family:var(--font-display);font-size:clamp(22px,6vw,36px);font-weight:400;font-style:italic;color:var(--text-head);letter-spacing:-.02em;margin-bottom:10px;">
+          The Three-Fold Consequence of <em style="color:var(--amber-light)">Thermal Denaturation</em>
+        </h2>
+        <p class="reveal"
+          style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.85;">Above 42°C
+          sustained, thermal agitation overpowers the non-covalent dipole interactions holding tubulin proteins in their
+          precise lattice geometry. The consequences are sequential and causally ordered.</p>
+      </div>
+      <div class="tf-cards">
+        <div class="tf-card reveal">
+          <div class="tf-num">I</div>
+          <div class="tf-tag">Shattering the Time Crystal</div>
+          <div class="tf-title">Microtubule Depolymerization</div>
+          <div class="tf-body">Heat depolymerizes microtubule networks. The localized harmonic frequency hierarchy — THz
+            through kHz — is randomized into incoherent thermodynamic noise. The polyatomic time crystal does not
+            degrade gradually. It undergoes a catastrophic phase transition from quantum coherence to thermodynamic
+            chaos.</div>
+        </div>
+        <div class="tf-card reveal" style="transition-delay:.08s">
+          <div class="tf-num">II</div>
+          <div class="tf-tag">Biophotonic Decoherence</div>
+          <div class="tf-title">Collapse of the Optical Cavity</div>
+          <div class="tf-body">Without the crystalline geometry of the intact tubulin lattice acting as a resonant
+            optical cavity, the tissue loses its capacity to store, phase, and transmit coherent light. The ordered
+            biophotonic field collapses — the field's informational architecture is destroyed, not merely weakened.
+          </div>
+        </div>
+        <div class="tf-card reveal" style="transition-delay:.16s">
+          <div class="tf-num">III</div>
+          <div class="tf-tag">Morphogenetic Depolarization</div>
+          <div class="tf-title">Erasure of Anatomical Memory</div>
+          <div class="tf-body">As the cytoskeletal lattice collapses, the spatial framework holding bioelectric
+            gradients is destroyed. The tissue undergoes rapid depolarization, erasing the localized anatomical memory
+            that directs tissue repair and morphogenetic regeneration. What is lost is not merely structure — it is the
+            organism's self-knowledge of its own target anatomy.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASCADE -->
+  <section class="cascade-section">
+    <div class="container">
+      <div style="margin-bottom:32px;">
+        <div class="section-label tc reveal">Microtubule Degeneration Cascade</div>
+        <h2 class="cascade-title reveal">Processed Substrate → <em>Systemic Collapse</em></h2>
+        <p class="reveal"
+          style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.85;">Four
+          interlocking failure modes — each directly traceable to chronic processed substrate consumption.</p>
+      </div>
+      <div class="decoherence-chain reveal">
+        <div class="dc-title">Complete Degeneration Sequence</div>
+        <div class="dc-step">
+          <div class="dc-dot"></div>
+          <div class="dc-step-inner">
+            <div class="dc-step-num">Input</div>
+            <div class="dc-step-text"><em>Processed / thermally denatured substrate</em> — chemically complex,
+              organizationally demolished, field-collapsed</div>
+          </div>
+        </div>
+        <div class="dc-connector"></div>
+        <div class="dc-step">
+          <div class="dc-dot"></div>
+          <div class="dc-step-inner">
+            <div class="dc-step-num">Failure Mode 1</div>
+            <div class="dc-step-text">Oxidized membrane lipids → disordered bilayer → disrupted electrostatic
+              environment → <em>microtubule lattice destabilization</em></div>
+          </div>
+        </div>
+        <div class="dc-connector"></div>
+        <div class="dc-step">
+          <div class="dc-dot"></div>
+          <div class="dc-step-inner">
+            <div class="dc-step-num">Failure Mode 2</div>
+            <div class="dc-step-text">Depleted Mg²⁺ / GTP → reduced lattice stability → <em>Fröhlich condensation
+                failure</em> → metabolic energy can no longer sustain coherent vibrational mode</div>
+          </div>
+        </div>
+        <div class="dc-connector"></div>
+        <div class="dc-step">
+          <div class="dc-dot"></div>
+          <div class="dc-step-inner">
+            <div class="dc-step-num">Failure Mode 3</div>
+            <div class="dc-step-text">Lipid peroxidation + Maillard compounds → ROS + aldehydes → tubulin carbonylation
+              → <em>geometric disorder of dipolar lattice</em></div>
+          </div>
+        </div>
+        <div class="dc-connector"></div>
+        <div class="dc-step">
+          <div class="dc-dot"></div>
+          <div class="dc-step-inner">
+            <div class="dc-step-num">Cascade Result</div>
+            <div class="dc-step-text"><em>Collapse of polyatomic frequency hierarchy</em> → biophotonic decoherence →
+              morphogenetic field degrades to local, chemically-gated signaling alone</div>
+          </div>
+        </div>
+        <div class="dc-connector" style="background:linear-gradient(rgba(154,100,80,.7),rgba(154,80,60,.8));"></div>
+        <div class="dc-terminal">
+          <div class="dc-terminal-text">Disease · Accelerated Biological Aging · Loss of Morphogenetic Field
+            Intelligence</div>
+        </div>
+      </div>
+      <p class="reveal"
+        style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.9;margin-top:32px;text-align:center;">
+        The conventional nutritional model has no language for this process because it has no concept of the structure
+        being destroyed. It measures the molecules. The molecules remain. What disappears, meal by meal, year by year,
+        is the quantum-coherent architecture that organized those molecules into a living system.
+      </p>
+    </div>
+  </section>
+
+  <!-- FEEDBACK LOOP -->
+  <section class="feedback-loop">
+    <div class="container">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;" class="reveal">
+        <div style="width:16px;height:1px;background:var(--tc)"></div>
+        <span class="lbl" style="color:var(--tc)">§14b — The Closed Loop</span>
+      </div>
+      <h2 class="fl-title reveal">The Coherence <em>Feedback Loop</em></h2>
+      <p class="fl-sub reveal">The degeneration cascade is a closed loop — a scalar feedback architecture in which the
+        outputs of each failure mode become the inputs that drive the next cycle. The loop has two stable attractors.
+        There is no stable intermediate state.</p>
+
+      <div class="fl-nodes reveal">
+        <div class="fl-node">
+          <div class="fl-node-num">Node 1</div>
+          <div class="fl-node-title">Substrate → Membrane Composition</div>
+          <div class="fl-node-arrow">→ Node 2</div>
+          <div class="fl-node-body">Absorbed fatty acids incorporate into phospholipid bilayers system-wide within days.
+            Structurally intact raw fats produce bilayers in the fluid-mosaic state. Oxidized processed fats introduce
+            disordered, reactive fatty acids that degrade conformational precision and elevate the membrane-level noise
+            floor.</div>
+        </div>
+        <div class="fl-node">
+          <div class="fl-node-num">Node 2</div>
+          <div class="fl-node-title">Membrane Composition → Microtubule Lattice</div>
+          <div class="fl-node-arrow">→ Node 3</div>
+          <div class="fl-node-body">Membrane potential and local dielectric properties are the physical context within
+            which tubulin polymerization occurs and Fröhlich condensation is sustained. Disordered bilayer composition
+            introduces noise into the local electric field, destabilizing the tubulin dipolar geometry.</div>
+        </div>
+        <div class="fl-node">
+          <div class="fl-node-num">Node 3</div>
+          <div class="fl-node-title">Microtubule Lattice → Biophotonic Field Coherence</div>
+          <div class="fl-node-arrow">→ Node 4</div>
+          <div class="fl-node-body">Lattice coherence fidelity directly determines the spectral coherence of biophotonic
+            emission. A lattice under condensation failure produces emission elevated in intensity but degraded in phase
+            structure: carrying noise rather than signal.</div>
+        </div>
+        <div class="fl-node">
+          <div class="fl-node-num">Node 4</div>
+          <div class="fl-node-title">Biophotonic Field → Morphogenetic Repair → Membrane</div>
+          <div class="fl-node-arrow">↺ → Node 1 (next cycle)</div>
+          <div class="fl-node-body">This is the node that closes the loop. A degraded field provides lower-fidelity
+            repair — the next membrane turnover cycle begins from a worse structural baseline than the one before it.
+          </div>
+        </div>
+      </div>
+
+      <div class="fl-attractor reveal" style="transition-delay:.1s;margin-top:2px;">
+        <div class="fl-attractor-col positive">
+          <div class="fl-attractor-label">Positive Attractor — Coherent Substrate</div>
+          <div class="fl-attractor-title">The Ascending Loop</div>
+          <div class="fl-attractor-chain">
+            <em>Better substrate</em> → better membrane composition → higher lattice coherence → stronger biophotonic
+            field → more precise morphogenetic repair → <em>better membrane composition</em> ↺
+          </div>
+        </div>
+        <div class="fl-attractor-divider"></div>
+        <div class="fl-attractor-col negative">
+          <div class="fl-attractor-label">Negative Attractor — Decoherent Substrate</div>
+          <div class="fl-attractor-title">The Descending Loop</div>
+          <div class="fl-attractor-chain">
+            <em>Processed substrate</em> → disordered membrane composition → lattice destabilization → biophotonic field
+            decoherence → degraded morphogenetic repair → <em>worse membrane composition</em> ↺
+          </div>
+        </div>
+      </div>
+
+      <div class="fl-epigenetic reveal" style="transition-delay:.15s;">
+        <div class="fl-epi-label">The Third Tier</div>
+        <div class="fl-epi-title">The Epigenetic Amplifier</div>
+        <div class="fl-epi-timescales">
+          <div class="fl-epi-scale"><span class="fl-epi-scale-name">Bilayer Turnover</span><span
+              class="fl-epi-scale-val">Weeks – months</span></div>
+          <div class="fl-epi-scale"><span class="fl-epi-scale-name">Biophotonic Field State</span><span
+              class="fl-epi-scale-val">Days – weeks</span></div>
+          <div class="fl-epi-scale"><span class="fl-epi-scale-name">Epigenetic Landscape</span><span
+              class="fl-epi-scale-val">Months – years</span></div>
+        </div>
+        <div class="fl-epi-body">Sustained field decoherence methylates the genes encoding gap junction connexin
+          proteins, clock components, and mitochondrial biogenesis factors. The loop now operates at three timescales
+          simultaneously. Reversal requires re-establishing coherent conditions at sufficient amplitude and duration to
+          operate against all three simultaneously. The substrate is the entry point. There is no shortcut to a
+          downstream node.</div>
+      </div>
+
+      <div class="fl-formal reveal" style="transition-delay:.2s;">
+        <div class="fl-formal-label">Structural Claim</div>
+        <p class="fl-formal-text">The coherence feedback loop is <em>self-amplifying in both directions</em>. What is
+          attributed to time is largely attributable to the direction of the feedback across a lifetime of substrate
+          decisions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGENESIS -->
+  <section class="regenesis">
+    <div class="container">
+      <div class="regen-eyebrow reveal">
+        <div class="regen-eyebrow-line"></div>
+        <span class="regen-eyebrow-text">§15 — Regeneration as Re-Coherence</span>
+      </div>
+      <h2 class="regen-title reveal">Re-Crystallization, <em>Not Repair</em></h2>
+      <p class="regen-intro reveal">If disease is decoherence and aging is cumulative phase drift, then regeneration is
+        re-crystallization. The organism does not need to be fixed. It needs to be given the conditions under which it
+        can re-establish its ground-state coherent organization.</p>
+
+      <div class="regen-card reveal">
+        <div class="regen-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--tc-light)" stroke-width="1.2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          </svg>
+        </div>
+        <div>
+          <div class="regen-card-tag">Light</div>
+          <div class="regen-card-title">Primary Chronobiological Entrainment</div>
+          <div class="regen-card-body">Morning sunlight — broad-spectrum, rich in 470–490 nm — entrains the SCN to the
+            solar cycle with millisecond-precision signaling. Light hygiene is the primary interface between the
+            organism and the planetary time crystal it evolved to track.</div>
+        </div>
+      </div>
+      <div class="regen-card reveal" style="transition-delay:.06s">
+        <div class="regen-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--tc-light)" stroke-width="1.2" stroke-linecap="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" />
+          </svg>
+        </div>
+        <div>
+          <div class="regen-card-tag">Sleep</div>
+          <div class="regen-card-title">The Master Neural Re-Coherence Mechanism</div>
+          <div class="regen-card-body">Slow-wave sleep is synchronized low-frequency oscillation (0.5–4 Hz) across the
+            neocortex. The three-layer phase relationship — sharp-wave ripples nested in sleep spindles nested in slow
+            oscillations — is the temporal architecture of neural re-coherence.</div>
+        </div>
+      </div>
+      <div class="regen-card reveal" style="transition-delay:.12s">
+        <div class="regen-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--tc-light)" stroke-width="1.2" stroke-linecap="round">
+            <path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z" />
+            <path d="M12 8v4l3 3" />
+          </svg>
+        </div>
+        <div>
+          <div class="regen-card-tag">Raw Substrate</div>
+          <div class="regen-card-title">Microtubule Lattice Repolymerization</div>
+          <div class="regen-card-body">Living animal tissue — organ meats, raw fat, unprocessed glandular material —
+            delivers intact tubulin dimers, bioavailable Mg²⁺, and structurally coherent lipid substrates
+            simultaneously. The fidelity of neuroplasticity is partly a function of substrate structural integrity.
+          </div>
+        </div>
+      </div>
+      <div class="regen-card reveal" style="transition-delay:.18s">
+        <div class="regen-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--tc-light)" stroke-width="1.2" stroke-linecap="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+          </svg>
+        </div>
+        <div>
+          <div class="regen-card-tag">Resonance Entrainment</div>
+          <div class="regen-card-title">MHz Mechanical Vibration</div>
+          <div class="regen-card-body">Applying mechanical vibration at MHz frequencies — matching the natural lattice
+            phonon resonances of microtubules — facilitates tau protein re-assembly and stimulates neuroplasticity. Not
+            locking a molecule to a receptor, but entraining a quantum-coherent oscillator to its natural frequency.
+          </div>
+        </div>
+      </div>
+      <div class="regen-card reveal" style="transition-delay:.24s">
+        <div class="regen-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--tc-light)" stroke-width="1.2" stroke-linecap="round">
+            <path d="M12 22V12M12 12 6 6M12 12l6-6" />
+            <circle cx="12" cy="22" r="1" fill="var(--tc-light)" />
+          </svg>
+        </div>
+        <div>
+          <div class="regen-card-tag">Thermal Cycling</div>
+          <div class="regen-card-title">Mitochondrial Biogenesis and Phase Sharpening</div>
+          <div class="regen-card-body">Cold exposure drives norepinephrine release and forces cellular energy systems to
+            rebuild and resynchronize. Deliberate thermal variation adds amplitude to the circadian body temperature
+            signal, sharpening the phase distinction between active and rest states.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMAL CLAIM -->
+  <section class="claim-section">
+    <div class="container">
+      <div class="section-label tc reveal" style="margin-bottom:36px;">The Formal Claim</div>
+      <div class="claim-cards">
+        <div class="claim-card primary reveal">
+          <div class="claim-tag">Framework Statement</div>
+          <p class="claim-text">Biological health is the maintenance of <em>phase-lock fidelity</em> across the body's
+            nested oscillatory hierarchy — from the polyatomic time-crystal architecture of intracellular microtubules,
+            through the molecular clock, cellular coupling networks, and organismic biophotonic field, to its planetary
+            electromagnetic context. Disease is the progressive degradation of this phase structure: temporal
+            decoherence propagating upward from the quantum-coherent intracellular substrate through every scale of
+            biological organization.</p>
+        </div>
+        <div class="claim-card secondary reveal" style="transition-delay:.08s">
+          <div class="claim-tag">Operational Corollary</div>
+          <p class="claim-text" style="font-size:clamp(13px,3.5vw,16px);">Every effective intervention is an
+            <em>entrainment mechanism</em>. Every effective harm is a decoherence mechanism. Nourishment, correctly
+            understood, is the provision of coherent informational substrate to a system whose health depends on it.</p>
+          <div class="working-model" style="margin-top:20px;">
+            <div class="wm-tag">Epistemic Status</div>
+            <div class="wm-text">This claim is not yet fully testable with current measurement tools. The missing
+              instrument is a multi-scale, simultaneous readout of phase relationships across circadian, ultradian, and
+              cellular oscillatory systems in real time. The development of that measurement capacity is the central
+              technical problem of 21st-century medicine.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATION -->
+  <section class="publication" id="publication">
+    <div class="container">
+      <div class="pub-eyebrow reveal">
+        <div class="pub-eyebrow-line"></div>
+        <span class="lbl" style="color:var(--amber-light)">Foundational Paper</span>
+      </div>
+      <h2 class="pub-title reveal">Read the <em>Full Paper</em></h2>
+      <p class="pub-body reveal">The complete theoretical document — 29 pages, three axes, 17 sections — including the
+        coherence feedback loop, formal derivations, working model flags, and the complete microtubule degeneration
+        cascade argument.</p>
+      <div class="pub-status reveal">
+        <div class="pub-status-dot"></div>
+        <span class="pub-status-text">Living Framework — Version 5</span>
+      </div>
+      <a href="../publications/time-crystalline-biology.pdf" class="pub-download reveal" style="transition-delay:.1s;">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+          style="width:14px;height:14px;">
+          <path d="M7 1v9M3 7l4 4 4-4M1 12h12" />
+        </svg>
+        Download PDF — 29 pages
+      </a>
+      <div class="pub-card reveal" style="transition-delay:.15s;">
+        <div class="pub-card-label">Document Record</div>
+        <div class="pub-card-title">Time-Crystalline Biology</div>
+        <div class="pub-card-sub">Toward an Informational Theory of Life, Health, and Nourishment</div>
+        <div class="pub-card-divider"></div>
+        <div class="pub-card-field"><span class="pub-card-key">Author</span><span class="pub-card-val">Julien Xavier
+            Steff</span></div>
+        <div class="pub-card-field"><span class="pub-card-key">Institute</span><span class="pub-card-val">Science
+            Coherence Institute</span></div>
+        <div class="pub-card-field"><span class="pub-card-key">Branch</span><span class="pub-card-val">Cosmos —
+            Cohera</span></div>
+        <div class="pub-card-field"><span class="pub-card-key">Structure</span><span class="pub-card-val">3 Axes · 17
+            Sections</span></div>
+        <div class="pub-card-field"><span class="pub-card-key">Pages</span><span class="pub-card-val">29</span></div>
+        <div class="pub-card-field"><span class="pub-card-key">Version</span><span class="pub-card-val">v5 — Coherence
+            Feedback Loop</span></div>
+        <div class="pub-card-field"><span class="pub-card-key">Status</span><span class="pub-card-val"
+            style="color:var(--tc-light);">Living Framework Document</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANCHES -->
+  <section class="branches">
+    <div class="container">
+      <div class="branches-header">
+        <div class="section-label reveal" style="margin-bottom:24px;">Implications</div>
+        <h2 class="branches-title reveal">Within the <em>Framework</em></h2>
+        <p class="branches-sub reveal">Time-Crystalline Biology is the theoretical foundation beneath all three branches
+          of the Science Coherence framework.</p>
+      </div>
+      <div class="branch-cards">
+        <div class="branch-card cosmos reveal">
+          <div class="branch-tag">Cosmos</div>
+          <div class="branch-name">Biophysics &amp; Theoretical Systems</div>
+          <div class="branch-body">The time-crystalline model extends to cosmological scale: the same nested oscillatory
+            architecture that operates in microtubules operates in the planetary electromagnetic field, in the Schumann
+            resonance cavity, and in the orbital mechanics of solar-lunar coupling.</div>
+          <a href="cosmos.html" class="branch-link">Cosmos Branch <span
+              style="font-size:13px;font-family:serif;">&#8594;</span></a>
+        </div>
+        <div class="branch-card regenesis reveal" style="transition-delay:.08s">
+          <div class="branch-tag">Regenesis</div>
+          <div class="branch-name">Biological Optimization &amp; Cellular Regeneration</div>
+          <div class="branch-body">Every Regenesis protocol — sleep architecture defense, light discipline, raw
+            nutrition, thermal cycling, movement timing — is a temporal entrainment mechanism operating on the
+            oscillatory hierarchy described in this framework.</div>
+          <a href="regenesis.html" class="branch-link">Regenesis Branch <span
+              style="font-size:13px;font-family:serif;">&#8594;</span></a>
+        </div>
+        <div class="branch-card ethos reveal" style="transition-delay:.16s">
+          <div class="branch-tag">Ethos</div>
+          <div class="branch-name">Philosophy of Conscious Resonance</div>
+          <div class="branch-body">If consciousness is temporal integration — if the felt sense of now is what a
+            sufficiently complex time crystal experiences when it becomes self-aware of its own oscillation — then the
+            philosophy of being is inseparable from the physics of coherence.</div>
+          <a href="ethos.html" class="branch-link">Ethos Branch <span
+              style="font-size:13px;font-family:serif;">&#8594;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-brand">Science Coherence Institute</div>
+      <div class="footer-tag" style="margin-top:4px;">Time-Crystalline Biology · Cohera</div>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Ethos of Being</a>
+      <a href="cosmos.html">Cosmos</a>
+      <a href="ethos.html">Ethos Practice</a>
+      <a href="time-crystalline-biology-v4.pdf">Paper PDF</a>
+    </div>
+  </footer>
+
+  <script>
+    // Starfield
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    function initStars() {
+      canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+      stars = Array.from({ length: 100 }, () => ({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        r: Math.random() * .8 + .2, o: Math.random() * .35 + .05,
+        s: Math.random() * 1.6 + .4, phase: Math.random() * Math.PI * 2
+      }));
+    }
+    let t = 0;
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        const flicker = s.o * (0.7 + 0.3 * Math.sin(t * s.s + s.phase));
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(160,192,240,${flicker})`; ctx.fill();
+      });
+      t += 0.008; requestAnimationFrame(drawStars);
+    }
+    initStars(); drawStars();
+    window.addEventListener('resize', initStars);
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+    // Drawer
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('overlay');
+    const drawerClose = document.getElementById('drawerClose');
+    function openDrawer() { drawer.classList.add('open'); overlay.classList.add('open'); }
+    function closeDrawer() { drawer.classList.remove('open'); overlay.classList.remove('open'); }
+    hamburger.addEventListener('click', openDrawer);
+    drawerClose.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: .08, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => io.observe(el));
+
+    // Accordion cards
+    function toggleCard(titleEl) {
+      const card = titleEl.closest('.lc');
+      card.classList.toggle('open');
+    }
+
+    // Ring animation
+    const style = document.createElement('style');
+    style.textContent = `@keyframes ringRotate1{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}`;
+    document.head.appendChild(style);
+  </script>
+</body>
+
+</html>
