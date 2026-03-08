@@ -1850,48 +1850,73 @@
    ============================================================ */
     footer {
       border-top: 1px solid var(--border-dim);
-      padding: 56px 72px 44px;
+      padding: 64px 72px 48px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 64px;
+    }
+
+    .footer-brand-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.8;
+      max-width: 280px;
+      margin-top: 16px;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links li a {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-faint);
+      transition: color 0.3s;
+      font-style: italic;
+    }
+
+    .footer-links li a:hover {
+      color: var(--text-body);
+    }
+
+    .footer-bottom {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding-top: 32px;
+      border-top: 1px solid var(--border-dim);
     }
 
-    .footer-left {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-head);
-      letter-spacing: .04em;
-    }
-
-    .footer-branch-tag {
+    .footer-copy {
       font-family: var(--font-label);
       font-size: 8px;
-      letter-spacing: .35em;
-      color: var(--cs-core);
-    }
-
-    .footer-right {
-      display: flex;
-      gap: 36px;
-    }
-
-    .footer-right a {
-      font-family: var(--font-label);
-      font-size: 8px;
-      letter-spacing: .3em;
+      letter-spacing: 0.3em;
       color: var(--text-faint);
-      transition: color .3s;
     }
 
-    .footer-right a:hover {
-      color: var(--cs-light);
+    .footer-branches {
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: 0.35em;
+      color: var(--text-faint);
     }
   </style>
 </head>
@@ -2761,16 +2786,73 @@
      FOOTER
      ============================================================ -->
   <footer>
-    <div class="footer-left">
-      <div class="footer-brand">Science Coherence</div>
-      <div class="footer-branch-tag">Cosmos</div>
+    <div class="footer-top">
+      <div>
+        <div class="nav-brand" style="margin-bottom:0">
+          <svg class="nav-mark" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.4"
+              transform="rotate(-35 15 15)" />
+            <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.25"
+              transform="rotate(35 15 15)" />
+            <circle cx="15" cy="15" r="2.2" fill="#c4b49a" opacity="0.7" />
+            <circle cx="15" cy="15" r="1" fill="#e8dfd0" />
+          </svg>
+          <div class="nav-text">
+            <span class="nav-wordmark">Science Coherence</span>
+            <span class="nav-sub">Cosmos · Ethos · Regenesis</span>
+          </div>
+        </div>
+        <p class="footer-brand-desc">
+          A unified framework for biological optimization, theoretical biophysics, and the philosophy of conscious
+          living.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Cosmos</div>
+        <ul class="footer-links">
+          <li><a href="#">Time-Crystalline Biology</a></li>
+          <li><a href="#">Cellular Coherence</a></li>
+          <li><a href="#">The Biological Computer</a></li>
+          <li><a href="#">Cosmological Models</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Ethos</div>
+        <ul class="footer-links">
+          <li><a href="#">Self-Realization</a></li>
+          <li><a href="#">Actionable Philosophy</a></li>
+          <li><a href="#">Harmonious Environments</a></li>
+          <li><a href="#">Daily Practice</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Regenesis</div>
+        <ul class="footer-links">
+          <li><a href="#">Protocols Library</a></li>
+          <li><a href="#">Raw Primal Nutrition</a></li>
+          <li><a href="#">Cognitive Repair</a></li>
+          <li><a href="#">Cellular Regeneration</a></li>
+          <li><a href="#">Longevity Systems</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Retreats</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
     </div>
-    <div class="footer-right">
-      <a href="#">Regenesis →</a>
-      <a href="#">Ethos →</a>
-      <a href="#">Retreats</a>
-      <a href="#">Community</a>
-      <a href="#">Home</a>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Science Coherence — All Rights Reserved</span>
+      <span class="footer-branches">Cosmos · Ethos · Regenesis</span>
     </div>
   </footer>
 
