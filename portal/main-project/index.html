@@ -605,7 +605,7 @@
     .scroll-line {
       width: 1px;
       height: 44px;
-      background: linear-gradient(var(--cs-core), transparent);
+      background: linear-gradient(var(--amber), transparent);
       animation: scrollPulse 2.4s ease-in-out infinite;
     }
 
@@ -631,6 +631,18 @@
     }
 
     @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heroFadeUp {
       from {
         opacity: 0;
         transform: translateY(28px);
