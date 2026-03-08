@@ -385,28 +385,33 @@
    ============================================================ */
     .hero {
       min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
     }
 
-    /* Left — content */
-    .hero-left {
-      padding: 160px 72px 100px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    /* Diagram — absolute right overlay */
+    .hero-diagram {
+      position: absolute;
+      right: -8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 62%;
+      pointer-events: none;
+    }
+
+    .hero-diagram svg {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Content — left side */
+    .hero-content {
       position: relative;
       z-index: 2;
-    }
-
-    .hero-left::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 10% 50%, rgba(200, 148, 58, .05) 0%, transparent 65%);
-      pointer-events: none;
+      padding: 160px 72px 120px;
+      max-width: 680px;
     }
 
     .hero-eyebrow {
@@ -522,36 +527,7 @@
     }
 
     /* Right — cellular visual */
-    .hero-right {
-      position: relative;
-      border-left: 1px solid var(--border-dim);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
-    .hero-right::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 60% 40%, rgba(200, 148, 58, .06) 0%, transparent 65%);
-    }
-
-    .cell-diagram {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px;
-    }
-
-    .cell-diagram svg {
-      width: 100%;
-      max-width: 520px;
-      height: auto;
-    }
 
     /* Hero scroll indicator */
     .hero-scroll {
@@ -1668,28 +1644,8 @@
   </nav>
 
   <section class="hero">
-    <div class="hero-left">
-      <div class="hero-eyebrow">
-        <div class="hero-eyebrow-line"></div>
-        <span class="hero-eyebrow-text">Branch III — Science Coherence</span>
-      </div>
-      <div class="hero-branch-I">III</div>
-      <h1 class="hero-title">Ethos</h1>
-      <div class="hero-subtitle">The Science of Being &amp; Harmonious Living</div>
-      <p class="hero-body">
-        The synthesis. Where biology meets philosophy and both become a way of living. Ethos translates the foundations
-        of Regenesis and the frameworks of Cosmos into a practical manual for consciousness, self-realization, and
-        coherent daily existence.
-      </p>
-      <div class="hero-actions">
-        <a href="#consciousness" class="btn-et">Consciousness</a>
-        <a href="#philosophy" class="btn-outline-et">Philosophy of Living</a>
-      </div>
-    </div>
-
-    <div class="hero-right">
-      <!-- Ethos SVG: concentric rings representing self outward to world -->
-      <div class="cell-diagram">
+    <!-- Diagram — absolute right overlay -->
+    <div class="hero-diagram">
         <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
 
           <!-- Outer field rings -->
@@ -1763,6 +1719,24 @@
           <text x="260" y="258" fill="#3a2808" font-size="8" font-family="Cinzel,serif" text-anchor="middle"
             letter-spacing="2" opacity=".6">COHERENCE</text>
         </svg>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Branch III — Science Coherence</span>
+      </div>
+      <div class="hero-branch-I">III</div>
+      <h1 class="hero-title">Ethos</h1>
+      <div class="hero-subtitle">The Science of Being &amp; Harmonious Living</div>
+      <p class="hero-body">
+        The synthesis. Where biology meets philosophy and both become a way of living. Ethos translates the foundations
+        of Regenesis and the frameworks of Cosmos into a practical manual for consciousness, self-realization, and
+        coherent daily existence.
+      </p>
+      <div class="hero-actions">
+        <a href="#consciousness" class="btn-et">Consciousness</a>
+        <a href="#philosophy" class="btn-outline-et">Philosophy of Living</a>
       </div>
     </div>
 

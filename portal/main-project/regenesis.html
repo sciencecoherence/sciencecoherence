@@ -385,28 +385,33 @@
    ============================================================ */
     .hero {
       min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
     }
 
-    /* Left — content */
-    .hero-left {
-      padding: 160px 72px 100px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    /* Diagram — absolute right overlay */
+    .hero-diagram {
+      position: absolute;
+      right: -8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 62%;
+      pointer-events: none;
+    }
+
+    .hero-diagram svg {
+      width: 100%;
+      height: auto;
+    }
+
+    /* Content — left side */
+    .hero-content {
       position: relative;
       z-index: 2;
-    }
-
-    .hero-left::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 10% 50%, rgba(106, 168, 90, .05) 0%, transparent 65%);
-      pointer-events: none;
+      padding: 160px 72px 120px;
+      max-width: 680px;
     }
 
     .hero-eyebrow {
@@ -521,37 +526,8 @@
       color: var(--rg-light);
     }
 
-    /* Right — cellular visual */
-    .hero-right {
-      position: relative;
-      border-left: 1px solid var(--border-dim);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
 
-    .hero-right::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 60% 40%, rgba(106, 168, 90, .06) 0%, transparent 65%);
-    }
 
-    .cell-diagram {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px;
-    }
-
-    .cell-diagram svg {
-      width: 100%;
-      max-width: 520px;
-      height: auto;
-    }
 
     /* Hero scroll indicator */
     .hero-scroll {
@@ -1540,27 +1516,8 @@
      HERO
      ============================================================ -->
   <section class="hero">
-    <div class="hero-left">
-      <div class="hero-eyebrow">
-        <div class="hero-eyebrow-line"></div>
-        <span class="hero-eyebrow-text">Branch I — Science Coherence</span>
-      </div>
-      <div class="hero-branch-I">I</div>
-      <h1 class="hero-title">Regenesis</h1>
-      <div class="hero-subtitle">Biological Optimization &amp; Holistic Regeneration</div>
-      <p class="hero-body">
-        Your body is not a machine to be managed — it is a biological computer to be understood. Regenesis provides the
-        protocols, nutritional frameworks, and cellular practices that restore and amplify its innate coherence.
-      </p>
-      <div class="hero-actions">
-        <a href="#protocols" class="btn-rg">Explore Protocols</a>
-        <a href="#nutrition" class="btn-outline-rg">Nutrition Framework</a>
-      </div>
-    </div>
-
-    <div class="hero-right">
-      <div class="cell-diagram">
-        <!-- Cellular membrane / biological coherence diagram -->
+    <!-- Diagram — absolute right overlay -->
+    <div class="hero-diagram">
         <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
           <!-- Outer membrane -->
           <ellipse cx="260" cy="260" rx="230" ry="210" stroke="#6aa85a" stroke-width=".6" opacity=".12" />
@@ -1635,6 +1592,23 @@
           <text x="260" y="258" fill="#8ac878" font-size="7" font-family="serif" text-anchor="middle" opacity=".7"
             letter-spacing="1">NUCLEUS</text>
         </svg>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Branch I — Science Coherence</span>
+      </div>
+      <div class="hero-branch-I">I</div>
+      <h1 class="hero-title">Regenesis</h1>
+      <div class="hero-subtitle">Biological Optimization &amp; Holistic Regeneration</div>
+      <p class="hero-body">
+        Your body is not a machine to be managed — it is a biological computer to be understood. Regenesis provides the
+        protocols, nutritional frameworks, and cellular practices that restore and amplify its innate coherence.
+      </p>
+      <div class="hero-actions">
+        <a href="#protocols" class="btn-rg">Explore Protocols</a>
+        <a href="#nutrition" class="btn-outline-rg">Nutrition Framework</a>
       </div>
     </div>
 
