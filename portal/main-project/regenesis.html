@@ -570,29 +570,13 @@
     }
 
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(28px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    .rg-orbit-slow {
-      animation: rgOrbitSlow 200s linear infinite;
-      transform-origin: 50% 50%;
-    }
-    .rg-orbit-mid {
-      animation: rgOrbitSlow 120s linear infinite reverse;
-      transform-origin: 50% 50%;
-    }
-    .rg-orbit-fast {
-      animation: rgOrbitSlow 70s linear infinite;
-      transform-origin: 50% 50%;
-    }
+    .rg-orbit-slow { animation: rgOrbitSlow 200s linear infinite; transform-origin: 50% 50%; }
+    .rg-orbit-mid  { animation: rgOrbitSlow 120s linear infinite reverse; transform-origin: 50% 50%; }
+    .rg-orbit-fast { animation: rgOrbitSlow 70s linear infinite; transform-origin: 50% 50%; }
     @keyframes rgOrbitSlow {
       from { transform: rotate(0deg); }
       to   { transform: rotate(360deg); }
@@ -843,7 +827,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 120px;
-      align-items: start;
+      align-items: center;
     }
 
     .nutrition-left {}
@@ -1533,38 +1517,33 @@
      HERO
      ============================================================ -->
   <section class="hero">
-    <!-- Diagram — absolute right overlay -->
     <div class="hero-diagram">
       <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Static concentric rings — green palette -->
         <circle cx="400" cy="400" r="370" stroke="#6aa85a" stroke-width=".4" opacity=".04" />
         <circle cx="400" cy="400" r="310" stroke="#6aa85a" stroke-width=".4" opacity=".05" />
         <circle cx="400" cy="400" r="250" stroke="#6aa85a" stroke-width=".4" opacity=".07" />
         <circle cx="400" cy="400" r="190" stroke="#6aa85a" stroke-width=".4" opacity=".09" />
         <circle cx="400" cy="400" r="130" stroke="#6aa85a" stroke-width=".4" opacity=".11" />
         <circle cx="400" cy="400" r="72"  stroke="#6aa85a" stroke-width=".4" opacity=".15" />
-        <!-- Crosshairs -->
         <line x1="30"  y1="400" x2="770" y2="400" stroke="#6aa85a" stroke-width=".25" opacity=".03" />
         <line x1="400" y1="30"  x2="400" y2="770" stroke="#6aa85a" stroke-width=".25" opacity=".03" />
         <line x1="130" y1="130" x2="670" y2="670" stroke="#6aa85a" stroke-width=".2"  opacity=".025" />
         <line x1="670" y1="130" x2="130" y2="670" stroke="#6aa85a" stroke-width=".2"  opacity=".025" />
-        <!-- Rotating orbital planes -->
         <g class="rg-orbit-slow">
           <ellipse cx="400" cy="400" rx="370" ry="118" stroke="#8ac878" stroke-width=".35" opacity=".055" transform="rotate(-28 400 400)" />
-          <circle cx="748" cy="314" r="5"   fill="#6aa85a" opacity=".45" />
-          <circle cx="52"  cy="486" r="3"   fill="#6aa85a" opacity=".3" />
+          <circle cx="748" cy="314" r="5" fill="#6aa85a" opacity=".45" />
+          <circle cx="52"  cy="486" r="3" fill="#6aa85a" opacity=".3" />
         </g>
         <g class="rg-orbit-mid">
-          <ellipse cx="400" cy="400" rx="250" ry="80"  stroke="#72a862" stroke-width=".35" opacity=".065" transform="rotate(18 400 400)" />
-          <circle cx="638" cy="326" r="4"   fill="#8ac878" opacity=".5" />
-          <circle cx="162" cy="474" r="3"   fill="#5a9848" opacity=".35" />
+          <ellipse cx="400" cy="400" rx="250" ry="80" stroke="#72a862" stroke-width=".35" opacity=".065" transform="rotate(18 400 400)" />
+          <circle cx="638" cy="326" r="4" fill="#8ac878" opacity=".5" />
+          <circle cx="162" cy="474" r="3" fill="#5a9848" opacity=".35" />
         </g>
         <g class="rg-orbit-fast">
-          <ellipse cx="400" cy="400" rx="130" ry="42"  stroke="#c8943a" stroke-width=".35" opacity=".055" transform="rotate(72 400 400)" />
+          <ellipse cx="400" cy="400" rx="130" ry="42" stroke="#c8943a" stroke-width=".35" opacity=".055" transform="rotate(72 400 400)" />
           <circle cx="514" cy="370" r="3.5" fill="#c8943a" opacity=".4" />
           <circle cx="286" cy="430" r="2.5" fill="#b88c38" opacity=".3" />
         </g>
-        <!-- Scattered field nodes -->
         <circle cx="770" cy="400" r="4"   fill="#6aa85a" opacity=".4" />
         <circle cx="30"  cy="400" r="4"   fill="#6aa85a" opacity=".4" />
         <circle cx="400" cy="30"  r="3.5" fill="#8ac878" opacity=".4" />
@@ -1573,7 +1552,6 @@
         <circle cx="647" cy="647" r="2.5" fill="#6aa85a" opacity=".22" />
         <circle cx="647" cy="153" r="2"   fill="#8ac878" opacity=".25" />
         <circle cx="153" cy="647" r="2"   fill="#c8943a" opacity=".2" />
-        <!-- Nucleus -->
         <circle cx="400" cy="400" r="20"  fill="rgba(106,168,90,.08)" stroke="#6aa85a" stroke-width=".6" opacity=".45" />
         <circle cx="400" cy="400" r="8"   fill="rgba(106,168,90,.22)" stroke="#8ac878" stroke-width=".5" opacity=".75" />
         <circle cx="400" cy="400" r="2.8" fill="#c2e8b0" opacity=".92" />
@@ -1639,7 +1617,7 @@
       <div class="pillar-list">
 
         <!-- Pillar 1 -->
-        <div class="pillar open reveal">
+        <div class="pillar reveal">
           <div class="pillar-header" onclick="togglePillar(this)">
             <div class="pillar-num">01</div>
             <div class="pillar-name">Neuroplasticity &amp; Cognitive Repair</div>
@@ -1876,10 +1854,10 @@
             </div>
 
             <div class="food-group">
-              <div class="fg-tier">Primary</div>
+              <div class="fg-tier">Secondary</div>
               <div class="fg-body">
-                <div class="fg-name">Raw Dairy</div>
-                <div class="fg-items">Raw whole milk · Cream · Butter · Kefir · Raw aged cheese</div>
+                <div class="fg-name">Raw Eggs</div>
+                <div class="fg-items">Pasture-raised whole eggs · Yolks for fat-soluble vitamins</div>
               </div>
               <div class="fg-badge foundation">Foundation</div>
             </div>
@@ -1887,8 +1865,8 @@
             <div class="food-group">
               <div class="fg-tier">Secondary</div>
               <div class="fg-body">
-                <div class="fg-name">Raw Eggs</div>
-                <div class="fg-items">Pasture-raised whole eggs · Yolks for fat-soluble vitamins</div>
+                <div class="fg-name">Raw Dairy</div>
+                <div class="fg-items">Raw whole milk · Cream · Butter · Kefir · Raw aged cheese</div>
               </div>
               <div class="fg-badge foundation">Foundation</div>
             </div>
