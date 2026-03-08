@@ -581,6 +581,23 @@
       }
     }
 
+    .rg-orbit-slow {
+      animation: rgOrbitSlow 200s linear infinite;
+      transform-origin: 50% 50%;
+    }
+    .rg-orbit-mid {
+      animation: rgOrbitSlow 120s linear infinite reverse;
+      transform-origin: 50% 50%;
+    }
+    .rg-orbit-fast {
+      animation: rgOrbitSlow 70s linear infinite;
+      transform-origin: 50% 50%;
+    }
+    @keyframes rgOrbitSlow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
     /* ============================================================
    PHILOSOPHY STRIP
    ============================================================ */
@@ -1518,80 +1535,49 @@
   <section class="hero">
     <!-- Diagram — absolute right overlay -->
     <div class="hero-diagram">
-        <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Outer membrane -->
-          <ellipse cx="260" cy="260" rx="230" ry="210" stroke="#6aa85a" stroke-width=".6" opacity=".12" />
-          <ellipse cx="260" cy="260" rx="225" ry="205" stroke="#6aa85a" stroke-width=".4" opacity=".08"
-            stroke-dasharray="4 8" />
-
-          <!-- Middle layer -->
-          <ellipse cx="260" cy="260" rx="170" ry="152" stroke="#6aa85a" stroke-width=".5" opacity=".16" />
-
-          <!-- Inner organelle ring -->
-          <circle cx="260" cy="260" r="100" stroke="#6aa85a" stroke-width=".5" opacity=".2" />
-          <circle cx="260" cy="260" r="60" stroke="#6aa85a" stroke-width=".5" opacity=".25" />
-
-          <!-- Nucleus -->
-          <circle cx="260" cy="260" r="32" fill="rgba(106,168,90,.08)" stroke="#6aa85a" stroke-width=".7"
-            opacity=".5" />
-          <circle cx="260" cy="260" r="12" fill="rgba(106,168,90,.2)" stroke="#6aa85a" stroke-width=".6" opacity=".8" />
-          <circle cx="260" cy="260" r="5" fill="#8ac878" opacity=".7" />
-          <circle cx="260" cy="260" r="2.2" fill="#c2e8b0" opacity=".9" />
-
-          <!-- Mitochondria (scattered) -->
-          <ellipse cx="160" cy="200" rx="18" ry="10" stroke="#6aa85a" stroke-width=".5" opacity=".35"
-            transform="rotate(-20 160 200)" />
-          <ellipse cx="160" cy="200" rx="9" ry="5" fill="rgba(106,168,90,.1)" transform="rotate(-20 160 200)" />
-
-          <ellipse cx="350" cy="180" rx="16" ry="9" stroke="#6aa85a" stroke-width=".5" opacity=".3"
-            transform="rotate(15 350 180)" />
-          <ellipse cx="350" cy="180" rx="8" ry="4.5" fill="rgba(106,168,90,.08)" transform="rotate(15 350 180)" />
-
-          <ellipse cx="340" cy="330" rx="18" ry="10" stroke="#6aa85a" stroke-width=".5" opacity=".35"
-            transform="rotate(35 340 330)" />
-          <ellipse cx="340" cy="330" rx="9" ry="5" fill="rgba(106,168,90,.1)" transform="rotate(35 340 330)" />
-
-          <ellipse cx="175" cy="330" rx="15" ry="8" stroke="#6aa85a" stroke-width=".5" opacity=".28"
-            transform="rotate(-30 175 330)" />
-
-          <ellipse cx="260" cy="160" rx="14" ry="8" stroke="#6aa85a" stroke-width=".5" opacity=".3"
-            transform="rotate(5 260 160)" />
-
-          <!-- Membrane proteins (receptor-like) -->
-          <line x1="260" y1="30" x2="260" y2="55" stroke="#6aa85a" stroke-width=".5" opacity=".4" />
-          <circle cx="260" cy="28" r="3" fill="#6aa85a" opacity=".4" />
-          <line x1="60" y1="220" x2="83" y2="230" stroke="#6aa85a" stroke-width=".5" opacity=".35" />
-          <circle cx="58" cy="219" r="3" fill="#6aa85a" opacity=".35" />
-          <line x1="460" y1="240" x2="437" y2="250" stroke="#6aa85a" stroke-width=".5" opacity=".35" />
-          <circle cx="462" cy="239" r="3" fill="#6aa85a" opacity=".35" />
-          <line x1="260" y1="490" x2="260" y2="465" stroke="#6aa85a" stroke-width=".5" opacity=".3" />
-          <circle cx="260" cy="492" r="3" fill="#6aa85a" opacity=".3" />
-          <line x1="100" y1="360" x2="120" y2="343" stroke="#6aa85a" stroke-width=".5" opacity=".28" />
-          <circle cx="98" cy="362" r="3" fill="#6aa85a" opacity=".28" />
-          <line x1="420" y1="360" x2="400" y2="343" stroke="#6aa85a" stroke-width=".5" opacity=".28" />
-          <circle cx="422" cy="362" r="3" fill="#6aa85a" opacity=".28" />
-
-          <!-- Energy flow lines -->
-          <path d="M160,200 Q200,240 260,260" stroke="#6aa85a" stroke-width=".4" opacity=".2" stroke-dasharray="3 6" />
-          <path d="M350,180 Q310,220 260,260" stroke="#6aa85a" stroke-width=".4" opacity=".2" stroke-dasharray="3 6" />
-          <path d="M340,330 Q300,300 260,260" stroke="#6aa85a" stroke-width=".4" opacity=".2" stroke-dasharray="3 6" />
-          <path d="M175,330 Q215,300 260,260" stroke="#6aa85a" stroke-width=".4" opacity=".2" stroke-dasharray="3 6" />
-          <path d="M260,160 Q260,210 260,260" stroke="#6aa85a" stroke-width=".4" opacity=".2" stroke-dasharray="3 6" />
-
-          <!-- Field labels -->
-          <text x="260" y="22" fill="#6aa85a" font-size="8" font-family="serif" text-anchor="middle" opacity=".5"
-            letter-spacing="2">MEMBRANE</text>
-          <text x="46" y="224" fill="#6aa85a" font-size="8" font-family="serif" text-anchor="end" opacity=".45"
-            letter-spacing="1.5">RECEPTOR</text>
-          <text x="260" y="506" fill="#6aa85a" font-size="8" font-family="serif" text-anchor="middle" opacity=".4"
-            letter-spacing="2">COHERENCE</text>
-          <text x="474" y="244" fill="#6aa85a" font-size="8" font-family="serif" opacity=".45"
-            letter-spacing="1.5">SIGNAL</text>
-          <text x="145" y="193" fill="#6aa85a" font-size="7" font-family="serif" text-anchor="middle"
-            opacity=".45">MITO</text>
-          <text x="260" y="258" fill="#8ac878" font-size="7" font-family="serif" text-anchor="middle" opacity=".7"
-            letter-spacing="1">NUCLEUS</text>
-        </svg>
+      <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Static concentric rings — green palette -->
+        <circle cx="400" cy="400" r="370" stroke="#6aa85a" stroke-width=".4" opacity=".04" />
+        <circle cx="400" cy="400" r="310" stroke="#6aa85a" stroke-width=".4" opacity=".05" />
+        <circle cx="400" cy="400" r="250" stroke="#6aa85a" stroke-width=".4" opacity=".07" />
+        <circle cx="400" cy="400" r="190" stroke="#6aa85a" stroke-width=".4" opacity=".09" />
+        <circle cx="400" cy="400" r="130" stroke="#6aa85a" stroke-width=".4" opacity=".11" />
+        <circle cx="400" cy="400" r="72"  stroke="#6aa85a" stroke-width=".4" opacity=".15" />
+        <!-- Crosshairs -->
+        <line x1="30"  y1="400" x2="770" y2="400" stroke="#6aa85a" stroke-width=".25" opacity=".03" />
+        <line x1="400" y1="30"  x2="400" y2="770" stroke="#6aa85a" stroke-width=".25" opacity=".03" />
+        <line x1="130" y1="130" x2="670" y2="670" stroke="#6aa85a" stroke-width=".2"  opacity=".025" />
+        <line x1="670" y1="130" x2="130" y2="670" stroke="#6aa85a" stroke-width=".2"  opacity=".025" />
+        <!-- Rotating orbital planes -->
+        <g class="rg-orbit-slow">
+          <ellipse cx="400" cy="400" rx="370" ry="118" stroke="#8ac878" stroke-width=".35" opacity=".055" transform="rotate(-28 400 400)" />
+          <circle cx="748" cy="314" r="5"   fill="#6aa85a" opacity=".45" />
+          <circle cx="52"  cy="486" r="3"   fill="#6aa85a" opacity=".3" />
+        </g>
+        <g class="rg-orbit-mid">
+          <ellipse cx="400" cy="400" rx="250" ry="80"  stroke="#72a862" stroke-width=".35" opacity=".065" transform="rotate(18 400 400)" />
+          <circle cx="638" cy="326" r="4"   fill="#8ac878" opacity=".5" />
+          <circle cx="162" cy="474" r="3"   fill="#5a9848" opacity=".35" />
+        </g>
+        <g class="rg-orbit-fast">
+          <ellipse cx="400" cy="400" rx="130" ry="42"  stroke="#c8943a" stroke-width=".35" opacity=".055" transform="rotate(72 400 400)" />
+          <circle cx="514" cy="370" r="3.5" fill="#c8943a" opacity=".4" />
+          <circle cx="286" cy="430" r="2.5" fill="#b88c38" opacity=".3" />
+        </g>
+        <!-- Scattered field nodes -->
+        <circle cx="770" cy="400" r="4"   fill="#6aa85a" opacity=".4" />
+        <circle cx="30"  cy="400" r="4"   fill="#6aa85a" opacity=".4" />
+        <circle cx="400" cy="30"  r="3.5" fill="#8ac878" opacity=".4" />
+        <circle cx="400" cy="770" r="3"   fill="#5a84b8" opacity=".3" />
+        <circle cx="153" cy="153" r="3"   fill="#6aa85a" opacity=".22" />
+        <circle cx="647" cy="647" r="2.5" fill="#6aa85a" opacity=".22" />
+        <circle cx="647" cy="153" r="2"   fill="#8ac878" opacity=".25" />
+        <circle cx="153" cy="647" r="2"   fill="#c8943a" opacity=".2" />
+        <!-- Nucleus -->
+        <circle cx="400" cy="400" r="20"  fill="rgba(106,168,90,.08)" stroke="#6aa85a" stroke-width=".6" opacity=".45" />
+        <circle cx="400" cy="400" r="8"   fill="rgba(106,168,90,.22)" stroke="#8ac878" stroke-width=".5" opacity=".75" />
+        <circle cx="400" cy="400" r="2.8" fill="#c2e8b0" opacity=".92" />
+      </svg>
     </div>
 
     <div class="hero-content">

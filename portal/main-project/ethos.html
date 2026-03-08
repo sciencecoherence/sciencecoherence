@@ -581,6 +581,23 @@
       }
     }
 
+    .et-orbit-slow {
+      animation: etOrbitSlow 200s linear infinite;
+      transform-origin: 50% 50%;
+    }
+    .et-orbit-mid {
+      animation: etOrbitSlow 120s linear infinite reverse;
+      transform-origin: 50% 50%;
+    }
+    .et-orbit-fast {
+      animation: etOrbitSlow 70s linear infinite;
+      transform-origin: 50% 50%;
+    }
+    @keyframes etOrbitSlow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
     /* ============================================================
    PHILOSOPHY STRIP
    ============================================================ */
@@ -1646,79 +1663,49 @@
   <section class="hero">
     <!-- Diagram — absolute right overlay -->
     <div class="hero-diagram">
-        <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-          <!-- Outer field rings -->
-          <circle cx="260" cy="260" r="230" stroke="#c8943a" stroke-width=".5" opacity=".06" />
-          <circle cx="260" cy="260" r="195" stroke="#c8943a" stroke-width=".4" opacity=".07" stroke-dasharray="3 9" />
-          <circle cx="260" cy="260" r="155" stroke="#c8943a" stroke-width=".45" opacity=".09" />
-          <circle cx="260" cy="260" r="115" stroke="#c8943a" stroke-width=".45" opacity=".12" />
-          <circle cx="260" cy="260" r="75" stroke="#c8943a" stroke-width=".5" opacity=".17" />
-          <circle cx="260" cy="260" r="38" stroke="#c8943a" stroke-width=".5" opacity=".26" />
-
-          <!-- Four axis lines — self/world/mind/body -->
-          <line x1="260" y1="30" x2="260" y2="490" stroke="#c8943a" stroke-width=".2" opacity=".05" />
-          <line x1="30" y1="260" x2="490" y2="260" stroke="#c8943a" stroke-width=".2" opacity=".05" />
-          <line x1="76" y1="76" x2="444" y2="444" stroke="#c8943a" stroke-width=".15" opacity=".04" />
-          <line x1="444" y1="76" x2="76" y2="444" stroke="#c8943a" stroke-width=".15" opacity=".04" />
-
-          <!-- Outer ring nodes -->
-          <circle cx="260" cy="30" r="4.5" fill="#c8943a" opacity=".3" />
-          <circle cx="260" cy="490" r="4.5" fill="#c8943a" opacity=".3" />
-          <circle cx="30" cy="260" r="4.5" fill="#c8943a" opacity=".3" />
-          <circle cx="490" cy="260" r="4.5" fill="#c8943a" opacity=".3" />
-          <circle cx="76" cy="76" r="3.5" fill="#c8943a" opacity=".2" />
-          <circle cx="444" cy="76" r="3.5" fill="#c8943a" opacity=".2" />
-          <circle cx="444" cy="444" r="3.5" fill="#c8943a" opacity=".2" />
-          <circle cx="76" cy="444" r="3.5" fill="#c8943a" opacity=".2" />
-
-          <!-- Mid-ring animated ellipses -->
-          <ellipse cx="260" cy="260" rx="155" ry="34" stroke="#e0b060" stroke-width=".3" opacity=".06"
-            style="animation:ethSpin1 160s linear infinite;transform-origin:50% 50%" />
-          <ellipse cx="260" cy="260" rx="155" ry="34" stroke="#e0b060" stroke-width=".3" opacity=".06"
-            transform="rotate(60 260 260)" style="animation:ethSpin1 160s linear infinite;transform-origin:50% 50%" />
-          <ellipse cx="260" cy="260" rx="155" ry="34" stroke="#e0b060" stroke-width=".3" opacity=".06"
-            transform="rotate(120 260 260)" style="animation:ethSpin1 160s linear infinite;transform-origin:50% 50%" />
-
-          <!-- Spokes from mid-ring nodes to centre -->
-          <line x1="415" y1="260" x2="298" y2="260" stroke="#c8943a" stroke-width=".3" opacity=".1"
-            stroke-dasharray="3 6" />
-          <line x1="105" y1="260" x2="222" y2="260" stroke="#c8943a" stroke-width=".3" opacity=".1"
-            stroke-dasharray="3 6" />
-          <line x1="338" y1="126" x2="280" y2="244" stroke="#c8943a" stroke-width=".3" opacity=".1"
-            stroke-dasharray="3 6" />
-          <line x1="182" y1="126" x2="240" y2="244" stroke="#c8943a" stroke-width=".3" opacity=".1"
-            stroke-dasharray="3 6" />
-          <line x1="182" y1="394" x2="240" y2="276" stroke="#c8943a" stroke-width=".3" opacity=".1"
-            stroke-dasharray="3 6" />
-          <line x1="338" y1="394" x2="280" y2="276" stroke="#c8943a" stroke-width=".3" opacity=".1"
-            stroke-dasharray="3 6" />
-
-          <!-- Core — pulsing centre -->
-          <circle cx="260" cy="260" r="26" fill="rgba(200,148,58,.08)" stroke="#c8943a" stroke-width=".55" opacity=".4"
-            style="animation:ethPulse 5s ease-in-out infinite;transform-origin:50% 50%" />
-          <circle cx="260" cy="260" r="15" fill="rgba(200,148,58,.16)" stroke="#d4a040" stroke-width=".6"
-            opacity=".7" />
-          <circle cx="260" cy="260" r="6" fill="rgba(200,148,58,.38)" stroke="#e8c060" stroke-width=".5"
-            opacity=".88" />
-          <circle cx="260" cy="260" r="2.4" fill="#f0cc90" opacity=".96" />
-
-          <!-- Outer labels -->
-          <text x="260" y="22" fill="#c8943a" font-size="8" font-family="Cinzel,serif" text-anchor="middle"
-            opacity=".45" letter-spacing="2">SELF</text>
-          <text x="260" y="512" fill="#c8943a" font-size="8" font-family="Cinzel,serif" text-anchor="middle"
-            opacity=".4" letter-spacing="2">WORLD</text>
-          <text x="500" y="264" fill="#c8943a" font-size="8" font-family="Cinzel,serif" opacity=".4"
-            letter-spacing="1.5">MIND</text>
-          <text x="14" y="264" fill="#c8943a" font-size="8" font-family="Cinzel,serif" text-anchor="start" opacity=".4"
-            letter-spacing="1.5">BODY</text>
-          <text x="82" y="72" fill="#c8943a" font-size="7" font-family="Cinzel,serif" opacity=".3"
-            letter-spacing="1">SPACE</text>
-          <text x="414" y="72" fill="#c8943a" font-size="7" font-family="Cinzel,serif" text-anchor="end" opacity=".3"
-            letter-spacing="1">TIME</text>
-          <text x="260" y="258" fill="#3a2808" font-size="8" font-family="Cinzel,serif" text-anchor="middle"
-            letter-spacing="2" opacity=".6">COHERENCE</text>
-        </svg>
+      <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Static concentric rings — amber/gold palette -->
+        <circle cx="400" cy="400" r="370" stroke="#c8943a" stroke-width=".4" opacity=".04" />
+        <circle cx="400" cy="400" r="310" stroke="#c8943a" stroke-width=".4" opacity=".05" />
+        <circle cx="400" cy="400" r="250" stroke="#c8943a" stroke-width=".4" opacity=".07" />
+        <circle cx="400" cy="400" r="190" stroke="#c8943a" stroke-width=".4" opacity=".09" />
+        <circle cx="400" cy="400" r="130" stroke="#c8943a" stroke-width=".4" opacity=".11" />
+        <circle cx="400" cy="400" r="72"  stroke="#c8943a" stroke-width=".4" opacity=".15" />
+        <!-- Crosshairs -->
+        <line x1="30"  y1="400" x2="770" y2="400" stroke="#c8943a" stroke-width=".25" opacity=".03" />
+        <line x1="400" y1="30"  x2="400" y2="770" stroke="#c8943a" stroke-width=".25" opacity=".03" />
+        <line x1="130" y1="130" x2="670" y2="670" stroke="#c8943a" stroke-width=".2"  opacity=".025" />
+        <line x1="670" y1="130" x2="130" y2="670" stroke="#c8943a" stroke-width=".2"  opacity=".025" />
+        <!-- Rotating orbital planes -->
+        <g class="et-orbit-slow">
+          <ellipse cx="400" cy="400" rx="370" ry="120" stroke="#e0b060" stroke-width=".35" opacity=".055" transform="rotate(-35 400 400)" />
+          <circle cx="752" cy="286" r="5"   fill="#c8943a" opacity=".45" />
+          <circle cx="48"  cy="514" r="3"   fill="#c8943a" opacity=".3" />
+        </g>
+        <g class="et-orbit-mid">
+          <ellipse cx="400" cy="400" rx="250" ry="82"  stroke="#d4a848" stroke-width=".35" opacity=".065" transform="rotate(22 400 400)" />
+          <circle cx="636" cy="318" r="4"   fill="#e0b060" opacity=".5" />
+          <circle cx="164" cy="482" r="3"   fill="#b88c38" opacity=".35" />
+        </g>
+        <g class="et-orbit-fast">
+          <ellipse cx="400" cy="400" rx="130" ry="44"  stroke="#6aa85a" stroke-width=".35" opacity=".06"  transform="rotate(68 400 400)" />
+          <circle cx="516" cy="368" r="3.5" fill="#6aa85a" opacity=".45" />
+          <circle cx="284" cy="432" r="2.5" fill="#72a862" opacity=".35" />
+        </g>
+        <!-- Scattered field nodes -->
+        <circle cx="770" cy="400" r="4"   fill="#c8943a" opacity=".4" />
+        <circle cx="30"  cy="400" r="4"   fill="#c8943a" opacity=".4" />
+        <circle cx="400" cy="30"  r="3.5" fill="#5a84b8" opacity=".4" />
+        <circle cx="400" cy="770" r="3"   fill="#72a862" opacity=".3" />
+        <circle cx="153" cy="153" r="3"   fill="#c8943a" opacity=".22" />
+        <circle cx="647" cy="647" r="2.5" fill="#c8943a" opacity=".22" />
+        <circle cx="647" cy="153" r="2"   fill="#e0b060" opacity=".25" />
+        <circle cx="153" cy="647" r="2"   fill="#e0b060" opacity=".2" />
+        <!-- Nucleus -->
+        <circle cx="400" cy="400" r="20"  fill="rgba(200,148,58,.08)" stroke="#c8943a" stroke-width=".6" opacity=".45" />
+        <circle cx="400" cy="400" r="8"   fill="rgba(200,148,58,.22)" stroke="#e0b060" stroke-width=".5" opacity=".75" />
+        <circle cx="400" cy="400" r="2.8" fill="#f0cc90" opacity=".92" />
+      </svg>
     </div>
 
     <div class="hero-content">
