@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Science Coherence — Regenesis · Cosmos · Ethos</title>
+  <title>Science Coherence — Cosmos · Ethos · Regenesis</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Jost:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap"
@@ -264,6 +264,67 @@
       color: var(--text-faint);
     }
 
+    /* Portal link — dissolve shift animation */
+    .nav-brand-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      text-decoration: none;
+    }
+
+    .nav-brand-link .nav-text {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Default text layers */
+    .nav-brand-link .nav-wordmark,
+    .nav-brand-link .nav-sub {
+      display: block;
+      transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    }
+
+    /* Portal label — hidden by default, absolutely positioned */
+    .nav-brand-link .nav-portal-label {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(calc(-50% + 6px));
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      color: var(--amber-light);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    }
+
+    /* SVG mark subtle amber glow on hover */
+    .nav-brand-link .nav-mark {
+      transition: filter 0.4s var(--ease-out), opacity 0.4s;
+    }
+
+    /* Hover state */
+    .nav-brand-link:hover .nav-wordmark {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+
+    .nav-brand-link:hover .nav-sub {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+
+    .nav-brand-link:hover .nav-portal-label {
+      opacity: 1;
+      transform: translateY(-50%);
+    }
+
+    .nav-brand-link:hover .nav-mark {
+      filter: drop-shadow(0 0 6px rgba(166, 124, 80, 0.5));
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -343,13 +404,13 @@
    HERO
    ============================================================ */
     .hero {
-      min-height: 100vh;
+      min-height: 72vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       position: relative;
       overflow: hidden;
-      padding: 160px 72px 100px;
+      padding: 110px 72px 72px;
     }
 
     /* Ambient atmospheric glow */
@@ -420,7 +481,7 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-bottom: 40px;
+      margin-bottom: 24px;
       opacity: 0;
       animation: heroFadeUp 1.2s var(--ease-out) 0.3s forwards;
     }
@@ -440,12 +501,12 @@
 
     .hero-headline {
       font-family: var(--font-display);
-      font-size: clamp(52px, 6.5vw, 94px);
+      font-size: clamp(40px, 5vw, 72px);
       font-weight: 400;
       color: var(--text-head);
       line-height: 1.02;
       letter-spacing: -0.025em;
-      margin-bottom: 36px;
+      margin-bottom: 24px;
       opacity: 0;
       animation: heroFadeUp 1.4s var(--ease-out) 0.5s forwards;
     }
@@ -463,13 +524,13 @@
     }
 
     .hero-body {
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 300;
       color: var(--text-mid);
       max-width: 500px;
-      line-height: 1.85;
+      line-height: 1.8;
       font-style: italic;
-      margin-bottom: 52px;
+      margin-bottom: 36px;
       opacity: 0;
       animation: heroFadeUp 1.4s var(--ease-out) 0.7s forwards;
     }
@@ -532,7 +593,7 @@
     /* Scroll indicator */
     .hero-scroll {
       position: absolute;
-      bottom: 48px;
+      bottom: 32px;
       left: 72px;
       display: flex;
       align-items: center;
@@ -1408,6 +1469,15 @@
       display: none;
     }
 
+    .article-excerpt-short {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-dim);
+      font-style: italic;
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
     .article-meta {
       font-family: var(--font-label);
       font-size: 8px;
@@ -1416,6 +1486,58 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+
+    .article-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+      font-family: var(--font-label);
+      font-size: 8px;
+      letter-spacing: 0.32em;
+      color: var(--cosmos);
+      border: 1px solid rgba(90, 132, 184, 0.25);
+      padding: 10px 18px;
+      transition: background 0.4s, border-color 0.4s, color 0.3s;
+      align-self: flex-start;
+    }
+
+    .article-download:hover {
+      background: rgba(90, 132, 184, 0.07);
+      border-color: rgba(90, 132, 184, 0.55);
+      color: #8eb4d8;
+    }
+
+    .article-download svg {
+      flex-shrink: 0;
+      transition: transform 0.4s var(--ease-out);
+    }
+
+    .article-download:hover svg {
+      transform: translateY(2px);
+    }
+
+    .article-download-regenesis {
+      color: var(--regenesis);
+      border-color: rgba(114, 168, 98, 0.25);
+    }
+
+    .article-download-regenesis:hover {
+      background: rgba(114, 168, 98, 0.07);
+      border-color: rgba(114, 168, 98, 0.55);
+      color: #93c483;
+    }
+
+    .article-download-ethos {
+      color: var(--ethos);
+      border-color: rgba(184, 144, 80, 0.25);
+    }
+
+    .article-download-ethos:hover {
+      background: rgba(184, 144, 80, 0.07);
+      border-color: rgba(184, 144, 80, 0.55);
+      color: #d4aa6a;
     }
 
     /* ============================================================
@@ -1569,7 +1691,7 @@
      NAVIGATION
      ============================================================ -->
   <nav id="nav">
-    <div class="nav-brand">
+    <a href="/portal/index.html" class="nav-brand-link">
       <svg class="nav-mark" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
         <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.4"
           transform="rotate(-35 15 15)" />
@@ -1585,14 +1707,14 @@
       </svg>
       <div class="nav-text">
         <span class="nav-wordmark">Science Coherence</span>
-        <span class="nav-sub">Regenesis · Cosmos · Ethos</span>
+        <span class="nav-sub">Cosmos · Ethos · Regenesis</span>
+        <span class="nav-portal-label">← Return to Portal</span>
       </div>
-    </div>
+    </a>
     <ul class="nav-links">
-      <li class="branch-r"><a href="#branches">Regenesis</a></li>
       <li class="branch-c"><a href="#branches">Cosmos</a></li>
       <li class="branch-e"><a href="#branches">Ethos</a></li>
-      <li><a href="../portal/index.html" class="nav-cta">Back to Portal</a></li>
+      <li class="branch-r"><a href="#branches">Regenesis</a></li>
       <li><a href="#retreat" class="nav-cta">Apply for Retreat</a></li>
     </ul>
   </nav>
@@ -1697,29 +1819,9 @@
 
     <div class="branch-grid">
 
-      <!-- REGENESIS -->
-      <div class="branch-panel regenesis reveal">
-        <div class="branch-roman">I</div>
-        <div class="branch-name">Regenesis</div>
-        <div class="branch-subtitle">Biological Optimization & Holistic Regeneration</div>
-        <p class="branch-desc">
-          The physical vehicle — treated as a biological computer. Rigorous protocols, specialized nutrition, and
-          cellular practices that restore the body's innate coherence from the inside out.
-        </p>
-        <ul class="branch-topics">
-          <li>Neuroplasticity & Cognitive Repair</li>
-          <li>Raw Primal Nutrition Protocols</li>
-          <li>Cellular & Skin Regeneration</li>
-          <li>Longevity & Systemic Health</li>
-        </ul>
-        <a href="#" class="branch-link">
-          Enter Regenesis <span class="branch-link-arrow">→</span>
-        </a>
-      </div>
-
       <!-- COSMOS -->
-      <div class="branch-panel cosmos reveal" style="transition-delay:0.12s">
-        <div class="branch-roman">II</div>
+      <div class="branch-panel cosmos reveal">
+        <div class="branch-roman">I</div>
         <div class="branch-name">Cosmos</div>
         <div class="branch-subtitle">Biophysics & Theoretical Systems</div>
         <p class="branch-desc">
@@ -1730,7 +1832,7 @@
           <li>Time-Crystalline Biology</li>
           <li>Cellular Coherence Theory</li>
           <li>The Biological Computer Model</li>
-          <li>Cosmological & Physical Frameworks</li>
+          <li>Cosmological Frameworks</li>
         </ul>
         <a href="#" class="branch-link">
           Enter Cosmos <span class="branch-link-arrow">→</span>
@@ -1738,8 +1840,8 @@
       </div>
 
       <!-- ETHOS -->
-      <div class="branch-panel ethos reveal" style="transition-delay:0.24s">
-        <div class="branch-roman">III</div>
+      <div class="branch-panel ethos reveal" style="transition-delay:0.12s">
+        <div class="branch-roman">II</div>
         <div class="branch-name">Ethos</div>
         <div class="branch-subtitle">The Science of Being & Harmonious Living</div>
         <p class="branch-desc">
@@ -1747,13 +1849,33 @@
           — translating the first two branches into actionable frameworks for being.
         </p>
         <ul class="branch-topics">
-          <li>Consciousness & Self-Realization</li>
+          <li>Self-Realization</li>
           <li>Actionable Philosophy</li>
-          <li>Biophilic & Harmonious Environments</li>
-          <li>Integration & Daily Practice</li>
+          <li>Harmonious Environments</li>
+          <li>Daily Practice</li>
         </ul>
         <a href="#" class="branch-link">
           Enter Ethos <span class="branch-link-arrow">→</span>
+        </a>
+      </div>
+
+      <!-- REGENESIS -->
+      <div class="branch-panel regenesis reveal" style="transition-delay:0.24s">
+        <div class="branch-roman">III</div>
+        <div class="branch-name">Regenesis</div>
+        <div class="branch-subtitle">Biological Optimization & Holistic Regeneration</div>
+        <p class="branch-desc">
+          The physical vehicle — treated as a biological computer. Rigorous protocols, specialized nutrition, and
+          cellular practices that restore the body's innate coherence from the inside out.
+        </p>
+        <ul class="branch-topics">
+          <li>Cellular Regeneration</li>
+          <li>Cognitive Repair</li>
+          <li>Raw Primal Nutrition</li>
+          <li>Longevity & Systemic Health</li>
+        </ul>
+        <a href="#" class="branch-link">
+          Enter Regenesis <span class="branch-link-arrow">→</span>
         </a>
       </div>
 
@@ -2003,77 +2125,76 @@
             <div class="article-branch-dot"></div>
             Cosmos
           </div>
-          <div class="article-title">Time-Crystalline Biology: How the Human Body Operates as a Temporal Computational
-            System</div>
-          <div class="article-excerpt">The discovery of time crystals in quantum physics opened a theoretical door that
-            most biologists have yet to walk through. When we apply the mathematics of temporal ordering to biological
-            systems — from circadian clocks to cellular membrane oscillations — a radical picture emerges...</div>
+          <div class="article-title">Time-Crystalline Biology: Toward an Informational Theory of Life, Health, and
+            Nourishment</div>
+          <div class="article-excerpt">Living systems are not analogous to time crystals — they are time-crystalline
+            structures. Across three axes, this paper establishes the ontological primacy of information over matter,
+            develops the five-scale biological mechanics of temporal coherence (from intracellular microtubules to
+            planetary electromagnetic entrainment), and applies the framework to nourishment — arguing that food is not
+            a chemical payload but a living informational structure whose field architecture is irreversibly collapsed
+            by thermal processing above 42°C.</div>
           <div class="article-meta">
-            <span>8 min read</span>
-            <span>Foundational</span>
+            <span>Julien Xavier Steff</span>
+            <span>Theoretical Paper · Cosmos Branch</span>
           </div>
+          <a href="/portal/publications/time-crystalline-biology.pdf" class="article-download" download>
+            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.5 1v8M2 6.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M1 12h9" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+            </svg>
+            Download PDF
+          </a>
         </div>
 
         <!-- Secondary articles -->
         <div class="article-card reveal" style="transition-delay:0.1s">
-          <div class="article-branch ab-regenesis">
-            <div class="article-branch-dot"></div>
-            Regenesis
-          </div>
-          <div class="article-title">The Raw Organ Protocol: A Framework for Cellular Nutritional Density</div>
-          <div class="article-meta" style="margin-top:auto">
-            <span>6 min read</span>
-            <span>Protocol</span>
-          </div>
-        </div>
-
-        <div class="article-card reveal" style="transition-delay:0.2s">
           <div class="article-branch ab-ethos">
             <div class="article-branch-dot"></div>
             Ethos
           </div>
           <div class="article-title">Operating with Intention: The Philosophy of the Biological Computer</div>
+          <div class="article-excerpt-short">The self is not a fixed entity but an operating system — assembled through
+            experience, running in the background, and shaping every perception without announcing itself. This paper
+            develops what it means to examine that configuration, and to operate it deliberately.</div>
           <div class="article-meta" style="margin-top:auto">
-            <span>5 min read</span>
-            <span>Philosophy</span>
+            <span>Julien Xavier Steff</span>
+            <span>Philosophy · Ethos Branch</span>
           </div>
+          <a href="/portal/publications/operating-with-intention.pdf" class="article-download article-download-ethos"
+            download>
+            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.5 1v8M2 6.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M1 12h9" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+            </svg>
+            Download PDF
+          </a>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ============================================================
-     FINAL CTA
-     ============================================================ -->
-  <section class="final-cta">
-    <div class="container">
-      <div class="final-mark reveal">
-        <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="28" cy="28" rx="24" ry="9" stroke="#c4b49a" stroke-width="0.5" opacity="0.35"
-            transform="rotate(-35 28 28)" />
-          <ellipse cx="28" cy="28" rx="24" ry="9" stroke="#c4b49a" stroke-width="0.5" opacity="0.2"
-            transform="rotate(35 28 28)" />
-          <circle cx="28" cy="28" r="11" stroke="#c4b49a" stroke-width="0.4" opacity="0.15" />
-          <circle cx="28" cy="28" r="4" fill="#c4b49a" opacity="0.5" />
-          <circle cx="28" cy="28" r="1.8" fill="#e8dfd0" opacity="0.9" />
-          <circle cx="52" cy="28" r="2" fill="#a67c50" opacity="0.6" />
-          <circle cx="4" cy="28" r="2" fill="#a67c50" opacity="0.6" />
-          <circle cx="10" cy="45" r="1.5" fill="#72a862" opacity="0.5" />
-          <circle cx="46" cy="11" r="1.5" fill="#5a84b8" opacity="0.5" />
-        </svg>
-      </div>
-
-      <h2 class="final-title reveal" style="transition-delay:0.1s">
-        Begin the<br><em>inquiry.</em>
-      </h2>
-
-      <p class="final-body reveal" style="transition-delay:0.2s">
-        The framework is waiting. Choose your entry point — the body, the model, or the philosophy. All three converge.
-      </p>
-
-      <div class="final-actions reveal" style="transition-delay:0.3s">
-        <a href="#branches" class="btn-primary">Enter the Framework</a>
-        <a href="#" class="btn-ghost">Apply for Retreat <span class="btn-ghost-arrow">→</span></a>
+        <div class="article-card reveal" style="transition-delay:0.2s">
+          <div class="article-branch ab-regenesis">
+            <div class="article-branch-dot"></div>
+            Regenesis
+          </div>
+          <div class="article-title">The Raw Organ Protocol: A Framework for Cellular Nutritional Density</div>
+          <div class="article-excerpt-short">Organ meats consumed raw constitute a categorically distinct nutritional
+            input — delivering not only the highest-density concentration of bioavailable cofactors known to the human
+            diet, but an intact living field architecture that thermal processing irreversibly destroys.</div>
+          <div class="article-meta" style="margin-top:auto">
+            <span>Julien Xavier Steff</span>
+            <span>Protocol · Regenesis Branch</span>
+          </div>
+          <a href="/portal/publications/raw-organ-protocol.pdf" class="article-download article-download-regenesis"
+            download>
+            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.5 1v8M2 6.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M1 12h9" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+            </svg>
+            Download PDF
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -2095,7 +2216,7 @@
           </svg>
           <div class="nav-text">
             <span class="nav-wordmark">Science Coherence</span>
-            <span class="nav-sub">Regenesis · Cosmos · Ethos</span>
+            <span class="nav-sub">Cosmos · Ethos · Regenesis</span>
           </div>
         </div>
         <p class="footer-brand-desc">
@@ -2109,7 +2230,7 @@
         <ul class="footer-links">
           <li><a href="#">Protocols Library</a></li>
           <li><a href="#">Raw Primal Nutrition</a></li>
-          <li><a href="#">Neuroplasticity</a></li>
+          <li><a href="#">Cognitive Repair</a></li>
           <li><a href="#">Cellular Regeneration</a></li>
           <li><a href="#">Longevity Systems</a></li>
         </ul>
@@ -2122,7 +2243,6 @@
           <li><a href="#">Cellular Coherence</a></li>
           <li><a href="#">The Biological Computer</a></li>
           <li><a href="#">Cosmological Models</a></li>
-          <li><a href="#">Research</a></li>
         </ul>
       </div>
 
@@ -2130,7 +2250,6 @@
         <div class="footer-col-title">Platform</div>
         <ul class="footer-links">
           <li><a href="#">About</a></li>
-          <li><a href="#">Ethos</a></li>
           <li><a href="#">Retreats</a></li>
           <li><a href="#">Community</a></li>
           <li><a href="#">Contact</a></li>
@@ -2140,7 +2259,7 @@
 
     <div class="footer-bottom">
       <span class="footer-copy">© 2025 Science Coherence — All Rights Reserved</span>
-      <span class="footer-branches">Regenesis · Cosmos · Ethos</span>
+      <span class="footer-branches">Cosmos · Ethos · Regenesis</span>
     </div>
   </footer>
 
