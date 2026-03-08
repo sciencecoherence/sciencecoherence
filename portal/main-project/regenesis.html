@@ -187,7 +187,7 @@
     }
 
     /* ============================================================
-   NAV
+   NAVIGATION
    ============================================================ */
     nav {
       position: fixed;
@@ -195,80 +195,189 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      padding: 26px 72px;
+      padding: 28px 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: padding .5s var(--ease-out), background .5s, border-color .5s;
+      transition: padding 0.5s var(--ease-out), background 0.5s, border-color 0.5s;
       border-bottom: 1px solid transparent;
     }
 
     nav.scrolled {
-      padding: 16px 72px;
-      background: rgba(5, 5, 5, .93);
+      padding: 18px 72px;
+      background: rgba(5, 5, 5, 0.92);
       backdrop-filter: blur(20px);
       border-bottom-color: var(--border-dim);
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-
-    .nav-back {
-      font-family: var(--font-label);
-      font-size: 9px;
-      letter-spacing: .3em;
-      color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: color .3s, gap .3s;
-    }
-
-    .nav-back:hover {
-      color: var(--text-body);
-      gap: 14px;
-    }
-
-    .nav-back-arrow {
-      font-size: 12px;
-      font-family: serif;
-    }
-
-    .nav-sep {
-      width: 1px;
-      height: 20px;
-      background: var(--border);
     }
 
     .nav-brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .nav-mark {
-      width: 26px;
-      height: 26px;
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+
+    .nav-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .nav-wordmark {
       font-family: var(--font-display);
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 500;
       color: var(--text-head);
-      letter-spacing: .04em;
+      letter-spacing: 0.05em;
+      line-height: 1;
     }
 
-    .nav-branch-badge {
+    .nav-sub {
       font-family: var(--font-label);
-      font-size: 8px;
-      letter-spacing: .35em;
-      color: var(--rg-core);
-      border: 1px solid rgba(106, 168, 90, .3);
-      padding: 6px 16px;
+      font-size: 7px;
+      letter-spacing: 0.35em;
+      color: var(--text-faint);
+    }
+
+    /* Portal link — dissolve shift animation */
+    .nav-brand-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      text-decoration: none;
+    }
+
+    .nav-brand-link .nav-text {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Default text layers */
+    .nav-brand-link .nav-wordmark,
+    .nav-brand-link .nav-sub {
+      display: block;
+      transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    }
+
+    /* Portal label — hidden by default, absolutely positioned */
+    .nav-brand-link .nav-portal-label {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(calc(-50% + 6px));
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: 0.35em;
+      color: var(--amber-light);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    }
+
+    /* SVG mark subtle amber glow on hover */
+    .nav-brand-link .nav-mark {
+      transition: filter 0.4s var(--ease-out), opacity 0.4s;
+    }
+
+    /* Hover state */
+    .nav-brand-link:hover .nav-wordmark {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+
+    .nav-brand-link:hover .nav-sub {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+
+    .nav-brand-link:hover .nav-portal-label {
+      opacity: 1;
+      transform: translateY(-50%);
+    }
+
+    .nav-brand-link:hover .nav-mark {
+      filter: drop-shadow(0 0 6px rgba(166, 124, 80, 0.5));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--text-dim);
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-links li a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--amber);
+      transition: width 0.4s var(--ease-out);
+    }
+
+    .nav-links li a:hover {
+      color: var(--text-body);
+    }
+
+    .nav-links li a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links li.branch-r a:hover {
+      color: var(--regenesis);
+    }
+
+    .nav-links li.branch-r a:hover::after {
+      background: var(--regenesis);
+    }
+
+    .nav-links li.branch-c a:hover {
+      color: var(--cosmos);
+    }
+
+    .nav-links li.branch-c a:hover::after {
+      background: var(--cosmos);
+    }
+
+    .nav-links li.branch-e a:hover {
+      color: var(--ethos);
+    }
+
+    .nav-links li.branch-e a:hover::after {
+      background: var(--ethos);
+    }
+
+    .nav-cta {
+      font-family: var(--font-label);
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--amber-light);
+      border: 1px solid rgba(166, 124, 80, 0.35);
+      padding: 10px 24px;
+      transition: background 0.4s, border-color 0.4s, color 0.3s;
+    }
+
+    .nav-cta:hover {
+      background: rgba(166, 124, 80, 0.08);
+      border-color: var(--amber);
+      color: var(--bone);
     }
 
     /* ============================================================
