@@ -593,47 +593,47 @@
     /* Scroll indicator */
     .hero-scroll {
       position: absolute;
-      bottom: 32px;
+      bottom: 48px;
       left: 72px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       opacity: 0;
-      animation: heroFadeUp 1s var(--ease-out) 1.4s forwards;
+      animation: fadeUp 1s var(--ease-out) 1.3s forwards;
     }
 
     .scroll-line {
       width: 1px;
-      height: 48px;
-      background: linear-gradient(var(--amber), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
+      height: 44px;
+      background: linear-gradient(var(--cs-core), transparent);
+      animation: scrollPulse 2.4s ease-in-out infinite;
     }
 
     @keyframes scrollPulse {
 
       0%,
       100% {
-        opacity: 0.4;
+        opacity: .3
       }
 
       50% {
-        opacity: 1;
+        opacity: .9
       }
     }
 
     .scroll-text {
       font-family: var(--font-label);
       font-size: 8px;
-      letter-spacing: 0.35em;
+      letter-spacing: .35em;
       color: var(--text-faint);
       writing-mode: vertical-rl;
       transform: rotate(180deg);
     }
 
-    @keyframes heroFadeUp {
+    @keyframes fadeUp {
       from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(28px);
       }
 
       to {
@@ -1783,9 +1783,10 @@
       </div>
     </div>
 
+
     <div class="hero-scroll">
       <div class="scroll-line"></div>
-      <span class="scroll-text">Scroll to explore</span>
+      <span class="scroll-text">Scroll</span>
     </div>
   </section>
 
