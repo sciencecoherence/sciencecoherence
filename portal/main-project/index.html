@@ -1082,130 +1082,7 @@
       font-style: italic;
       line-height: 1.85;
     }
-
-    /* ============================================================
-   RETREAT SECTION
-   ============================================================ */
-    .retreat {
-      position: relative;
-      overflow: hidden;
-      border-top: 1px solid var(--border-dim);
-    }
-
-    .retreat-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 680px;
-    }
-
-    .retreat-left {
-      padding: 100px 72px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-    }
-
-    .retreat-left::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 20% 50%, rgba(166, 124, 80, 0.05) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .retreat-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .retreat-title {
-      font-family: var(--font-display);
-      font-size: clamp(42px, 4.5vw, 68px);
-      font-weight: 400;
-      color: var(--text-head);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      margin-bottom: 28px;
-    }
-
-    .retreat-title em {
-      font-style: italic;
-      color: var(--parchment);
-      display: block;
-    }
-
-    .retreat-body {
-      font-size: 16px;
-      font-weight: 300;
-      color: var(--text-mid);
-      font-style: italic;
-      line-height: 1.85;
-      max-width: 440px;
-      margin-bottom: 48px;
-    }
-
-    .retreat-features {
-      list-style: none;
-      margin-bottom: 52px;
-    }
-
-    .retreat-features li {
-      display: flex;
-      align-items: baseline;
-      gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border-dim);
-      font-size: 14px;
-      color: var(--text-body);
-    }
-
-    .retreat-features li:last-child {
-      border-bottom: none;
-    }
-
-    .retreat-features li::before {
-      content: '—';
-      color: var(--amber);
-      font-size: 10px;
-      flex-shrink: 0;
-    }
-
-    .retreat-right {
-      border-left: 1px solid var(--border-dim);
-      position: relative;
-      overflow: hidden;
-      background: var(--deep);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Architectural diagram of retreat */
-    .retreat-visual {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px;
-      position: relative;
-    }
-
-    .retreat-visual::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at 50% 50%, rgba(166, 124, 80, 0.04) 0%, transparent 70%);
-    }
-
-    .retreat-svg-wrap {
-      width: 100%;
-      max-width: 400px;
-      opacity: 0.75;
-    }
+   
 
     /* ============================================================
    COMMUNITY / WHATSAPP SECTION
@@ -1728,7 +1605,7 @@
       <li class="branch-c"><a href="cosmos.html">Cosmos</a></li>
       <li class="branch-e"><a href="ethos.html">Ethos</a></li>
       <li class="branch-r"><a href="regenesis.html">Regenesis</a></li>
-      <li><a href="#retreat" class="nav-cta">Apply for Retreat</a></li>
+      <li><a href="retreat.html" target="_blank" class="nav-cta">Apply for Retreat</a></li>
     </ul>
   </nav>
 
@@ -1789,7 +1666,7 @@
 
       <div class="hero-actions">
         <a href="#branches" class="btn-primary">Enter the Framework</a>
-        <a href="#retreat" class="btn-ghost">
+        <a href="retreat.html" target="_blank" class="btn-ghost">
           Apply for Retreat
           <span class="btn-ghost-arrow">→</span>
         </a>
@@ -1965,158 +1842,10 @@
           <div class="method-item reveal" style="transition-delay:0.3s">
             <div class="method-item-num">04 — Embodiment</div>
             <div class="method-item-title">Live it in real space</div>
-            <p class="method-item-body">The retreat is the culmination — where all three branches are experienced
-              simultaneously in a physical environment designed for coherence. Theory becomes practice, practice becomes
-              being.</p>
+            <p class="method-item-body">The culmination — where all three branches converge simultaneously into a single, lived expression. Theory becomes practice, practice becomes being.</p>
           </div>
         </div>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-     RETREAT
-     ============================================================ -->
-  <section class="retreat" id="retreat">
-    <div class="retreat-inner">
-      <div class="retreat-left">
-        <div class="retreat-eyebrow">
-          <div class="method-eyebrow-line"></div>
-          <span class="label label-amber">The Physical Destination</span>
-        </div>
-        <h2 class="retreat-title reveal">
-          The Retreat<br>
-          <em>Center</em>
-        </h2>
-        <p class="retreat-body reveal" style="transition-delay:0.1s">
-          Where the three branches converge in embodied experience. Not a wellness resort — a rigorous immersion into
-          the Science Coherence framework, in a living environment designed for biological coherence.
-        </p>
-        <ul class="retreat-features reveal" style="transition-delay:0.2s">
-          <li>Full-immersion programs across all three branches</li>
-          <li>Environments designed through biophilic principles</li>
-          <li>Raw primal nutritional protocols on-site</li>
-          <li>Small cohorts — depth over scale</li>
-          <li>Ongoing community and follow-up integration</li>
-        </ul>
-        <div class="reveal" style="transition-delay:0.3s; display:flex; gap:20px; align-items:center;">
-          <a href="#" class="btn-primary">Apply to Attend</a>
-          <a href="#" class="btn-ghost">Learn about the center <span class="btn-ghost-arrow">→</span></a>
-        </div>
-      </div>
-
-      <div class="retreat-right">
-        <div class="retreat-visual">
-          <div class="retreat-svg-wrap">
-            <!-- Architectural / sacred geometry diagram representing the retreat center -->
-            <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Outer boundary -->
-              <rect x="40" y="40" width="320" height="320" stroke="#c4b49a" stroke-width="0.5" opacity="0.15" />
-              <!-- Inner square rotated -->
-              <rect x="80" y="80" width="240" height="240" stroke="#c4b49a" stroke-width="0.4" opacity="0.12"
-                transform="rotate(45 200 200)" />
-              <!-- Central circle -->
-              <circle cx="200" cy="200" r="120" stroke="#c4b49a" stroke-width="0.4" opacity="0.12" />
-              <circle cx="200" cy="200" r="80" stroke="#c4b49a" stroke-width="0.4" opacity="0.15" />
-              <circle cx="200" cy="200" r="40" stroke="#c4b49a" stroke-width="0.4" opacity="0.2" />
-              <!-- Branch axes -->
-              <line x1="200" y1="40" x2="200" y2="360" stroke="#c4b49a" stroke-width="0.3" opacity="0.08" />
-              <line x1="40" y1="200" x2="360" y2="200" stroke="#c4b49a" stroke-width="0.3" opacity="0.08" />
-              <line x1="87" y1="87" x2="313" y2="313" stroke="#c4b49a" stroke-width="0.3" opacity="0.06" />
-              <line x1="313" y1="87" x2="87" y2="313" stroke="#c4b49a" stroke-width="0.3" opacity="0.06" />
-              <!-- Branch nodes -->
-              <circle cx="200" cy="80" r="5" fill="#b89050" opacity="0.6" />
-              <circle cx="320" cy="200" r="5" fill="#72a862" opacity="0.6" />
-              <circle cx="80" cy="200" r="5" fill="#5a84b8" opacity="0.6" />
-              <circle cx="200" cy="320" r="4" fill="#c4b49a" opacity="0.4" />
-              <!-- Center -->
-              <circle cx="200" cy="200" r="8" fill="#c4b49a" opacity="0.2" />
-              <circle cx="200" cy="200" r="4" fill="#c4b49a" opacity="0.5" />
-              <circle cx="200" cy="200" r="1.5" fill="#e8dfd0" opacity="0.9" />
-              <!-- Corner ornaments -->
-              <circle cx="40" cy="40" r="3" fill="#c4b49a" opacity="0.25" />
-              <circle cx="360" cy="40" r="3" fill="#c4b49a" opacity="0.25" />
-              <circle cx="40" cy="360" r="3" fill="#c4b49a" opacity="0.25" />
-              <circle cx="360" cy="360" r="3" fill="#c4b49a" opacity="0.25" />
-              <!-- Branch labels -->
-              <text x="200" y="62" fill="#b89050" font-size="8" font-family="serif" text-anchor="middle"
-                opacity="0.6">ETHOS</text>
-              <text x="338" y="204" fill="#72a862" font-size="8" font-family="serif" opacity="0.6">REGEN</text>
-              <text x="62" y="204" fill="#5a84b8" font-size="8" font-family="serif" text-anchor="end"
-                opacity="0.6">COSMOS</text>
-              <text x="200" y="346" fill="#c4b49a" font-size="7" font-family="serif" text-anchor="middle"
-                opacity="0.4">COHERENCE</text>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-     COMMUNITY
-     ============================================================ -->
-  <section class="community" id="community">
-    <div class="container">
-      <div class="community-eyebrow reveal">
-        <div class="community-line"></div>
-        <span class="label label-amber">Living Transmission</span>
-        <div class="community-line"></div>
-      </div>
-
-      <h2 class="community-title reveal" style="transition-delay:0.1s">
-        The framework,<br>
-        <em>delivered daily.</em>
-      </h2>
-
-      <p class="community-body reveal" style="transition-delay:0.2s">
-        Join the Science Coherence community — an active, guided network connected through a WhatsApp AI channel that
-        delivers ongoing protocols, insights, and guidance from the framework directly into your daily life.
-      </p>
-
-      <div class="community-cards">
-        <div class="community-card reveal">
-          <svg class="cc-icon" viewBox="0 0 40 40" fill="none">
-            <circle cx="20" cy="20" r="18" stroke="#a67c50" stroke-width="0.6" opacity="0.3" />
-            <circle cx="20" cy="20" r="10" stroke="#a67c50" stroke-width="0.5" opacity="0.4" />
-            <circle cx="20" cy="20" r="3" fill="#a67c50" opacity="0.6" />
-          </svg>
-          <div class="cc-title">Daily Guidance</div>
-          <p class="cc-body">Your AI agent delivers protocol reminders, theoretical insights, and practice prompts —
-            tuned to your chosen branch and progression within the framework.</p>
-        </div>
-        <div class="community-card reveal" style="transition-delay:0.1s">
-          <svg class="cc-icon" viewBox="0 0 40 40" fill="none">
-            <path d="M8 20 Q20 8 32 20 Q20 32 8 20Z" stroke="#72a862" stroke-width="0.6" opacity="0.4" fill="none" />
-            <circle cx="20" cy="20" r="3" fill="#72a862" opacity="0.5" />
-          </svg>
-          <div class="cc-title">Real Connections</div>
-          <p class="cc-body">Connect with a global network of practitioners, researchers, and seekers who share the
-            Science Coherence framework — across all three branches.</p>
-        </div>
-        <div class="community-card reveal" style="transition-delay:0.2s">
-          <svg class="cc-icon" viewBox="0 0 40 40" fill="none">
-            <line x1="20" y1="4" x2="20" y2="36" stroke="#5a84b8" stroke-width="0.6" opacity="0.4" />
-            <line x1="4" y1="20" x2="36" y2="20" stroke="#5a84b8" stroke-width="0.6" opacity="0.4" />
-            <circle cx="20" cy="20" r="8" stroke="#5a84b8" stroke-width="0.5" opacity="0.3" />
-            <circle cx="20" cy="20" r="2.5" fill="#5a84b8" opacity="0.5" />
-          </svg>
-          <div class="cc-title">Retreat Priority</div>
-          <p class="cc-body">Community members receive early access and priority consideration for retreat programs —
-            the physical destination that brings the entire framework into embodied experience.</p>
-        </div>
-      </div>
-
-      <div class="community-cta reveal" style="transition-delay:0.15s">
-        <button class="whatsapp-btn">
-          <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-          </svg>
-          Join the WhatsApp Community
-        </button>
-        <div class="community-note">Free to join · AI-guided · Ongoing transmission</div>
       </div>
     </div>
   </section>
@@ -2127,7 +1856,7 @@
   <section class="featured">
     <div class="container">
       <div class="featured-header reveal">
-        <h2 class="featured-title">From the Library</h2>
+        <h2 class="featured-title">The Library</h2>
         <a href="#" class="featured-all">Explore all content <span
             style="color:var(--amber); font-size:14px; font-family:serif;">→</span></a>
       </div>
@@ -2209,6 +1938,73 @@
             Download PDF
           </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     COMMUNITY
+     ============================================================ -->
+  <section class="community" id="community">
+    <div class="container">
+      <div class="community-eyebrow reveal">
+        <div class="community-line"></div>
+        <span class="label label-amber">Community</span>
+        <div class="community-line"></div>
+      </div>
+
+      <h2 class="community-title reveal" style="transition-delay:0.1s">
+        The framework,<br>
+        <em>delivered daily.</em>
+      </h2>
+
+      <p class="community-body reveal" style="transition-delay:0.2s">
+        Join the Science Coherence community — an active, guided network connected through a WhatsApp AI channel that
+        delivers ongoing protocols, insights, and guidance from the framework directly into your daily life.
+      </p>
+
+      <div class="community-cards">
+        <div class="community-card reveal">
+          <svg class="cc-icon" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="18" stroke="#a67c50" stroke-width="0.6" opacity="0.3" />
+            <circle cx="20" cy="20" r="10" stroke="#a67c50" stroke-width="0.5" opacity="0.4" />
+            <circle cx="20" cy="20" r="3" fill="#a67c50" opacity="0.6" />
+          </svg>
+          <div class="cc-title">Daily Guidance</div>
+          <p class="cc-body">Your AI agent delivers protocol reminders, theoretical insights, and practice prompts —
+            tuned to your chosen branch and progression within the framework.</p>
+        </div>
+        <div class="community-card reveal" style="transition-delay:0.1s">
+          <svg class="cc-icon" viewBox="0 0 40 40" fill="none">
+            <path d="M8 20 Q20 8 32 20 Q20 32 8 20Z" stroke="#72a862" stroke-width="0.6" opacity="0.4" fill="none" />
+            <circle cx="20" cy="20" r="3" fill="#72a862" opacity="0.5" />
+          </svg>
+          <div class="cc-title">Real Connections</div>
+          <p class="cc-body">Connect with a global network of practitioners, researchers, and seekers who share the
+            Science Coherence framework — across all three branches.</p>
+        </div>
+        <div class="community-card reveal" style="transition-delay:0.2s">
+          <svg class="cc-icon" viewBox="0 0 40 40" fill="none">
+            <line x1="20" y1="4" x2="20" y2="36" stroke="#5a84b8" stroke-width="0.6" opacity="0.4" />
+            <line x1="4" y1="20" x2="36" y2="20" stroke="#5a84b8" stroke-width="0.6" opacity="0.4" />
+            <circle cx="20" cy="20" r="8" stroke="#5a84b8" stroke-width="0.5" opacity="0.3" />
+            <circle cx="20" cy="20" r="2.5" fill="#5a84b8" opacity="0.5" />
+          </svg>
+          <div class="cc-title">Retreat Priority</div>
+          <p class="cc-body">Community members receive early access and priority consideration for retreat programs —
+            the physical destination that brings the entire framework into embodied experience.</p>
+        </div>
+      </div>
+
+      <div class="community-cta reveal" style="transition-delay:0.15s">
+        <button class="whatsapp-btn">
+          <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          Join the WhatsApp Community
+        </button>
+        <div class="community-note">Free to join · AI-guided · Ongoing transmission</div>
       </div>
     </div>
   </section>

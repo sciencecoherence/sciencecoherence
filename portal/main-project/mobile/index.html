@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>Science Coherence — Regenesis · Cosmos · Ethos</title>
+  <title>Science Coherence — Cosmos · Ethos · Regenesis</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Jost:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -12,10 +12,8 @@
       --obsidian: #090909;
       --deep: #0f0f0f;
       --surface: #151515;
-      --raised: #1c1c1c;
       --border-dim: #1e1e1e;
       --border: #282828;
-      --text-ghost: #1e1e1e;
       --text-faint: #3a3a3a;
       --text-dim: #585858;
       --text-mid: #808080;
@@ -26,29 +24,21 @@
       --parchment: #c4b49a;
       --amber: #a67c50;
       --amber-light: #c8a06a;
-      --ember: #6e3e1e;
       --regenesis: #72a862;
-      --regenesis-dim: rgba(114,168,98,0.07);
       --cosmos: #5a84b8;
-      --cosmos-dim: rgba(90,132,184,0.07);
       --ethos: #b89050;
-      --ethos-dim: rgba(184,144,80,0.07);
       --font-display: 'Playfair Display', Georgia, serif;
       --font-label: 'Cinzel', serif;
-      --font-body: 'Jost', 'Helvetica Neue', sans-serif;
+      --font-body: 'Jost', sans-serif;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--void);
-      color: var(--text-body);
-      font-family: var(--font-body);
-      font-weight: 300;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      background: var(--void); color: var(--text-body);
+      font-family: var(--font-body); font-weight: 300;
+      line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden;
     }
     a { text-decoration: none; color: inherit; }
 
@@ -61,8 +51,7 @@
     }
     @keyframes grainShift {
       0%{transform:translate(0,0)} 25%{transform:translate(-2%,-1%)}
-      50%{transform:translate(1%,2%)} 75%{transform:translate(-1%,1%)}
-      100%{transform:translate(2%,-2%)}
+      50%{transform:translate(1%,2%)} 75%{transform:translate(-1%,1%)} 100%{transform:translate(2%,-2%)}
     }
 
     /* ── NAV ── */
@@ -74,22 +63,25 @@
       border-bottom: 1px solid transparent;
     }
     nav.scrolled {
-      background: rgba(5,5,5,.95);
-      backdrop-filter: blur(20px);
+      background: rgba(5,5,5,.96); backdrop-filter: blur(20px);
       border-bottom-color: var(--border-dim);
     }
-    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-brand-link {
+      display: flex; align-items: center; gap: 10px;
+    }
     .nav-mark { width: 26px; height: 26px; flex-shrink: 0; }
     .nav-wordmark {
       font-family: var(--font-display); font-size: 13px; font-weight: 500;
-      color: var(--text-head); letter-spacing: .04em; line-height: 1;
+      color: var(--text-head); letter-spacing: .04em; line-height: 1; display: block;
     }
     .nav-sub {
-      font-family: var(--font-label); font-size: 6.5px; letter-spacing: .3em;
-      color: var(--text-faint); margin-top: 2px;
+      font-family: var(--font-label); font-size: 6px; letter-spacing: .28em;
+      color: var(--text-faint); display: block; margin-top: 2px;
     }
-
-    /* Hamburger */
+    .nav-portal-label {
+      font-family: var(--font-label); font-size: 6px; letter-spacing: .25em;
+      color: var(--amber); display: block; margin-top: 2px;
+    }
     .hamburger {
       display: flex; flex-direction: column; gap: 5px;
       background: none; border: none; cursor: pointer; padding: 4px;
@@ -97,57 +89,55 @@
     .hamburger span { display: block; width: 22px; height: 1px; background: var(--text-mid); transition: all .3s; }
 
     /* ── DRAWER ── */
+    .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.65); z-index: 1000; display: none; }
+    .drawer-overlay.open { display: block; }
     .nav-drawer {
       position: fixed; top: 0; right: -100%; width: 72vw; max-width: 280px;
       height: 100vh; background: var(--obsidian);
       border-left: 1px solid var(--border-dim); z-index: 1001;
-      padding: 72px 32px 32px;
-      display: flex; flex-direction: column; gap: 6px;
+      padding: 72px 32px 40px;
+      display: flex; flex-direction: column; gap: 4px;
       transition: right .4s var(--ease-out);
     }
     .nav-drawer.open { right: 0; }
     .drawer-section-label {
       font-family: var(--font-label); font-size: 7px; letter-spacing: .4em;
-      color: var(--text-faint); margin-top: 20px; margin-bottom: 4px;
+      color: var(--text-faint); margin-top: 20px; margin-bottom: 6px;
     }
     .drawer-link {
       font-family: var(--font-label); font-size: 10px; letter-spacing: .3em;
-      color: var(--text-dim); padding: 8px 0; border-bottom: 1px solid var(--border-dim);
+      color: var(--text-dim); padding: 9px 0; border-bottom: 1px solid var(--border-dim);
       transition: color .3s; display: block;
     }
-    .drawer-link.regen { color: var(--regenesis); }
-    .drawer-link.cosmos-l { color: var(--cosmos); }
-    .drawer-link.ethos-l { color: var(--ethos); }
-    .drawer-link.cta {
+    .drawer-link:first-of-type { border-top: 1px solid var(--border-dim); }
+    .drawer-link.d-cosmos { color: var(--cosmos); }
+    .drawer-link.d-ethos  { color: var(--ethos); }
+    .drawer-link.d-regen  { color: var(--regenesis); }
+    .drawer-cta {
+      font-family: var(--font-label); font-size: 9px; letter-spacing: .3em;
       color: var(--amber-light); border: 1px solid rgba(166,124,80,.3);
-      padding: 12px 16px; margin-top: 16px; text-align: center; border-bottom: 1px solid rgba(166,124,80,.3);
+      padding: 13px 16px; margin-top: 20px; text-align: center; display: block;
+      transition: background .3s;
     }
     .drawer-close {
       position: absolute; top: 20px; right: 20px;
       background: none; border: none; color: var(--text-mid); font-size: 20px; cursor: pointer;
     }
-    .drawer-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,.65); z-index: 1000; display: none;
-    }
-    .drawer-overlay.open { display: block; }
 
     /* ── UTILS ── */
     .container { padding: 0 20px; }
-    .lbl { font-family: var(--font-label); font-size: 8px; letter-spacing: .4em; text-transform: uppercase; color: var(--text-dim); }
+    .lbl { font-family: var(--font-label); font-size: 8px; letter-spacing: .4em; text-transform: uppercase; }
     .lbl-amber { color: var(--amber-light); }
     .reveal {
       opacity: 0; transform: translateY(20px);
       transition: opacity .9s var(--ease-out), transform .9s var(--ease-out);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-
     .eyebrow-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
     .eyebrow-line { width: 20px; height: 1px; background: var(--amber); flex-shrink: 0; }
-
     .section-pad { padding: 60px 0; border-bottom: 1px solid var(--border-dim); }
-
     .sec-title {
-      font-family: var(--font-display); font-size: clamp(28px, 7.5vw, 44px);
+      font-family: var(--font-display); font-size: clamp(28px, 7.5vw, 42px);
       font-weight: 400; font-style: italic; color: var(--text-head);
       line-height: 1.05; letter-spacing: -.02em; margin-bottom: 14px;
     }
@@ -157,11 +147,11 @@
     /* ── HERO ── */
     .hero {
       min-height: 100svh; display: flex; flex-direction: column;
-      justify-content: flex-end; padding: 100px 20px 56px;
+      justify-content: flex-end; padding: 100px 20px 52px;
       position: relative; overflow: hidden;
     }
     .hero-glow-1 {
-      position: absolute; top: -5%; left: -10%; width: 120%; height: 55%;
+      position: absolute; top: -5%; left: -10%; width: 110%; height: 55%;
       background: radial-gradient(ellipse at 30% 30%, rgba(166,124,80,.07) 0%, transparent 60%);
       pointer-events: none;
     }
@@ -170,11 +160,10 @@
       background: radial-gradient(ellipse at 70% 80%, rgba(90,132,184,.04) 0%, transparent 60%);
       pointer-events: none;
     }
-    /* Background cosmic diagram */
     .hero-diagram {
       position: absolute; top: 8%; right: -18%;
-      width: 85vw; max-width: 360px; aspect-ratio: 1;
-      opacity: .28; pointer-events: none;
+      width: 85vw; max-width: 340px; aspect-ratio: 1;
+      opacity: .26; pointer-events: none;
       animation: diagramRotate 120s linear infinite;
     }
     .hero-diagram svg { width: 100%; height: 100%; }
@@ -182,27 +171,27 @@
 
     .hero-content { position: relative; z-index: 2; }
     .hero-eyebrow {
-      display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px; margin-bottom: 22px;
       opacity: 0; animation: fadeUp 1.2s var(--ease-out) .3s forwards;
     }
     .hero-eyebrow-line { width: 22px; height: 1px; background: var(--amber); }
     .hero-eyebrow-text { font-family: var(--font-label); font-size: 8px; letter-spacing: .45em; color: var(--amber-light); }
     .hero-headline {
       font-family: var(--font-display);
-      font-size: clamp(46px, 12.5vw, 72px);
+      font-size: clamp(44px, 12vw, 70px);
       font-weight: 400; color: var(--text-head);
-      line-height: 1.02; letter-spacing: -.025em; margin-bottom: 24px;
+      line-height: 1.02; letter-spacing: -.025em; margin-bottom: 22px;
       opacity: 0; animation: fadeUp 1.4s var(--ease-out) .5s forwards;
     }
     .hero-headline em { font-style: italic; color: var(--parchment); display: block; }
-    .hero-headline span.ghost { color: var(--text-faint); font-style: italic; }
+    .hero-headline .ghost { color: var(--text-faint); font-style: italic; }
     .hero-body {
       font-size: 14px; font-weight: 300; color: var(--text-mid);
-      line-height: 1.85; font-style: italic; margin-bottom: 36px;
+      line-height: 1.85; font-style: italic; margin-bottom: 34px;
       opacity: 0; animation: fadeUp 1.4s var(--ease-out) .7s forwards;
     }
     .hero-actions {
-      display: flex; flex-direction: column; gap: 14px;
+      display: flex; flex-direction: column; gap: 12px;
       opacity: 0; animation: fadeUp 1.4s var(--ease-out) .9s forwards;
     }
     .btn-primary {
@@ -215,10 +204,9 @@
       color: var(--text-dim); display: flex; align-items: center; gap: 10px;
       justify-content: center; padding: 14px 0; transition: color .3s;
     }
-    .btn-ghost-m span { color: var(--amber); font-size: 16px; font-family: serif; }
-
+    .btn-ghost-m .arr { color: var(--amber); font-size: 15px; font-family: serif; }
     .hero-scroll-m {
-      display: flex; align-items: center; gap: 10px; margin-top: 28px;
+      display: flex; align-items: center; gap: 10px; margin-top: 26px;
       opacity: 0; animation: fadeUp 1s var(--ease-out) 1.4s forwards;
     }
     .scroll-line-m { width: 1px; height: 28px; background: linear-gradient(var(--amber), transparent); animation: scrollPulse 2s ease-in-out infinite; }
@@ -228,18 +216,16 @@
 
     /* ── MANIFESTO ── */
     .manifesto {
-      padding: 60px 0;
-      border-top: 1px solid var(--border-dim);
-      border-bottom: 1px solid var(--border-dim);
-      text-align: center; position: relative;
+      padding: 56px 0; text-align: center;
+      border-top: 1px solid var(--border-dim); border-bottom: 1px solid var(--border-dim);
     }
     .manifesto-quote {
-      font-family: var(--font-display); font-size: clamp(17px, 4.5vw, 24px);
+      font-family: var(--font-display); font-size: clamp(16px, 4.2vw, 22px);
       font-weight: 400; font-style: italic; color: var(--text-bright);
-      line-height: 1.5; letter-spacing: -.01em; margin-bottom: 20px;
+      line-height: 1.5; letter-spacing: -.01em; margin-bottom: 18px;
     }
     .manifesto-quote em { color: var(--parchment); }
-    .manifesto-attr { font-family: var(--font-label); font-size: 8px; letter-spacing: .4em; color: var(--text-dim); }
+    .manifesto-attr { font-family: var(--font-label); font-size: 7.5px; letter-spacing: .4em; color: var(--text-dim); }
 
     /* ── BRANCHES ── */
     .branches-header { padding: 52px 20px 36px; border-bottom: 1px solid var(--border-dim); }
@@ -259,22 +245,21 @@
     .branch-panel::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; opacity: .7;
     }
+    .branch-panel.cosmos::before  { background: var(--cosmos); }
+    .branch-panel.ethos::before   { background: var(--ethos); }
     .branch-panel.regenesis::before { background: var(--regenesis); }
-    .branch-panel.cosmos::before { background: var(--cosmos); }
-    .branch-panel.ethos::before { background: var(--ethos); }
 
     .branch-roman { font-family: var(--font-label); font-size: 8.5px; letter-spacing: .4em; color: var(--text-faint); margin-bottom: 16px; }
     .branch-name {
-      font-family: var(--font-display); font-size: 38px; font-weight: 400; font-style: italic;
-      line-height: 1; margin-bottom: 8px;
+      font-family: var(--font-display); font-size: 38px; font-weight: 400;
+      font-style: italic; line-height: 1; margin-bottom: 8px;
     }
+    .branch-panel.cosmos .branch-name   { color: var(--cosmos); }
+    .branch-panel.ethos .branch-name    { color: var(--ethos); }
     .branch-panel.regenesis .branch-name { color: var(--regenesis); }
-    .branch-panel.cosmos .branch-name { color: var(--cosmos); }
-    .branch-panel.ethos .branch-name { color: var(--ethos); }
 
-    .branch-subtitle { font-family: var(--font-label); font-size: 7.5px; letter-spacing: .3em; color: var(--text-faint); margin-bottom: 18px; }
+    .branch-subtitle { font-family: var(--font-label); font-size: 7.5px; letter-spacing: .28em; color: var(--text-faint); margin-bottom: 18px; }
     .branch-desc { font-size: 13px; font-weight: 300; color: var(--text-dim); font-style: italic; line-height: 1.8; margin-bottom: 20px; }
-
     .branch-topics { list-style: none; margin-bottom: 24px; }
     .branch-topics li {
       font-size: 13px; font-weight: 300; color: var(--text-mid);
@@ -282,131 +267,104 @@
       display: flex; align-items: center; gap: 12px;
     }
     .branch-topics li:last-child { border-bottom: none; }
-    .branch-topics li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
-    .regenesis .branch-topics li::before { background: var(--regenesis); opacity: .6; }
-    .cosmos .branch-topics li::before { background: var(--cosmos); opacity: .6; }
-    .ethos .branch-topics li::before { background: var(--ethos); opacity: .6; }
+    .branch-topics li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; opacity: .6; }
+    .cosmos .branch-topics li::before   { background: var(--cosmos); }
+    .ethos .branch-topics li::before    { background: var(--ethos); }
+    .regenesis .branch-topics li::before { background: var(--regenesis); }
 
     .branch-link {
       font-family: var(--font-label); font-size: 9px; letter-spacing: .3em;
       display: flex; align-items: center; gap: 10px;
     }
-    .branch-panel.regenesis .branch-link { color: var(--regenesis); }
-    .branch-panel.cosmos .branch-link { color: var(--cosmos); }
-    .branch-panel.ethos .branch-link { color: var(--ethos); }
+    .cosmos .branch-link   { color: var(--cosmos); }
+    .ethos .branch-link    { color: var(--ethos); }
+    .regenesis .branch-link { color: var(--regenesis); }
     .branch-link-arrow { font-size: 14px; font-family: serif; }
 
     /* ── METHODOLOGY ── */
-    .method-items { display: flex; flex-direction: column; margin-top: 36px; }
-    .method-item {
-      padding: 28px 0; border-bottom: 1px solid var(--border-dim);
+    .method-diagram-sm {
+      width: 96px; height: 96px; margin: 28px auto; opacity: .55;
     }
-    .method-item:first-child { padding-top: 0; }
+    .method-items { display: flex; flex-direction: column; }
+    .method-item { padding: 28px 0; border-bottom: 1px solid var(--border-dim); }
     .method-item:last-child { border-bottom: none; }
     .method-item-num { font-family: var(--font-label); font-size: 8px; letter-spacing: .35em; color: var(--text-faint); margin-bottom: 10px; }
     .method-item-title { font-family: var(--font-display); font-size: 22px; font-weight: 400; font-style: italic; color: var(--text-head); margin-bottom: 10px; }
     .method-item-body { font-size: 13px; font-weight: 300; color: var(--text-dim); font-style: italic; line-height: 1.85; }
 
-    /* Orbital diagram small */
-    .method-diagram-sm {
-      width: 100px; height: 100px; margin: 28px auto 0; opacity: .6;
-    }
-
-    /* ── RETREAT ── */
-    .retreat-section { border-top: 1px solid var(--border-dim); padding: 60px 0; }
-    .retreat-features { list-style: none; margin: 24px 0 32px; }
-    .retreat-features li {
-      display: flex; align-items: baseline; gap: 12px;
-      padding: 11px 0; border-bottom: 1px solid var(--border-dim);
-      font-size: 13px; color: var(--text-body);
-    }
-    .retreat-features li:last-child { border-bottom: none; }
-    .retreat-features li::before { content: '—'; color: var(--amber); font-size: 10px; flex-shrink: 0; }
-    .retreat-actions { display: flex; flex-direction: column; gap: 14px; }
-
-    /* Sacred geometry visual */
-    .retreat-visual {
-      margin: 36px auto 0; width: 200px; height: 200px; opacity: .5;
-    }
-
     /* ── COMMUNITY ── */
-    .community-section { padding: 60px 0; border-top: 1px solid var(--border-dim); text-align: center; }
+    .community-section { padding: 60px 0; border-bottom: 1px solid var(--border-dim); text-align: center; }
     .community-eyebrow { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
     .community-line { width: 20px; height: 1px; background: var(--amber); }
-    .community-cards { display: flex; flex-direction: column; gap: 2px; margin: 36px 0; text-align: left; }
-    .community-card { background: var(--obsidian); border: 1px solid var(--border-dim); padding: 28px 20px; }
-    .cc-icon { width: 32px; height: 32px; margin-bottom: 16px; }
+    .community-cards { display: flex; flex-direction: column; gap: 2px; margin: 32px 0; text-align: left; }
+    .community-card { background: var(--obsidian); border: 1px solid var(--border-dim); padding: 26px 20px; }
+    .cc-icon { width: 32px; height: 32px; margin-bottom: 14px; }
     .cc-title { font-family: var(--font-display); font-size: 19px; font-weight: 400; font-style: italic; color: var(--text-head); margin-bottom: 8px; }
     .cc-body { font-size: 12px; font-weight: 300; color: var(--text-dim); font-style: italic; line-height: 1.8; }
-
     .whatsapp-btn {
       display: flex; align-items: center; justify-content: center; gap: 12px;
       font-family: var(--font-label); font-size: 9px; letter-spacing: .3em;
-      color: var(--void); background: var(--parchment); padding: 18px 28px;
+      color: var(--void); background: var(--parchment); padding: 17px 28px;
       border: none; width: 100%; transition: background .4s;
     }
     .whatsapp-icon { width: 16px; height: 16px; flex-shrink: 0; }
     .community-note { font-family: var(--font-label); font-size: 7.5px; letter-spacing: .3em; color: var(--text-faint); margin-top: 14px; }
 
     /* ── FEATURED ── */
-    .featured-section { padding: 60px 0; border-top: 1px solid var(--border-dim); }
-    .featured-header {
-      display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;
-    }
+    .featured-section { padding: 60px 0; border-bottom: 1px solid var(--border-dim); }
+    .featured-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
     .featured-title { font-family: var(--font-display); font-size: 26px; font-weight: 400; font-style: italic; color: var(--text-head); }
     .featured-all { font-family: var(--font-label); font-size: 8px; letter-spacing: .3em; color: var(--amber-light); display: flex; align-items: center; gap: 8px; }
 
     .article-cards { display: flex; flex-direction: column; gap: 2px; }
     .article-card {
       background: var(--obsidian); border: 1px solid var(--border-dim);
-      padding: 28px 20px; display: flex; flex-direction: column;
+      padding: 28px 20px; display: flex; flex-direction: column; gap: 0;
     }
     .article-branch {
       font-family: var(--font-label); font-size: 7.5px; letter-spacing: .35em;
       margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
     }
     .ab-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
-    .ab-cosmos { color: var(--cosmos); } .ab-cosmos .ab-dot { background: var(--cosmos); }
-    .ab-regenesis { color: var(--regenesis); } .ab-regenesis .ab-dot { background: var(--regenesis); }
-    .ab-ethos { color: var(--ethos); } .ab-ethos .ab-dot { background: var(--ethos); }
-    .article-title {
-      font-family: var(--font-display); font-size: 18px; font-weight: 400;
-      font-style: italic; color: var(--text-head); line-height: 1.3; letter-spacing: -.01em; margin-bottom: 12px; flex: 1;
-    }
-    .article-card:first-child .article-title { font-size: 22px; }
-    .article-excerpt { font-size: 12px; font-weight: 300; color: var(--text-dim); font-style: italic; line-height: 1.8; margin-bottom: 16px; }
-    .article-meta { font-family: var(--font-label); font-size: 7.5px; letter-spacing: .3em; color: var(--text-faint); display: flex; justify-content: space-between; margin-top: auto; }
+    .ab-cosmos   { color: var(--cosmos); }   .ab-cosmos .ab-dot   { background: var(--cosmos); }
+    .ab-ethos    { color: var(--ethos); }    .ab-ethos .ab-dot    { background: var(--ethos); }
+    .ab-regenesis{ color: var(--regenesis); } .ab-regenesis .ab-dot{ background: var(--regenesis); }
 
-    /* ── FINAL CTA ── */
-    .final-cta { padding: 72px 0; border-top: 1px solid var(--border-dim); text-align: center; position: relative; overflow: hidden; }
-    .final-cta::before {
-      content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-      width: 400px; height: 400px;
-      background: radial-gradient(ellipse, rgba(166,124,80,.04) 0%, transparent 65%);
-      pointer-events: none;
+    .article-title {
+      font-family: var(--font-display); font-size: 19px; font-weight: 400;
+      font-style: italic; color: var(--text-head); line-height: 1.28;
+      letter-spacing: -.01em; margin-bottom: 12px;
     }
-    .final-mark { width: 44px; height: 44px; margin: 0 auto 28px; opacity: .5; }
-    .final-title {
-      font-family: var(--font-display); font-size: clamp(32px, 9vw, 52px);
-      font-weight: 400; color: var(--text-head); line-height: 1.05; letter-spacing: -.025em; margin-bottom: 18px;
+    .article-card:first-child .article-title { font-size: 21px; }
+    .article-excerpt {
+      font-size: 12px; font-weight: 300; color: var(--text-dim);
+      font-style: italic; line-height: 1.8; margin-bottom: 16px;
     }
-    .final-title em { font-style: italic; color: var(--parchment); }
-    .final-body { font-size: 14px; font-weight: 300; color: var(--text-mid); font-style: italic; line-height: 1.85; margin-bottom: 36px; }
-    .final-actions { display: flex; flex-direction: column; gap: 14px; }
+    .article-meta {
+      font-family: var(--font-label); font-size: 7.5px; letter-spacing: .28em;
+      color: var(--text-faint); display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px;
+    }
+    .article-download {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-label); font-size: 7.5px; letter-spacing: .3em;
+      color: var(--cosmos); border: 1px solid rgba(90,132,184,.28);
+      padding: 9px 14px; margin-top: auto; transition: border-color .3s, color .3s;
+      width: fit-content;
+    }
+    .article-download-ethos { color: var(--ethos); border-color: rgba(184,144,80,.28); }
+    .article-download-regenesis { color: var(--regenesis); border-color: rgba(114,168,98,.28); }
 
     /* ── FOOTER ── */
     footer { border-top: 1px solid var(--border-dim); padding: 48px 20px 36px; }
     .footer-brand-block { margin-bottom: 36px; }
     .footer-brand-desc { font-size: 12px; font-weight: 300; color: var(--text-dim); font-style: italic; line-height: 1.8; margin-top: 12px; }
-
-    .footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 36px; }
+    .footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 24px; margin-bottom: 36px; }
     .footer-col-title { font-family: var(--font-label); font-size: 8px; letter-spacing: .35em; color: var(--text-dim); margin-bottom: 14px; }
     .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .footer-links li a { font-size: 12px; font-weight: 300; color: var(--text-faint); font-style: italic; }
-
     .footer-bottom {
       padding-top: 24px; border-top: 1px solid var(--border-dim);
-      display: flex; flex-direction: column; gap: 8px;
+      display: flex; flex-direction: column; gap: 6px;
     }
     .footer-copy { font-family: var(--font-label); font-size: 7.5px; letter-spacing: .3em; color: var(--text-faint); }
     .footer-branches { font-family: var(--font-label); font-size: 7.5px; letter-spacing: .35em; color: var(--text-faint); }
@@ -416,30 +374,24 @@
 
   <div class="grain"></div>
 
-  <!-- DRAWER OVERLAY -->
+  <!-- DRAWER -->
   <div class="drawer-overlay" id="overlay"></div>
-
-  <!-- NAV DRAWER -->
   <div class="nav-drawer" id="drawer">
     <button class="drawer-close" id="drawerClose">&#215;</button>
-
     <div class="drawer-section-label">Branches</div>
-    <a href="#branches" class="drawer-link regen">Regenesis</a>
-    <a href="#branches" class="drawer-link cosmos-l">Cosmos</a>
-    <a href="#branches" class="drawer-link ethos-l">Ethos</a>
-
+    <a href="#branches" class="drawer-link d-cosmos">Cosmos</a>
+    <a href="#branches" class="drawer-link d-ethos">Ethos</a>
+    <a href="#branches" class="drawer-link d-regen">Regenesis</a>
     <div class="drawer-section-label">Explore</div>
     <a href="#methodology" class="drawer-link">The Approach</a>
-    <a href="#retreat" class="drawer-link">Retreat Center</a>
     <a href="#community" class="drawer-link">Community</a>
     <a href="#library" class="drawer-link">Library</a>
-
-    <a href="#retreat" class="drawer-link cta">Apply for Retreat</a>
+    <a href="retreat.html" target="_blank" class="drawer-cta">Apply for Retreat</a>
   </div>
 
   <!-- NAV -->
   <nav id="nav">
-    <div class="nav-brand">
+    <a href="/portal/index.html" class="nav-brand-link">
       <svg class="nav-mark" viewBox="0 0 30 30" fill="none">
         <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.4" transform="rotate(-35 15 15)"/>
         <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.25" transform="rotate(35 15 15)"/>
@@ -452,10 +404,11 @@
         <circle cx="23.5" cy="6" r="1" fill="#5a84b8" opacity="0.65"/>
       </svg>
       <div>
-        <div class="nav-wordmark">Science Coherence</div>
-        <div class="nav-sub">Regenesis · Cosmos · Ethos</div>
+        <span class="nav-wordmark">Science Coherence</span>
+        <span class="nav-sub">Cosmos · Ethos · Regenesis</span>
+        <span class="nav-portal-label">← Return to Portal</span>
       </div>
-    </div>
+    </a>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -465,22 +418,23 @@
   <section class="hero">
     <div class="hero-glow-1"></div>
     <div class="hero-glow-2"></div>
-
     <div class="hero-diagram">
       <svg viewBox="0 0 700 700" fill="none">
         <circle cx="350" cy="350" r="320" stroke="#c4b49a" stroke-width="0.4" opacity="0.06"/>
         <circle cx="350" cy="350" r="250" stroke="#c4b49a" stroke-width="0.4" opacity="0.08"/>
         <circle cx="350" cy="350" r="180" stroke="#c4b49a" stroke-width="0.4" opacity="0.1"/>
         <circle cx="350" cy="350" r="110" stroke="#c4b49a" stroke-width="0.4" opacity="0.12"/>
-        <circle cx="350" cy="350" r="50" stroke="#c4b49a" stroke-width="0.4" opacity="0.15"/>
+        <circle cx="350" cy="350" r="50"  stroke="#c4b49a" stroke-width="0.4" opacity="0.15"/>
         <ellipse cx="350" cy="350" rx="320" ry="110" stroke="#a67c50" stroke-width="0.4" opacity="0.07" transform="rotate(-40 350 350)"/>
-        <ellipse cx="350" cy="350" rx="250" ry="85" stroke="#5a84b8" stroke-width="0.4" opacity="0.06" transform="rotate(25 350 350)"/>
-        <ellipse cx="350" cy="350" rx="180" ry="60" stroke="#72a862" stroke-width="0.4" opacity="0.06" transform="rotate(80 350 350)"/>
-        <circle cx="350" cy="350" r="5" fill="#c4b49a" opacity="0.4"/>
-        <circle cx="350" cy="350" r="2" fill="#e8dfd0" opacity="0.8"/>
-        <circle cx="670" cy="350" r="4" fill="#a67c50" opacity="0.5"/>
-        <circle cx="350" cy="30" r="4" fill="#5a84b8" opacity="0.5"/>
-        <circle cx="350" cy="670" r="3" fill="#72a862" opacity="0.4"/>
+        <ellipse cx="350" cy="350" rx="250" ry="85"  stroke="#5a84b8" stroke-width="0.4" opacity="0.06" transform="rotate(25 350 350)"/>
+        <ellipse cx="350" cy="350" rx="180" ry="60"  stroke="#72a862" stroke-width="0.4" opacity="0.06" transform="rotate(80 350 350)"/>
+        <circle cx="350" cy="350" r="12" fill="#c4b49a" opacity="0.15"/>
+        <circle cx="350" cy="350" r="5"  fill="#c4b49a" opacity="0.4"/>
+        <circle cx="350" cy="350" r="2"  fill="#e8dfd0" opacity="0.8"/>
+        <circle cx="670" cy="350" r="4"  fill="#a67c50" opacity="0.5"/>
+        <circle cx="30"  cy="350" r="4"  fill="#a67c50" opacity="0.5"/>
+        <circle cx="350" cy="30"  r="4"  fill="#5a84b8" opacity="0.5"/>
+        <circle cx="350" cy="670" r="3"  fill="#72a862" opacity="0.4"/>
       </svg>
     </div>
 
@@ -500,11 +454,11 @@
       </p>
       <div class="hero-actions">
         <a href="#branches" class="btn-primary">Enter the Framework</a>
-        <a href="#retreat" class="btn-ghost-m">Apply for Retreat <span>→</span></a>
+        <a href="retreat.html" target="_blank" class="btn-ghost-m">Apply for Retreat <span class="arr">→</span></a>
       </div>
       <div class="hero-scroll-m">
         <div class="scroll-line-m"></div>
-        <span class="scroll-text-m">Scroll to explore</span>
+        <span class="scroll-text-m">Scroll</span>
       </div>
     </div>
   </section>
@@ -524,7 +478,7 @@
   <section id="branches">
     <div class="branches-header">
       <h2 class="branches-title reveal">Three branches.<br><em>One coherent field.</em></h2>
-      <p class="branches-desc reveal" style="transition-delay:.12s;">
+      <p class="branches-desc reveal" style="transition-delay:.1s;">
         Each branch is a self-contained knowledge system and a distinct entry point into the Science Coherence framework
         — designed for the optimizer, the theorist, and the philosopher simultaneously.
       </p>
@@ -532,22 +486,8 @@
 
     <div class="branch-panels">
 
-      <div class="branch-panel regenesis reveal">
+      <div class="branch-panel cosmos reveal">
         <div class="branch-roman">I</div>
-        <div class="branch-name">Regenesis</div>
-        <div class="branch-subtitle">Biological Optimization &amp; Holistic Regeneration</div>
-        <p class="branch-desc">The physical vehicle — treated as a biological computer. Rigorous protocols, specialized nutrition, and cellular practices that restore the body's innate coherence from the inside out.</p>
-        <ul class="branch-topics">
-          <li>Neuroplasticity &amp; Cognitive Repair</li>
-          <li>Raw Primal Nutrition Protocols</li>
-          <li>Cellular &amp; Skin Regeneration</li>
-          <li>Longevity &amp; Systemic Health</li>
-        </ul>
-        <a href="#" class="branch-link">Enter Regenesis <span class="branch-link-arrow">→</span></a>
-      </div>
-
-      <div class="branch-panel cosmos reveal" style="transition-delay:.08s;">
-        <div class="branch-roman">II</div>
         <div class="branch-name">Cosmos</div>
         <div class="branch-subtitle">Biophysics &amp; Theoretical Systems</div>
         <p class="branch-desc">The theoretical engine. Bridging the macro-mechanics of the universe with the micro-mechanics of biology and consciousness — viewed through a single computational lens.</p>
@@ -555,23 +495,37 @@
           <li>Time-Crystalline Biology</li>
           <li>Cellular Coherence Theory</li>
           <li>The Biological Computer Model</li>
-          <li>Cosmological &amp; Physical Frameworks</li>
+          <li>Cosmological Frameworks</li>
         </ul>
-        <a href="#" class="branch-link">Enter Cosmos <span class="branch-link-arrow">→</span></a>
+        <a href="cosmos.html" class="branch-link">Enter Cosmos <span class="branch-link-arrow">→</span></a>
       </div>
 
-      <div class="branch-panel ethos reveal" style="transition-delay:.16s;">
-        <div class="branch-roman">III</div>
+      <div class="branch-panel ethos reveal" style="transition-delay:.08s;">
+        <div class="branch-roman">II</div>
         <div class="branch-name">Ethos</div>
         <div class="branch-subtitle">The Science of Being &amp; Harmonious Living</div>
         <p class="branch-desc">The synthesis. Where biology meets philosophy and both become a way of living. The manual for self-realization — translating the first two branches into actionable frameworks for being.</p>
         <ul class="branch-topics">
-          <li>Consciousness &amp; Self-Realization</li>
+          <li>Self-Realization</li>
           <li>Actionable Philosophy</li>
-          <li>Biophilic &amp; Harmonious Environments</li>
-          <li>Integration &amp; Daily Practice</li>
+          <li>Harmonious Environments</li>
+          <li>Daily Practice</li>
         </ul>
-        <a href="#" class="branch-link">Enter Ethos <span class="branch-link-arrow">→</span></a>
+        <a href="ethos.html" class="branch-link">Enter Ethos <span class="branch-link-arrow">→</span></a>
+      </div>
+
+      <div class="branch-panel regenesis reveal" style="transition-delay:.16s;">
+        <div class="branch-roman">III</div>
+        <div class="branch-name">Regenesis</div>
+        <div class="branch-subtitle">Biological Optimization &amp; Holistic Regeneration</div>
+        <p class="branch-desc">The physical vehicle — treated as a biological computer. Rigorous protocols, specialized nutrition, and cellular practices that restore the body's innate coherence from the inside out.</p>
+        <ul class="branch-topics">
+          <li>Cellular Regeneration</li>
+          <li>Cognitive Repair</li>
+          <li>Raw Primal Nutrition</li>
+          <li>Longevity &amp; Systemic Health</li>
+        </ul>
+        <a href="regenesis.html" class="branch-link">Enter Regenesis <span class="branch-link-arrow">→</span></a>
       </div>
 
     </div>
@@ -586,10 +540,10 @@
       </div>
       <h2 class="sec-title reveal" style="transition-delay:.08s;">Rigorous.<br><em>Actionable. Unified.</em></h2>
       <p class="sec-body reveal" style="transition-delay:.16s;">
-        Science Coherence is not a philosophy that ignores data, nor a science that ignores meaning. It is the bridge — built from first principles, tested against biology, and expressed through lived practice.
+        Science Coherence is not a philosophy that ignores data, nor a science that ignores meaning. It is the
+        bridge — built from first principles, tested against biology, and expressed through lived practice.
       </p>
 
-      <!-- Orbital diagram -->
       <div class="method-diagram-sm reveal" style="transition-delay:.2s;">
         <svg viewBox="0 0 200 200" fill="none">
           <circle cx="100" cy="100" r="90" stroke="#c4b49a" stroke-width="0.5" opacity="0.1"/>
@@ -598,11 +552,11 @@
           <ellipse cx="100" cy="100" rx="90" ry="30" stroke="#a67c50" stroke-width="0.5" opacity="0.2" transform="rotate(-30 100 100)"/>
           <ellipse cx="100" cy="100" rx="60" ry="20" stroke="#5a84b8" stroke-width="0.5" opacity="0.2" transform="rotate(40 100 100)"/>
           <ellipse cx="100" cy="100" rx="30" ry="10" stroke="#72a862" stroke-width="0.5" opacity="0.2" transform="rotate(80 100 100)"/>
-          <circle cx="100" cy="100" r="5" fill="#c4b49a" opacity="0.5"/>
+          <circle cx="100" cy="100" r="5"   fill="#c4b49a" opacity="0.5"/>
           <circle cx="100" cy="100" r="2.5" fill="#e8dfd0" opacity="0.9"/>
           <text x="164" y="104" fill="#72a862" font-size="7" font-family="serif" opacity="0.7">Regen</text>
-          <text x="36" y="104" fill="#5a84b8" font-size="7" font-family="serif" opacity="0.7" text-anchor="end">Cosmos</text>
-          <text x="100" y="18" fill="#b89050" font-size="7" font-family="serif" opacity="0.7" text-anchor="middle">Ethos</text>
+          <text x="36"  y="104" fill="#5a84b8" font-size="7" font-family="serif" opacity="0.7" text-anchor="end">Cosmos</text>
+          <text x="100" y="18"  fill="#b89050" font-size="7" font-family="serif" opacity="0.7" text-anchor="middle">Ethos</text>
         </svg>
       </div>
 
@@ -625,57 +579,72 @@
         <div class="method-item reveal" style="transition-delay:.24s;">
           <div class="method-item-num">04 — Embodiment</div>
           <div class="method-item-title">Live it in real space</div>
-          <p class="method-item-body">The retreat is the culmination — where all three branches are experienced simultaneously in a physical environment designed for coherence. Theory becomes practice, practice becomes being.</p>
+          <p class="method-item-body">The culmination — where all three branches converge simultaneously into a single, lived expression. Theory becomes practice, practice becomes being.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── RETREAT ── -->
-  <section class="retreat-section container" id="retreat">
-    <div class="eyebrow-row reveal">
-      <div class="eyebrow-line"></div>
-      <span class="lbl lbl-amber">The Physical Destination</span>
-    </div>
-    <h2 class="sec-title reveal" style="transition-delay:.08s;">The Retreat<br><em>Center</em></h2>
-    <p class="sec-body reveal" style="transition-delay:.16s;">
-      Where the three branches converge in embodied experience. Not a wellness resort — a rigorous immersion into the Science Coherence framework, in a living environment designed for biological coherence.
-    </p>
-
-    <ul class="retreat-features reveal" style="transition-delay:.2s;">
-      <li>Full-immersion programs across all three branches</li>
-      <li>Environments designed through biophilic principles</li>
-      <li>Raw primal nutritional protocols on-site</li>
-      <li>Small cohorts — depth over scale</li>
-      <li>Ongoing community and follow-up integration</li>
-    </ul>
-
-    <div class="retreat-actions reveal" style="transition-delay:.28s;">
-      <a href="#" class="btn-primary">Apply to Attend</a>
-      <a href="#" class="btn-ghost-m">Learn about the center <span>→</span></a>
+  <!-- ── FEATURED ── -->
+  <section class="featured-section container" id="library">
+    <div class="featured-header reveal">
+      <h2 class="featured-title">The Library</h2>
+      <a href="#" class="featured-all">All content <span style="color:var(--amber);font-size:13px;font-family:serif;">→</span></a>
     </div>
 
-    <!-- Sacred geometry diagram -->
-    <div class="retreat-visual reveal" style="transition-delay:.32s;">
-      <svg viewBox="0 0 400 400" fill="none">
-        <rect x="40" y="40" width="320" height="320" stroke="#c4b49a" stroke-width="0.5" opacity="0.15"/>
-        <rect x="80" y="80" width="240" height="240" stroke="#c4b49a" stroke-width="0.4" opacity="0.12" transform="rotate(45 200 200)"/>
-        <circle cx="200" cy="200" r="120" stroke="#c4b49a" stroke-width="0.4" opacity="0.12"/>
-        <circle cx="200" cy="200" r="80" stroke="#c4b49a" stroke-width="0.4" opacity="0.15"/>
-        <circle cx="200" cy="200" r="40" stroke="#c4b49a" stroke-width="0.4" opacity="0.2"/>
-        <line x1="200" y1="40" x2="200" y2="360" stroke="#c4b49a" stroke-width="0.3" opacity="0.08"/>
-        <line x1="40" y1="200" x2="360" y2="200" stroke="#c4b49a" stroke-width="0.3" opacity="0.08"/>
-        <circle cx="200" cy="80" r="5" fill="#b89050" opacity="0.6"/>
-        <circle cx="320" cy="200" r="5" fill="#72a862" opacity="0.6"/>
-        <circle cx="80" cy="200" r="5" fill="#5a84b8" opacity="0.6"/>
-        <circle cx="200" cy="200" r="8" fill="#c4b49a" opacity="0.2"/>
-        <circle cx="200" cy="200" r="4" fill="#c4b49a" opacity="0.5"/>
-        <circle cx="200" cy="200" r="1.5" fill="#e8dfd0" opacity="0.9"/>
-        <text x="200" y="62" fill="#b89050" font-size="8" font-family="serif" text-anchor="middle" opacity="0.6">ETHOS</text>
-        <text x="338" y="204" fill="#72a862" font-size="8" font-family="serif" opacity="0.6">REGEN</text>
-        <text x="62" y="204" fill="#5a84b8" font-size="8" font-family="serif" text-anchor="end" opacity="0.6">COSMOS</text>
-        <text x="200" y="346" fill="#c4b49a" font-size="7" font-family="serif" text-anchor="middle" opacity="0.4">COHERENCE</text>
-      </svg>
+    <div class="article-cards">
+
+      <div class="article-card reveal">
+        <div class="article-branch ab-cosmos"><div class="ab-dot"></div>Cosmos</div>
+        <div class="article-title">Time-Crystalline Biology: Toward an Informational Theory of Life, Health, and Nourishment</div>
+        <div class="article-excerpt">Living systems are not analogous to time crystals — they are time-crystalline structures. Across three axes, this paper establishes the ontological primacy of information over matter, develops the five-scale biological mechanics of temporal coherence, and applies the framework to nourishment — arguing that food is not a chemical payload but a living informational structure whose field architecture is irreversibly collapsed by thermal processing above 42°C.</div>
+        <div class="article-meta">
+          <span>Julien Xavier Steff</span>
+          <span>Theoretical Paper · Cosmos Branch</span>
+        </div>
+        <a href="/portal/publications/time-crystalline-biology.pdf" class="article-download" download>
+          <svg width="11" height="13" viewBox="0 0 11 13" fill="none">
+            <path d="M5.5 1v8M2 6.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1 12h9" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+          Download PDF
+        </a>
+      </div>
+
+      <div class="article-card reveal" style="transition-delay:.08s;">
+        <div class="article-branch ab-ethos"><div class="ab-dot"></div>Ethos</div>
+        <div class="article-title">Operating with Intention: The Philosophy of the Biological Computer</div>
+        <div class="article-excerpt">The self is not a fixed entity but an operating system — assembled through experience, running in the background, and shaping every perception without announcing itself. This paper develops what it means to examine that configuration, and to operate it deliberately.</div>
+        <div class="article-meta">
+          <span>Julien Xavier Steff</span>
+          <span>Philosophy · Ethos Branch</span>
+        </div>
+        <a href="/portal/publications/operating-with-intention.pdf" class="article-download article-download-ethos" download>
+          <svg width="11" height="13" viewBox="0 0 11 13" fill="none">
+            <path d="M5.5 1v8M2 6.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1 12h9" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+          Download PDF
+        </a>
+      </div>
+
+      <div class="article-card reveal" style="transition-delay:.16s;">
+        <div class="article-branch ab-regenesis"><div class="ab-dot"></div>Regenesis</div>
+        <div class="article-title">The Raw Organ Protocol: A Framework for Cellular Nutritional Density</div>
+        <div class="article-excerpt">Organ meats consumed raw constitute a categorically distinct nutritional input — delivering not only the highest-density concentration of bioavailable cofactors known to the human diet, but an intact living field architecture that thermal processing irreversibly destroys.</div>
+        <div class="article-meta">
+          <span>Julien Xavier Steff</span>
+          <span>Protocol · Regenesis Branch</span>
+        </div>
+        <a href="/portal/publications/raw-organ-protocol.pdf" class="article-download article-download-regenesis" download>
+          <svg width="11" height="13" viewBox="0 0 11 13" fill="none">
+            <path d="M5.5 1v8M2 6.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1 12h9" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          </svg>
+          Download PDF
+        </a>
+      </div>
+
     </div>
   </section>
 
@@ -684,12 +653,13 @@
     <div class="container">
       <div class="community-eyebrow reveal">
         <div class="community-line"></div>
-        <span class="lbl lbl-amber">Living Transmission</span>
+        <span class="lbl lbl-amber">Community</span>
         <div class="community-line"></div>
       </div>
       <h2 class="sec-title reveal" style="transition-delay:.08s; text-align:center;">The framework,<br><em>delivered daily.</em></h2>
       <p class="sec-body reveal" style="transition-delay:.16s; text-align:center;">
-        Join the Science Coherence community — an active, guided network connected through a WhatsApp AI channel that delivers ongoing protocols, insights, and guidance from the framework directly into your daily life.
+        Join the Science Coherence community — an active, guided network connected through a WhatsApp AI channel that
+        delivers ongoing protocols, insights, and guidance from the framework directly into your daily life.
       </p>
 
       <div class="community-cards">
@@ -697,7 +667,7 @@
           <svg class="cc-icon" viewBox="0 0 40 40" fill="none">
             <circle cx="20" cy="20" r="18" stroke="#a67c50" stroke-width="0.6" opacity="0.3"/>
             <circle cx="20" cy="20" r="10" stroke="#a67c50" stroke-width="0.5" opacity="0.4"/>
-            <circle cx="20" cy="20" r="3" fill="#a67c50" opacity="0.6"/>
+            <circle cx="20" cy="20" r="3"  fill="#a67c50" opacity="0.6"/>
           </svg>
           <div class="cc-title">Daily Guidance</div>
           <p class="cc-body">Your AI agent delivers protocol reminders, theoretical insights, and practice prompts — tuned to your chosen branch and progression within the framework.</p>
@@ -712,9 +682,9 @@
         </div>
         <div class="community-card reveal" style="transition-delay:.16s;">
           <svg class="cc-icon" viewBox="0 0 40 40" fill="none">
-            <line x1="20" y1="4" x2="20" y2="36" stroke="#5a84b8" stroke-width="0.6" opacity="0.4"/>
-            <line x1="4" y1="20" x2="36" y2="20" stroke="#5a84b8" stroke-width="0.6" opacity="0.4"/>
-            <circle cx="20" cy="20" r="8" stroke="#5a84b8" stroke-width="0.5" opacity="0.3"/>
+            <line x1="20" y1="4"  x2="20" y2="36" stroke="#5a84b8" stroke-width="0.6" opacity="0.4"/>
+            <line x1="4"  y1="20" x2="36" y2="20" stroke="#5a84b8" stroke-width="0.6" opacity="0.4"/>
+            <circle cx="20" cy="20" r="8"   stroke="#5a84b8" stroke-width="0.5" opacity="0.3"/>
             <circle cx="20" cy="20" r="2.5" fill="#5a84b8" opacity="0.5"/>
           </svg>
           <div class="cc-title">Retreat Priority</div>
@@ -734,64 +704,10 @@
     </div>
   </section>
 
-  <!-- ── FEATURED ── -->
-  <section class="featured-section container" id="library">
-    <div class="featured-header reveal">
-      <h2 class="featured-title">From the Library</h2>
-      <a href="#" class="featured-all">All content <span style="color:var(--amber);font-size:13px;font-family:serif;">→</span></a>
-    </div>
-
-    <div class="article-cards">
-      <div class="article-card reveal">
-        <div class="article-branch ab-cosmos"><div class="ab-dot"></div>Cosmos</div>
-        <div class="article-title">Time-Crystalline Biology: How the Human Body Operates as a Temporal Computational System</div>
-        <div class="article-excerpt">The discovery of time crystals in quantum physics opened a theoretical door that most biologists have yet to walk through. When we apply the mathematics of temporal ordering to biological systems — from circadian clocks to cellular membrane oscillations — a radical picture emerges...</div>
-        <div class="article-meta"><span>8 min read</span><span>Foundational</span></div>
-      </div>
-      <div class="article-card reveal" style="transition-delay:.08s;">
-        <div class="article-branch ab-regenesis"><div class="ab-dot"></div>Regenesis</div>
-        <div class="article-title">The Raw Organ Protocol: A Framework for Cellular Nutritional Density</div>
-        <div class="article-meta"><span>6 min read</span><span>Protocol</span></div>
-      </div>
-      <div class="article-card reveal" style="transition-delay:.16s;">
-        <div class="article-branch ab-ethos"><div class="ab-dot"></div>Ethos</div>
-        <div class="article-title">Operating with Intention: The Philosophy of the Biological Computer</div>
-        <div class="article-meta"><span>5 min read</span><span>Philosophy</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── FINAL CTA ── -->
-  <section class="final-cta">
-    <div class="container">
-      <div class="final-mark reveal">
-        <svg viewBox="0 0 56 56" fill="none">
-          <ellipse cx="28" cy="28" rx="24" ry="9" stroke="#c4b49a" stroke-width="0.5" opacity="0.35" transform="rotate(-35 28 28)"/>
-          <ellipse cx="28" cy="28" rx="24" ry="9" stroke="#c4b49a" stroke-width="0.5" opacity="0.2" transform="rotate(35 28 28)"/>
-          <circle cx="28" cy="28" r="11" stroke="#c4b49a" stroke-width="0.4" opacity="0.15"/>
-          <circle cx="28" cy="28" r="4" fill="#c4b49a" opacity="0.5"/>
-          <circle cx="28" cy="28" r="1.8" fill="#e8dfd0" opacity="0.9"/>
-          <circle cx="52" cy="28" r="2" fill="#a67c50" opacity="0.6"/>
-          <circle cx="4" cy="28" r="2" fill="#a67c50" opacity="0.6"/>
-          <circle cx="10" cy="45" r="1.5" fill="#72a862" opacity="0.5"/>
-          <circle cx="46" cy="11" r="1.5" fill="#5a84b8" opacity="0.5"/>
-        </svg>
-      </div>
-      <h2 class="final-title reveal" style="transition-delay:.08s;">Begin the<br><em>inquiry.</em></h2>
-      <p class="final-body reveal" style="transition-delay:.16s;">
-        The framework is waiting. Choose your entry point — the body, the model, or the philosophy. All three converge.
-      </p>
-      <div class="final-actions reveal" style="transition-delay:.24s;">
-        <a href="#branches" class="btn-primary">Enter the Framework</a>
-        <a href="#retreat" class="btn-ghost-m">Apply for Retreat <span>→</span></a>
-      </div>
-    </div>
-  </section>
-
   <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-brand-block">
-      <div class="nav-brand">
+      <div class="nav-brand-link" style="display:flex;align-items:center;gap:10px;margin-bottom:0;">
         <svg class="nav-mark" viewBox="0 0 30 30" fill="none">
           <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.4" transform="rotate(-35 15 15)"/>
           <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.25" transform="rotate(35 15 15)"/>
@@ -799,8 +715,8 @@
           <circle cx="15" cy="15" r="1" fill="#e8dfd0"/>
         </svg>
         <div>
-          <div class="nav-wordmark">Science Coherence</div>
-          <div class="nav-sub">Regenesis · Cosmos · Ethos</div>
+          <span class="nav-wordmark">Science Coherence</span>
+          <span class="nav-sub">Cosmos · Ethos · Regenesis</span>
         </div>
       </div>
       <p class="footer-brand-desc">A unified framework for biological optimization, theoretical biophysics, and the philosophy of conscious living.</p>
@@ -808,30 +724,37 @@
 
     <div class="footer-cols">
       <div>
-        <div class="footer-col-title">Regenesis</div>
-        <ul class="footer-links">
-          <li><a href="#">Protocols Library</a></li>
-          <li><a href="#">Raw Primal Nutrition</a></li>
-          <li><a href="#">Neuroplasticity</a></li>
-          <li><a href="#">Cellular Regeneration</a></li>
-          <li><a href="#">Longevity Systems</a></li>
-        </ul>
-      </div>
-      <div>
         <div class="footer-col-title">Cosmos</div>
         <ul class="footer-links">
           <li><a href="#">Time-Crystalline Biology</a></li>
           <li><a href="#">Cellular Coherence</a></li>
-          <li><a href="#">Biological Computer</a></li>
+          <li><a href="#">The Biological Computer</a></li>
           <li><a href="#">Cosmological Models</a></li>
-          <li><a href="#">Research</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Ethos</div>
+        <ul class="footer-links">
+          <li><a href="#">Self-Realization</a></li>
+          <li><a href="#">Actionable Philosophy</a></li>
+          <li><a href="#">Harmonious Environments</a></li>
+          <li><a href="#">Daily Practice</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Regenesis</div>
+        <ul class="footer-links">
+          <li><a href="#">Protocols Library</a></li>
+          <li><a href="#">Raw Primal Nutrition</a></li>
+          <li><a href="#">Cognitive Repair</a></li>
+          <li><a href="#">Cellular Regeneration</a></li>
+          <li><a href="#">Longevity Systems</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Platform</div>
         <ul class="footer-links">
           <li><a href="#">About</a></li>
-          <li><a href="#">Ethos</a></li>
           <li><a href="#">Retreats</a></li>
           <li><a href="#">Community</a></li>
           <li><a href="#">Contact</a></li>
@@ -841,7 +764,7 @@
 
     <div class="footer-bottom">
       <span class="footer-copy">© 2025 Science Coherence — All Rights Reserved</span>
-      <span class="footer-branches">Regenesis · Cosmos · Ethos</span>
+      <span class="footer-branches">Cosmos · Ethos · Regenesis</span>
     </div>
   </footer>
 
@@ -852,16 +775,16 @@
     });
 
     // Drawer
-    const hamburger = document.getElementById('hamburger');
-    const drawer    = document.getElementById('drawer');
-    const overlay   = document.getElementById('overlay');
+    const hamburger   = document.getElementById('hamburger');
+    const drawer      = document.getElementById('drawer');
+    const overlay     = document.getElementById('overlay');
     const drawerClose = document.getElementById('drawerClose');
-    const open  = () => { drawer.classList.add('open'); overlay.classList.add('open'); };
-    const close = () => { drawer.classList.remove('open'); overlay.classList.remove('open'); };
-    hamburger.addEventListener('click', open);
-    drawerClose.addEventListener('click', close);
-    overlay.addEventListener('click', close);
-    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+    const openDrawer  = () => { drawer.classList.add('open'); overlay.classList.add('open'); };
+    const closeDrawer = () => { drawer.classList.remove('open'); overlay.classList.remove('open'); };
+    hamburger.addEventListener('click', openDrawer);
+    drawerClose.addEventListener('click', closeDrawer);
+    overlay.addEventListener('click', closeDrawer);
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
 
     // Scroll reveal
     const obs = new IntersectionObserver(entries => {
