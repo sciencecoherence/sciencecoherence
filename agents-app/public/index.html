@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Science of Coherence — Agent Dashboard</title>
+    <title>Science of Coherence — Protocol Generator</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono&family=Inter:wght@100;300;600&display=swap"
         rel="stylesheet">
@@ -18,7 +18,29 @@
     <canvas id="bg-canvas"></canvas>
     <div class="scanline"></div>
 
-    <div class="dashboard">
+    <!-- ── PASSWORD GATE ─────────────────────────────── -->
+    <div class="auth-overlay" id="auth-overlay">
+        <div class="auth-box">
+            <div class="auth-brand">
+                <span class="brand-line"></span>
+                <span class="brand-text">SCIENCE OF COHERENCE</span>
+            </div>
+            <h2 class="auth-title">PROTOCOL GENERATOR</h2>
+            <p class="auth-subtitle">Enter access code to continue</p>
+            <div class="auth-form">
+                <input class="form-input auth-input" id="auth-password" type="password" placeholder="Access code"
+                    autocomplete="off">
+                <div class="auth-error" id="auth-error"></div>
+                <button class="btn-accent auth-btn" id="auth-submit" onclick="submitAuth()">
+                    <span class="material-symbols-rounded" style="font-size: 16px;">lock_open</span>
+                    AUTHENTICATE
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── DASHBOARD (hidden until auth) ─────────────── -->
+    <div class="dashboard" id="dashboard" style="display: none;">
 
         <!-- ── HEADER ────────────────────────────────── -->
         <header class="dash-header">
@@ -35,11 +57,11 @@
         <!-- ── TITLE BAR ─────────────────────────────── -->
         <div class="dash-title-bar">
             <div>
-                <h1 class="dash-title">Agent Dashboard</h1>
+                <h1 class="dash-title">Protocol Generator</h1>
                 <p class="dash-subtitle">6 agents · 3 frameworks · content generation engine</p>
             </div>
             <div class="output-counter" id="output-counter">
-                <span class="counter-label">GENERATED</span>
+                <span class="counter-label">SESSION</span>
                 <span class="counter-value" id="file-count">0</span>
             </div>
         </div>
@@ -61,7 +83,10 @@
                 <div class="modal-body" id="modal-body"></div>
                 <div class="modal-footer">
                     <button class="btn-ghost" onclick="closeModal()">CLOSE</button>
-                    <button class="btn-accent" id="modal-download" onclick="downloadOutput()">DOWNLOAD HTML</button>
+                    <button class="btn-accent" id="modal-download" onclick="downloadOutput()">
+                        <span class="material-symbols-rounded" style="font-size: 16px;">download</span>
+                        DOWNLOAD HTML
+                    </button>
                 </div>
             </div>
         </div>

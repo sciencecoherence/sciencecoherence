@@ -1,21 +1,88 @@
 // ============================================================
-// SCIENCE OF COHERENCE — AGENT DASHBOARD
-// app.js — Frontend logic
+// SCIENCE OF COHERENCE — PROTOCOL GENERATOR
+// app.js — Frontend logic (Vercel serverless version)
 // ============================================================
 
 const API = '';
 let agentsData = [];
 let currentAgentId = null;
+let lastGeneratedHtml = null;
 let lastGeneratedFilename = null;
+let sessionPassword = null;
+let sessionCount = 0;
 
 // ── INITIALIZATION ─────────────────────────────────────────
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     initParticleCanvas();
+
+    // Check if user already has a session
+    const saved = sessionStorage.getItem('sc-auth');
+    if (saved) {
+        sessionPassword = saved;
+        showDashboard();
+    }
+
+    // Allow Enter key on password input
+    const pwInput = document.getElementById('auth-password');
+    if (pwInput) {
+        pwInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') submitAuth();
+        });
+    }
+});
+
+// ── AUTHENTICATION ─────────────────────────────────────────
+
+async function submitAuth() {
+    const input = document.getElementById('auth-password');
+    const error = document.getElementById('auth-error');
+    const btn = document.getElementById('auth-submit');
+    const password = input.value.trim();
+
+    if (!password) {
+        input.style.borderColor = '#ff4444';
+        error.textContent = 'Enter access code';
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'VERIFYING...';
+    error.textContent = '';
+    input.style.borderColor = '';
+
+    try {
+        const res = await fetch(`${API}/api/auth`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+        });
+
+        const data = await res.json();
+
+        if (data.authenticated) {
+            sessionPassword = password;
+            sessionStorage.setItem('sc-auth', password);
+            showDashboard();
+        } else {
+            input.style.borderColor = '#ff4444';
+            error.textContent = 'Access denied';
+            btn.disabled = false;
+            btn.innerHTML = '<span class="material-symbols-rounded" style="font-size: 16px;">lock_open</span> AUTHENTICATE';
+        }
+    } catch (e) {
+        error.textContent = 'Connection error';
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-rounded" style="font-size: 16px;">lock_open</span> AUTHENTICATE';
+    }
+}
+
+async function showDashboard() {
+    document.getElementById('auth-overlay').style.display = 'none';
+    document.getElementById('dashboard').style.display = '';
     await checkStatus();
     await loadAgents();
-    await loadOutputCount();
-});
+}
 
 // ── API STATUS CHECK ───────────────────────────────────────
 
@@ -54,7 +121,7 @@ async function loadAgents() {
         <p style="color: var(--text-dim); font-family: var(--font-data); font-size: 12px; letter-spacing: 2px;">
           UNABLE TO CONNECT TO SERVER<br>
           <span style="color: var(--text-muted); margin-top: 8px; display: block;">
-            Run <strong>npm start</strong> in the agents-app directory
+            Check your connection and refresh the page
           </span>
         </p>
       </div>`;
@@ -92,10 +159,6 @@ function renderFrames() {
 }
 
 function renderAgentCard(agent) {
-    const status = agent.status || { status: 'idle' };
-    const statusLabel = status.status.toUpperCase();
-    const statusClass = status.status;
-
     return `
     <div class="agent-card" id="card-${agent.id}" style="--card-accent: ${agent.color};">
       <div class="agent-top">
@@ -109,16 +172,13 @@ function renderAgentCard(agent) {
       </div>
       <div class="agent-desc">${agent.description}</div>
       <div class="agent-status">
-        <span class="agent-status-dot ${statusClass}"></span>
-        <span class="agent-status-text" id="status-${agent.id}">${statusLabel}</span>
+        <span class="agent-status-dot idle"></span>
+        <span class="agent-status-text" id="status-${agent.id}">IDLE</span>
       </div>
       <div class="agent-actions">
         <button class="btn-generate ${agent.domain}" onclick="openGenerateModal('${agent.id}')">
           <span class="material-symbols-rounded">bolt</span> GENERATE
         </button>
-        ${status.lastOutput ? `
-          <button class="btn-view" onclick="viewOutput('${status.lastOutput}')">VIEW LAST</button>
-        ` : ''}
       </div>
       <div class="agent-loading" id="loading-${agent.id}">
         <div class="agent-loading-bar ${agent.domain}"></div>
@@ -135,7 +195,6 @@ function openGenerateModal(agentId) {
 
     document.getElementById('gen-modal-title').textContent = `GENERATE · ${agent.name}`;
 
-    // Populate content type dropdown
     const select = document.getElementById('gen-content-type');
     select.innerHTML = agent.contentTypes.map(ct =>
         `<option value="${ct.id}">${ct.label}</option>`
@@ -167,7 +226,6 @@ async function submitGeneration() {
         return;
     }
 
-    // Close modal and show loading
     closeGenerateModal();
     setAgentStatus(currentAgentId, 'running', 'GENERATING...');
     showLoading(currentAgentId, true);
@@ -179,7 +237,8 @@ async function submitGeneration() {
             body: JSON.stringify({
                 agentId: currentAgentId,
                 contentTypeId,
-                topic
+                topic,
+                password: sessionPassword
             })
         });
 
@@ -188,12 +247,18 @@ async function submitGeneration() {
         if (data.success) {
             setAgentStatus(currentAgentId, 'complete',
                 `COMPLETE · ${data.tokens.total} TOKENS`);
-            lastGeneratedFilename = data.filename;
             showLoading(currentAgentId, false);
-            loadOutputCount();
+
+            // Store for download
+            lastGeneratedHtml = data.fullHtml;
+            lastGeneratedFilename = `${data.agent}-${topic.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40)}.html`;
+
+            // Update session counter
+            sessionCount++;
+            document.getElementById('file-count').textContent = sessionCount;
 
             // Show preview
-            showPreview(data.agent, topic, data.content, data.filename);
+            showPreview(data.agent, topic, data.content);
         } else {
             setAgentStatus(currentAgentId, 'error', `ERROR: ${data.error}`);
             showLoading(currentAgentId, false);
@@ -222,22 +287,9 @@ function showLoading(agentId, show) {
     if (el) el.classList.toggle('active', show);
 }
 
-// ── OUTPUT COUNT ───────────────────────────────────────────
-
-async function loadOutputCount() {
-    try {
-        const res = await fetch(`${API}/api/output`);
-        const files = await res.json();
-        document.getElementById('file-count').textContent = files.length;
-    } catch (e) {
-        // silent
-    }
-}
-
 // ── PREVIEW MODAL ──────────────────────────────────────────
 
-function showPreview(agentName, topic, content, filename) {
-    lastGeneratedFilename = filename;
+function showPreview(agentName, topic, content) {
     document.getElementById('modal-title').textContent = `${agentName} · ${topic}`;
     document.getElementById('modal-body').innerHTML = content;
     document.getElementById('preview-modal').classList.add('active');
@@ -247,31 +299,19 @@ function closeModal() {
     document.getElementById('preview-modal').classList.remove('active');
 }
 
-async function viewOutput(filename) {
-    try {
-        const res = await fetch(`${API}/api/output/${filename}`);
-        const html = await res.text();
-
-        // Extract just the module-panel content
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const panel = doc.querySelector('.module-panel');
-
-        lastGeneratedFilename = filename;
-        document.getElementById('modal-title').textContent = filename;
-        document.getElementById('modal-body').innerHTML = panel
-            ? panel.innerHTML
-            : html;
-        document.getElementById('preview-modal').classList.add('active');
-    } catch (e) {
-        console.error('Failed to load output:', e);
-    }
-}
-
 function downloadOutput() {
-    if (lastGeneratedFilename) {
-        window.open(`${API}/api/output/${lastGeneratedFilename}`, '_blank');
-    }
+    if (!lastGeneratedHtml) return;
+
+    // Create a blob and trigger download
+    const blob = new Blob([lastGeneratedHtml], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = lastGeneratedFilename || 'protocol.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 }
 
 // ── PARTICLE CANVAS ────────────────────────────────────────
