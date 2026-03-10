@@ -472,6 +472,18 @@
       animation: fadeRise .9s var(--ease-out) 1.1s forwards
     }
 
+    .hero-framework-note {
+      margin-top: 14px;
+      max-width: 52ch;
+      color: var(--text-faint);
+      font-size: clamp(11px, 1.2vw, 13px);
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.9;
+      opacity: 0;
+      animation: fadeRise .9s var(--ease-out) 1.2s forwards
+    }
+
     .hero-chips {
       display: flex;
       flex-wrap: wrap;
@@ -1267,8 +1279,7 @@
         <p class="hero-desc">Active project streams in preview — navigate, review, and help us build from here.</p>
         <p class="hero-framework-note">Science Coherence is a living framework — currently in active development. The
           version available represents the first coherent layer of a much larger architecture: an early-stage
-          transmission, not a final document. What you are navigating is the signal before the noise has been fully
-          cleared.</p>
+          transmission.</p>
         <div class="hero-chips" aria-label="Status">
           <span class="chip">Four Active Streams</span>
           <span class="chip">In Development</span>
