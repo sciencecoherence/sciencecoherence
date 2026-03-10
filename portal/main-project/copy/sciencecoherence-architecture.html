@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science Coherence — Website Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Neue+Haas+Grotesk+Display+Pro:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --deep: #0e0e0e;
+    --surface: #141414;
+    --border: #1f1f1f;
+    --muted: #2a2a2a;
+    --text-dim: #555;
+    --text-mid: #888;
+    --text: #c8c8c8;
+    --text-bright: #e8e8e8;
+    --white: #f5f5f0;
+
+    --regenesis: #a8c5a0;
+    --regenesis-dim: #a8c5a020;
+    --cosmos: #8fb3d4;
+    --cosmos-dim: #8fb3d420;
+    --ethos: #c4a882;
+    --ethos-dim: #c4a88220;
+    --accent: #d4c4a0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--void);
+    color: var(--text);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .mono { font-family: 'Space Mono', monospace; }
+  .sans { font-family: 'Neue Haas Grotesk Display Pro', 'Helvetica Neue', sans-serif; }
+
+  /* HEADER */
+  header {
+    padding: 60px 80px 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .brand-name {
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .doc-title {
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+    font-style: italic;
+  }
+
+  .doc-meta {
+    text-align: right;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  /* LAYOUT */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 80px;
+  }
+
+  section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h2 {
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  p.lead {
+    font-size: 18px;
+    color: var(--text-mid);
+    max-width: 680px;
+    font-style: italic;
+    margin-bottom: 48px;
+  }
+
+  /* SITE MAP OVERVIEW */
+  .sitemap-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .sitemap-col {
+    background: var(--deep);
+    padding: 32px;
+  }
+
+  .sitemap-col-header {
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+
+  .col-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .col-title {
+    font-size: 22px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.2;
+  }
+
+  .col-sub {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--muted);
+    font-size: 14px;
+  }
+
+  .nav-item:last-child { border-bottom: none; }
+
+  .nav-item .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .nav-item .page-name {
+    color: var(--text-bright);
+    font-size: 14px;
+    flex: 1;
+  }
+
+  .nav-item .page-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    font-family: 'Space Mono', monospace;
+    display: block;
+    margin-top: 3px;
+  }
+
+  /* BRANCH DEEP DIVES */
+  .branch-card {
+    border: 1px solid var(--border);
+    margin-bottom: 2px;
+  }
+
+  .branch-header {
+    padding: 40px 48px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 40px;
+  }
+
+  .branch-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+  }
+
+  .branch-title {
+    font-size: 40px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .branch-subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .branch-essence {
+    font-size: 16px;
+    color: var(--text-mid);
+    max-width: 560px;
+    margin-top: 20px;
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  .branch-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 8px 16px;
+    border: 1px solid;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .branch-body {
+    padding: 0 48px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+
+  .branch-section h4 {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .branch-section ul {
+    list-style: none;
+  }
+
+  .branch-section ul li {
+    font-size: 14px;
+    color: var(--text);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--muted);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .branch-section ul li:last-child { border-bottom: none; }
+
+  .branch-section ul li::before {
+    content: '—';
+    font-size: 10px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  /* GLOBAL PAGES */
+  .global-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .global-card {
+    background: var(--deep);
+    padding: 32px;
+  }
+
+  .global-card h3 {
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .global-card .purpose {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .global-card p {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  .global-card ul {
+    list-style: none;
+    margin-top: 12px;
+  }
+
+  .global-card ul li {
+    font-size: 13px;
+    color: var(--text);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--muted);
+  }
+
+  /* FUNNEL FLOW */
+  .funnel {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+
+  .funnel-stage {
+    flex: 1;
+    padding: 32px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+
+  .funnel-stage:last-child { border-right: none; }
+
+  .funnel-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+  }
+
+  .funnel-stage h3 {
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .funnel-stage p {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  .funnel-stage .trigger {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-top: 16px;
+    text-transform: uppercase;
+  }
+
+  .arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    color: var(--text-dim);
+    font-size: 18px;
+  }
+
+  /* REGENESIS */
+  .c-regenesis { color: var(--regenesis); }
+  .bg-regenesis { background: var(--regenesis-dim); }
+  .border-regenesis { border-color: var(--regenesis); }
+
+  /* COSMOS */
+  .c-cosmos { color: var(--cosmos); }
+  .bg-cosmos { background: var(--cosmos-dim); }
+  .border-cosmos { border-color: var(--cosmos); }
+
+  /* ETHOS */
+  .c-ethos { color: var(--ethos); }
+  .bg-ethos { background: var(--ethos-dim); }
+  .border-ethos { border-color: var(--ethos); }
+
+  /* NOTES */
+  .note-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .note {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px;
+    border-left: 3px solid var(--accent);
+  }
+
+  .note h4 {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .note p {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 48px 80px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    display: flex;
+    justify-content: space-between;
+  }
+
+    /* ============================================================
+   A11Y: SKIP LINK & FOCUS
+   ============================================================ */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      background: var(--amber);
+      color: var(--void);
+      padding: 12px 24px;
+      z-index: 100000;
+      font-family: var(--font-label);
+      font-size: 12px;
+      font-weight: bold;
+      transition: top 0.2s ease-out;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+    :focus-visible {
+      outline: 3px solid var(--amber) !important;
+      outline-offset: 4px !important;
+    }
+
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+<header>
+  <div class="brand">
+    <div class="brand-name">sciencecoherence.com</div>
+    <div class="doc-title">Website Architecture</div>
+  </div>
+  <div class="doc-meta">
+    DOCUMENT TYPE: STRUCTURE & CONTENT ARCHITECTURE<br>
+    VERSION: 1.0 — FOUNDATION<br>
+    BRANCHES: REGENESIS · COSMOS · ETHOS<br>
+    PLATFORM: UNIFIED WEBSITE + RETREAT FUNNEL + WHATSAPP AI
+  </div>
+</header>
+
+<!-- SECTION 1: OVERVIEW -->
+<section>
+  <div class="container">
+    <div class="section-label">01 — Site Overview</div>
+    <h2>Unified Architecture</h2>
+    <p class="lead">Three branches, one coherent platform. Each branch serves as an entry point for a distinct audience archetype, converging toward a shared destination: the retreat and the living transmission.</p>
+
+    <div class="sitemap-grid">
+      <!-- GLOBAL NAV COL -->
+      <div class="sitemap-col">
+        <div class="sitemap-col-header">
+          <div class="col-tag" style="color: var(--accent)">Global</div>
+          <div class="col-title" style="color: var(--white)">Universal<br>Pages</div>
+          <div class="col-sub">Shared across all branches</div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--accent)"></div>
+          <div>
+            <div class="page-name">Home</div>
+            <span class="page-desc">Entry portal & branch selector</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--accent)"></div>
+          <div>
+            <div class="page-name">About / Manifesto</div>
+            <span class="page-desc">Vision, origin, framework</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--accent)"></div>
+          <div>
+            <div class="page-name">Retreats</div>
+            <span class="page-desc">Center, programs, application</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--accent)"></div>
+          <div>
+            <div class="page-name">Community</div>
+            <span class="page-desc">WhatsApp onboarding + hub</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--accent)"></div>
+          <div>
+            <div class="page-name">Contact / Apply</div>
+            <span class="page-desc">Retreat application & inquiry</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- REGENESIS -->
+      <div class="sitemap-col bg-regenesis">
+        <div class="sitemap-col-header" style="border-color: #a8c5a030">
+          <div class="col-tag c-regenesis">Branch I</div>
+          <div class="col-title c-regenesis">Regenesis</div>
+          <div class="col-sub">Biological Optimization</div>
+        </div>
+        <div class="nav-item">
+          <div class="dot c-regenesis" style="background: var(--regenesis)"></div>
+          <div>
+            <div class="page-name">Overview / Branch Home</div>
+            <span class="page-desc">Framework & philosophy</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--regenesis)"></div>
+          <div>
+            <div class="page-name">Protocols Library</div>
+            <span class="page-desc">Nutrition, supplementation, routines</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--regenesis)"></div>
+          <div>
+            <div class="page-name">Raw Primal Nutrition</div>
+            <span class="page-desc">Carnivore, organ meats, raw dairy</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--regenesis)"></div>
+          <div>
+            <div class="page-name">Neuroplasticity & Brain</div>
+            <span class="page-desc">Cognitive enhancement, repair</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--regenesis)"></div>
+          <div>
+            <div class="page-name">Skin & Cellular Regen</div>
+            <span class="page-desc">Natural compounds, essential oils</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--regenesis)"></div>
+          <div>
+            <div class="page-name">Longevity Systems</div>
+            <span class="page-desc">Systemic aging & coherence</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--regenesis)"></div>
+          <div>
+            <div class="page-name">Articles & Research</div>
+            <span class="page-desc">Deep dives & evidence base</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- COSMOS -->
+      <div class="sitemap-col bg-cosmos">
+        <div class="sitemap-col-header" style="border-color: #8fb3d430">
+          <div class="col-tag c-cosmos">Branch II</div>
+          <div class="col-title c-cosmos">Cosmos</div>
+          <div class="col-sub">Biophysics & Theoretical Systems</div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--cosmos)"></div>
+          <div>
+            <div class="page-name">Overview / Branch Home</div>
+            <span class="page-desc">The model & framework</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--cosmos)"></div>
+          <div>
+            <div class="page-name">Time-Crystalline Biology</div>
+            <span class="page-desc">Core theoretical framework</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--cosmos)"></div>
+          <div>
+            <div class="page-name">Cellular Coherence</div>
+            <span class="page-desc">Biological field theory</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--cosmos)"></div>
+          <div>
+            <div class="page-name">The Biological Computer</div>
+            <span class="page-desc">Human system as computation</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--cosmos)"></div>
+          <div>
+            <div class="page-name">Cosmological Models</div>
+            <span class="page-desc">CMB, black holes, speculative physics</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--cosmos)"></div>
+          <div>
+            <div class="page-name">Frequency & Reality</div>
+            <span class="page-desc">How physics shapes biology</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--cosmos)"></div>
+          <div>
+            <div class="page-name">Research & Papers</div>
+            <span class="page-desc">Technical writing & references</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ETHOS -->
+      <div class="sitemap-col bg-ethos">
+        <div class="sitemap-col-header" style="border-color: #c4a88230">
+          <div class="col-tag c-ethos">Branch III</div>
+          <div class="col-title c-ethos">Ethos</div>
+          <div class="col-sub">Science of Being</div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--ethos)"></div>
+          <div>
+            <div class="page-name">Overview / Branch Home</div>
+            <span class="page-desc">The living philosophy</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--ethos)"></div>
+          <div>
+            <div class="page-name">The Manual</div>
+            <span class="page-desc">Self-realization framework</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--ethos)"></div>
+          <div>
+            <div class="page-name">Consciousness & Awareness</div>
+            <span class="page-desc">Mechanics of self-realization</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--ethos)"></div>
+          <div>
+            <div class="page-name">Harmonious Living</div>
+            <span class="page-desc">Biophilic design, environments</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--ethos)"></div>
+          <div>
+            <div class="page-name">Practice & Integration</div>
+            <span class="page-desc">Daily frameworks & rituals</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--ethos)"></div>
+          <div>
+            <div class="page-name">Diet as Philosophy</div>
+            <span class="page-desc">Raw primal as coherence act</span>
+          </div>
+        </div>
+        <div class="nav-item">
+          <div class="dot" style="background: var(--ethos)"></div>
+          <div>
+            <div class="page-name">Essays & Reflections</div>
+            <span class="page-desc">Long-form philosophical writing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: BRANCH DEEP DIVES -->
+<section>
+  <div class="container">
+    <div class="section-label">02 — Branch Detail</div>
+    <h2>Page-Level Architecture</h2>
+    <p class="lead">Each branch operates as a self-contained knowledge system with its own content logic, audience entry point, and conversion pathway.</p>
+
+    <!-- REGENESIS -->
+    <div class="branch-card" style="border-color: #a8c5a030; margin-bottom: 24px;">
+      <div class="branch-header bg-regenesis">
+        <div>
+          <div class="branch-number">BRANCH I</div>
+          <div class="branch-title c-regenesis">Regenesis</div>
+          <div class="branch-subtitle c-regenesis" style="opacity:0.6">Biological Optimization & Holistic Regeneration</div>
+          <div class="branch-essence">The body as biological computer. Protocols, nutrition, and cellular practices that restore physical coherence from the inside out.</div>
+        </div>
+        <div class="branch-tag c-regenesis border-regenesis">Entry: Health Optimizer</div>
+      </div>
+      <div class="branch-body">
+        <div class="branch-section">
+          <h4>Core Pages</h4>
+          <ul>
+            <li>Branch Overview & Philosophy</li>
+            <li>Protocols Library (indexed)</li>
+            <li>Raw Primal Nutrition Hub</li>
+            <li>Neuroplasticity & Brain Repair</li>
+            <li>Skin & Cellular Regeneration</li>
+            <li>Longevity Systems</li>
+          </ul>
+        </div>
+        <div class="branch-section">
+          <h4>Content Types</h4>
+          <ul>
+            <li>Step-by-step protocols</li>
+            <li>Ingredient & compound guides</li>
+            <li>Scientific evidence summaries</li>
+            <li>Video demonstrations</li>
+            <li>Case studies / testimonials</li>
+            <li>FAQ per topic</li>
+          </ul>
+        </div>
+        <div class="branch-section">
+          <h4>Conversion Pathway</h4>
+          <ul>
+            <li>Free protocol download → email</li>
+            <li>WhatsApp AI for weekly guidance</li>
+            <li>Retreat: Regenesis Immersion</li>
+            <li>Community: protocol support</li>
+            <li>Premium: personalized protocol</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- COSMOS -->
+    <div class="branch-card" style="border-color: #8fb3d430; margin-bottom: 24px;">
+      <div class="branch-header bg-cosmos">
+        <div>
+          <div class="branch-number">BRANCH II</div>
+          <div class="branch-title c-cosmos">Cosmos</div>
+          <div class="branch-subtitle c-cosmos" style="opacity:0.6">Biophysics & Theoretical Systems</div>
+          <div class="branch-essence">The theoretical engine. Mapping the mechanics of reality — from cosmological principles to the cellular computation that makes a human body conscious.</div>
+        </div>
+        <div class="branch-tag c-cosmos border-cosmos">Entry: Intellectual / Researcher</div>
+      </div>
+      <div class="branch-body">
+        <div class="branch-section">
+          <h4>Core Pages</h4>
+          <ul>
+            <li>Branch Overview & Model</li>
+            <li>Time-Crystalline Biology</li>
+            <li>Cellular Coherence Theory</li>
+            <li>The Biological Computer</li>
+            <li>Cosmological Models</li>
+            <li>Frequency & Reality</li>
+          </ul>
+        </div>
+        <div class="branch-section">
+          <h4>Content Types</h4>
+          <ul>
+            <li>Long-form theoretical essays</li>
+            <li>Illustrated model diagrams</li>
+            <li>Annotated reference papers</li>
+            <li>Concept explainers (accessible)</li>
+            <li>Interdisciplinary syntheses</li>
+            <li>Video lectures / talks</li>
+          </ul>
+        </div>
+        <div class="branch-section">
+          <h4>Conversion Pathway</h4>
+          <ul>
+            <li>Deep article → email list</li>
+            <li>WhatsApp: theory Q&A channel</li>
+            <li>Retreat: Cosmos Seminar track</li>
+            <li>Community: researcher network</li>
+            <li>Premium: full model access</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETHOS -->
+    <div class="branch-card" style="border-color: #c4a88230;">
+      <div class="branch-header bg-ethos">
+        <div>
+          <div class="branch-number">BRANCH III</div>
+          <div class="branch-title c-ethos">Ethos</div>
+          <div class="branch-subtitle c-ethos" style="opacity:0.6">The Science of Being & Harmonious Living</div>
+          <div class="branch-essence">The synthesis layer. Where biology meets philosophy and both become a way of living — the manual for self-realization in practice.</div>
+        </div>
+        <div class="branch-tag c-ethos border-ethos">Entry: Seeker / Philosopher</div>
+      </div>
+      <div class="branch-body">
+        <div class="branch-section">
+          <h4>Core Pages</h4>
+          <ul>
+            <li>Branch Overview</li>
+            <li>The Manual (serialized)</li>
+            <li>Consciousness & Awareness</li>
+            <li>Harmonious Living</li>
+            <li>Practice & Integration</li>
+            <li>Diet as Philosophy</li>
+          </ul>
+        </div>
+        <div class="branch-section">
+          <h4>Content Types</h4>
+          <ul>
+            <li>Philosophical essays</li>
+            <li>Guided frameworks & prompts</li>
+            <li>Environmental design guides</li>
+            <li>Audio / spoken word</li>
+            <li>Reflective journals / letters</li>
+            <li>Retreat preparation guides</li>
+          </ul>
+        </div>
+        <div class="branch-section">
+          <h4>Conversion Pathway</h4>
+          <ul>
+            <li>Essay → philosophy newsletter</li>
+            <li>WhatsApp: daily guidance</li>
+            <li>Retreat: Full immersion apply</li>
+            <li>Community: practice circles</li>
+            <li>Premium: The Manual (full)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: GLOBAL PAGES -->
+<section>
+  <div class="container">
+    <div class="section-label">03 — Global Pages</div>
+    <h2>Shared Infrastructure</h2>
+    <p class="lead">Five pages that operate across all three branches, forming the connective tissue of the platform.</p>
+
+    <div class="global-grid">
+      <div class="global-card">
+        <div class="purpose">Entry Point</div>
+        <h3>Home</h3>
+        <p>The portal. Introduces Science Coherence as a unified field, presents the three branches visually, and routes each visitor toward their natural entry point. Contains a strong above-the-fold statement of purpose and a secondary CTA toward retreats or community.</p>
+        <ul>
+          <li>Hero: Core philosophy statement</li>
+          <li>Branch selector (visual, felt)</li>
+          <li>Featured content from each branch</li>
+          <li>Retreat teaser + community CTA</li>
+        </ul>
+      </div>
+
+      <div class="global-card">
+        <div class="purpose">Foundation</div>
+        <h3>About / Manifesto</h3>
+        <p>The intellectual and personal origin story. Who is behind this work, why it exists, and what the unified model asserts. This page builds trust with all three audience types simultaneously — personal for the seeker, rigorous for the researcher, credible for the optimizer.</p>
+        <ul>
+          <li>Founder story & credentials</li>
+          <li>The Science Coherence model</li>
+          <li>What makes this different</li>
+          <li>The invitation to participate</li>
+        </ul>
+      </div>
+
+      <div class="global-card">
+        <div class="purpose">Core Offering</div>
+        <h3>Retreats</h3>
+        <p>The physical destination. Describes the retreat center concept, the programs offered (aligned to each branch), the experience, and how to apply. This is the highest-value conversion point on the platform.</p>
+        <ul>
+          <li>Retreat center vision & location</li>
+          <li>Program tracks (per branch)</li>
+          <li>What to expect & prepare</li>
+          <li>Application / waitlist form</li>
+        </ul>
+      </div>
+
+      <div class="global-card">
+        <div class="purpose">Platform Hub</div>
+        <h3>Community</h3>
+        <p>The living network. Onboards visitors into the WhatsApp AI agent channel and the broader community. Frames the community as an ongoing transmission — not a passive forum but an active, guided space.</p>
+        <ul>
+          <li>WhatsApp AI: what it does, how to join</li>
+          <li>Community values & culture</li>
+          <li>Events & live sessions</li>
+          <li>Member spotlights</li>
+        </ul>
+      </div>
+
+      <div class="global-card">
+        <div class="purpose">Access Point</div>
+        <h3>Contact / Apply</h3>
+        <p>Clean, intentional. Separates retreat applications from general inquiries. Includes press/collaboration contact. No noise — only purposeful channels.</p>
+        <ul>
+          <li>Retreat application form</li>
+          <li>General inquiry</li>
+          <li>Press & collaboration</li>
+          <li>Social links</li>
+        </ul>
+      </div>
+
+      <div class="global-card">
+        <div class="purpose">Optional — Phase 2</div>
+        <h3>Library / Index</h3>
+        <p>A unified search and discovery layer across all three branches. Allows visitors to explore content by topic, keyword, or branch. Becomes more valuable as the content library scales.</p>
+        <ul>
+          <li>Cross-branch search</li>
+          <li>Topic clusters & tags</li>
+          <li>Reading pathways</li>
+          <li>Recommended starting points</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: FUNNEL FLOW -->
+<section>
+  <div class="container">
+    <div class="section-label">04 — Conversion Architecture</div>
+    <h2>The Funnel</h2>
+    <p class="lead">From discovery to retreat — a five-stage flow that converts a curious visitor into an engaged community member and, ultimately, a retreat participant.</p>
+
+    <div class="funnel">
+      <div class="funnel-stage">
+        <div class="funnel-num">STAGE 01</div>
+        <h3>Discovery</h3>
+        <p>Visitor arrives via search, social, or referral. Lands on branch content or home page. The content is the hook — no forced opt-ins at this stage.</p>
+        <div class="trigger">↓ Depth of content</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-num">STAGE 02</div>
+        <h3>Capture</h3>
+        <p>Visitor engages with a protocol download, manifesto PDF, or gated essay. Exchanges email for access. Enters email sequence aligned to their branch.</p>
+        <div class="trigger">↓ Email + value</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-num">STAGE 03</div>
+        <h3>Activation</h3>
+        <p>Visitor joins the WhatsApp AI channel. Begins receiving automated guidance, weekly insights, and protocols tailored to their entry branch.</p>
+        <div class="trigger">↓ WhatsApp onboard</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-num">STAGE 04</div>
+        <h3>Community</h3>
+        <p>Member participates in community events, live sessions, and discussions. Cross-branch exposure begins — Regenesis members discover Cosmos, Ethos draws all together.</p>
+        <div class="trigger">↓ Trust + belonging</div>
+      </div>
+      <div class="funnel-stage">
+        <div class="funnel-num">STAGE 05</div>
+        <h3>Retreat</h3>
+        <p>Member applies for the retreat. The physical immersion is positioned as the culmination — not an upsell, but the full embodiment of the Science Coherence framework in person.</p>
+        <div class="trigger">↓ Application</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: STRATEGIC NOTES -->
+<section>
+  <div class="container">
+    <div class="section-label">05 — Strategic Notes</div>
+    <h2>Design Principles</h2>
+    <p class="lead">Architectural decisions that will shape both the site and the platform as it grows.</p>
+
+    <div class="note-grid">
+      <div class="note">
+        <h4>Single URL, Three Worlds</h4>
+        <p>All three branches live on sciencecoherence.com with clear visual differentiation per branch — color, typography weight, tone — while sharing a unified design language. No subdomains. One platform, one identity, three doorways.</p>
+      </div>
+      <div class="note">
+        <h4>Content as Currency</h4>
+        <p>The depth and originality of the content IS the marketing. Every article, protocol, and essay builds authority and trust before any commercial conversation begins. Launch with a minimum of 3 strong pieces per branch before going public.</p>
+      </div>
+      <div class="note">
+        <h4>WhatsApp as Living Transmission</h4>
+        <p>The AI agent is not a chatbot — it is framed as a continuous, intelligent guidance system. This positioning elevates it from utility to philosophy: coherence delivered daily, directly into people's lives.</p>
+      </div>
+      <div class="note">
+        <h4>Retreat as Apex, Not Product</h4>
+        <p>The retreat should never feel like something being sold. It is the physical destination that the entire platform points toward — the place where the three branches converge in embodied experience. Treat it as an invitation, not an offering.</p>
+      </div>
+      <div class="note">
+        <h4>Phase 1 vs Phase 2</h4>
+        <p>Phase 1: Home, About, 3 Branch Homes, Retreats page (waitlist), Community page (WhatsApp onboard). Phase 2: Full protocol libraries, The Manual, Research archive, Library/Index, Events calendar. Build the container first, fill it with precision.</p>
+      </div>
+      <div class="note">
+        <h4>Cross-Branch Coherence</h4>
+        <p>Every page, regardless of branch, should reference the others naturally. A protocol in Regenesis links to its theoretical basis in Cosmos. A Cosmos essay links to its practical application in Ethos. The site itself models the philosophy it teaches: everything is connected.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>SCIENCECOHERENCE.COM — ARCHITECTURE v1.0</span>
+  <span>REGENESIS · COSMOS · ETHOS</span>
+</footer>
+
+</body>
+</html>

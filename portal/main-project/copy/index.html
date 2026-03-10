@@ -25,10 +25,10 @@
       --border: #282828;
       --muted: #333;
 
-      --text-ghost: #1e1e1e;
-      --text-faint: #3a3a3a;
-      --text-dim: #585858;
-      --text-mid: #808080;
+      --text-ghost: #767676; /* a11y contrast fix */
+      --text-faint: #767676; /* a11y contrast fix */
+      --text-dim: #8e8e8e; /* a11y contrast fix */
+      --text-mid: #999999; /* a11y contrast fix */
       --text-body: #afa89e;
       --text-bright: #cec8be;
       --text-head: #eae4da;
@@ -262,7 +262,7 @@
       font-family: var(--font-label);
       font-size: 7px;
       letter-spacing: 0.35em;
-      color: var(--text-faint);
+      color: var(--text-mid); /* a11y contrast fix */
     }
 
     /* Portal link — dissolve shift animation */
@@ -519,7 +519,7 @@
     }
 
     .hero-headline span.ghost {
-      color: var(--text-faint);
+      color: var(--text-mid); /* a11y contrast fix */
       font-style: italic;
       font-weight: 400;
     }
@@ -626,7 +626,7 @@
       font-family: var(--font-label);
       font-size: 8px;
       letter-spacing: .35em;
-      color: var(--text-faint);
+      color: var(--text-mid); /* a11y contrast fix */
       writing-mode: vertical-rl;
       transform: rotate(180deg);
     }
@@ -841,7 +841,7 @@
       font-family: var(--font-label);
       font-size: 9px;
       letter-spacing: 0.4em;
-      color: var(--text-faint);
+      color: var(--text-mid); /* a11y contrast fix */
       margin-bottom: 32px;
     }
 
@@ -871,7 +871,7 @@
       font-family: var(--font-label);
       font-size: 8px;
       letter-spacing: 0.3em;
-      color: var(--text-faint);
+      color: var(--text-mid); /* a11y contrast fix */
       margin-bottom: 28px;
     }
 
@@ -1062,7 +1062,7 @@
       font-family: var(--font-label);
       font-size: 9px;
       letter-spacing: 0.35em;
-      color: var(--text-faint);
+      color: var(--text-mid); /* a11y contrast fix */
       margin-bottom: 14px;
     }
 
@@ -1227,7 +1227,7 @@
       font-family: var(--font-label);
       font-size: 8px;
       letter-spacing: 0.3em;
-      color: var(--text-faint);
+      color: var(--text-mid); /* a11y contrast fix */
     }
 
     /* ============================================================
@@ -1372,7 +1372,7 @@
       font-family: var(--font-label);
       font-size: 8px;
       letter-spacing: 0.3em;
-      color: var(--text-faint);
+      color: var(--text-mid); /* a11y contrast fix */
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -1535,7 +1535,7 @@
     .footer-links li a {
       font-size: 13px;
       font-weight: 300;
-      color: var(--text-faint);
+      color: var(--text-mid); /* a11y contrast fix */
       transition: color 0.3s;
       font-style: italic;
     }
@@ -1556,33 +1556,59 @@
       font-family: var(--font-label);
       font-size: 8px;
       letter-spacing: 0.3em;
-      color: var(--text-faint);
+      color: var(--text-mid); /* a11y contrast fix */
     }
 
     .footer-branches {
       font-family: var(--font-label);
       font-size: 8px;
       letter-spacing: 0.35em;
-      color: var(--text-faint);
+      color: var(--text-mid); /* a11y contrast fix */
     }
+  
+    /* ============================================================
+   A11Y: SKIP LINK & FOCUS
+   ============================================================ */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      background: var(--amber);
+      color: var(--void);
+      padding: 12px 24px;
+      z-index: 100000;
+      font-family: var(--font-label);
+      font-size: 12px;
+      font-weight: bold;
+      transition: top 0.2s ease-out;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+    :focus-visible {
+      outline: 3px solid var(--amber) !important;
+      outline-offset: 4px !important;
+    }
+
   </style>
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- GRAIN -->
-  <div class="grain"></div>
+  <div class="grain" aria-hidden="true"></div>
 
   <!-- CURSOR -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor" aria-hidden="true" id="cursor"></div>
+  <div class="cursor-ring" aria-hidden="true" id="cursorRing"></div>
 
   <!-- ============================================================
      NAVIGATION
      ============================================================ -->
   <nav id="nav">
-    <a href="/portal/index.html" class="nav-brand-link">
-      <svg class="nav-mark" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <a href="/portal/index.html" class="nav-brand-link" aria-label="Home / Portal">
+      <svg class="nav-mark" aria-hidden="true" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
         <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.4"
           transform="rotate(-35 15 15)" />
         <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.25"
@@ -1612,13 +1638,13 @@
   <!-- ============================================================
      HERO
      ============================================================ -->
-  <section class="hero">
-    <div class="hero-glow-1"></div>
-    <div class="hero-glow-2"></div>
-    <div class="hero-glow-3"></div>
+  <section id="main-content" class="hero">
+    <div class="hero-glow-1" aria-hidden="true"></div>
+    <div class="hero-glow-2" aria-hidden="true"></div>
+    <div class="hero-glow-3" aria-hidden="true"></div>
 
     <!-- Background cosmic diagram -->
-    <div class="hero-diagram">
+    <div class="hero-diagram" aria-hidden="true">
       <svg viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="350" cy="350" r="320" stroke="#c4b49a" stroke-width="0.4" opacity="0.06" />
         <circle cx="350" cy="350" r="250" stroke="#c4b49a" stroke-width="0.4" opacity="0.08" />
@@ -1668,7 +1694,7 @@
         <a href="#branches" class="btn-primary">Enter the Framework</a>
         <a href="retreat.html" target="_blank" class="btn-ghost">
           Apply for Retreat
-          <span class="btn-ghost-arrow">→</span>
+          <span class="btn-ghost-arrow" aria-hidden="true">→</span>
         </a>
       </div>
     </div>
@@ -1683,7 +1709,7 @@
   <!-- ============================================================
      MANIFESTO STRIP
      ============================================================ -->
-  <div class="section-divider"></div>
+  <div class="section-divider" aria-hidden="true"></div>
   <div class="manifesto-strip" id="manifesto">
     <div class="manifesto-inner">
       <p class="manifesto-quote reveal">
@@ -1694,7 +1720,7 @@
       </div>
     </div>
   </div>
-  <div class="section-divider"></div>
+  <div class="section-divider" aria-hidden="true"></div>
 
   <!-- ============================================================
      BRANCHES
@@ -2018,7 +2044,7 @@
     <div class="footer-top">
       <div>
         <div class="nav-brand" style="margin-bottom:0">
-          <svg class="nav-mark" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg class="nav-mark" aria-hidden="true" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.4"
               transform="rotate(-35 15 15)" />
             <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.25"

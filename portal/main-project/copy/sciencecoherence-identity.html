@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science Coherence — Visual Identity System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   IDENTITY TOKENS
+   ============================================================ */
+:root {
+  /* Core Palette */
+  --void:         #060606;
+  --obsidian:     #0b0b0b;
+  --deep:         #111111;
+  --surface:      #171717;
+  --raised:       #1e1e1e;
+  --border-dim:   #222222;
+  --border:       #2d2d2d;
+  --muted:        #383838;
+
+  /* Text Scale */
+  --text-ghost:   #2a2a2a;
+  --text-faint:   #444;
+  --text-dim:     #666;
+  --text-mid:     #888;
+  --text-body:    #b0a898;   /* warm parchment undertone */
+  --text-bright:  #d4cdc4;
+  --text-head:    #ede8e0;
+
+  /* Organic Warmth — Emerging from Dark */
+  --bone:         #e8dfd0;
+  --parchment:    #c8b99a;
+  --amber:        #a8865a;
+  --ember:        #7a4f2a;
+  --moss:         #5a7a52;
+  --moss-light:   #8aaa80;
+  --lichen:       #9aaa88;
+
+  /* Branch Colors */
+  --regenesis:       #7aaa6a;   /* living green */
+  --regenesis-glow:  #7aaa6a18;
+  --regenesis-mid:   #4a7a42;
+
+  --cosmos:          #6a90c8;   /* deep cerulean */
+  --cosmos-glow:     #6a90c818;
+  --cosmos-mid:      #3a5a88;
+
+  --ethos:           #c8a060;   /* amber gold */
+  --ethos-glow:      #c8a06018;
+  --ethos-mid:       #886030;
+
+  /* Typography */
+  --font-display: 'Playfair Display', 'Georgia', serif;
+  --font-body:    'Jost', 'Helvetica Neue', sans-serif;
+  --font-label:   'Cinzel', 'Trajan Pro', serif;
+
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 32px;
+  --space-lg: 64px;
+  --space-xl: 120px;
+
+  /* Motion */
+  --ease-organic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-emerge:  cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--void);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Grain overlay — the skin of the site */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.container { max-width: 1320px; margin: 0 auto; padding: 0 64px; }
+.label-text {
+  font-family: var(--font-label);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+}
+
+/* ============================================================
+   DOCUMENT HEADER
+   ============================================================ */
+.doc-header {
+  padding: 80px 64px 64px;
+  position: relative;
+  overflow: hidden;
+}
+
+.doc-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border) 30%, var(--border) 70%, transparent);
+}
+
+.doc-eyebrow {
+  font-family: var(--font-label);
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: var(--amber);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.doc-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--amber);
+}
+
+.doc-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 88px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-head);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.doc-title span {
+  color: var(--parchment);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.doc-sub {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  max-width: 480px;
+  margin-top: 12px;
+}
+
+/* ============================================================
+   SECTION STRUCTURE
+   ============================================================ */
+.identity-section {
+  padding: var(--space-xl) 0;
+  border-bottom: 1px solid var(--border-dim);
+}
+
+.section-header {
+  margin-bottom: 64px;
+}
+
+.section-number {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: var(--text-mid); /* a11y contrast fix */
+  margin-bottom: 12px;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-head);
+  margin-bottom: 10px;
+}
+
+.section-desc {
+  font-size: 15px;
+  color: var(--text-dim);
+  font-weight: 300;
+  max-width: 520px;
+  font-style: italic;
+}
+
+/* ============================================================
+   01 — LOGO CONCEPT
+   ============================================================ */
+.logo-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--border-dim);
+}
+
+.logo-field {
+  padding: 80px 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  min-height: 320px;
+}
+
+.logo-field.dark { background: var(--obsidian); }
+.logo-field.light { background: var(--bone); }
+
+/* The Logo Mark — geometric cell / orbital form */
+.logo-mark {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.logo-mark svg { width: 100%; height: 100%; }
+
+.logo-wordmark {
+  text-align: center;
+}
+
+.logo-wordmark .primary {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  display: block;
+}
+
+.logo-wordmark .divider-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  margin: 10px auto;
+}
+
+.logo-wordmark .secondary {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  display: block;
+}
+
+.logo-field.dark .logo-wordmark .primary { color: var(--text-head); }
+.logo-field.dark .logo-wordmark .secondary { color: var(--text-dim); }
+.logo-field.dark .logo-wordmark .divider-dot { background: var(--amber); }
+.logo-field.light .logo-wordmark .primary { color: #111; }
+.logo-field.light .logo-wordmark .secondary { color: #666; }
+.logo-field.light .logo-wordmark .divider-dot { background: var(--ember); }
+
+.logo-variant-label {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.logo-field.light .logo-variant-label { color: #aaa; }
+
+/* ============================================================
+   02 — COLOR SYSTEM
+   ============================================================ */
+.palette-primary {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  margin-bottom: 2px;
+  background: var(--border-dim);
+}
+
+.swatch {
+  padding: 40px 24px 24px;
+  position: relative;
+}
+
+.swatch-name {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.swatch-hex {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.5;
+}
+
+.swatch-role {
+  font-size: 11px;
+  font-weight: 300;
+  opacity: 0.6;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.palette-branches {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  background: var(--border-dim);
+  margin-bottom: 2px;
+}
+
+.branch-swatch {
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+.branch-swatch-inner {
+  height: 48px;
+  border-radius: 2px;
+}
+
+.branch-swatch-info {
+  grid-column: 1 / -1;
+  margin-top: 16px;
+}
+
+.branch-swatch-info .name {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.branch-swatch-info .desc {
+  font-size: 12px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-dim);
+}
+
+/* ============================================================
+   03 — TYPOGRAPHY
+   ============================================================ */
+.type-specimen {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--border-dim);
+}
+
+.type-row {
+  background: var(--obsidian);
+  padding: 48px 64px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 48px;
+  align-start: start;
+}
+
+.type-meta {
+  padding-top: 8px;
+}
+
+.type-meta .font-name {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: var(--amber);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.type-meta .font-role {
+  font-size: 13px;
+  color: var(--text-dim);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.type-meta .font-weights {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--text-mid); /* a11y contrast fix */
+  margin-top: 12px;
+}
+
+.specimen-display {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-head);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.specimen-label {
+  font-family: var(--font-label);
+  font-size: clamp(16px, 2vw, 22px);
+  letter-spacing: 0.35em;
+  color: var(--parchment);
+  line-height: 1.4;
+}
+
+.specimen-body {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text-body);
+  line-height: 1.8;
+  max-width: 600px;
+}
+
+.specimen-body em {
+  color: var(--text-bright);
+  font-style: italic;
+}
+
+/* ============================================================
+   04 — BRANCH IDENTITY
+   ============================================================ */
+.branch-identity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  background: var(--border-dim);
+}
+
+.branch-identity-card {
+  background: var(--obsidian);
+  padding: 0;
+  overflow: hidden;
+}
+
+.branch-id-top {
+  padding: 48px 40px 40px;
+  position: relative;
+}
+
+.branch-id-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.branch-id-number {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  color: var(--text-mid); /* a11y contrast fix */
+  margin-bottom: 20px;
+}
+
+.branch-id-name {
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.branch-id-tagline {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 20px;
+}
+
+.branch-id-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-mid);
+  font-style: italic;
+  line-height: 1.7;
+}
+
+.branch-id-body {
+  padding: 32px 40px 40px;
+  border-top: 1px solid var(--border-dim);
+}
+
+.branch-id-body .attr {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-dim);
+  font-size: 13px;
+}
+
+.branch-id-body .attr:last-child { border-bottom: none; }
+
+.branch-id-body .attr-key {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--text-mid); /* a11y contrast fix */
+}
+
+.branch-id-body .attr-val {
+  color: var(--text-body);
+  font-weight: 300;
+  text-align: right;
+  font-style: italic;
+}
+
+/* ============================================================
+   05 — MOTION & TEXTURE PRINCIPLES
+   ============================================================ */
+.motion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--border-dim);
+  margin-bottom: 48px;
+}
+
+.motion-card {
+  background: var(--obsidian);
+  padding: 48px;
+}
+
+.motion-card h4 {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  color: var(--amber);
+  margin-bottom: 16px;
+}
+
+.motion-card p {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-mid);
+  font-style: italic;
+  line-height: 1.8;
+}
+
+.motion-card .principle {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--text-bright);
+  margin-bottom: 12px;
+}
+
+/* ============================================================
+   06 — LIVE HOMEPAGE PREVIEW
+   ============================================================ */
+.preview-frame {
+  background: var(--void);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* NAV */
+.preview-nav {
+  padding: 24px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-dim);
+  position: relative;
+}
+
+.preview-nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 64px; right: 64px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border) 40%, var(--border) 60%, transparent);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-logo-mark {
+  width: 28px;
+  height: 28px;
+}
+
+.nav-logo-text .wordmark {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-head);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  display: block;
+}
+
+.nav-logo-text .tagline {
+  font-family: var(--font-label);
+  font-size: 7px;
+  letter-spacing: 0.35em;
+  color: var(--text-dim);
+  display: block;
+  margin-top: 3px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: var(--text-dim);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.nav-links .nav-cta a {
+  color: var(--amber);
+  border: 1px solid var(--amber);
+  padding: 8px 20px;
+}
+
+/* HERO */
+.preview-hero {
+  min-height: 680px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 100px 64px;
+}
+
+/* Ambient glow — organic warmth emerging from dark */
+.preview-hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 60%;
+  height: 80%;
+  background: radial-gradient(ellipse at 30% 40%, #a8865a12 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.preview-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  right: 5%;
+  width: 40%;
+  height: 60%;
+  background: radial-gradient(ellipse at 60% 60%, #5a7a5208 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* Subtle orbital diagram — background cosmological form */
+.hero-bg-form {
+  position: absolute;
+  right: -5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 55%;
+  opacity: 0.04;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  color: var(--amber);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  animation: fadeUp 1s var(--ease-emerge) 0.2s both;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--amber);
+}
+
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 5.5vw, 80px);
+  font-weight: 400;
+  color: var(--text-head);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin-bottom: 32px;
+  animation: fadeUp 1.2s var(--ease-emerge) 0.35s both;
+}
+
+.hero-headline em {
+  font-style: italic;
+  color: var(--parchment);
+}
+
+.hero-body {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--text-mid);
+  max-width: 520px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+  font-style: italic;
+  animation: fadeUp 1.2s var(--ease-emerge) 0.5s both;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  animation: fadeUp 1.2s var(--ease-emerge) 0.65s both;
+}
+
+.btn-primary {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--void);
+  background: var(--parchment);
+  padding: 16px 36px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s var(--ease-organic);
+}
+
+.btn-secondary {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: transparent;
+  padding: 16px 0;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-secondary::after {
+  content: '→';
+  color: var(--amber);
+  font-size: 14px;
+  font-style: normal;
+  font-family: serif;
+}
+
+/* BRANCH SELECTOR */
+.preview-branches {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-top: 1px solid var(--border-dim);
+}
+
+.branch-tile {
+  padding: 56px 48px;
+  border-right: 1px solid var(--border-dim);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.5s var(--ease-organic);
+  overflow: hidden;
+}
+
+.branch-tile:last-child { border-right: none; }
+
+.branch-tile::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  opacity: 0.7;
+}
+
+.branch-tile.b-regenesis::before { background: var(--regenesis); }
+.branch-tile.b-cosmos::before   { background: var(--cosmos); }
+.branch-tile.b-ethos::before    { background: var(--ethos); }
+
+.tile-roman {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  color: var(--text-mid); /* a11y contrast fix */
+  margin-bottom: 16px;
+  display: block;
+}
+
+.tile-name {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 400;
+  font-style: italic;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.b-regenesis .tile-name { color: var(--regenesis); }
+.b-cosmos   .tile-name  { color: var(--cosmos); }
+.b-ethos    .tile-name  { color: var(--ethos); }
+
+.tile-subtitle {
+  font-family: var(--font-label);
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  color: var(--text-mid); /* a11y contrast fix */
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.tile-desc {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-dim);
+  font-style: italic;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.tile-enter {
+  font-family: var(--font-label);
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.b-regenesis .tile-enter { color: var(--regenesis); }
+.b-cosmos   .tile-enter  { color: var(--cosmos); }
+.b-ethos    .tile-enter  { color: var(--ethos); }
+
+.tile-enter::after {
+  content: '——→';
+  letter-spacing: 0.05em;
+}
+
+/* STATEMENT BAR */
+.preview-statement {
+  padding: 64px;
+  border-top: 1px solid var(--border-dim);
+  position: relative;
+  text-align: center;
+}
+
+.preview-statement::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(var(--border), transparent);
+}
+
+.statement-text {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.8vw, 36px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-bright);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.statement-text em {
+  color: var(--parchment);
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slowRotate {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to   { transform: translateY(-50%) rotate(360deg); }
+}
+
+/* ============================================================
+   DESIGN NOTES SECTION
+   ============================================================ */
+.notes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  background: var(--border-dim);
+}
+
+.design-note {
+  background: var(--obsidian);
+  padding: 40px;
+}
+
+.design-note h4 {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: var(--parchment);
+  margin-bottom: 14px;
+}
+
+.design-note p {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-mid);
+  font-style: italic;
+  line-height: 1.8;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.doc-footer {
+  padding: 48px 64px;
+  border-top: 1px solid var(--border-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.doc-footer span {
+  font-family: var(--font-label);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: var(--text-mid); /* a11y contrast fix */
+}
+
+    /* ============================================================
+   A11Y: SKIP LINK & FOCUS
+   ============================================================ */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      background: var(--amber);
+      color: var(--void);
+      padding: 12px 24px;
+      z-index: 100000;
+      font-family: var(--font-label);
+      font-size: 12px;
+      font-weight: bold;
+      transition: top 0.2s ease-out;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+    :focus-visible {
+      outline: 3px solid var(--amber) !important;
+      outline-offset: 4px !important;
+    }
+
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- DOCUMENT HEADER -->
+<div class="doc-header">
+  <div class="doc-eyebrow">sciencecoherence.com — Visual Identity System</div>
+  <div class="doc-title">The <span>Identity</span></div>
+  <div class="doc-sub">Dark foundation. Organic warmth emerging from within. Awe as the primary emotional register.</div>
+</div>
+
+<!-- ============================================================
+     01 — LOGO
+     ============================================================ -->
+<section class="identity-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <div class="section-title">Logo System</div>
+      <div class="section-desc">The mark: a cellular orbital — a living system in coherent rotation. Both cosmological and biological. Atom and cell simultaneously.</div>
+    </div>
+
+    <div class="logo-showcase">
+      <!-- Dark Version -->
+      <div class="logo-field dark">
+        <div class="logo-mark">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer orbit -->
+            <ellipse cx="32" cy="32" rx="28" ry="12" stroke="#c8b99a" stroke-width="0.6" opacity="0.3" transform="rotate(-30 32 32)"/>
+            <ellipse cx="32" cy="32" rx="28" ry="12" stroke="#c8b99a" stroke-width="0.6" opacity="0.2" transform="rotate(30 32 32)"/>
+            <!-- Inner orbit -->
+            <circle cx="32" cy="32" r="14" stroke="#c8b99a" stroke-width="0.5" opacity="0.15"/>
+            <!-- Nucleus -->
+            <circle cx="32" cy="32" r="4" fill="#c8b99a" opacity="0.8"/>
+            <circle cx="32" cy="32" r="2" fill="#e8dfd0" opacity="0.95"/>
+            <!-- Orbital nodes -->
+            <circle cx="60" cy="32" r="2" fill="#a8865a" opacity="0.7"/>
+            <circle cx="4" cy="32" r="2" fill="#a8865a" opacity="0.7"/>
+            <circle cx="14" cy="52" r="1.5" fill="#7aaa6a" opacity="0.6"/>
+            <circle cx="50" cy="12" r="1.5" fill="#6a90c8" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="logo-wordmark">
+          <span class="primary">Science Coherence</span>
+          <div class="divider-dot" aria-hidden="true"></div>
+          <span class="secondary">Regenesis · Cosmos · Ethos</span>
+        </div>
+        <div class="logo-variant-label">Primary — Dark</div>
+      </div>
+
+      <!-- Light Version -->
+      <div class="logo-field light">
+        <div class="logo-mark">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="32" cy="32" rx="28" ry="12" stroke="#5a3a1a" stroke-width="0.6" opacity="0.2" transform="rotate(-30 32 32)"/>
+            <ellipse cx="32" cy="32" rx="28" ry="12" stroke="#5a3a1a" stroke-width="0.6" opacity="0.15" transform="rotate(30 32 32)"/>
+            <circle cx="32" cy="32" r="14" stroke="#5a3a1a" stroke-width="0.5" opacity="0.1"/>
+            <circle cx="32" cy="32" r="4" fill="#5a3a1a" opacity="0.7"/>
+            <circle cx="32" cy="32" r="2" fill="#2a1a0a" opacity="0.9"/>
+            <circle cx="60" cy="32" r="2" fill="#7a4f2a" opacity="0.6"/>
+            <circle cx="4" cy="32" r="2" fill="#7a4f2a" opacity="0.6"/>
+            <circle cx="14" cy="52" r="1.5" fill="#4a7a42" opacity="0.5"/>
+            <circle cx="50" cy="12" r="1.5" fill="#3a5a88" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="logo-wordmark">
+          <span class="primary">Science Coherence</span>
+          <div class="divider-dot" aria-hidden="true"></div>
+          <span class="secondary">Regenesis · Cosmos · Ethos</span>
+        </div>
+        <div class="logo-variant-label" style="color:#aaa">Inverse — Light</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     02 — COLOR SYSTEM
+     ============================================================ -->
+<section class="identity-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <div class="section-title">Color System</div>
+      <div class="section-desc">Five foundation tones. Organic warmth layered above an obsidian base. Branch colors function as bioluminescent signals — visible but not loud.</div>
+    </div>
+
+    <!-- Foundation palette -->
+    <div class="palette-primary">
+      <div class="swatch" style="background:#060606; color:#444">
+        <div class="swatch-name" style="color:#333">Void</div>
+        <div class="swatch-hex" style="color:#2a2a2a">#060606</div>
+        <div class="swatch-role" style="color:#2a2a2a">Page ground</div>
+      </div>
+      <div class="swatch" style="background:#0b0b0b; color:#555">
+        <div class="swatch-name" style="color:#333">Obsidian</div>
+        <div class="swatch-hex" style="color:#2a2a2a">#0b0b0b</div>
+        <div class="swatch-role" style="color:#2a2a2a">Card surface</div>
+      </div>
+      <div class="swatch" style="background:#c8b99a; color:#3a2a1a">
+        <div class="swatch-name">Parchment</div>
+        <div class="swatch-hex">#c8b99a</div>
+        <div class="swatch-role">Body text, warmth</div>
+      </div>
+      <div class="swatch" style="background:#a8865a; color:#fff">
+        <div class="swatch-name">Amber</div>
+        <div class="swatch-hex">#a8865a</div>
+        <div class="swatch-role">Accent, labels, CTAs</div>
+      </div>
+      <div class="swatch" style="background:#e8dfd0; color:#2a1a0a">
+        <div class="swatch-name">Bone</div>
+        <div class="swatch-hex">#e8dfd0</div>
+        <div class="swatch-role">Headlines, emphasis</div>
+      </div>
+    </div>
+
+    <!-- Branch palette -->
+    <div class="palette-branches">
+      <div class="branch-swatch" style="background:#111">
+        <div class="branch-swatch-inner" style="background:#7aaa6a22"></div>
+        <div class="branch-swatch-inner" style="background:#7aaa6a66"></div>
+        <div class="branch-swatch-inner" style="background:#7aaa6a"></div>
+        <div class="branch-swatch-info">
+          <div class="name c-regenesis" style="color:#7aaa6a">Regenesis</div>
+          <div class="desc">Living green. Cellular vitality. The body regenerating.</div>
+        </div>
+      </div>
+      <div class="branch-swatch" style="background:#111">
+        <div class="branch-swatch-inner" style="background:#6a90c822"></div>
+        <div class="branch-swatch-inner" style="background:#6a90c866"></div>
+        <div class="branch-swatch-inner" style="background:#6a90c8"></div>
+        <div class="branch-swatch-info">
+          <div class="name" style="color:#6a90c8">Cosmos</div>
+          <div class="desc">Deep cerulean. Infinite depth. The observer and the observed.</div>
+        </div>
+      </div>
+      <div class="branch-swatch" style="background:#111">
+        <div class="branch-swatch-inner" style="background:#c8a06022"></div>
+        <div class="branch-swatch-inner" style="background:#c8a06066"></div>
+        <div class="branch-swatch-inner" style="background:#c8a060"></div>
+        <div class="branch-swatch-info">
+          <div class="name" style="color:#c8a060">Ethos</div>
+          <div class="desc">Amber gold. Ancient light. Wisdom made actionable.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     03 — TYPOGRAPHY
+     ============================================================ -->
+<section class="identity-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <div class="section-title">Typography</div>
+      <div class="section-desc">Three voices. The serif carries gravitas and intelligence. The label brings ritual and precision. The sans delivers clarity without coldness.</div>
+    </div>
+
+    <div class="type-specimen">
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="font-name">Playfair Display</span>
+          <div class="font-role">Display & Headlines.<br>The primary voice — literary, authoritative, with the weight of a printed manuscript.</div>
+          <div class="font-weights">400 · 400i · 500 · 700</div>
+        </div>
+        <div>
+          <div class="specimen-display">The body is<br><em>a biological</em><br>computer.</div>
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="font-name">Cinzel</span>
+          <div class="font-role">Labels, Navigation & Ritual Text.<br>Draws from Roman inscriptions. Feels carved, permanent, sacred.</div>
+          <div class="font-weights">400 · 500</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:24px; padding-top:8px;">
+          <div class="specimen-label">Science Coherence</div>
+          <div class="specimen-label" style="font-size:14px; letter-spacing:0.5em; color: var(--amber)">Regenesis · Cosmos · Ethos</div>
+          <div class="specimen-label" style="font-size:9px; letter-spacing:0.45em; color:var(--text-dim)">Biological Optimization & Holistic Regeneration</div>
+        </div>
+      </div>
+
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="font-name">Jost</span>
+          <div class="font-role">Body Copy & Interface.<br>Geometric but warm. Weight 200–300 for body; 400–500 for UI elements.</div>
+          <div class="font-weights">200 · 300 · 400 · 500</div>
+        </div>
+        <div>
+          <div class="specimen-body">
+            The human organism is not a machine to be optimized — it is a <em>coherent biological system</em> to be understood. Every protocol, every practice, every framework within Science Coherence begins with this premise and returns to it.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     04 — BRANCH IDENTITY
+     ============================================================ -->
+<section class="identity-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <div class="section-title">Branch Identity</div>
+      <div class="section-desc">Each branch has a distinct visual signature within the unified system — color, tone, and vocabulary differentiated while sharing the same structural DNA.</div>
+    </div>
+
+    <div class="branch-identity-grid">
+      <!-- REGENESIS -->
+      <div class="branch-identity-card">
+        <div class="branch-id-top" style="background: #7aaa6a06">
+          <div class="branch-id-accent" style="background: var(--regenesis)"></div>
+          <div class="branch-id-number">Branch I</div>
+          <div class="branch-id-name" style="color: var(--regenesis)">Regenesis</div>
+          <div class="branch-id-tagline">Biological Optimization</div>
+          <div class="branch-id-desc">The physical vehicle. Actionable protocols that restore and amplify the body's innate coherence.</div>
+        </div>
+        <div class="branch-id-body">
+          <div class="attr">
+            <span class="attr-key">Primary Color</span>
+            <span class="attr-val" style="color:var(--regenesis)">Living Green #7aaa6a</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Tone</span>
+            <span class="attr-val">Grounded, precise, vital</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Audience Signal</span>
+            <span class="attr-val">Biohacker, optimizer</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Imagery</span>
+            <span class="attr-val">Cellular, botanical, raw</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Writing Voice</span>
+            <span class="attr-val">Clinical, actionable, direct</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- COSMOS -->
+      <div class="branch-identity-card">
+        <div class="branch-id-top" style="background: #6a90c806">
+          <div class="branch-id-accent" style="background: var(--cosmos)"></div>
+          <div class="branch-id-number">Branch II</div>
+          <div class="branch-id-name" style="color: var(--cosmos)">Cosmos</div>
+          <div class="branch-id-tagline">Biophysics & Theoretical Systems</div>
+          <div class="branch-id-desc">The theoretical engine. Mapping the mechanics of reality from the cosmic scale to the cellular.</div>
+        </div>
+        <div class="branch-id-body">
+          <div class="attr">
+            <span class="attr-key">Primary Color</span>
+            <span class="attr-val" style="color:var(--cosmos)">Deep Cerulean #6a90c8</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Tone</span>
+            <span class="attr-val">Expansive, rigorous, sublime</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Audience Signal</span>
+            <span class="attr-val">Intellectual, researcher</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Imagery</span>
+            <span class="attr-val">Orbital, cosmic, diagrammatic</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Writing Voice</span>
+            <span class="attr-val">Theoretical, bridging, awe-inducing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ETHOS -->
+      <div class="branch-identity-card">
+        <div class="branch-id-top" style="background: #c8a06006">
+          <div class="branch-id-accent" style="background: var(--ethos)"></div>
+          <div class="branch-id-number">Branch III</div>
+          <div class="branch-id-name" style="color: var(--ethos)">Ethos</div>
+          <div class="branch-id-tagline">The Science of Being</div>
+          <div class="branch-id-desc">The synthesis. Where biology and physics become philosophy, and philosophy becomes a way of living.</div>
+        </div>
+        <div class="branch-id-body">
+          <div class="attr">
+            <span class="attr-key">Primary Color</span>
+            <span class="attr-val" style="color:var(--ethos)">Amber Gold #c8a060</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Tone</span>
+            <span class="attr-val">Contemplative, warm, integrative</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Audience Signal</span>
+            <span class="attr-val">Seeker, philosopher</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Imagery</span>
+            <span class="attr-val">Architectural, light, sacred</span>
+          </div>
+          <div class="attr">
+            <span class="attr-key">Writing Voice</span>
+            <span class="attr-val">Philosophical, intimate, universal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     05 — MOTION & TEXTURE PRINCIPLES
+     ============================================================ -->
+<section class="identity-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <div class="section-title">Motion & Texture</div>
+      <div class="section-desc">The site breathes slowly. Motion is deliberate — emergence, not performance.</div>
+    </div>
+
+    <div class="motion-grid">
+      <div class="motion-card">
+        <h4>Grain Overlay</h4>
+        <div class="principle">The skin of the site</div>
+        <p>A subtle noise texture at 2–4% opacity sits above everything. It prevents the dark backgrounds from feeling digital or synthetic — the grain gives the void organic depth, like parchment or a dark mineral stone.</p>
+      </div>
+      <div class="motion-card">
+        <h4>Ambient Glow</h4>
+        <div class="principle">Warmth emerging from dark</div>
+        <p>Large, diffuse radial gradients in amber and moss at 5–8% opacity create the sensation of warmth radiating from within the page. Never applied as surface decoration — always as atmospheric depth.</p>
+      </div>
+      <div class="motion-card">
+        <h4>Entry Animations</h4>
+        <div class="principle">Slow emergence</div>
+        <p>Elements enter with a slow fade-up on a cubic-bezier(0.16, 1, 0.3, 1) curve — quick acceleration, long deceleration. Staggered delays of 150–200ms between elements. The sensation is of something becoming visible, not something moving.</p>
+      </div>
+      <div class="motion-card">
+        <h4>Hover States</h4>
+        <div class="principle">Alive, not reactive</div>
+        <p>Hover interactions use long transition durations (400–600ms) and avoid abrupt state changes. Branch tiles glow softly inward when hovered. Navigation links shift color temperature rather than weight. Transitions feel like breath, not clicks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     06 — LIVE HOMEPAGE PREVIEW
+     ============================================================ -->
+<section class="identity-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <div class="section-title">Homepage Preview</div>
+      <div class="section-desc">The identity system applied. This is a live render of the homepage in its Phase 1 form — navigation, hero, branch selector, and statement bar.</div>
+    </div>
+
+    <div class="preview-frame">
+
+      <!-- NAV -->
+      <nav class="preview-nav">
+        <div class="nav-logo">
+          <div class="nav-logo-mark">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="14" cy="14" rx="12" ry="5" stroke="#c8b99a" stroke-width="0.5" opacity="0.35" transform="rotate(-30 14 14)"/>
+              <ellipse cx="14" cy="14" rx="12" ry="5" stroke="#c8b99a" stroke-width="0.5" opacity="0.2" transform="rotate(30 14 14)"/>
+              <circle cx="14" cy="14" r="2" fill="#c8b99a" opacity="0.85"/>
+              <circle cx="14" cy="14" r="1" fill="#e8dfd0"/>
+              <circle cx="26" cy="14" r="1" fill="#a8865a" opacity="0.7"/>
+              <circle cx="2" cy="14" r="1" fill="#a8865a" opacity="0.7"/>
+            </svg>
+          </div>
+          <div class="nav-logo-text">
+            <span class="wordmark">Science Coherence</span>
+            <span class="tagline">Regenesis · Cosmos · Ethos</span>
+          </div>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Regenesis</a></li>
+          <li><a href="#">Cosmos</a></li>
+          <li><a href="#">Ethos</a></li>
+          <li><a href="#">Community</a></li>
+          <li class="nav-cta"><a href="#">Apply for Retreat</a></li>
+        </ul>
+      </nav>
+
+      <!-- HERO -->
+      <div class="preview-hero">
+        <!-- Background orbital form -->
+        <div class="hero-bg-form">
+          <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="300" cy="300" r="280" stroke="#c8b99a" stroke-width="0.5"/>
+            <circle cx="300" cy="300" r="200" stroke="#c8b99a" stroke-width="0.5"/>
+            <circle cx="300" cy="300" r="120" stroke="#c8b99a" stroke-width="0.5"/>
+            <circle cx="300" cy="300" r="40" stroke="#c8b99a" stroke-width="0.5"/>
+            <ellipse cx="300" cy="300" rx="280" ry="100" stroke="#a8865a" stroke-width="0.4" transform="rotate(-45 300 300)"/>
+            <ellipse cx="300" cy="300" rx="280" ry="100" stroke="#6a90c8" stroke-width="0.3" transform="rotate(30 300 300)"/>
+            <ellipse cx="300" cy="300" rx="280" ry="100" stroke="#7aaa6a" stroke-width="0.3" transform="rotate(90 300 300)"/>
+            <line x1="20" y1="300" x2="580" y2="300" stroke="#c8b99a" stroke-width="0.3" opacity="0.5"/>
+            <line x1="300" y1="20" x2="300" y2="580" stroke="#c8b99a" stroke-width="0.3" opacity="0.5"/>
+          </svg>
+        </div>
+
+        <div class="hero-content">
+          <div class="hero-eyebrow">The Science of Coherence</div>
+          <h1 class="hero-headline">
+            You are a<br>
+            <em>biological computer.</em><br>
+            Learn to operate it.
+          </h1>
+          <p class="hero-body">
+            Three disciplines. One unified framework. Science Coherence bridges biophysics, biological optimization, and the philosophy of being into a rigorous, actionable model for human flourishing.
+          </p>
+          <div class="hero-ctas">
+            <button class="btn-primary">Enter the Framework</button>
+            <button class="btn-secondary">Apply for Retreat</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BRANCH SELECTOR -->
+      <div class="preview-branches">
+        <div class="branch-tile b-regenesis">
+          <span class="tile-roman">I</span>
+          <div class="tile-name">Regenesis</div>
+          <div class="tile-subtitle">Biological Optimization & Holistic Regeneration</div>
+          <div class="tile-desc">Protocols, nutrition, and cellular practices that restore the body's physical coherence. The vehicle, optimized.</div>
+          <div class="tile-enter">Enter Branch</div>
+        </div>
+        <div class="branch-tile b-cosmos">
+          <span class="tile-roman">II</span>
+          <div class="tile-name">Cosmos</div>
+          <div class="tile-subtitle">Biophysics & Theoretical Systems</div>
+          <div class="tile-desc">The theoretical engine. Mapping how cosmological principles and physics govern biological reality.</div>
+          <div class="tile-enter">Enter Branch</div>
+        </div>
+        <div class="branch-tile b-ethos">
+          <span class="tile-roman">III</span>
+          <div class="tile-name">Ethos</div>
+          <div class="tile-subtitle">The Science of Being & Harmonious Living</div>
+          <div class="tile-desc">The synthesis. Where biology meets philosophy and both become a way of living with intention.</div>
+          <div class="tile-enter">Enter Branch</div>
+        </div>
+      </div>
+
+      <!-- STATEMENT -->
+      <div class="preview-statement">
+        <div class="statement-text">
+          "The universe and the human body are not separate systems — they are <em>one coherent process,</em> operating at different scales of the same intelligence."
+        </div>
+      </div>
+
+    </div><!-- end preview-frame -->
+  </div>
+</section>
+
+<!-- ============================================================
+     DESIGN PRINCIPLES NOTES
+     ============================================================ -->
+<section class="identity-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <div class="section-title">Design Principles</div>
+      <div class="section-desc">The rules that govern every visual decision made within this system.</div>
+    </div>
+
+    <div class="notes-grid">
+      <div class="design-note">
+        <h4>Awe Through Restraint</h4>
+        <p>The feeling of encountering something larger than oneself does not come from visual complexity — it comes from scale, silence, and negative space deployed with absolute intention. The void is not empty; it is full of possibility.</p>
+      </div>
+      <div class="design-note">
+        <h4>Warmth Emerges, Never Decorates</h4>
+        <p>Amber, parchment, and bone never sit on top of the dark. They appear to radiate from within it — as if the content itself is bioluminescent. Applied as gradients, glows, and text; never as fills or blocks.</p>
+      </div>
+      <div class="design-note">
+        <h4>Typography as Architecture</h4>
+        <p>Playfair Display in italic carries the intellectual weight of a printed manuscript. Cinzel brings the permanence of stone inscription. Every typographic choice reinforces that this work has been built to last.</p>
+      </div>
+      <div class="design-note">
+        <h4>Three Colors, One System</h4>
+        <p>The branch colors — green, cerulean, gold — never compete. They signal distinct territories within the same unified field. No branch dominates the others visually; the hierarchy is structural, not chromatic.</p>
+      </div>
+      <div class="design-note">
+        <h4>The Orbital as Recurring Motif</h4>
+        <p>The logo mark — cell or atom or solar system — appears throughout the site in varying scales and opacities. It is the visual metaphor for coherence: discrete elements in organized, living relationship.</p>
+      </div>
+      <div class="design-note">
+        <h4>Grain Grounds Everything</h4>
+        <p>The noise texture layer is non-negotiable. It prevents the interface from feeling clinical or digital. The grain is the site's skin — organic, tactile, present. Without it, the warmth becomes decorative rather than felt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  <span>SCIENCECOHERENCE.COM — VISUAL IDENTITY v1.0</span>
+  <span>Regenesis · Cosmos · Ethos</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science of Coherence — Agent Dashboard</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Mono&family=Inter:wght@100;300;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL@24,400,0"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+    <div class="scanline"></div>
+
+    <div class="dashboard">
+
+        <!-- ── HEADER ────────────────────────────────── -->
+        <header class="dash-header">
+            <div class="dash-brand">
+                <span class="brand-line"></span>
+                <span class="brand-text">SCIENCE OF COHERENCE</span>
+            </div>
+            <div class="dash-header-right">
+                <span class="status-dot"></span>
+                <span class="status-text" id="api-status">CHECKING...</span>
+            </div>
+        </header>
+
+        <!-- ── TITLE BAR ─────────────────────────────── -->
+        <div class="dash-title-bar">
+            <div>
+                <h1 class="dash-title">Agent Dashboard</h1>
+                <p class="dash-subtitle">6 agents · 3 frameworks · content generation engine</p>
+            </div>
+            <div class="output-counter" id="output-counter">
+                <span class="counter-label">GENERATED</span>
+                <span class="counter-value" id="file-count">0</span>
+            </div>
+        </div>
+
+        <!-- ── FRAMES ────────────────────────────────── -->
+        <div class="frames-container" id="frames-container">
+            <!-- Populated by app.js -->
+        </div>
+
+        <!-- ── PREVIEW MODAL ─────────────────────────── -->
+        <div class="modal-overlay" id="preview-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="modal-title">Preview</span>
+                    <button class="modal-close" onclick="closeModal()">
+                        <span class="material-symbols-rounded">close</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body"></div>
+                <div class="modal-footer">
+                    <button class="btn-ghost" onclick="closeModal()">CLOSE</button>
+                    <button class="btn-accent" id="modal-download" onclick="downloadOutput()">DOWNLOAD HTML</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── GENERATE MODAL ────────────────────────── -->
+        <div class="modal-overlay" id="generate-modal">
+            <div class="modal-content modal-sm">
+                <div class="modal-header">
+                    <span class="modal-title" id="gen-modal-title">Generate Content</span>
+                    <button class="modal-close" onclick="closeGenerateModal()">
+                        <span class="material-symbols-rounded">close</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="form-label">CONTENT TYPE</label>
+                        <select class="form-select" id="gen-content-type"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">TOPIC</label>
+                        <input class="form-input" id="gen-topic" type="text"
+                            placeholder="e.g., Dopamine receptor repair through targeted nutrition">
+                    </div>
+                    <div class="form-hint">The agent will generate 800-1200 words of HTML content matching the portal
+                        style.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-ghost" onclick="closeGenerateModal()">CANCEL</button>
+                    <button class="btn-accent" id="gen-submit" onclick="submitGeneration()">
+                        <span class="material-symbols-rounded" style="font-size: 16px;">bolt</span>
+                        GENERATE
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

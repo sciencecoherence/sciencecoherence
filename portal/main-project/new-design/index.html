@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <script src="/router.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Science Coherence — Cosmos · Ethos · Regenesis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Jost:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+
+  /* ============================================================
+   UI DESIGNER SYSTEM TOKENS & NEW LAYOUT
+   ============================================================ */
+    :root {
+      /* Colors */
+      --void: #030305;
+      --obsidian: #08080a;
+      --deep: #0f1014;
+      --surface: #15161a;
+      --surface-glass: rgba(21, 22, 26, 0.65);
+      
+      --border-dim: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-bright: rgba(255, 255, 255, 0.15);
+
+      /* Typography - A11y Compliant */
+      --text-ghost: #60646c;
+      --text-faint: #828690;
+      --text-dim: #9aa0a6;
+      --text-mid: #b4b8bf;
+      --text-body: #d1d5db;
+      --text-bright: #e5e7eb;
+      --text-head: #ffffff;
+
+      /* Brand Accents */
+      --bone: #f8f6f0;
+      --parchment: #dfd3ba;
+      --amber: #c5a072;
+      --amber-light: #e6cdab;
+      
+      --regenesis: #8bca7a;
+      --cosmos: #7aaddc;
+      --ethos: #d9b66c;
+
+      /* Fonts */
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-label: 'Cinzel', serif;
+      --font-body: 'Jost', 'Helvetica Neue', sans-serif;
+
+      /* Scales */
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-pill: 9999px;
+      
+      --shadow-base: 0 4px 24px rgba(0,0,0,0.4);
+      --shadow-hover: 0 12px 48px rgba(0,0,0,0.6);
+      
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--void); color: var(--text-body);
+      font-family: var(--font-body); font-weight: 300; line-height: 1.7;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden; cursor: none;
+    }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: none; font-family: var(--font-body); }
+    img { display: block; max-width: 100%; }
+
+    /* Accessibility */
+    .skip-link {
+      position: absolute; top: -100px; left: 0; background: var(--amber); color: var(--void);
+      padding: 12px 24px; z-index: 100000; font-family: var(--font-label); font-weight: bold;
+      transition: top 0.2s var(--ease-out);
+    }
+    .skip-link:focus { top: 0; }
+    :focus-visible { outline: 3px solid var(--amber) !important; outline-offset: 4px !important; }
+
+    /* Custom Cursor */
+    .cursor { position: fixed; width: 6px; height: 6px; background: var(--amber); border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out); mix-blend-mode: difference; }
+    .cursor-ring { position: fixed; width: 44px; height: 44px; border: 1px solid rgba(197, 160, 114, 0.4); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.4s var(--ease-out), height 0.4s var(--ease-out), border-color 0.4s; }
+    .cursor.hover { width: 8px; height: 8px; }
+    .cursor-ring.hover { width: 64px; height: 64px; border-color: rgba(197, 160, 114, 0.8); background: rgba(197, 160, 114, 0.05); backdrop-filter: blur(2px); }
+
+    .grain { position: fixed; inset: -50%; width: 200%; height: 200%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity: 0.025; pointer-events: none; z-index: 9998; animation: grainShift 0.5s steps(2) infinite; }
+    @keyframes grainShift { 0% { transform: translate(0, 0); } 25% { transform: translate(-2%, -1%); } 50% { transform: translate(1%, 2%); } 75% { transform: translate(-1%, 1%); } 100% { transform: translate(2%, -2%); } }
+
+    .container { max-width: 1440px; margin: 0 auto; padding: 0 5vw; }
+    
+    .label { font-family: var(--font-label); font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-dim); }
+    .label-amber { color: var(--amber-light); }
+
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 1.2s var(--ease-out), transform 1.2s var(--ease-out); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Navigation */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 32px 5vw; display: flex; align-items: center; justify-content: space-between; transition: padding 0.5s var(--ease-out), background 0.5s, border-color 0.5s; }
+    nav.scrolled { padding: 16px 5vw; background: rgba(3, 3, 5, 0.85); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border-dim); box-shadow: 0 4px 32px rgba(0,0,0,0.5); }
+    .nav-brand-link { display: flex; gap: 16px; align-items: center; position: relative; }
+    .nav-mark { width: 32px; height: 32px; transition: filter 0.4s var(--ease-out); }
+    .nav-brand-link:hover .nav-mark { filter: drop-shadow(0 0 8px rgba(197, 160, 114, 0.6)); }
+    .nav-text { display: flex; flex-direction: column; overflow: hidden; position: relative; }
+    .nav-wordmark { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-head); line-height: 1; transition: transform 0.4s var(--ease-out), opacity 0.4s; }
+    .nav-sub { font-family: var(--font-label); font-size: 0.5rem; letter-spacing: 0.3em; color: var(--text-faint); transition: transform 0.4s var(--ease-out), opacity 0.4s; }
+    .nav-portal-label { position: absolute; top: 50%; transform: translateY(calc(-50% + 10px)); font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.35em; color: var(--amber-light); opacity: 0; transition: all 0.4s var(--ease-out); }
+    .nav-brand-link:hover .nav-wordmark, .nav-brand-link:hover .nav-sub { transform: translateY(-10px); opacity: 0; }
+    .nav-brand-link:hover .nav-portal-label { transform: translateY(-50%); opacity: 1; }
+
+    .nav-links { display: flex; gap: 48px; list-style: none; align-items: center; }
+    .nav-links li a { font-family: var(--font-label); font-size: 0.65rem; letter-spacing: 0.25em; color: var(--text-dim); position: relative; transition: color 0.3s; }
+    .nav-links li a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--amber); transition: width 0.4s var(--ease-out); }
+    .nav-links li a:hover { color: var(--text-head); }
+    .nav-links li a:hover::after { width: 100%; }
+    .nav-links li.branch-r a:hover { color: var(--regenesis); }
+    .nav-links li.branch-r a:hover::after { background: var(--regenesis); }
+    .nav-links li.branch-c a:hover { color: var(--cosmos); }
+    .nav-links li.branch-c a:hover::after { background: var(--cosmos); }
+    .nav-links li.branch-e a:hover { color: var(--ethos); }
+    .nav-links li.branch-e a:hover::after { background: var(--ethos); }
+    
+    .nav-cta { border: 1px solid var(--border-bright); padding: 12px 24px; border-radius: var(--radius-pill); color: var(--amber-light); transition: all 0.4s var(--ease-out); }
+    .nav-cta:hover { background: rgba(197, 160, 114, 0.1); border-color: var(--amber); color: var(--bone); box-shadow: 0 0 16px rgba(197,160,114,0.2); }
+
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; position: relative; padding: 120px 5vw 80px; overflow: hidden; }
+    .hero-glow-1 { position: absolute; top: -10%; left: -10%; width: 60%; height: 60%; background: radial-gradient(circle, rgba(197, 160, 114, 0.08) 0%, transparent 70%); pointer-events: none; }
+    .hero-glow-2 { position: absolute; bottom: -10%; right: -10%; width: 60%; height: 60%; background: radial-gradient(circle, rgba(122, 173, 220, 0.06) 0%, transparent 70%); pointer-events: none; }
+    .hero-diagram { position: absolute; right: -5%; top: 50%; transform: translateY(-50%); width: 55%; pointer-events: none; opacity: 0.8; }
+    .hero-diagram svg { animation: diagramRotate 180s linear infinite; }
+    @keyframes diagramRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; opacity: 0; animation: fadeUp 1s 0.2s forwards; }
+    .hero-eyebrow-line { width: 32px; height: 1px; background: var(--amber); }
+    .hero-eyebrow-text { font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.4em; color: var(--amber-light); }
+    
+    .hero-headline { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 400; color: var(--text-head); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 32px; opacity: 0; animation: fadeUp 1s 0.4s forwards; }
+    .hero-headline em { font-style: italic; color: var(--parchment); }
+    .hero-headline span.ghost { color: var(--text-faint); font-weight: 300; }
+    
+    .hero-body { font-size: clamp(1rem, 1.2vw, 1.15rem); color: var(--text-body); max-width: 540px; line-height: 1.8; font-style: italic; margin-bottom: 48px; opacity: 0; animation: fadeUp 1s 0.6s forwards; }
+    
+    .hero-actions { display: flex; align-items: center; gap: 32px; opacity: 0; animation: fadeUp 1s 0.8s forwards; }
+    .btn-primary { font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.25em; color: var(--void); background: var(--parchment); padding: 20px 48px; border-radius: var(--radius-pill); transition: all 0.4s var(--ease-out); box-shadow: 0 4px 24px rgba(223, 211, 186, 0.2); border: 1px solid transparent; }
+    .btn-primary:hover { background: var(--bone); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(223, 211, 186, 0.3); border-color: rgba(255,255,255,0.5); }
+    .btn-ghost { font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.25em; color: var(--text-dim); display: flex; align-items: center; gap: 12px; transition: color 0.3s; }
+    .btn-ghost:hover { color: var(--amber-light); }
+    .btn-ghost-arrow { color: var(--amber); transition: transform 0.4s var(--ease-out); font-family: serif; font-size: 18px; }
+    .btn-ghost:hover .btn-ghost-arrow { transform: translateX(6px); }
+
+    .hero-scroll { position: absolute; bottom: 48px; left: 5vw; display: flex; align-items: center; gap: 16px; opacity: 0; animation: fadeUp 1s 1s forwards; }
+    .scroll-line { width: 1px; height: 48px; background: linear-gradient(var(--amber), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+    @keyframes scrollPulse { 0%, 100% { opacity: 0.3; transform: scaleY(0.8); transform-origin: top; } 50% { opacity: 1; transform: scaleY(1); } }
+    .scroll-text { font-family: var(--font-label); font-size: 0.5rem; letter-spacing: 0.4em; color: var(--text-faint); writing-mode: vertical-rl; transform: rotate(180deg); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Manifesto */
+    .section-divider { height: 1px; width: 100%; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+    .manifesto-strip { padding: 120px 0; position: relative; overflow: hidden; }
+    .manifesto-strip::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 80px; background: linear-gradient(var(--border), transparent); }
+    .manifesto-strip::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 1px; height: 80px; background: linear-gradient(transparent, var(--border)); }
+    .manifesto-inner { text-align: center; max-width: 1000px; margin: 0 auto; padding: 0 5vw; }
+    .manifesto-quote { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: var(--text-bright); line-height: 1.4; margin-bottom: 32px; font-style: italic; text-shadow: 0 4px 24px rgba(0,0,0,0.5); }
+    .manifesto-quote em { color: var(--parchment); }
+    .manifesto-attribution { font-family: var(--font-label); font-size: 0.65rem; letter-spacing: 0.3em; color: var(--text-dim); }
+
+    /* Branches Focus Areas */
+    .branches { padding: 120px 0; position: relative; }
+    .branches-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 80px; align-items: end; }
+    .branches-title { font-family: var(--font-display); font-size: clamp(2.5rem, 4.5vw, 4rem); color: var(--text-head); line-height: 1.1; font-style: italic; }
+    .branches-desc { font-size: 1.1rem; color: var(--text-dim); font-style: italic; line-height: 1.8; }
+    
+    .branch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .branch-panel { position: relative; padding: 64px 48px; border-radius: var(--radius-lg); overflow: hidden; background: var(--surface-glass); backdrop-filter: blur(16px); border: 1px solid var(--border-dim); transition: all 0.5s var(--ease-out); box-shadow: var(--shadow-base); display: flex; flex-direction: column; }
+    .branch-panel::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; opacity: 0.2; transition: opacity 0.5s; background: var(--amber); }
+    .branch-panel.regenesis::before { background: var(--regenesis); box-shadow: 0 0 16px var(--regenesis); }
+    .branch-panel.cosmos::before { background: var(--cosmos); box-shadow: 0 0 16px var(--cosmos); }
+    .branch-panel.ethos::before { background: var(--ethos); box-shadow: 0 0 16px var(--ethos); }
+    
+    .branch-panel:hover { transform: translateY(-8px); border-color: var(--border-bright); box-shadow: var(--shadow-hover); }
+    .branch-panel:hover::before { opacity: 0.8; }
+    
+    .branch-roman { font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.3em; color: var(--text-faint); margin-bottom: 24px; }
+    .branch-name { font-family: var(--font-display); font-size: 2.8rem; font-style: italic; line-height: 1; margin-bottom: 8px; transition: color 0.4s; }
+    .branch-panel.regenesis .branch-name { color: var(--regenesis); }
+    .branch-panel.cosmos .branch-name { color: var(--cosmos); }
+    .branch-panel.ethos .branch-name { color: var(--ethos); }
+    
+    .branch-subtitle { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.25em; color: var(--text-mid); margin-bottom: 32px; }
+    .branch-desc { font-size: 0.95rem; color: var(--text-dim); font-style: italic; line-height: 1.8; margin-bottom: 40px; flex: 1; }
+
+    .branch-topics { list-style: none; margin-bottom: 48px; border-top: 1px solid var(--border-dim); padding-top: 24px; }
+    .branch-topics li { font-size: 0.9rem; color: var(--text-mid); padding: 10px 0; display: flex; align-items: center; gap: 12px; transition: color 0.3s; }
+    .branch-topics li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; opacity: 0.6; background: var(--amber); }
+    .regenesis .branch-topics li::before { background: var(--regenesis); box-shadow: 0 0 6px var(--regenesis); }
+    .cosmos .branch-topics li::before { background: var(--cosmos); box-shadow: 0 0 6px var(--cosmos); }
+    .ethos .branch-topics li::before { background: var(--ethos); box-shadow: 0 0 6px var(--ethos); }
+    .branch-panel:hover .branch-topics li { color: var(--text-head); }
+
+    .branch-link { font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.25em; display: flex; align-items: center; gap: 12px; opacity: 0.8; transition: all 0.4s; }
+    .branch-panel:hover .branch-link { opacity: 1; letter-spacing: 0.3em; }
+    .branch-panel.regenesis .branch-link { color: var(--regenesis); }
+    .branch-panel.cosmos .branch-link { color: var(--cosmos); }
+    .branch-panel.ethos .branch-link { color: var(--ethos); }
+
+    /* Methodology */
+    .methodology { padding: 140px 0; border-top: 1px solid var(--border-dim); }
+    .methodology-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
+    .method-left { position: sticky; top: 140px; }
+    .method-eyebrow { display: flex; gap: 16px; align-items: center; margin-bottom: 32px; }
+    .method-eyebrow-line { width: 32px; height: 1px; background: var(--amber); }
+    .method-title { font-family: var(--font-display); font-size: clamp(2.5rem, 3.5vw, 3.5rem); font-style: italic; color: var(--text-head); line-height: 1.1; margin-bottom: 32px; }
+    .method-title em { color: var(--parchment); display: block; }
+    .method-body { font-size: 1.1rem; color: var(--text-mid); font-style: italic; line-height: 1.8; margin-bottom: 48px; max-width: 480px; }
+    .method-diagram { width: 200px; height: 200px; opacity: 0.7; }
+    .method-diagram svg { width: 100%; height: 100%; }
+
+    .method-item { padding: 48px 40px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-dim); border-radius: var(--radius-md); margin-bottom: 24px; transition: transform 0.4s, background 0.4s; }
+    .method-item:first-child { margin-top: 0; }
+    .method-item:hover { transform: translateX(16px); background: rgba(255,255,255,0.04); border-color: var(--border-bright); }
+    .method-item-num { font-family: var(--font-label); font-size: 0.65rem; letter-spacing: 0.3em; color: var(--amber); margin-bottom: 16px; }
+    .method-item-title { font-family: var(--font-display); font-size: 1.8rem; font-style: italic; color: var(--text-head); margin-bottom: 16px; }
+    .method-item-body { font-size: 1rem; color: var(--text-dim); line-height: 1.8; font-style: italic; }
+
+    /* Featured / Library */
+    .featured { padding: 140px 0; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.02)); border-top: 1px solid var(--border-dim); }
+    .featured-header { display: flex; justify-content: space-between; align-items: end; margin-bottom: 64px; }
+    .featured-title { font-family: var(--font-display); font-size: 2.8rem; font-style: italic; color: var(--text-head); }
+    .featured-all { font-family: var(--font-label); font-size: 0.7rem; letter-spacing: 0.25em; color: var(--amber-light); display: flex; align-items: center; gap: 12px; transition: gap 0.3s; }
+    .featured-all:hover { gap: 20px; color: var(--bone); }
+    
+    .article-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 24px; }
+    .article-card { background: var(--surface-glass); backdrop-filter: blur(8px); padding: 48px; border-radius: var(--radius-lg); border: 1px solid var(--border-dim); display: flex; flex-direction: column; transition: all 0.5s var(--ease-out); box-shadow: var(--shadow-base); }
+    .article-card:hover { transform: translateY(-6px) scale(1.01); border-color: var(--border-bright); box-shadow: var(--shadow-hover); }
+    .article-branch { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.3em; margin-bottom: 24px; display: flex; gap: 12px; align-items: center; }
+    .article-branch-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .ab-cosmos { color: var(--cosmos); } .ab-cosmos .article-branch-dot { background: var(--cosmos); box-shadow: 0 0 8px var(--cosmos); }
+    .ab-ethos { color: var(--ethos); } .ab-ethos .article-branch-dot { background: var(--ethos); box-shadow: 0 0 8px var(--ethos); }
+    .ab-regenesis { color: var(--regenesis); } .ab-regenesis .article-branch-dot { background: var(--regenesis); box-shadow: 0 0 8px var(--regenesis); }
+    
+    .article-title { font-family: var(--font-display); font-size: 1.6rem; font-style: italic; color: var(--text-head); line-height: 1.25; margin-bottom: 24px; flex: 1; }
+    .article-card:first-child .article-title { font-size: 2.5rem; }
+    .article-excerpt, .article-excerpt-short { font-size: 0.95rem; color: var(--text-dim); font-style: italic; line-height: 1.8; margin-bottom: 32px; }
+    .article-card:not(:first-child) .article-excerpt { display: none; }
+    .article-meta { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.25em; color: var(--text-faint); display: flex; justify-content: space-between; border-top: 1px solid var(--border-dim); padding-top: 24px; }
+    
+    .article-download { display: inline-flex; align-items: center; gap: 12px; margin-top: 32px; font-family: var(--font-label); font-size: 0.65rem; letter-spacing: 0.25em; border: 1px solid currentColor; padding: 14px 24px; border-radius: var(--radius-pill); transition: all 0.4s var(--ease-out); align-self: flex-start; }
+    .article-download:hover { transform: translateY(-2px); box-shadow: 0 4px 16px currentColor; background: rgba(255,255,255,0.05); }
+    .article-card.ab-cosmos .article-download { color: var(--cosmos); border-color: rgba(118,168,219,0.3); }
+    .article-card.ab-regenesis .article-download { color: var(--regenesis); border-color: rgba(139,202,122,0.3); }
+    .article-card.ab-ethos .article-download { color: var(--ethos); border-color: rgba(217,182,108,0.3); }
+
+    /* Community */
+    .community { padding: 140px 0; border-top: 1px solid var(--border-dim); text-align: center; position: relative; overflow: hidden; }
+    .community-eyebrow { display: flex; justify-content: center; align-items: center; gap: 16px; margin-bottom: 32px; }
+    .community-title { font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 4rem); font-style: italic; color: var(--text-head); margin-bottom: 32px; }
+    .community-title em { color: var(--parchment); }
+    .community-body { font-size: 1.1rem; color: var(--text-mid); font-style: italic; max-width: 600px; margin: 0 auto 64px; line-height: 1.8; }
+    
+    .community-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: left; margin-bottom: 80px; }
+    .community-card { background: var(--surface-glass); backdrop-filter: blur(12px); padding: 56px 48px; border-radius: var(--radius-lg); border: 1px solid var(--border-dim); transition: all 0.5s var(--ease-out); }
+    .community-card:hover { transform: translateY(-8px); border-color: rgba(197, 160, 114, 0.3); box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+    .cc-icon { width: 48px; height: 48px; margin-bottom: 32px; opacity: 0.8; }
+    .cc-title { font-family: var(--font-display); font-size: 1.6rem; font-style: italic; color: var(--text-head); margin-bottom: 16px; }
+    .cc-body { font-size: 0.95rem; color: var(--text-dim); line-height: 1.8; font-style: italic; }
+    
+    .whatsapp-btn { display: inline-flex; align-items: center; gap: 16px; font-family: var(--font-label); font-size: 0.75rem; letter-spacing: 0.25em; color: var(--void); background: var(--parchment); padding: 24px 56px; border-radius: var(--radius-pill); border: none; transition: all 0.4s var(--ease-out); box-shadow: 0 8px 32px rgba(223, 211, 186, 0.2); }
+    .whatsapp-btn:hover { background: var(--bone); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(223, 211, 186, 0.3); }
+
+    /* Footer */
+    .final-cta { padding: 160px 0; border-top: 1px solid var(--border-dim); text-align: center; }
+    .final-title { font-family: var(--font-display); font-size: clamp(3rem, 5vw, 5rem); color: var(--text-head); line-height: 1.1; margin-bottom: 32px; }
+    .final-title em { font-style: italic; color: var(--parchment); }
+    .final-body { font-size: 1.2rem; color: var(--text-mid); font-style: italic; margin: 0 auto 56px; max-width: 500px; line-height: 1.8; }
+    
+    footer { border-top: 1px solid var(--border-dim); padding: 80px 5vw 40px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 80px; }
+    .footer-brand-desc { font-size: 0.9rem; color: var(--text-dim); line-height: 1.8; margin-top: 24px; max-width: 300px; font-style: italic; }
+    .footer-col-title { font-family: var(--font-label); font-size: 0.65rem; letter-spacing: 0.3em; color: var(--text-mid); margin-bottom: 24px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .footer-links a { font-size: 0.9rem; color: var(--text-faint); transition: color 0.3s; font-style: italic; }
+    .footer-links a:hover { color: var(--text-body); }
+    .footer-bottom { display: flex; justify-content: space-between; border-top: 1px solid var(--border-dim); padding-top: 40px; }
+    .footer-copy, .footer-branches { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.25em; color: var(--text-faint); }
+    
+    @media (max-width: 1200px) {
+      .branch-grid, .community-cards { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .article-grid { grid-template-columns: 1fr 1fr; }
+      .article-card:first-child { grid-column: 1 / -1; }
+      .footer-top { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    @media (max-width: 900px) {
+      .branch-grid, .methodology-inner { grid-template-columns: 1fr; }
+      .method-left { position: relative; top: 0; margin-bottom: 64px; }
+      .article-grid, .community-cards { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- GRAIN -->
+  <div class="grain"></div>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+  <nav id="nav">
+    <a href="/portal/index.html" class="nav-brand-link">
+      <svg class="nav-mark" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.4"
+          transform="rotate(-35 15 15)" />
+        <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.25"
+          transform="rotate(35 15 15)" />
+        <circle cx="15" cy="15" r="6" stroke="#c4b49a" stroke-width="0.4" opacity="0.15" />
+        <circle cx="15" cy="15" r="2.2" fill="#c4b49a" opacity="0.8" />
+        <circle cx="15" cy="15" r="1" fill="#e8dfd0" />
+        <circle cx="28" cy="15" r="1.2" fill="#a67c50" opacity="0.7" />
+        <circle cx="2" cy="15" r="1.2" fill="#a67c50" opacity="0.7" />
+        <circle cx="6.5" cy="24" r="1" fill="#72a862" opacity="0.65" />
+        <circle cx="23.5" cy="6" r="1" fill="#5a84b8" opacity="0.65" />
+      </svg>
+      <div class="nav-text">
+        <span class="nav-wordmark">Science Coherence</span>
+        <span class="nav-sub">Cosmos · Ethos · Regenesis</span>
+        <span class="nav-portal-label">← Return to Portal</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li class="branch-c"><a href="cosmos.html">Cosmos</a></li>
+      <li class="branch-e"><a href="ethos.html">Ethos</a></li>
+      <li class="branch-r"><a href="regenesis.html">Regenesis</a></li>
+      <li><a href="retreat.html" target="_blank" class="nav-cta">Apply for Retreat</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+     HERO
+     ============================================================ -->
+  <section class="hero">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+    <div class="hero-glow-3"></div>
+
+    <!-- Background cosmic diagram -->
+    <div class="hero-diagram">
+      <svg viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="350" cy="350" r="320" stroke="#c4b49a" stroke-width="0.4" opacity="0.06" />
+        <circle cx="350" cy="350" r="250" stroke="#c4b49a" stroke-width="0.4" opacity="0.08" />
+        <circle cx="350" cy="350" r="180" stroke="#c4b49a" stroke-width="0.4" opacity="0.1" />
+        <circle cx="350" cy="350" r="110" stroke="#c4b49a" stroke-width="0.4" opacity="0.12" />
+        <circle cx="350" cy="350" r="50" stroke="#c4b49a" stroke-width="0.4" opacity="0.15" />
+        <ellipse cx="350" cy="350" rx="320" ry="110" stroke="#a67c50" stroke-width="0.4" opacity="0.07"
+          transform="rotate(-40 350 350)" />
+        <ellipse cx="350" cy="350" rx="250" ry="85" stroke="#5a84b8" stroke-width="0.4" opacity="0.06"
+          transform="rotate(25 350 350)" />
+        <ellipse cx="350" cy="350" rx="180" ry="60" stroke="#72a862" stroke-width="0.4" opacity="0.06"
+          transform="rotate(80 350 350)" />
+        <line x1="30" y1="350" x2="670" y2="350" stroke="#c4b49a" stroke-width="0.3" opacity="0.04" />
+        <line x1="350" y1="30" x2="350" y2="670" stroke="#c4b49a" stroke-width="0.3" opacity="0.04" />
+        <circle cx="350" cy="350" r="12" fill="#c4b49a" opacity="0.15" />
+        <circle cx="350" cy="350" r="5" fill="#c4b49a" opacity="0.4" />
+        <circle cx="350" cy="350" r="2" fill="#e8dfd0" opacity="0.8" />
+        <!-- Orbital nodes -->
+        <circle cx="670" cy="350" r="4" fill="#a67c50" opacity="0.5" />
+        <circle cx="30" cy="350" r="4" fill="#a67c50" opacity="0.5" />
+        <circle cx="350" cy="30" r="4" fill="#5a84b8" opacity="0.5" />
+        <circle cx="350" cy="670" r="3" fill="#72a862" opacity="0.4" />
+        <circle cx="123" cy="123" r="3" fill="#c4b49a" opacity="0.3" />
+        <circle cx="577" cy="577" r="2.5" fill="#c4b49a" opacity="0.3" />
+        <circle cx="577" cy="123" r="2" fill="#b89050" opacity="0.3" />
+      </svg>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">The Science of Coherence</span>
+      </div>
+
+      <h1 class="hero-headline">
+        You are a<br>
+        <em>biological computer.</em><br>
+        <span class="ghost">Learn to operate it.</span>
+      </h1>
+
+      <p class="hero-body">
+        Three disciplines. One unified framework. Where biophysics, biological optimization, and the philosophy of being
+        converge into a rigorous model for human flourishing.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#branches" class="btn-primary">Enter the Framework</a>
+        <a href="retreat.html" target="_blank" class="btn-ghost">
+          Apply for Retreat
+          <span class="btn-ghost-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span class="scroll-text">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     MANIFESTO STRIP
+     ============================================================ -->
+  <div class="section-divider"></div>
+  <div class="manifesto-strip" id="manifesto">
+    <div class="manifesto-inner">
+      <p class="manifesto-quote reveal">
+        "The universe and the human body are not separate systems — they are <em>one coherent process,</em> operating at
+        different scales of the same intelligence."
+      </p>
+      <div class="manifesto-attribution reveal" style="transition-delay:0.2s">Science Coherence — Foundational Principle
+      </div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+
+  <!-- ============================================================
+     BRANCHES
+     ============================================================ -->
+  <section class="branches" id="branches">
+    <div class="container">
+    <div class="branches-header">
+      <h2 class="branches-title reveal">Three branches.<br><em>One coherent field.</em></h2>
+      <p class="branches-desc reveal" style="transition-delay:0.15s">
+        Each branch is a self-contained knowledge system and a distinct entry point into the Science Coherence framework
+        — designed for the optimizer, the theorist, and the philosopher simultaneously.
+      </p>
+    </div>
+
+    <div class="branch-grid">
+
+      <!-- COSMOS -->
+      <div class="branch-panel cosmos reveal">
+        <div class="branch-roman">I</div>
+        <div class="branch-name">Cosmos</div>
+        <div class="branch-subtitle">Biophysics & Theoretical Systems</div>
+        <p class="branch-desc">
+          The theoretical engine. Bridging the macro-mechanics of the universe with the micro-mechanics of biology and
+          consciousness — viewed through a single computational lens.
+        </p>
+        <ul class="branch-topics">
+          <li>Time-Crystalline Biology</li>
+          <li>Cellular Coherence Theory</li>
+          <li>The Biological Computer Model</li>
+          <li>Cosmological Frameworks</li>
+        </ul>
+        <a href="#" class="branch-link">
+          Enter Cosmos <span class="branch-link-arrow">→</span>
+        </a>
+      </div>
+
+      <!-- ETHOS -->
+      <div class="branch-panel ethos reveal" style="transition-delay:0.12s">
+        <div class="branch-roman">II</div>
+        <div class="branch-name">Ethos</div>
+        <div class="branch-subtitle">The Science of Being & Harmonious Living</div>
+        <p class="branch-desc">
+          The synthesis. Where biology meets philosophy and both become a way of living. The manual for self-realization
+          — translating the first two branches into actionable frameworks for being.
+        </p>
+        <ul class="branch-topics">
+          <li>Self-Realization</li>
+          <li>Actionable Philosophy</li>
+          <li>Harmonious Environments</li>
+          <li>Daily Practice</li>
+        </ul>
+        <a href="#" class="branch-link">
+          Enter Ethos <span class="branch-link-arrow">→</span>
+        </a>
+      </div>
+
+      <!-- REGENESIS -->
+      <div class="branch-panel regenesis reveal" style="transition-delay:0.24s">
+        <div class="branch-roman">III</div>
+        <div class="branch-name">Regenesis</div>
+        <div class="branch-subtitle">Biological Optimization & Holistic Regeneration</div>
+        <p class="branch-desc">
+          The physical vehicle — treated as a biological computer. Rigorous protocols, specialized nutrition, and
+          cellular practices that restore the body's innate coherence from the inside out.
+        </p>
+        <ul class="branch-topics">
+          <li>Cellular Regeneration</li>
+          <li>Cognitive Repair</li>
+          <li>Raw Primal Nutrition</li>
+          <li>Longevity & Systemic Health</li>
+        </ul>
+        <a href="#" class="branch-link">
+          Enter Regenesis <span class="branch-link-arrow">→</span>
+        </a>
+      </div>
+
+    </div>
+      </div>
+  </section>
+
+  <!-- ============================================================
+     METHODOLOGY
+     ============================================================ -->
+  <section class="methodology">
+    <div class="container">
+      <div class="methodology-inner">
+
+        <div class="method-left reveal">
+          <div class="method-eyebrow">
+            <div class="method-eyebrow-line"></div>
+            <span class="label label-amber">The Approach</span>
+          </div>
+          <h2 class="method-title">
+            Rigorous.<br>
+            <em>Actionable.<br>Unified.</em>
+          </h2>
+          <p class="method-body">
+            Science Coherence is not a philosophy that ignores data, nor a science that ignores meaning. It is the
+            bridge — built from first principles, tested against biology, and expressed through lived practice.
+          </p>
+          <!-- Orbital diagram -->
+          <div class="method-diagram">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="100" cy="100" r="90" stroke="#c4b49a" stroke-width="0.5" opacity="0.1" />
+              <circle cx="100" cy="100" r="60" stroke="#c4b49a" stroke-width="0.5" opacity="0.15" />
+              <circle cx="100" cy="100" r="30" stroke="#c4b49a" stroke-width="0.5" opacity="0.2" />
+              <ellipse cx="100" cy="100" rx="90" ry="30" stroke="#a67c50" stroke-width="0.5" opacity="0.2"
+                transform="rotate(-30 100 100)" />
+              <ellipse cx="100" cy="100" rx="60" ry="20" stroke="#5a84b8" stroke-width="0.5" opacity="0.2"
+                transform="rotate(40 100 100)" />
+              <ellipse cx="100" cy="100" rx="30" ry="10" stroke="#72a862" stroke-width="0.5" opacity="0.2"
+                transform="rotate(80 100 100)" />
+              <circle cx="100" cy="100" r="5" fill="#c4b49a" opacity="0.5" />
+              <circle cx="100" cy="100" r="2.5" fill="#e8dfd0" opacity="0.9" />
+              <!-- Labels -->
+              <text x="164" y="104" fill="#72a862" font-size="7" font-family="serif" opacity="0.7">Regen</text>
+              <text x="36" y="104" fill="#5a84b8" font-size="7" font-family="serif" opacity="0.7"
+                text-anchor="end">Cosmos</text>
+              <text x="100" y="18" fill="#b89050" font-size="7" font-family="serif" opacity="0.7"
+                text-anchor="middle">Ethos</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="method-right">
+          <div class="method-item reveal">
+            <div class="method-item-num">01 — Foundation</div>
+            <div class="method-item-title">Begin with the body</div>
+            <p class="method-item-body">Every inquiry starts with the physical substrate. Before philosophy, before
+              theory — the body must be coherent. Regenesis establishes the foundation through protocol, nutrition, and
+              cellular practice.</p>
+          </div>
+          <div class="method-item reveal" style="transition-delay:0.1s">
+            <div class="method-item-num">02 — Model</div>
+            <div class="method-item-title">Map the mechanics of reality</div>
+            <p class="method-item-body">Cosmos provides the theoretical framework — the physics and biophysics that
+              explain why the protocols work. The human system is understood as a computational biological field
+              embedded within a larger coherent universe.</p>
+          </div>
+          <div class="method-item reveal" style="transition-delay:0.2s">
+            <div class="method-item-num">03 — Integration</div>
+            <div class="method-item-title">Synthesize into a way of living</div>
+            <p class="method-item-body">Ethos translates both branches into lived philosophy. Consciousness,
+              environment, practice — all brought into alignment. The output is not a lifestyle, but a mode of being
+              that is coherent at every scale.</p>
+          </div>
+          <div class="method-item reveal" style="transition-delay:0.3s">
+            <div class="method-item-num">04 — Embodiment</div>
+            <div class="method-item-title">Live it in real space</div>
+            <p class="method-item-body">The culmination — where all three branches converge simultaneously into a
+              single, lived expression. Theory becomes practice, practice becomes being.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     FEATURED CONTENT
+     ============================================================ -->
+  <section class="featured">
+    <div class="container">
+      <div class="featured-header reveal">
+        <h2 class="featured-title">The Library</h2>
+        <a href="#" class="featured-all">Explore all content <span
+            style="color:var(--amber); font-size:14px; font-family:serif;">→</span></a>
+      </div>
+
+      <div class="article-grid">
+        <!-- Lead article -->
+        <div class="article-card reveal">
+          <div class="article-branch ab-cosmos">
+            <div class="article-branch-dot"></div>
+            Cosmos
+          </div>
+          <div class="article-title">Time-Crystalline Biology: Toward an Informational Theory of Life, Health, and
+            Nourishment</div>
+          <div class="article-excerpt">Living systems are not analogous to time crystals — they are time-crystalline
+            structures. Across three axes, this paper establishes the ontological primacy of information over matter,
+            develops the five-scale biological mechanics of temporal coherence (from intracellular microtubules to
+            planetary electromagnetic entrainment), and applies the framework to nourishment — arguing that food is not
+            a chemical payload but a living informational structure whose field architecture is irreversibly collapsed
+            by thermal processing above 42°C.</div>
+          <div class="article-meta">
+            <span>Julien Xavier Steff</span>
+            <span>Theoretical Paper · Cosmos Branch</span>
+          </div>
+          <a href="/portal/publications/time-crystalline-biology.pdf" class="article-download" download>
+            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.5 1v8M2 6.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M1 12h9" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+            </svg>
+            Download PDF
+          </a>
+        </div>
+
+        <!-- Secondary articles -->
+        <div class="article-card reveal" style="transition-delay:0.1s">
+          <div class="article-branch ab-ethos">
+            <div class="article-branch-dot"></div>
+            Ethos
+          </div>
+          <div class="article-title">Operating with Intention: The Philosophy of the Biological Computer</div>
+          <div class="article-excerpt-short">The self is not a fixed entity but an operating system — assembled through
+            experience, running in the background, and shaping every perception without announcing itself. This paper
+            develops what it means to examine that configuration, and to operate it deliberately.</div>
+          <div class="article-meta" style="margin-top:auto">
+            <span>Julien Xavier Steff</span>
+            <span>Philosophy · Ethos Branch</span>
+          </div>
+          <a href="/portal/publications/operating-with-intention.pdf" class="article-download article-download-ethos"
+            download>
+            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.5 1v8M2 6.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M1 12h9" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+            </svg>
+            Download PDF
+          </a>
+        </div>
+
+        <div class="article-card reveal" style="transition-delay:0.2s">
+          <div class="article-branch ab-regenesis">
+            <div class="article-branch-dot"></div>
+            Regenesis
+          </div>
+          <div class="article-title">The Raw Organ Protocol: A Framework for Cellular Nutritional Density</div>
+          <div class="article-excerpt-short">Organ meats consumed raw constitute a categorically distinct nutritional
+            input — delivering not only the highest-density concentration of bioavailable cofactors known to the human
+            diet, but an intact living field architecture that thermal processing irreversibly destroys.</div>
+          <div class="article-meta" style="margin-top:auto">
+            <span>Julien Xavier Steff</span>
+            <span>Protocol · Regenesis Branch</span>
+          </div>
+          <a href="/portal/publications/raw-organ-protocol.pdf" class="article-download article-download-regenesis"
+            download>
+            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.5 1v8M2 6.5l3.5 3.5 3.5-3.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M1 12h9" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+            </svg>
+            Download PDF
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     COMMUNITY
+     ============================================================ -->
+  <section class="community" id="community">
+    <div class="container">
+      <div class="community-eyebrow reveal">
+        <div class="community-line"></div>
+        <span class="label label-amber">Community</span>
+        <div class="community-line"></div>
+      </div>
+
+      <h2 class="community-title reveal" style="transition-delay:0.1s">
+        The framework,<br>
+        <em>delivered daily.</em>
+      </h2>
+
+      <p class="community-body reveal" style="transition-delay:0.2s">
+        Join the Science Coherence community — an active, guided network connected through a WhatsApp Private Group and
+        AI channel that delivers ongoing protocols, insights, and guidance from the framework directly into your daily
+        life.
+      </p>
+
+      <div class="community-cards">
+        <div class="community-card reveal">
+          <svg class="cc-icon" viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="18" stroke="#a67c50" stroke-width="0.6" opacity="0.3" />
+            <circle cx="20" cy="20" r="10" stroke="#a67c50" stroke-width="0.5" opacity="0.4" />
+            <circle cx="20" cy="20" r="3" fill="#a67c50" opacity="0.6" />
+          </svg>
+          <div class="cc-title">Daily Guidance</div>
+          <p class="cc-body">Our AI agent delivers protocol reminders, theoretical insights, and practice prompts —
+            tuned to your chosen branch and progression within the framework.</p>
+        </div>
+        <div class="community-card reveal" style="transition-delay:0.1s">
+          <svg class="cc-icon" viewBox="0 0 40 40" fill="none">
+            <path d="M8 20 Q20 8 32 20 Q20 32 8 20Z" stroke="#72a862" stroke-width="0.6" opacity="0.4" fill="none" />
+            <circle cx="20" cy="20" r="3" fill="#72a862" opacity="0.5" />
+          </svg>
+          <div class="cc-title">Real Connections</div>
+          <p class="cc-body">Connect with a global network of practitioners, researchers, and seekers who share the
+            Science Coherence framework — across all three branches.</p>
+        </div>
+        <div class="community-card reveal" style="transition-delay:0.2s">
+          <svg class="cc-icon" viewBox="0 0 40 40" fill="none">
+            <line x1="20" y1="4" x2="20" y2="36" stroke="#5a84b8" stroke-width="0.6" opacity="0.4" />
+            <line x1="4" y1="20" x2="36" y2="20" stroke="#5a84b8" stroke-width="0.6" opacity="0.4" />
+            <circle cx="20" cy="20" r="8" stroke="#5a84b8" stroke-width="0.5" opacity="0.3" />
+            <circle cx="20" cy="20" r="2.5" fill="#5a84b8" opacity="0.5" />
+          </svg>
+          <div class="cc-title">Retreat Priority</div>
+          <p class="cc-body">Community members receive early access and priority consideration for retreat programs —
+            the physical destination that brings the entire framework into embodied experience.</p>
+        </div>
+      </div>
+
+      <div class="community-cta reveal" style="transition-delay:0.15s">
+        <button class="whatsapp-btn">
+          <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+          </svg>
+          Join the WhatsApp Community
+        </button>
+        <div class="community-note">Free to join · AI-guided · Ongoing transmission</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     FOOTER
+     ============================================================ -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="nav-brand" style="margin-bottom:0">
+          <svg class="nav-mark" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.4"
+              transform="rotate(-35 15 15)" />
+            <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.25"
+              transform="rotate(35 15 15)" />
+            <circle cx="15" cy="15" r="2.2" fill="#c4b49a" opacity="0.7" />
+            <circle cx="15" cy="15" r="1" fill="#e8dfd0" />
+          </svg>
+          <div class="nav-text">
+            <span class="nav-wordmark">Science Coherence</span>
+            <span class="nav-sub">Cosmos · Ethos · Regenesis</span>
+          </div>
+        </div>
+        <p class="footer-brand-desc">
+          A unified framework for biological optimization, theoretical biophysics, and the philosophy of conscious
+          living.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Cosmos</div>
+        <ul class="footer-links">
+          <li><a href="#">Time-Crystalline Biology</a></li>
+          <li><a href="#">Cellular Coherence</a></li>
+          <li><a href="#">The Biological Computer</a></li>
+          <li><a href="#">Cosmological Models</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Ethos</div>
+        <ul class="footer-links">
+          <li><a href="#">Self-Realization</a></li>
+          <li><a href="#">Actionable Philosophy</a></li>
+          <li><a href="#">Harmonious Environments</a></li>
+          <li><a href="#">Daily Practice</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Regenesis</div>
+        <ul class="footer-links">
+          <li><a href="#">Protocols Library</a></li>
+          <li><a href="#">Raw Primal Nutrition</a></li>
+          <li><a href="#">Cognitive Repair</a></li>
+          <li><a href="#">Cellular Regeneration</a></li>
+          <li><a href="#">Longevity Systems</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Retreats</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Science Coherence — All Rights Reserved</span>
+      <span class="footer-branches">Cosmos · Ethos · Regenesis</span>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+  <script>
+    /* — Cursor — */
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+
+    function animRing() {
+      rx += (mx - rx) * 0.1;
+      ry += (my - ry) * 0.1;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+
+    document.querySelectorAll('a, button, .branch-panel, .community-card, .article-card').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+    });
+
+    /* — Nav scroll — */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    /* — Scroll reveal — */
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    /* — Smooth anchor scrolling — */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>

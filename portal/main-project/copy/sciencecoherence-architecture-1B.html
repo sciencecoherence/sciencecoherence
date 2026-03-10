@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science of Coherence - Architecture v1B - Module Structure</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0c;--bgs:#111114;--bge:#18181c;--bd:#2a2a30;--bds:#1e1e24;--t1:#e8e6e0;--t2:#8a8880;--t3:#5a5850;--gd:#c9a84c;--gdd:#8a7333;--pp:#6ecfb0;--pr:#c9a84c;--prs:#a08cd6;--br:#5fb88a;--be:#d4a853;--bc:#7b8fd4;--hb:#9ca8c4;--hl:#c4a87c}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--t1);font-family:Outfit,sans-serif;font-weight:300;line-height:1.6;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 20% 0%,rgba(201,168,76,.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(160,140,214,.03) 0%,transparent 60%);pointer-events:none;z-index:0}
+.w{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:60px 40px}
+.hd{text-align:center;margin-bottom:60px;animation:fi 1s ease-out}
+.hl{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gdd);margin-bottom:20px}
+h1{font-family:"Cormorant Garamond",serif;font-size:clamp(28px,4.5vw,52px);font-weight:300;letter-spacing:1px;margin-bottom:12px}
+h1 em{font-style:italic;color:var(--gd)}
+.hs{font-size:15px;color:var(--t2);max-width:640px;margin:0 auto}
+.ph{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--t3);text-align:center;margin-bottom:60px;padding-bottom:20px;border-bottom:1px solid var(--bds)}
+
+/* Branch sections */
+.branch{margin-bottom:100px;animation:su .8s ease-out both}
+.branch:nth-child(1){animation-delay:.1s}
+.branch:nth-child(2){animation-delay:.25s}
+.branch:nth-child(3){animation-delay:.4s}
+.branch-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+.branch-num{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase}
+.branch-title{font-family:"Cormorant Garamond",serif;font-size:clamp(26px,3.5vw,38px);font-weight:400}
+.branch-sub{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--t3);letter-spacing:1px;margin-bottom:8px;margin-left:2px}
+.branch-desc{font-size:14px;color:var(--t2);max-width:700px;line-height:1.7;margin-bottom:36px}
+.branch-logic{font-size:13px;color:var(--t3);font-style:italic;font-family:"Cormorant Garamond",serif;font-size:16px;margin-bottom:32px;padding:16px 20px;border-left:2px solid var(--bds)}
+
+/* Module cards */
+.modules{display:flex;flex-direction:column;gap:2px}
+.mod{display:grid;grid-template-columns:60px 1fr;border:1px solid var(--bds);background:var(--bgs);transition:background .3s,border-color .3s;position:relative;overflow:hidden}
+.mod:hover{background:var(--bge);border-color:var(--bd)}
+.mod::before{content:"";position:absolute;top:0;left:0;bottom:0;width:2px}
+.mod-num-col{display:flex;align-items:flex-start;justify-content:center;padding:24px 0 24px 0;border-right:1px solid var(--bds)}
+.mod-num{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:1px;writing-mode:horizontal-tb}
+.mod-body{padding:24px 28px}
+.mod-title{font-family:"Cormorant Garamond",serif;font-size:20px;font-weight:500;margin-bottom:4px}
+.mod-formal{font-family:"IBM Plex Mono",monospace;font-size:9px;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.mod-desc{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:14px}
+.mod-sections{display:flex;flex-wrap:wrap;gap:6px}
+.mod-sec{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:1px;padding:4px 10px;border:1px solid var(--bds);color:var(--t3);background:var(--bg)}
+.mod-pillar{display:inline-flex;align-items:center;gap:6px;font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:1px;margin-bottom:12px}
+.mod-pillar-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.mod-xlink{margin-top:12px;padding-top:10px;border-top:1px solid var(--bds);font-size:11px;color:var(--t3)}
+.mod-xlink span{color:var(--t2)}
+
+/* Regenesis colors */
+.br-r .branch-num{color:var(--br)}
+.br-r .mod::before{background:var(--br)}
+.br-r .mod-num{color:var(--br)}
+
+/* Ethos colors */
+.br-e .branch-num{color:var(--be)}
+.br-e .mod::before{background:var(--be)}
+.br-e .mod-num{color:var(--be)}
+
+/* Cosmos colors */
+.br-c .branch-num{color:var(--bc)}
+.br-c .mod::before{background:var(--bc)}
+.br-c .mod-num{color:var(--bc)}
+
+/* Gateway */
+.gw{margin-bottom:100px;animation:su .8s ease-out both}
+.gw-hdr{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+.gw-num{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gd)}
+.gw-title{font-family:"Cormorant Garamond",serif;font-size:clamp(26px,3.5vw,38px);font-weight:400}
+.gw-desc{font-size:14px;color:var(--t2);max-width:700px;line-height:1.7;margin-bottom:36px}
+.gw .mod::before{background:var(--gd)}
+.gw .mod-num{color:var(--gd)}
+
+/* Cross-link matrix */
+.matrix{margin-top:20px;padding:40px;border:1px solid var(--bds);background:var(--bgs)}
+.matrix-title{font-family:"Cormorant Garamond",serif;font-size:24px;margin-bottom:8px}
+.matrix-desc{font-size:13px;color:var(--t2);margin-bottom:24px;line-height:1.6}
+.matrix-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:12px}
+.mx-card{padding:16px 20px;border:1px solid var(--bds);background:var(--bg)}
+.mx-label{font-family:"IBM Plex Mono",monospace;font-size:9px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:6px}
+.mx-link{font-size:13px;color:var(--t2);line-height:1.5;margin-bottom:4px}
+.mx-arrow{color:var(--t3);font-size:11px}
+
+/* Footer */
+.ft{margin-top:80px;padding-top:24px;border-top:1px solid var(--bds);text-align:center}
+.ftt{font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--t3);letter-spacing:2px}
+
+@keyframes fi{from{opacity:0}to{opacity:1}}
+@keyframes su{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){.w{padding:40px 20px}.mod{grid-template-columns:48px 1fr}.matrix-grid{grid-template-columns:1fr}}
+
+    /* ============================================================
+   A11Y: SKIP LINK & FOCUS
+   ============================================================ */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 0;
+      background: var(--amber);
+      color: var(--void);
+      padding: 12px 24px;
+      z-index: 100000;
+      font-family: var(--font-label);
+      font-size: 12px;
+      font-weight: bold;
+      transition: top 0.2s ease-out;
+    }
+    .skip-link:focus {
+      top: 0;
+    }
+    :focus-visible {
+      outline: 3px solid var(--amber) !important;
+      outline-offset: 4px !important;
+    }
+
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="w">
+
+  <div class="hd">
+    <div class="hl">sciencecoherence.com</div>
+    <h1>Module Structure &#8212; <em>Step 1B</em></h1>
+    <p class="hs">Expanding each branch into its internal module hierarchy. Modules are sequenced from foundational to advanced, with cross-links mapped between branches.</p>
+  </div>
+  <div class="ph">Phase 1 &#183; Step 1B &#183; Branch Module Expansion &#183; For Review &amp; Validation</div>
+
+  <!-- ==================== GATEWAY ==================== -->
+  <div class="gw">
+    <div class="gw-hdr">
+      <div class="gw-num">GATEWAY</div>
+      <div class="gw-title">The Primer</div>
+    </div>
+    <div class="branch-sub">Entry Layer &#183; Universal Orientation</div>
+    <div class="gw-desc">The shared front door. Every reader passes through this before entering any branch. It establishes the vocabulary, the logic, and the root concept of the entire framework. Designed to be concise, compelling, and accessible to all audience tiers.</div>
+
+    <div class="modules">
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">G.01</div></div>
+        <div class="mod-body">
+          <div class="mod-title">What Is Coherence?</div>
+          <div class="mod-formal">The Root Concept</div>
+          <div class="mod-desc">Defines Coherence as the governing principle of the framework. Introduces the idea that the universe and the human body are information-processing systems whose health is measured by their capacity to sustain integrated, low-entropy order. Establishes the central thesis: entropy is the disease; coherence is the cure.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">The Coherence Thesis</span>
+            <span class="mod-sec">Entropy vs. Order</span>
+            <span class="mod-sec">Systems at Every Scale</span>
+            <span class="mod-sec">Why This Framework Exists</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">G.02</div></div>
+        <div class="mod-body">
+          <div class="mod-title">Being &amp; Living</div>
+          <div class="mod-formal">The Dual Dimensions</div>
+          <div class="mod-desc">Introduces the two complementary axes of the framework: the Science of Being (what reality is &#8212; ontology, physics, mechanism) and the Science of Living (how to act within it &#8212; biology, protocol, practice). Explains why both are necessary: understanding without practice is inert; practice without understanding is blind.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Map vs. Territory</span>
+            <span class="mod-sec">Theory &#8596; Application</span>
+            <span class="mod-sec">How to Read This Framework</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">G.03</div></div>
+        <div class="mod-body">
+          <div class="mod-title">The Three Pillars</div>
+          <div class="mod-formal">Universal Operating Laws</div>
+          <div class="mod-desc">Introduces Purity (Substrate Integrity), Rhythm (Temporal Precision), and Resonance (Field Integration) as the three foundational laws of Coherence. Uses accessible analogies and cross-domain examples to show how the same three principles operate in biology, cognition, and physics.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Purity &#8212; Signal vs. Noise</span>
+            <span class="mod-sec">Rhythm &#8212; Timing Is Structure</span>
+            <span class="mod-sec">Resonance &#8212; Coupling With the Field</span>
+            <span class="mod-sec">How the Pillars Interconnect</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">G.04</div></div>
+        <div class="mod-body">
+          <div class="mod-title">Choose Your Path</div>
+          <div class="mod-formal">Branch Overview &amp; Navigation</div>
+          <div class="mod-desc">Maps the three branches &#8212; Regenesis (body), Ethos (mind), Cosmos (field) &#8212; and helps the reader identify their natural entry point based on interest, background, or immediate need. Explains that branches can be explored in any order and that cross-links will surface connections naturally.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Regenesis Overview</span>
+            <span class="mod-sec">Ethos Overview</span>
+            <span class="mod-sec">Cosmos Overview</span>
+            <span class="mod-sec">Audience Pathways</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== REGENESIS ==================== -->
+  <div class="branch br-r">
+    <div class="branch-hdr">
+      <div class="branch-num">BRANCH I</div>
+      <div class="branch-title">Regenesis</div>
+    </div>
+    <div class="branch-sub">Body &#183; Biology &#183; Regeneration</div>
+    <div class="branch-desc">The biological substrate. Six modules sequenced from substrate purification through systemic optimization. The logic: clean the system first (Purity), synchronize its clocks (Rhythm), then optimize and modulate its higher-order functions (Resonance).</div>
+    <div class="branch-logic">Sequencing Principle: &#8220;You cannot build on a contaminated substrate. First purify, then synchronize, then optimize.&#8221;</div>
+
+    <div class="modules">
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">R.01</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pp)"></span> PRIMARY PILLAR: PURITY</div>
+          <div class="mod-title">Detoxification &amp; Substrate Cleansing</div>
+          <div class="mod-formal">Clearing the Signal Path</div>
+          <div class="mod-desc">The foundation of biological coherence. Before any protocol can work, the substrate must be clean. Covers the removal of synthetic interference &#8212; industrial toxins, heavy metals, endocrine disruptors, processed inputs &#8212; and the restoration of the body&#8217;s innate detoxification pathways (liver, kidney, lymphatic, skin).</div>
+          <div class="mod-sections">
+            <span class="mod-sec">The Contaminated Substrate</span>
+            <span class="mod-sec">Endocrine Disruptors &amp; Synthetic Load</span>
+            <span class="mod-sec">Innate Detox Pathways</span>
+            <span class="mod-sec">Heavy Metal Chelation</span>
+            <span class="mod-sec">Elimination Protocols</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>E.02 Cognitive Sovereignty</span> (mental detox parallels physical), <span>C.03 Electromagnetic Biology</span> (EMF as environmental toxin)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">R.02</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pr)"></span> PRIMARY PILLAR: RHYTHM</div>
+          <div class="mod-title">Sleep Architecture &amp; Circadian Biology</div>
+          <div class="mod-formal">The Master Update Cycle</div>
+          <div class="mod-desc">Sleep as the primary lever for regeneration. &#8220;Days build load, nights erase damage.&#8221; Covers sleep stage architecture (NREM, REM, glymphatic clearance), circadian entrainment via light and temperature, and the downstream effects of misaligned sleep on every other biological system.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Sleep Stage Architecture</span>
+            <span class="mod-sec">Glymphatic System &amp; Neural Clearance</span>
+            <span class="mod-sec">Circadian Entrainment</span>
+            <span class="mod-sec">Light as Zeitgeber</span>
+            <span class="mod-sec">Temperature Regulation</span>
+            <span class="mod-sec">Sleep Disruption Cascade</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>E.01 Lifestyle Design</span> (routine as circadian scaffolding), <span>C.04 Schumann Resonance</span> (Earth-frequency and sleep cycles)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">R.03</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pp)"></span> PRIMARY PILLAR: PURITY</div>
+          <div class="mod-title">Nutrition &amp; Primal Protocols</div>
+          <div class="mod-formal">Evolutionary-Grade Inputs</div>
+          <div class="mod-desc">The fuel layer. Covers the raw carnivore framework, organ meats as ancestral superfoods, unadulterated fats, and the elimination of industrial food products. Positions nutrition not as calorie management but as substrate-quality control &#8212; providing only the inputs the human system evolved to process.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">The Primal Nutrition Thesis</span>
+            <span class="mod-sec">Raw Carnivore Framework</span>
+            <span class="mod-sec">Organ Meats &amp; Ancestral Inputs</span>
+            <span class="mod-sec">Fat as Primary Fuel</span>
+            <span class="mod-sec">Anti-Nutrients &amp; Elimination</span>
+            <span class="mod-sec">Meal Timing &amp; Circadian Nutrition</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>E.03 The Disgust Barrier</span> (psychological resistance to primal eating), <span>R.04 Hormonal Optimization</span> (nutrition as hormonal input)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">R.04</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pr)"></span> PRIMARY PILLAR: RHYTHM</div>
+          <div class="mod-title">Hormonal Optimization &amp; Endocrine Coherence</div>
+          <div class="mod-formal">The Chemical Orchestration Layer</div>
+          <div class="mod-desc">Hormones as the body&#8217;s internal signaling cascade. Covers the HPA axis, thyroid-adrenal interplay, sex hormone optimization, insulin sensitivity, and the restoration of hormonal rhythmicity. Positions endocrine coherence as the emergent result of clean substrate (R.01), aligned sleep (R.02), and primal nutrition (R.03).</div>
+          <div class="mod-sections">
+            <span class="mod-sec">HPA Axis &amp; Stress Architecture</span>
+            <span class="mod-sec">Thyroid-Adrenal Axis</span>
+            <span class="mod-sec">Sex Hormone Optimization</span>
+            <span class="mod-sec">Insulin &amp; Metabolic Signaling</span>
+            <span class="mod-sec">Hormonal Rhythmicity</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>E.04 Neuroplasticity</span> (hormones as neurochemical precursors), <span>C.01 Quantum Biology</span> (hormone signaling at quantum scale)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">R.05</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--prs)"></span> PRIMARY PILLAR: RESONANCE</div>
+          <div class="mod-title">Nervous System Repair &amp; Neuro-Dynamics</div>
+          <div class="mod-formal">Restoring the Command Network</div>
+          <div class="mod-desc">The nervous system as the body&#8217;s primary coherence network. Covers vagal tone restoration, autonomic balance (sympathetic/parasympathetic recalibration), polyvagal dynamics, and layered intervention protocols for nervous system repair &#8212; daily foundations, weekly modulation, and cyclic deep interventions.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Autonomic Balance</span>
+            <span class="mod-sec">Vagal Tone &amp; Polyvagal Dynamics</span>
+            <span class="mod-sec">The Layered Protocol</span>
+            <span class="mod-sec">Daily / Weekly / Cyclic Interventions</span>
+            <span class="mod-sec">Nervous System &amp; Field Sensitivity</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>E.05 Consciousness</span> (nervous system as awareness substrate), <span>C.03 Electromagnetic Biology</span> (neural EM field generation)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">R.06</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pp)"></span><span class="mod-pillar-dot" style="background:var(--pr);margin-left:4px"></span><span class="mod-pillar-dot" style="background:var(--prs);margin-left:4px"></span> ALL PILLARS</div>
+          <div class="mod-title">Supplementation &amp; Natural Compounds</div>
+          <div class="mod-formal">Targeted Amplification</div>
+          <div class="mod-desc">The modulation layer. Positioned last because supplementation is an amplifier, not a foundation &#8212; it works only when the substrate is clean, the clocks are aligned, and the base nutrition is sound. Covers natural compounds, adaptogens, targeted micronutrients, and their mechanisms of action within the coherence framework.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Supplementation Philosophy</span>
+            <span class="mod-sec">Natural Compounds &amp; Mechanisms</span>
+            <span class="mod-sec">Adaptogens &amp; Modulators</span>
+            <span class="mod-sec">Targeted Micronutrients</span>
+            <span class="mod-sec">Stacking &amp; Cycling Protocols</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>R.01&#8211;R.05</span> (supplementation supports all prior modules), <span>E.01 Lifestyle Design</span> (timing and integration into routine)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ETHOS ==================== -->
+  <div class="branch br-e">
+    <div class="branch-hdr">
+      <div class="branch-num">BRANCH II</div>
+      <div class="branch-title">Ethos</div>
+    </div>
+    <div class="branch-sub">Mind &#183; Philosophy &#183; Sovereignty</div>
+    <div class="branch-desc">The cognitive and philosophical substrate. Seven modules sequenced from practical daily scaffolding through cognitive liberation to the deepest questions of consciousness and self-realization. The logic: build the container first (lifestyle), then reprogram the operating system (cognition), then explore what the system truly is (consciousness).</div>
+    <div class="branch-logic">Sequencing Principle: &#8220;Structure the day before you restructure the mind. Restructure the mind before you ask what mind is.&#8221;</div>
+
+    <div class="modules">
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">E.01</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pr)"></span> PRIMARY PILLAR: RHYTHM</div>
+          <div class="mod-title">Lifestyle Design &amp; Routine Architecture</div>
+          <div class="mod-formal">Building the Container</div>
+          <div class="mod-desc">The practical foundation. Before any cognitive work can take hold, the daily structure must support it. Covers the architecture of a coherent day &#8212; temporal scaffolding, ritual design, environmental curation, and the elimination of entropic patterns. Routine as the physical expression of philosophical alignment.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Temporal Scaffolding</span>
+            <span class="mod-sec">Ritual Design</span>
+            <span class="mod-sec">Environmental Curation</span>
+            <span class="mod-sec">Eliminating Entropic Patterns</span>
+            <span class="mod-sec">The Coherent Day</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>R.02 Sleep Architecture</span> (circadian alignment), <span>R.06 Supplementation</span> (timing integration)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">E.02</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pp)"></span> PRIMARY PILLAR: PURITY</div>
+          <div class="mod-title">Cognitive Sovereignty &amp; Deprogramming</div>
+          <div class="mod-formal">Uninstalling the Entropic OS</div>
+          <div class="mod-desc">The mind as operating system. Cultural conditioning, reactive behavior patterns, and inherited belief structures function as noise in the cognitive substrate. This module covers the identification and systematic removal of entropic programming &#8212; reclaiming sovereignty over attention, belief, and interpretation.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">The Conditioned Mind</span>
+            <span class="mod-sec">Identifying Entropic Programs</span>
+            <span class="mod-sec">Attention as Currency</span>
+            <span class="mod-sec">Belief Architecture</span>
+            <span class="mod-sec">Systematic Deprogramming</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>R.01 Detoxification</span> (physical detox parallels mental), <span>E.03 Disgust Barrier</span> (specific case of cultural programming)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">E.03</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pp)"></span> PRIMARY PILLAR: PURITY</div>
+          <div class="mod-title">The Disgust Barrier &amp; Primal Identity</div>
+          <div class="mod-formal">Breaking the Aesthetic Cage</div>
+          <div class="mod-desc">A specific, high-impact case study of cognitive sovereignty in action. The culturally conditioned disgust response to primal foods (raw meat, organ meats, animal fats) is examined as a paradigmatic example of how entropic programming overrides biological intelligence. Covers the neuroscience of disgust, identity-level resistance, and the process of overwriting conditioned aversion.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Neuroscience of Disgust</span>
+            <span class="mod-sec">Cultural vs. Biological Aversion</span>
+            <span class="mod-sec">Identity &amp; Food</span>
+            <span class="mod-sec">Overwriting Conditioned Response</span>
+            <span class="mod-sec">Primal Identity Reclamation</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>R.03 Nutrition</span> (the protocols this module unlocks), <span>E.02 Cognitive Sovereignty</span> (general framework applied here)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">E.04</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--prs)"></span> PRIMARY PILLAR: RESONANCE</div>
+          <div class="mod-title">Neuroplasticity &amp; Directed Rewiring</div>
+          <div class="mod-formal">Rewriting the Neural Architecture</div>
+          <div class="mod-desc">The mechanism layer. After deprogramming clears the noise, neuroplasticity provides the means to write new patterns. Covers directed neuroplastic change, habit formation as neural pathway engineering, and the intentional restructuring of cognitive and emotional circuits.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Neuroplasticity Mechanisms</span>
+            <span class="mod-sec">Directed Neural Rewiring</span>
+            <span class="mod-sec">Habit as Pathway Engineering</span>
+            <span class="mod-sec">Emotional Circuit Restructuring</span>
+            <span class="mod-sec">Integration with Biological Protocols</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>R.05 Nervous System Repair</span> (biological substrate of plasticity), <span>R.04 Hormonal Optimization</span> (neurochemical precursors)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">E.05</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--prs)"></span> PRIMARY PILLAR: RESONANCE</div>
+          <div class="mod-title">Consciousness &amp; the Nature of Awareness</div>
+          <div class="mod-formal">The Observer Behind the OS</div>
+          <div class="mod-desc">The pivot from doing to being. After establishing cognitive sovereignty and neural rewiring, this module asks: what is the awareness that observes the mind? Covers theories of consciousness, the hard problem, awareness as a fundamental property, and the relationship between biological coherence and conscious experience.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">What Is Awareness?</span>
+            <span class="mod-sec">The Hard Problem</span>
+            <span class="mod-sec">Consciousness as Fundamental Property</span>
+            <span class="mod-sec">Coherence &amp; Conscious Experience</span>
+            <span class="mod-sec">The Observer &amp; the Observed</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>C.01 Quantum Biology</span> (quantum coherence and consciousness), <span>C.02 Time-Crystalline Biology</span> (temporal structure of awareness)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">E.06</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pp)"></span><span class="mod-pillar-dot" style="background:var(--pr);margin-left:4px"></span><span class="mod-pillar-dot" style="background:var(--prs);margin-left:4px"></span> ALL PILLARS</div>
+          <div class="mod-title">Philosophy of Self-Realization</div>
+          <div class="mod-formal">The Integrated View</div>
+          <div class="mod-desc">The synthesis module. Draws together biological coherence, cognitive sovereignty, and conscious awareness into a unified philosophy of self-realization. What does it mean to be a fully coherent system? How does the individual relate to the whole? The culmination of the Ethos branch.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Self-Realization Defined</span>
+            <span class="mod-sec">The Coherent Self</span>
+            <span class="mod-sec">Individual &amp; Whole</span>
+            <span class="mod-sec">Living Philosophy</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>E.07 Stoic/Ancestral Frameworks</span> (historical precedent), <span>All Regenesis modules</span> (biology as philosophical ground)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">E.07</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pr)"></span> PRIMARY PILLAR: RHYTHM</div>
+          <div class="mod-title">Stoic &amp; Ancestral Philosophical Frameworks</div>
+          <div class="mod-formal">The Lineage of Coherence</div>
+          <div class="mod-desc">Historical and philosophical context. Examines how the coherence framework connects to and extends Stoic philosophy, ancestral wisdom traditions, and perennial philosophy. Not as nostalgia but as evidence that the principles of Purity, Rhythm, and Resonance have been independently discovered across cultures and eras.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Stoic Principles &amp; Coherence</span>
+            <span class="mod-sec">Ancestral Wisdom Traditions</span>
+            <span class="mod-sec">Perennial Philosophy</span>
+            <span class="mod-sec">Cross-Cultural Convergence</span>
+            <span class="mod-sec">Tradition as Validation</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>C.05 Sacred Geometry</span> (mathematical structure in ancient knowledge), <span>G.01 What Is Coherence</span> (historical roots of the root concept)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== COSMOS ==================== -->
+  <div class="branch br-c">
+    <div class="branch-hdr">
+      <div class="branch-num">BRANCH III</div>
+      <div class="branch-title">Cosmos</div>
+    </div>
+    <div class="branch-sub">Field &#183; Physics &#183; Cosmology</div>
+    <div class="branch-desc">The physical and cosmological substrate. Five modules sequenced from quantum-scale biological coherence outward to the mathematical geometry of the cosmos. The logic: start where physics meets biology (the quantum cell), scale up through electromagnetic fields and planetary coupling, and arrive at the deepest structural patterns of reality.</div>
+    <div class="branch-logic">Sequencing Principle: &#8220;Begin at the smallest coherent unit. Scale outward until you reach the geometry of the whole.&#8221;</div>
+
+    <div class="modules">
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">C.01</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pp)"></span> PRIMARY PILLAR: PURITY</div>
+          <div class="mod-title">Quantum Biology &amp; Coherence in Living Systems</div>
+          <div class="mod-formal">Where Physics Meets the Cell</div>
+          <div class="mod-desc">The foundation of the Cosmos branch. Explores how quantum-mechanical phenomena (tunneling, superposition, entanglement) operate within biological systems &#8212; enzyme catalysis, photosynthesis, magnetoreception, and olfaction. Establishes the thesis that biological coherence has quantum roots.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Quantum Effects in Biology</span>
+            <span class="mod-sec">Enzyme Tunneling &amp; Catalysis</span>
+            <span class="mod-sec">Biological Entanglement</span>
+            <span class="mod-sec">Coherence at the Molecular Scale</span>
+            <span class="mod-sec">Implications for the Coherence Model</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>R.04 Hormonal Optimization</span> (quantum signaling in endocrine systems), <span>E.05 Consciousness</span> (quantum coherence and awareness)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">C.02</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pr)"></span> PRIMARY PILLAR: RHYTHM</div>
+          <div class="mod-title">Time-Crystalline Biology &amp; Cellular Coherence</div>
+          <div class="mod-formal">The Temporal Architecture of Life</div>
+          <div class="mod-desc">Extends the quantum foundation into temporal dynamics. The human organism as a time-crystalline medium &#8212; a system whose coherence is maintained through periodic, self-sustaining oscillatory patterns. Covers how cells maintain temporal order, metabolic oscillations, and the relationship between time-crystal physics and biological rhythmicity.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Time Crystals &#8212; Physics Foundation</span>
+            <span class="mod-sec">The Body as Time-Crystalline Medium</span>
+            <span class="mod-sec">Metabolic Oscillations</span>
+            <span class="mod-sec">Cellular Temporal Order</span>
+            <span class="mod-sec">Time-Crystalline Biology Thesis</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>R.02 Sleep Architecture</span> (circadian rhythms as macro time-crystal), <span>R.04 Hormonal Optimization</span> (hormonal oscillations)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">C.03</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--prs)"></span> PRIMARY PILLAR: RESONANCE</div>
+          <div class="mod-title">Electromagnetic Biology &amp; Biofield Theory</div>
+          <div class="mod-formal">The Body as Electromagnetic Emitter</div>
+          <div class="mod-desc">Scales from cellular coherence to the organism&#8217;s electromagnetic field. Covers endogenous bioelectric signaling, the biofield as an emergent property of cellular coherence, EMF sensitivity, and how the body&#8217;s electromagnetic signature interacts with environmental fields.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Bioelectric Signaling</span>
+            <span class="mod-sec">The Biofield</span>
+            <span class="mod-sec">EMF &amp; Environmental Fields</span>
+            <span class="mod-sec">EM Sensitivity &amp; Interference</span>
+            <span class="mod-sec">Body-Field Interaction Model</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>R.01 Detoxification</span> (EMF as environmental toxin), <span>R.05 Nervous System</span> (neural EM field generation)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">C.04</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--prs)"></span> PRIMARY PILLAR: RESONANCE</div>
+          <div class="mod-title">Schumann Resonance &amp; Earth-Body Coupling</div>
+          <div class="mod-formal">Phase-Locking With the Planet</div>
+          <div class="mod-desc">Scales from the individual biofield to planetary coupling. The Schumann resonance as the Earth&#8217;s fundamental electromagnetic frequency and its relationship to human brain rhythms, circadian biology, and systemic coherence. Covers grounding, solar/lunar cycles, and the mechanisms by which the human system phase-locks with geophysical fields.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Schumann Resonance &#8212; Physics</span>
+            <span class="mod-sec">Brain Rhythms &amp; Earth Frequency</span>
+            <span class="mod-sec">Grounding Mechanisms</span>
+            <span class="mod-sec">Solar &amp; Lunar Cycle Integration</span>
+            <span class="mod-sec">Planetary Phase-Locking</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>R.02 Sleep Architecture</span> (Schumann and sleep), <span>E.01 Lifestyle Design</span> (grounding as daily practice)</div>
+        </div>
+      </div>
+
+      <div class="mod">
+        <div class="mod-num-col"><div class="mod-num">C.05</div></div>
+        <div class="mod-body">
+          <div class="mod-pillar"><span class="mod-pillar-dot" style="background:var(--pp)"></span><span class="mod-pillar-dot" style="background:var(--pr);margin-left:4px"></span><span class="mod-pillar-dot" style="background:var(--prs);margin-left:4px"></span> ALL PILLARS</div>
+          <div class="mod-title">Sacred Geometry &amp; Mathematical Structure</div>
+          <div class="mod-formal">The Deep Code</div>
+          <div class="mod-desc">The capstone of the Cosmos branch. Examines the recurring geometric and mathematical patterns that appear at every scale &#8212; from molecular structure to planetary orbits to ancient architecture. Positions sacred geometry not as mysticism but as evidence of the fundamental structural coherence of reality itself.</div>
+          <div class="mod-sections">
+            <span class="mod-sec">Geometry as Universal Language</span>
+            <span class="mod-sec">Recurring Patterns Across Scales</span>
+            <span class="mod-sec">Ancient Structures &amp; Archeoastronomy</span>
+            <span class="mod-sec">Mathematical Constants in Nature</span>
+            <span class="mod-sec">Geometry as Evidence of Coherence</span>
+          </div>
+          <div class="mod-xlink"><span class="mx-arrow">&#8618;</span> Cross-links: <span>E.07 Stoic/Ancestral Frameworks</span> (ancient knowledge systems), <span>G.01 What Is Coherence</span> (geometry as proof of root concept)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CROSS-LINK MATRIX ==================== -->
+  <div class="matrix">
+    <div class="matrix-title">Cross-Link Architecture</div>
+    <div class="matrix-desc">Key structural connections between branches. These are not decorative &#8212; they are load-bearing joints in the framework, ensuring that a reader who enters through any branch encounters the other branches naturally.</div>
+    <div class="matrix-grid">
+      <div class="mx-card">
+        <div class="mx-label">Regenesis &#8596; Ethos</div>
+        <div class="mx-link">R.01 Detoxification &#8596; E.02 Cognitive Sovereignty <span class="mx-arrow">&#8212; physical &amp; mental purification as parallel processes</span></div>
+        <div class="mx-link">R.02 Sleep &#8596; E.01 Lifestyle Design <span class="mx-arrow">&#8212; circadian rhythm as the bridge between biology and behavior</span></div>
+        <div class="mx-link">R.03 Nutrition &#8596; E.03 Disgust Barrier <span class="mx-arrow">&#8212; the body&#8217;s fuel blocked by the mind&#8217;s programming</span></div>
+        <div class="mx-link">R.05 Nervous System &#8596; E.04 Neuroplasticity <span class="mx-arrow">&#8212; hardware repair enables software rewiring</span></div>
+      </div>
+      <div class="mx-card">
+        <div class="mx-label">Regenesis &#8596; Cosmos</div>
+        <div class="mx-link">R.02 Sleep &#8596; C.04 Schumann Resonance <span class="mx-arrow">&#8212; sleep architecture phase-locked with Earth frequency</span></div>
+        <div class="mx-link">R.04 Hormones &#8596; C.01 Quantum Biology <span class="mx-arrow">&#8212; endocrine signaling at quantum scale</span></div>
+        <div class="mx-link">R.05 Nervous System &#8596; C.03 EM Biology <span class="mx-arrow">&#8212; neural EM field as bridge between body and biofield</span></div>
+        <div class="mx-link">R.01 Detox &#8596; C.03 EM Biology <span class="mx-arrow">&#8212; EMF as environmental toxin disrupting substrate</span></div>
+      </div>
+      <div class="mx-card">
+        <div class="mx-label">Ethos &#8596; Cosmos</div>
+        <div class="mx-link">E.05 Consciousness &#8596; C.01 Quantum Biology <span class="mx-arrow">&#8212; quantum coherence as substrate of awareness</span></div>
+        <div class="mx-link">E.05 Consciousness &#8596; C.02 Time-Crystalline Biology <span class="mx-arrow">&#8212; temporal structure of conscious experience</span></div>
+        <div class="mx-link">E.07 Stoic/Ancestral &#8596; C.05 Sacred Geometry <span class="mx-arrow">&#8212; ancient knowledge encoding structural truth</span></div>
+        <div class="mx-link">E.06 Self-Realization &#8596; C.05 Sacred Geometry <span class="mx-arrow">&#8212; the self as fractal expression of cosmic structure</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ft"><div class="ftt">Science of Coherence &#183; Architecture v1B &#183; Step 2 of 5 &#183; For Review</div></div>
+</div>
+</body>
+</html>
