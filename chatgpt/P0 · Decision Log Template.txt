@@ -1,0 +1,21 @@
+P0 Decision Log Entry
+
+Entry ID:
+Date:
+Canon version:
+Decision:
+Status: accepted / superseded / open
+Affected projects:
+Reason:
+Notes:
+
+P0 Decision Log Entry
+
+Entry ID: P0-DL-001
+Date: 2026-03-11
+Canon version: v1.1
+Decision: Canon v1.1 initialized as the current accepted version of P0; v1.0 marked superseded. Added Version protocol and Translation rule. Refined the open question on Δ and narrowed the cross-paper open question from translation-rule existence to symbol-lock strictness.
+Status: accepted
+Affected projects: P0, P1, P2, P3, P4
+Reason: To formalize version control at the canon level, permit local elaborations only when explicitly translatable back to canon, and reduce ambiguity in how downstream papers relate to the master framework.
+Notes: Core recursion remains ∇Φ → Λ → Ω → Δ; feedback closures remain Δ → Λ and Ω → ∇Φ. No change to the role map. Open items still include formal placement of Ψ, formal semantics of →, internal decomposition of Δ, formalization of Ω memory and boundary constraint, and symbol-lock strictness across P1 and P2.

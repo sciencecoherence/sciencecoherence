@@ -1,0 +1,85 @@
+P1 · Structural Surgery Map v1.0
+
+Core judgment:
+The current draft contains the right philosophical core, but it still behaves like a hybrid of foundation paper and formal companion. The next edition should become a clear foundation paper: ontology first, recursive being second, consciousness and knowing third, formal machinery only where it genuinely clarifies.
+
+Front matter:
+- Replace subtitle with: Coherence, Recursive Being, and Consciousness as Stabilized Coherence
+- Rewrite abstract in a more ontological, less technical key
+
+Keep mostly as is:
+- Preamble
+- Coherence as Alignment
+- Why the chain self-actualizes
+- Consciousness as a dynamical phase
+
+Revise and simplify:
+- The Self-Actualizing Recursion
+- The coherence map
+- The Universal Time-Crystal
+- Coherence Equilibrium and the Dual Stabilization
+- The one-state problem and its dissolution
+- Knowing as re-cohering
+- Conclusion
+
+Reduce to a brief conceptual note:
+- The mind-like wave variable Ψ
+
+Move to P2:
+- Medium-Embedded Recursive Update Law
+- Covariant structure on Ω
+- Directional closure
+- The dual stabilization conditions
+- Resonant Interconnection
+- Mechanism: phase-alignment coupling
+- Biological and cognitive resonance
+- Epistemic status and conditions for verification
+
+Remove entirely:
+- The combined container heading “Consciousness and Knowing” as a single merged section
+  Replace it with two full standalone sections
+
+New section architecture:
+1. Introduction: Why Being Must Be Recast
+2. The Ontological Claim: Being as Coherence
+3. The Canonical Arc of Realization
+4. From Realization to Recursive Being
+5. Consciousness as Stabilized Coherence
+6. Knowing as Re-Cohering
+7. Memory, Boundary, and the Shape of a World
+8. Expression, Propagation, and the Trace of Integration
+9. The Time-Crystalline Vision of Reality
+10. Philosophical Implications
+11. Conclusion: The Ethos of Being
+
+Section purposes:
+- Introduction: set the philosophical stakes and establish the paper as ontological rather than formally dynamical
+- Being as Coherence: state the central metaphysical claim
+- Canonical Arc: present the core recursion and feedback-closure reading
+- Recursive Being: elevate self-integration, self-reference, and agency into a dedicated section
+- Consciousness: present consciousness as stabilized coherence
+- Knowing: present knowing as re-cohering rather than mere representation
+- Memory / Boundary / Worldhood: give Ω full philosophical dignity
+- Trace of Integration: retain Ψ only as a disciplined conceptual expression within Ω
+- Time-Crystalline Vision: preserve recurrence, memory, and patterned re-instantiation at the conceptual level
+- Philosophical Implications: open the framework toward selfhood, truth, agency, and participation
+- Conclusion: return to the title phrase and close as a foundation paper, not a technical system
+
+Equation policy:
+- Keep: Eq. (1)
+- Optional only if genuinely needed: Ψ := W_Ω(Δ)
+- Move to P2: Eqs. (2), (4), (5), (6), (7), (8), (9), (10), (11)
+
+Canon lock:
+- Revert every stray Σ reference to Λ
+- State explicitly that Δ → Λ and Ω → ∇Φ are feedback closures, not general bidirectional couplings
+
+Editorial lock:
+P1 is the foundation paper. Its task is to articulate ontology, recursive being, consciousness, knowing, worldhood, and the time-crystalline vision at the conceptual level. Formal dynamical machinery should appear only where indispensable to philosophical clarity.
+
+Notation lock:
+Λ replaces every stray Σ unless P0 canon is explicitly revised.
+If ↝ is used, define it explicitly as feedback closure.
+
+Net result sought:
+A version of The Ethos of Being that reads unmistakably as the framework’s foundation text: ontological, lucid, recursive, and philosophically forceful, while leaving the heavier machinery to P2.
