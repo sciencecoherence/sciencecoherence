@@ -28,8 +28,10 @@
       --blue-glow: rgba(122, 176, 232, .3);
       --violet: #a078e0;
       --violet-dim: rgba(160, 120, 224, .14);
+      --violet-glow: rgba(160, 120, 224, .3);
       --amber: #e8a060;
       --amber-dim: rgba(232, 160, 96, .14);
+      --amber-glow: rgba(232, 160, 96, .28);
       --crimson: #d06880;
 
       /* gold accent for topbar / cursor */
@@ -363,8 +365,53 @@
       text-transform: uppercase;
       padding: 5px 12px;
       border: 1px solid var(--line-mid);
-      color: var(--text-dim);
-      background: rgba(0, 229, 160, .03);
+      color: var(--blue);
+      border-color: rgba(122, 176, 232, .25);
+      background: rgba(122, 176, 232, .04);
+    }
+
+    .chip-tag.cosmos {
+      color: var(--blue);
+      border-color: rgba(122, 176, 232, .25);
+      background: rgba(122, 176, 232, .04);
+    }
+
+    /* Stream count row */
+    .hero-metrics {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .7s var(--ease-out) .5s forwards;
+    }
+
+    .metric {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .metric-value {
+      font-family: var(--font-head);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--text-head);
+      line-height: 1;
+    }
+
+    .metric-label {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: .22em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+    }
+
+    .metric-sep {
+      width: 1px;
+      background: var(--line-mid);
+      align-self: stretch;
+      margin: 2px 0;
     }
 
     /* ── SECTION HEADER ── */
@@ -418,6 +465,11 @@
       text-transform: uppercase;
     }
 
+    .sec-badge.paper {
+      color: var(--amber);
+      border-color: rgba(232, 160, 96, .35);
+    }
+
     .sec-badge.active {
       color: var(--green);
       border-color: rgba(0, 229, 160, .35);
@@ -444,7 +496,7 @@
     @media(max-width:760px) {
 
       .card-grid,
-      .card-grid-3 {
+      .card-grid-4 {
         grid-template-columns: 1fr
       }
     }
@@ -792,6 +844,39 @@
       }
     }
 
+    /* ── PAPER TYPE BADGE ── */
+    .paper-type {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border: 1px solid;
+      margin-bottom: 14px;
+    }
+
+    .paper-type.research {
+      color: var(--violet);
+      border-color: rgba(160, 120, 224, .35);
+    }
+
+    .paper-type.protocol {
+      color: var(--green);
+      border-color: rgba(120, 196, 150, .35);
+    }
+
+    .paper-type.philosophy {
+      color: var(--blue);
+      border-color: rgba(122, 176, 232, .35);
+    }
+
+    .paper-type.theory {
+      color: var(--amber);
+      border-color: rgba(232, 160, 96, .35);
+    }
+
+
     .sec-header {
       opacity: 0;
       animation: fadeUp .6s var(--ease-out) .55s forwards;
@@ -839,16 +924,42 @@
     <header class="hero">
       <h1 class="hero-title">Science Coherence</h1>
       <p class="hero-subtitle">
-        <span>Project Portal</span>
+        <span>Time-Crystalline Project Portal</span>
         <span><a class="topline-contact" href="mailto:contact@sciencecoherence.com">Contact</a></span>
       </p>
       <div class="hero-chips">
         <span class="chip">Active project streams in preview — navigate, review, and help us build from here.</span>
       </div>
-      <p class="hero-framework-note">Science Coherence is a living framework — currently in active development.<br>The
-        version available represents the first coherent layer of a much larger architecture:<br>an early-stage
-        transmission. What you are navigating is the signal before the noise has been fully
+      <p class="hero-framework-note">
+        Science Coherence is a living framework — currently in active development.<br>
+        Bridging biophysics, ancestral biology, theoretical physics, and
+        philosophy into a single unified model.<br>
+        The version available represents the first coherent layer of a much larger architecture:<br>
+        an early-stage transmission. What you are navigating is the signal before the noise has been fully
         cleared.</p>
+
+      <div class="hero-metrics">
+        <div class="metric">
+          <div class="metric-value">2</div>
+          <div class="metric-label">Live Sites</div>
+        </div>
+        <div class="metric-sep"></div>
+        <div class="metric">
+          <div class="metric-value">2</div>
+          <div class="metric-label">Research Streams</div>
+        </div>
+        <div class="metric-sep"></div>
+        <div class="metric">
+          <div class="metric-value">4</div>
+          <div class="metric-label">Publications</div>
+        </div>
+        <div class="metric-sep"></div>
+        <div class="metric">
+          <div class="metric-value">3</div>
+          <div class="metric-label">Core Branches</div>
+        </div>
+      </div>
+    </header>
 
     </header>
 
@@ -857,16 +968,17 @@
       <div class="sec-label">
         <div class="sec-icon">◎</div>
         <div>
-          <div class="sec-name">Science of Living</div>
-          <div class="sec-sub">Regenesis · Cosmos · Ethos — Main Site</div>
+          <div class="sec-name">Time-Crystalline Framework</div>
+          <div class="sec-sub">Regenesis · Cosmos · Ethos — Main Sites</div>
         </div>
       </div>
       <span class="sec-badge active">Active</span>
     </div>
+
     <div class="card-grid">
       <article class="agent-card card-green">
         <div class="agent-header">
-          <div class="agent-icon">⬡</div>
+          <div class="agent-icon" style="border-color:rgba(43, 151, 224, 0.35);">⬡</div>
           <div>
             <div class="agent-name">The Science of Living</div>
             <div class="agent-type">sciencecoherence.com</div>
@@ -878,24 +990,18 @@
           <span class="agent-status-dot active"></span> Active — In Development
         </div>
         <div class="link-list">
-          <a class="portal-link" href="./main-project/index.html"><span class="portal-link-label">Main Page</span><span
-              class="portal-link-arrow">→</span></a>
-          <a class="portal-link" href="./main-project/regenesis.html" data-branch="regenesis"><span
-              class="portal-link-label">Regenesis</span><span class="portal-link-arrow">→</span></a>
-          <a class="portal-link" href="./main-project/cosmos.html" data-branch="cosmos"><span
-              class="portal-link-label">Cosmos</span><span class="portal-link-arrow">→</span></a>
-          <a class="portal-link" href="./main-project/ethos.html" data-branch="ethos"><span
-              class="portal-link-label">Ethos</span><span class="portal-link-arrow">→</span></a>
-          <a class="portal-link" href="./main-project/sciencecoherence-architecture.html"><span
-              class="portal-link-label">Architecture 1A</span><span class="portal-link-arrow">→</span></a>
+          <a class="portal-link" href="./main-project/index.html"><span class="portal-link-label">Enter Main
+              Site</span><span class="portal-link-arrow">→</span></a>
+          <a class="portal-link" href="./tcb-project/index.html" data-branch="tcb"><span
+              class="portal-link-label">Time-Crystalline Biology</span><span class="portal-link-arrow">→</span></a>
           <a class="portal-link" href="./main-project/sciencecoherence-architecture-1B.html"><span
-              class="portal-link-label">Architecture 1B</span><span class="portal-link-arrow">→</span></a>
+              class="portal-link-label">Website Architecture</span><span class="portal-link-arrow">→</span></a>
         </div>
       </article>
 
       <article class="agent-card card-blue">
         <div class="agent-header">
-          <div class="agent-icon">◈</div>
+          <div class="agent-icon" style="border-color:rgba(255,184,77,.35);color:var(--violet);">◈</div>
           <div>
             <div class="agent-name">The Science of Being</div>
             <div class="agent-type">ethos.sciencecoherence.com</div>
@@ -907,8 +1013,8 @@
           <span class="agent-status-dot active"></span> Active — Living Model
         </div>
         <div class="link-list">
-          <a class="portal-link" href="./ethos-project/index.html"><span class="portal-link-label">Model
-              Page</span><span class="portal-link-arrow">→</span></a>
+          <a class="portal-link" href="./ethos-project/index.html"><span class="portal-link-label">Time-Crystalline
+              Informational Dynamics</span><span class="portal-link-arrow">→</span></a>
           <a class="portal-link" href="./ethos-project/ethos.html" data-branch="ethos"><span
               class="portal-link-label">Ethos Theory</span><span class="portal-link-arrow">→</span></a>
           <a class="portal-link" href="./ethos-project/cosmos.html" data-branch="cosmos"><span
@@ -928,6 +1034,7 @@
       </div>
       <span class="sec-badge active">Active</span>
     </div>
+
     <div class="card-grid" style="animation-delay:.75s;">
       <article class="agent-card card-violet">
         <div class="agent-header">
@@ -966,6 +1073,102 @@
         <div class="coming-note">
           <strong>No pages yet</strong>
           Protocols, layered interventions, and substrate optimization frameworks are being architected.
+        </div>
+      </article>
+    </div>
+
+    <!-- ═══════════════════ PUBLICATIONS ═══════════════════ -->
+
+    <div class="sec-header sec-amber" style="margin-top:2px; animation-delay:.7s;">
+      <div class="sec-label">
+        <div class="sec-icon" style="border-color:rgba(232,160,96,.4);color:var(--amber);">◫</div>
+        <div>
+          <div class="sec-name">Publications</div>
+          <div class="sec-sub">Research Papers · Protocols · Philosophy</div>
+        </div>
+      </div>
+      <span class="sec-badge paper">4 Papers</span>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- Paper 1: TCB -->
+      <article class="agent-card card-violet">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(160,120,224,.35);">◧</div>
+          <div>
+            <div class="agent-name">Time-Crystalline Biology</div>
+            <div class="agent-type">Theoretical Paper · PDF</div>
+          </div>
+        </div>
+        <span class="paper-type research">Research Paper</span>
+        <p class="agent-desc">Foundational theoretical framework. Biological coherence as temporal
+          phase-locking, microtubule time crystals, Fröhlich condensation, and the five-layer
+          oscillatory hierarchy.</p>
+        <div class="link-list">
+          <a class="portal-link external" href="./publications/time-crystalline-biology.pdf" target="_blank">
+            <span class="portal-link-label">Open Paper</span><span class="portal-link-arrow">→</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Paper 2: Raw Organ Protocol -->
+      <article class="agent-card card-green">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(120,196,150,.35);">◧</div>
+          <div>
+            <div class="agent-name">Raw Organ Meat Framework</div>
+            <div class="agent-type">Protocol Paper · PDF</div>
+          </div>
+        </div>
+        <span class="paper-type protocol">Protocol Paper</span>
+        <p class="agent-desc">Evolutionary substrate requirements for biological re-crystallization. Raw
+          organ meats, quantum-coherent lattice architecture, and primal nutritional protocols
+          for cellular coherence restoration.</p>
+        <div class="link-list">
+          <a class="portal-link external" href="./publications/raw-organ-protocol-designed.pdf" target="_blank">
+            <span class="portal-link-label">Open Paper</span><span class="portal-link-arrow">→</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Paper 3: Operating with Intention -->
+      <article class="agent-card card-blue">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(122,176,232,.35);">◧</div>
+          <div>
+            <div class="agent-name">Operating with Intention</div>
+            <div class="agent-type">Philosophy Paper · PDF</div>
+          </div>
+        </div>
+        <span class="paper-type philosophy">Philosophy Paper</span>
+        <p class="agent-desc">Cognitive sovereignty and the mechanics of intentional living. Uninstalling
+          reactive cultural conditioning and overwriting it with directed neuroplasticity through
+          coherence-aligned practice.</p>
+        <div class="link-list">
+          <a class="portal-link external" href="./publications/operating-with-intention-converted.pdf" target="_blank">
+            <span class="portal-link-label">Open Paper</span><span class="portal-link-arrow">→</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Paper 4: Ethos of Being -->
+      <article class="agent-card card-amber">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(232,160,96,.35);">◧</div>
+          <div>
+            <div class="agent-name">Ethos of Being</div>
+            <div class="agent-type">Theoretical Paper · PDF</div>
+          </div>
+        </div>
+        <span class="paper-type theory">Theory Paper</span>
+        <p class="agent-desc">The philosophical architecture of the Science of Being. Coherence equilibrium,
+          self-actualizing recursion, and the unified ontological model bridging consciousness
+          with cosmological structure.</p>
+        <div class="link-list">
+          <a class="portal-link external" href="./publications/ethos-of-being.pdf" target="_blank">
+            <span class="portal-link-label">Open Paper</span><span class="portal-link-arrow">→</span>
+          </a>
         </div>
       </article>
     </div>

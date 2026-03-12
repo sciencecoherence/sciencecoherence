@@ -1,50 +1,59 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Science Coherence Portal</title>
+  <title>Science Coherence — Portal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Cinzel:wght@400;500&family=Manrope:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cinzel:wght@300;400;500&family=Jost:wght@100;200;300;400&display=swap"
     rel="stylesheet">
   <style>
     :root {
-      --bg-void: #04060d;
-      --bg-deep: #0d1525;
-      --bg-ink: #111a2d;
+      --bg: #020408;
+      --bg-panel: #06080f;
+      --bg-card: rgba(8, 13, 22, .88);
+      --bg-raised: rgba(10, 16, 28, .9);
+      --line: rgba(160, 180, 240, .1);
+      --line-mid: rgba(160, 180, 240, .18);
+      --line-hi: rgba(160, 180, 240, .35);
 
-      --surface: rgba(16, 23, 40, 0.76);
-      --surface-strong: rgba(10, 15, 27, 0.93);
-      --line: rgba(155, 177, 224, 0.2);
-      --line-soft: rgba(155, 177, 224, 0.12);
+      --green: #78c496;
+      --green-dim: rgba(120, 196, 150, .18);
+      --green-glow: rgba(120, 196, 150, .28);
+      --blue: #7ab0e8;
+      --blue-dim: rgba(122, 176, 232, .14);
+      --blue-glow: rgba(122, 176, 232, .3);
+      --violet: #a078e0;
+      --violet-dim: rgba(160, 120, 224, .14);
+      --violet-glow: rgba(160, 120, 224, .3);
+      --amber: #e8a060;
+      --amber-dim: rgba(232, 160, 96, .14);
+      --amber-glow: rgba(232, 160, 96, .28);
+      --crimson: #d06880;
 
-      --text-head: #eef3ff;
-      --text-body: #afb8d0;
-      --text-dim: #7f8aa8;
-      --text-faint: #57617e;
+      --gold: #c9a96e;
+      --gold-bright: #e0c080;
+      --gold-glow: rgba(201, 169, 110, .28);
 
-      --gold: #e2bd8a;
-      --gold-soft: rgba(226, 189, 138, 0.2);
-      --azure: #78aae9;
-      --jade: #82c491;
-      --glow-blue: rgba(120, 170, 235, 0.28);
-      --glow-jade: rgba(130, 196, 145, 0.22);
-      --glow-gold: rgba(226, 189, 138, 0.22);
+      --text-head: #b39a85;
+      --text-alt: #ffffff;
+      --text-body: #9ea8c0;
+      --text-dim: #6070a0;
+      --text-faint: #3a4464;
 
-      --font-display: 'Bodoni Moda', 'Times New Roman', serif;
-      --font-label: 'Cinzel', serif;
-      --font-body: 'Manrope', 'Helvetica Neue', sans-serif;
-      --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+      --font-mono: 'Cinzel', serif;
+      --font-ui: 'Jost', sans-serif;
+      --font-head: 'Cormorant Garamond', Georgia, serif;
 
-      --shadow-main: 0 34px 110px rgba(0, 0, 0, 0.55);
-      --shadow-card: 0 22px 58px rgba(0, 0, 0, 0.4);
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    * {
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -52,529 +61,846 @@
 
     html {
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     body {
-      min-height: 100vh;
-      overflow-x: hidden;
+      min-height: 100dvh;
+      background: var(--bg);
       color: var(--text-body);
-      font-family: var(--font-body);
-      font-weight: 300;
-      line-height: 1.7;
+      font-family: var(--font-ui);
+      font-weight: 400;
+      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      background:
-        radial-gradient(1000px 640px at -8% -8%, rgba(120, 170, 235, 0.22), transparent 52%),
-        radial-gradient(860px 560px at 108% 14%, rgba(130, 196, 145, 0.17), transparent 54%),
-        radial-gradient(900px 680px at 50% 114%, rgba(226, 189, 138, 0.11), transparent 60%),
-        linear-gradient(152deg, var(--bg-void), var(--bg-deep) 54%, var(--bg-ink));
+      cursor: none;
+      overflow-x: hidden;
     }
 
-    .grid-layer {
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ── CURSOR ── */
+    #cursor-dot {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: var(--gold-bright);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: screen;
+      top: -20px;
+      left: -20px;
+      will-change: left, top;
+    }
+
+    #cursor-ring {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(201, 169, 110, .5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      top: -40px;
+      left: -40px;
+      transition: width .3s var(--ease-out), height .3s var(--ease-out), border-color .3s;
+    }
+
+    body.cursor-hover #cursor-ring {
+      width: 54px;
+      height: 54px;
+      border-color: rgba(201, 169, 110, .8);
+    }
+
+    canvas#cursor-trail {
       position: fixed;
       inset: 0;
-      z-index: 0;
       pointer-events: none;
-      background-image:
-        linear-gradient(rgba(148, 171, 220, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(148, 171, 220, 0.055) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: radial-gradient(circle at 50% 30%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+      z-index: 9997;
     }
 
-    .bloom-layer {
+    canvas#particle-canvas {
       position: fixed;
-      inset: -8%;
-      z-index: 0;
+      inset: 0;
       pointer-events: none;
-      background:
-        radial-gradient(40% 34% at 18% 14%, var(--glow-blue), transparent 70%),
-        radial-gradient(35% 30% at 82% 18%, var(--glow-jade), transparent 72%),
-        radial-gradient(45% 38% at 50% 88%, var(--glow-gold), transparent 74%);
-      filter: blur(52px) saturate(115%);
-      opacity: 0.52;
-      animation: bloomFloat 18s var(--ease-out) infinite alternate;
+      z-index: 0;
     }
 
-    @keyframes bloomFloat {
-      from {
-        transform: translate3d(0, 0, 0) scale(1);
-      }
-
-      to {
-        transform: translate3d(1.5%, -1.5%, 0) scale(1.04);
-      }
-    }
-
-    .grain {
+    /* ── SCANLINES ── */
+    .scanlines {
       position: fixed;
-      inset: -50%;
-      width: 200%;
-      height: 200%;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9990;
+      background: repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(0, 0, 0, .08) 3px, rgba(0, 0, 0, .08) 4px);
+    }
+
+    /* ── GRID OVERLAY ── */
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
       z-index: 1;
-      pointer-events: none;
-      opacity: 0.028;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.84' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      animation: grainShift 0.58s steps(2) infinite;
+      background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+      opacity: .4;
     }
 
-    @keyframes grainShift {
-      0% {
-        transform: translate(0, 0);
-      }
+    /* ── TOPBAR ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      height: 44px;
+      background: rgba(4, 13, 20, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
 
-      25% {
-        transform: translate(-2%, -1%);
+    .topbar-brand {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .25em;
+      color: var(--text-body);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar-brand::before {
+      content: '';
+      display: inline-block;
+      width: 22px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .topbar-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .18em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .topbar-status {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .topbar-status::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green-glow);
+      animation: blink 2.8s ease-in-out infinite;
+    }
+
+    .topline-contact {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: .28em;
+      color: var(--text-faint);
+      transition: color .3s;
+      cursor: none;
+    }
+
+    .topline-contact:hover {
+      color: var(--gold);
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
       }
 
       50% {
-        transform: translate(1%, 2%);
-      }
-
-      75% {
-        transform: translate(-1%, 1%);
-      }
-
-      100% {
-        transform: translate(2%, -2%);
+        opacity: .4;
+        transform: scale(.7);
       }
     }
 
-    .portal-shell {
-      width: min(1280px, 100%);
-      margin: 0 auto;
-      padding: 24px 22px 56px;
+    /* ── SHELL ── */
+    .shell {
       position: relative;
-      z-index: 2;
+      z-index: 10;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 28px 80px;
     }
 
-    .topline {
-      border: 1px solid var(--line-soft);
-      background: linear-gradient(180deg, rgba(15, 22, 36, 0.66), rgba(10, 15, 27, 0.86));
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 10px 14px;
-      margin-bottom: 14px;
-      box-shadow:
-        inset 0 0 0 1px rgba(120, 170, 235, 0.04),
-        0 0 28px rgba(120, 170, 235, 0.12),
-        0 0 22px rgba(226, 189, 138, 0.09);
+    /* ── HERO ── */
+    .hero {
+      padding: 40px 0 32px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .topline-left,
-    .topline-right {
+    .hero-eyebrow {
       font-family: var(--font-mono);
       font-size: 10px;
-      letter-spacing: 0.12em;
+      letter-spacing: .28em;
+      color: var(--text-dim);
       text-transform: uppercase;
-      color: var(--text-faint);
-    }
-
-    .topline-right {
-      text-decoration: none;
-      transition: color 0.24s var(--ease-out), text-shadow 0.24s var(--ease-out);
-    }
-
-    .topline-right:hover {
-      color: var(--gold);
-      text-shadow: 0 0 14px rgba(226, 189, 138, 0.35);
-    }
-
-    .topline-left {
-      display: inline-flex;
+      margin-bottom: 18px;
+      display: flex;
       align-items: center;
       gap: 10px;
+      opacity: 0;
+      animation: fadeUp .6s var(--ease-out) .1s forwards;
     }
 
-    .topline-left::before {
-      content: "";
-      width: 18px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold));
-      box-shadow: 0 0 12px rgba(226, 189, 138, 0.35);
+    .hero-eyebrow span {
+      color: var(--green);
     }
 
-    .hero {
-      border: 1px solid var(--line-soft);
-      background:
-        radial-gradient(620px 340px at 82% 16%, rgba(120, 170, 235, 0.16), transparent 66%),
-        linear-gradient(152deg, rgba(24, 34, 54, 0.74), rgba(10, 15, 28, 0.97));
-      box-shadow:
-        var(--shadow-main),
-        0 0 54px rgba(120, 170, 235, 0.2),
-        0 0 66px rgba(226, 189, 138, 0.14);
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-      padding: clamp(26px, 5vw, 66px);
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 300px;
-      gap: clamp(18px, 3vw, 30px);
-      animation: riseIn 900ms var(--ease-out) both;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(125deg, transparent 8%, rgba(226, 189, 138, 0.07) 35%, transparent 62%),
-        radial-gradient(circle at 14% 84%, rgba(130, 196, 145, 0.08), transparent 56%);
-      transform: translateX(-100%);
-      animation: sweep 6.4s var(--ease-out) infinite;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 1px;
-      border: 1px solid rgba(226, 189, 138, 0.12);
-      pointer-events: none;
-      opacity: 0.55;
-      mix-blend-mode: screen;
-    }
-
-    @keyframes sweep {
-
-      0%,
-      56% {
-        transform: translateX(-100%);
-        opacity: 0;
-      }
-
-      62% {
-        opacity: 1;
-      }
-
-      100% {
-        transform: translateX(110%);
-        opacity: 0;
-      }
-    }
-
-    .hero-copy {
-      position: relative;
-      z-index: 1;
-    }
-
-    .label {
-      font-family: var(--font-label);
-      font-size: 9px;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--gold);
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      text-shadow: 0 0 18px rgba(226, 189, 138, 0.25);
-    }
-
-    .label::before {
-      content: "";
-      width: 24px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold));
-    }
-
-    h1 {
-      margin-top: 16px;
-      font-family: var(--font-display);
-      font-size: clamp(58px, 10vw, 136px);
-      font-weight: 500;
-      line-height: 0.88;
-      letter-spacing: -0.022em;
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: clamp(64px, 10.5vw, 148px);
+      font-weight: 300;
       color: var(--text-head);
-      text-wrap: balance;
-      text-shadow:
-        0 0 20px rgba(120, 170, 235, 0.2),
-        0 0 36px rgba(226, 189, 138, 0.15);
+      letter-spacing: -.03em;
+      line-height: .86;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp .7s var(--ease-out) .2s forwards;
     }
 
-    .hero p {
-      margin-top: 18px;
-      max-width: 70ch;
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .22em;
       color: var(--text-dim);
-      font-size: clamp(15px, 2.05vw, 20px);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: fadeUp .7s var(--ease-out) .3s forwards;
     }
 
-    .hero-meta {
-      margin-top: 22px;
+    .hero-subtitle span {
+      margin-right: 24px;
+    }
+
+    /* Branch row */
+    .hero-branches {
       display: flex;
       flex-wrap: wrap;
-      gap: 9px;
+      gap: 2px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp .7s var(--ease-out) .35s forwards;
     }
 
-    .chip {
-      border: 1px solid var(--line);
-      background: rgba(14, 20, 34, 0.72);
-      color: var(--text-body);
-      font-family: var(--font-label);
-      font-size: 8px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      padding: 6px 10px;
-      box-shadow: 0 0 16px rgba(120, 170, 235, 0.12);
-    }
-
-    .hero-note {
-      border: 1px solid var(--line-soft);
-      background: linear-gradient(180deg, rgba(13, 18, 31, 0.84), rgba(9, 13, 23, 0.95));
-      padding: 18px 16px;
-      display: grid;
-      gap: 14px;
-      align-content: start;
-      position: relative;
-      overflow: hidden;
-      box-shadow:
-        inset 0 0 0 1px rgba(120, 170, 235, 0.08),
-        0 0 34px rgba(120, 170, 235, 0.14),
-        0 0 20px rgba(226, 189, 138, 0.1);
-    }
-
-    .hero-note::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(155deg, rgba(120, 170, 235, 0.12), transparent 44%),
-        linear-gradient(330deg, rgba(226, 189, 138, 0.08), transparent 44%);
-      pointer-events: none;
-    }
-
-    .note-kicker {
-      position: relative;
-      z-index: 1;
+    .branch-tag {
       font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.14em;
+      font-size: 9px;
+      letter-spacing: .2em;
       text-transform: uppercase;
-      color: var(--text-faint);
-    }
-
-    .note-copy {
-      position: relative;
-      z-index: 1;
-      font-family: var(--font-display);
-      font-size: clamp(22px, 3.4vw, 30px);
-      line-height: 1.15;
-      color: var(--text-head);
-      max-width: 14ch;
-      text-shadow:
-        0 0 16px rgba(120, 170, 235, 0.18),
-        0 0 24px rgba(226, 189, 138, 0.12);
-    }
-
-    .note-rule {
-      position: relative;
-      z-index: 1;
-      height: 1px;
-      background: linear-gradient(90deg, var(--gold-soft), transparent);
-      box-shadow: 0 0 14px rgba(226, 189, 138, 0.3);
-    }
-
-    .note-meta {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      gap: 6px;
-      font-family: var(--font-mono);
-      font-size: 10px;
+      padding: 5px 14px;
+      border: 1px solid var(--line-mid);
       color: var(--text-dim);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      background: rgba(0, 0, 0, .2);
     }
 
-    .route-grid {
-      margin-top: 16px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+    .branch-tag.cosmos {
+      color: var(--blue);
+      border-color: rgba(122, 176, 232, .25);
+      background: rgba(122, 176, 232, .04);
     }
 
-    .route-card {
-      --mx: 50%;
-      --my: 50%;
-      border: 1px solid transparent;
-      background:
-        radial-gradient(560px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.08), transparent 44%),
-        linear-gradient(180deg, rgba(22, 30, 47, 0.88), rgba(10, 14, 24, 0.99)) padding-box,
-        linear-gradient(135deg, rgba(120, 170, 235, 0.34), rgba(226, 189, 138, 0.4), rgba(130, 196, 145, 0.3)) border-box;
-      box-shadow:
-        var(--shadow-card),
-        0 0 32px rgba(120, 170, 235, 0.16),
-        0 0 26px rgba(226, 189, 138, 0.12);
-      padding: 24px 22px 22px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.42s var(--ease-out), box-shadow 0.42s var(--ease-out);
-      animation: riseIn 900ms var(--ease-out) both;
-      isolation: isolate;
+    .branch-tag.ethos {
+      color: var(--violet);
+      border-color: rgba(160, 120, 224, .25);
+      background: rgba(160, 120, 224, .04);
     }
 
-    .route-card>* {
-      position: relative;
-      z-index: 1;
+    .branch-tag.regenesis {
+      color: var(--green);
+      border-color: rgba(120, 196, 150, .25);
+      background: rgba(120, 196, 150, .04);
     }
 
-    .route-card:nth-child(2) {
-      animation-delay: 90ms;
-    }
-
-    .route-card:hover {
-      transform: translateY(-6px);
-      box-shadow:
-        0 30px 64px rgba(0, 0, 0, 0.52),
-        0 0 52px rgba(120, 170, 235, 0.24),
-        0 0 42px rgba(226, 189, 138, 0.2);
-    }
-
-    .route-card::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      height: 1px;
-    }
-
-    .route-card::after {
-      content: "";
-      position: absolute;
-      inset: -35%;
-      pointer-events: none;
-      background:
-        radial-gradient(circle at 12% 16%, rgba(120, 170, 235, 0.22), transparent 46%),
-        radial-gradient(circle at 88% 84%, rgba(226, 189, 138, 0.18), transparent 44%);
-      filter: blur(42px);
-      opacity: 0.45;
-      z-index: 0;
-    }
-
-    .route-card.main::before {
-      background: linear-gradient(90deg, var(--jade), var(--gold), transparent 86%);
-    }
-
-    .route-card.model::before {
-      background: linear-gradient(90deg, var(--azure), var(--gold), transparent 86%);
-    }
-
-    .route-title {
-      font-family: var(--font-display);
-      font-size: clamp(30px, 4.2vw, 44px);
-      line-height: 1.02;
-      letter-spacing: -0.01em;
-      color: var(--text-head);
-      text-shadow:
-        0 0 16px rgba(120, 170, 235, 0.16),
-        0 0 24px rgba(226, 189, 138, 0.1);
-    }
-
-    .route-note {
-      margin-top: 7px;
-      color: var(--text-dim);
+    .hero-desc {
+      max-width: 56ch;
       font-size: 15px;
+      font-weight: 300;
+      color: var(--text-body);
+      line-height: 1.85;
+      margin-bottom: 14px;
+      opacity: 0;
+      animation: fadeUp .7s var(--ease-out) .4s forwards;
     }
 
-    .route-note code,
-    .footer-note code {
-      color: var(--gold);
-      font-family: var(--font-body);
-      font-size: 0.96em;
-      font-weight: 500;
+    .hero-framework-note {
+      max-width: 140ch;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .06em;
+      color: var(--text-dim);
+      line-height: 1.9;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp .7s var(--ease-out) .45s forwards;
     }
 
-    .link-list {
-      margin-top: 16px;
-      display: grid;
-      gap: 8px;
+    /* Stream count row */
+    .hero-metrics {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .7s var(--ease-out) .5s forwards;
     }
 
-    .portal-link {
-      border: 1px solid var(--line-soft);
-      background: linear-gradient(180deg, rgba(9, 13, 22, 0.9), rgba(10, 15, 25, 1));
+    .metric {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .metric-value {
+      font-family: var(--font-head);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--text-head);
+      line-height: 1;
+    }
+
+    .metric-label {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: .22em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+    }
+
+    .metric-sep {
+      width: 1px;
+      background: var(--line-mid);
+      align-self: stretch;
+      margin: 2px 0;
+    }
+
+    /* ── SECTION HEADER ── */
+    .sec-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      text-decoration: none;
-      color: var(--text-body);
-      font-family: var(--font-label);
-      font-size: 8px;
-      letter-spacing: 0.24em;
+      padding: 26px 0 14px;
+      border-bottom: 1px solid var(--line);
+      opacity: 0;
+    }
+
+    .sec-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sec-icon {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--line-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .sec-name {
+      font-family: var(--font-head);
+      font-size: 13px;
+      letter-spacing: .2em;
+      color: var(--text-alt);
+    }
+
+    .sec-sub {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .22em;
+      color: var(--text-dim);
       text-transform: uppercase;
-      padding: 11px 12px 11px 14px;
+      margin-top: 2px;
+    }
+
+    .sec-badge {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .2em;
+      padding: 4px 10px;
+      border: 1px solid;
+      text-transform: uppercase;
+    }
+
+    .sec-badge.active {
+      color: var(--green);
+      border-color: rgba(120, 196, 150, .35);
+    }
+
+    .sec-badge.pending {
+      color: var(--amber);
+      border-color: rgba(232, 160, 96, .35);
+    }
+
+    .sec-badge.paper {
+      color: var(--amber);
+      border-color: rgba(232, 160, 96, .35);
+    }
+
+    /* section color schemes */
+    .sec-green .sec-icon {
+      border-color: rgba(120, 196, 150, .4);
+      color: var(--green);
+    }
+
+    .sec-blue .sec-icon {
+      border-color: rgba(122, 176, 232, .4);
+      color: var(--blue);
+    }
+
+    .sec-violet .sec-icon {
+      border-color: rgba(160, 120, 224, .4);
+      color: var(--violet);
+    }
+
+    .sec-amber .sec-icon {
+      border-color: rgba(232, 160, 96, .4);
+      color: var(--amber);
+    }
+
+    /* ── CARD GRID ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      margin-bottom: 2px;
+      opacity: 0;
+    }
+
+    .card-grid-full {
+      grid-template-columns: 1fr;
+    }
+
+    .card-grid-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .card-grid-4 {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    @media(max-width:900px) {
+
+      .card-grid-3,
+      .card-grid-4 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width:760px) {
+
+      .card-grid,
+      .card-grid-3,
+      .card-grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── AGENT CARD ── */
+    .agent-card {
+      background: var(--bg-card);
+      padding: 28px 26px 26px;
       position: relative;
       overflow: hidden;
-      transition: border-color 0.24s, color 0.24s, transform 0.24s var(--ease-out), box-shadow 0.24s;
-      box-shadow:
-        inset 0 0 0 1px rgba(120, 170, 235, 0.05),
-        0 0 18px rgba(120, 170, 235, 0.12);
+      transition: background .2s;
     }
 
-    .portal-link::before {
-      content: "";
+    .agent-card::before {
+      content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 12%, rgba(226, 189, 138, 0.16) 46%, transparent 74%);
-      transform: translateX(-110%);
-      transition: transform 0.5s var(--ease-out);
-    }
-
-    .portal-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
       top: 0;
-      bottom: 0;
-      width: 2px;
-      background: linear-gradient(180deg, var(--gold), transparent);
-      opacity: 0.5;
-      transition: opacity 0.24s;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--card-accent, var(--green)), transparent);
+      opacity: 0;
+      transition: opacity .3s;
     }
 
-    .portal-link span:last-child {
-      color: var(--text-faint);
-      transition: transform 0.24s var(--ease-out), color 0.24s;
+    .agent-card:hover {
+      background: var(--bg-raised);
     }
 
-    .portal-link:hover {
-      border-color: rgba(226, 189, 138, 0.45);
-      color: var(--text-head);
-      transform: translateX(3px);
-      box-shadow:
-        inset 0 0 0 1px rgba(226, 189, 138, 0.08),
-        0 0 28px rgba(120, 170, 235, 0.18),
-        0 0 24px rgba(226, 189, 138, 0.14);
-    }
-
-    .portal-link:hover::before {
-      transform: translateX(110%);
-    }
-
-    .portal-link:hover::after {
+    .agent-card:hover::before {
       opacity: 1;
     }
 
-    .portal-link:hover span:last-child {
-      color: var(--gold);
-      transform: translateX(2px);
+    .agent-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
     }
 
-    .footer-note {
-      margin-top: 12px;
-      padding-top: 11px;
-      border-top: 1px solid var(--line-soft);
-      color: var(--text-faint);
+    .agent-icon {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: var(--bg-panel);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .agent-icon::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--card-accent, var(--green));
+      opacity: .08;
+    }
+
+    .agent-name {
+      font-family: var(--font-head);
+      font-size: 11px;
+      letter-spacing: .18em;
+      color: var(--text-head);
+      text-transform: uppercase;
+    }
+
+    .agent-type {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .14em;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    .agent-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-body);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .agent-status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .2em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .agent-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-faint);
+    }
+
+    .agent-status-dot.active {
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green-glow);
+      animation: blink 2s infinite;
+    }
+
+    /* ── LINK LIST (single column) ── */
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    /* ── LINK GRID (two columns, for Science of Living / Being) ── */
+    .link-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    @media(max-width:640px) {
+      .link-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── PORTAL LINK ── */
+    .portal-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      color: var(--text-body);
+      text-transform: uppercase;
+      transition: border-color .2s, color .2s, background .2s;
+      cursor: none;
+    }
+
+    .portal-link:hover {
+      border-color: var(--card-accent, var(--green));
+      color: var(--card-accent, var(--green));
+      background: color-mix(in srgb, var(--card-accent, var(--green)) 4%, transparent);
+    }
+
+    .portal-link-arrow {
       font-size: 12px;
+      opacity: .5;
     }
 
-    @keyframes riseIn {
+    .portal-link:hover .portal-link-arrow {
+      opacity: 1;
+    }
+
+    /* external link (PDF, opens new tab) */
+    .portal-link.external .portal-link-arrow::after {
+      content: ' ↗';
+    }
+
+    /* ── COMING SOON ── */
+    .coming-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .2em;
+      color: var(--amber);
+      border: 1px solid rgba(232, 160, 96, .3);
+      padding: 4px 10px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .coming-note {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .08em;
+      color: var(--text-dim);
+      line-height: 1.9;
+    }
+
+    .coming-note strong {
+      display: block;
+      color: var(--text-body);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    /* ── PAPER TYPE BADGE ── */
+    .paper-type {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border: 1px solid;
+      margin-bottom: 14px;
+    }
+
+    .paper-type.research {
+      color: var(--violet);
+      border-color: rgba(160, 120, 224, .35);
+    }
+
+    .paper-type.protocol {
+      color: var(--green);
+      border-color: rgba(120, 196, 150, .35);
+    }
+
+    .paper-type.philosophy {
+      color: var(--blue);
+      border-color: rgba(122, 176, 232, .35);
+    }
+
+    .paper-type.theory {
+      color: var(--amber);
+      border-color: rgba(232, 160, 96, .35);
+    }
+
+    /* card accent variants */
+    .card-green {
+      --card-accent: var(--green);
+    }
+
+    .card-blue {
+      --card-accent: var(--blue);
+    }
+
+    .card-violet {
+      --card-accent: var(--violet);
+    }
+
+    .card-amber {
+      --card-accent: var(--amber);
+    }
+
+    /* ── UPDATE LOG ── */
+    .update-section {
+      margin-top: 48px;
+      border: 1px solid var(--line);
+      background: var(--bg-panel);
+      opacity: 0;
+    }
+
+    .update-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .update-head-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--green);
+    }
+
+    .update-count {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .18em;
+      color: var(--text-dim);
+    }
+
+    .update-list {
+      max-height: 280px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--line-mid) transparent;
+    }
+
+    .update-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--line);
+      transition: background .15s;
+    }
+
+    .update-item:last-child {
+      border-bottom: none;
+    }
+
+    .update-item:hover {
+      background: var(--bg-raised);
+    }
+
+    .update-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+      background: var(--text-faint);
+    }
+
+    .update-dot.stream-living {
+      background: var(--green);
+      box-shadow: 0 0 5px var(--green-glow);
+    }
+
+    .update-dot.stream-model {
+      background: var(--blue);
+      box-shadow: 0 0 5px var(--blue-glow);
+    }
+
+    .update-dot.stream-tcb {
+      background: var(--violet);
+      box-shadow: 0 0 5px var(--violet-glow);
+    }
+
+    .update-dot.stream-biohack {
+      background: var(--amber);
+      box-shadow: 0 0 5px var(--amber-glow);
+    }
+
+    .update-dot.stream-portal {
+      background: var(--text-body);
+    }
+
+    .update-dot.stream-pub {
+      background: var(--amber);
+      box-shadow: 0 0 5px var(--amber-glow);
+    }
+
+    .update-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .update-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 3px;
+    }
+
+    .update-date {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .14em;
+      color: var(--text-dim);
+    }
+
+    .update-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: .14em;
+      color: var(--green);
+      text-transform: uppercase;
+    }
+
+    .update-text {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-body);
+      line-height: 1.5;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
       from {
         opacity: 0;
-        transform: translateY(24px);
+        transform: translateY(10px);
       }
 
       to {
@@ -583,165 +909,559 @@
       }
     }
 
-    @media (max-width: 1060px) {
+    /* staggered section reveals */
+    .sec-s1 {
+      animation: fadeUp .6s var(--ease-out) .55s forwards;
+    }
+
+    .sec-s2 {
+      animation: fadeUp .6s var(--ease-out) .60s forwards;
+    }
+
+    .sec-s3 {
+      animation: fadeUp .6s var(--ease-out) .65s forwards;
+    }
+
+    .sec-s4 {
+      animation: fadeUp .6s var(--ease-out) .70s forwards;
+    }
+
+    .sec-s5 {
+      animation: fadeUp .6s var(--ease-out) .75s forwards;
+    }
+
+    .sec-s6 {
+      animation: fadeUp .6s var(--ease-out) .80s forwards;
+    }
+
+    .sec-s7 {
+      animation: fadeUp .6s var(--ease-out) .85s forwards;
+    }
+
+    .sec-s8 {
+      animation: fadeUp .6s var(--ease-out) .90s forwards;
+    }
+
+    .sec-s9 {
+      animation: fadeUp .7s var(--ease-out) .95s forwards;
+    }
+
+    /* section spacer */
+    .sec-gap {
+      margin-top: 2px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:600px) {
+      .shell {
+        padding: 0 16px 60px;
+      }
+
+      .topbar {
+        padding: 0 16px;
+      }
+
       .hero {
-        grid-template-columns: 1fr;
+        padding: 32px 0 28px;
       }
 
-      .hero-note {
-        min-height: 170px;
-      }
-    }
-
-    @media (max-width: 980px) {
-      .route-grid {
-        grid-template-columns: 1fr;
+      .hero-metrics {
+        gap: 16px;
       }
 
-      .portal-shell {
-        padding: 16px 14px 28px;
-      }
-
-      .hero {
-        padding: clamp(24px, 6vw, 38px);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .topline {
-        padding: 8px 10px;
-      }
-
-      .topline-left,
-      .topline-right {
-        font-size: 9px;
-      }
-
-      .label {
-        font-size: 8px;
-        letter-spacing: 0.28em;
-      }
-
-      h1 {
-        font-size: clamp(46px, 16vw, 78px);
-      }
-
-      .hero p {
-        font-size: 14px;
-      }
-
-      .hero-meta {
-        gap: 6px;
-      }
-
-      .chip {
-        font-size: 7px;
-        letter-spacing: 0.16em;
-        padding: 5px 8px;
-      }
-
-      .route-card {
-        padding: 18px 12px;
-      }
-
-      .portal-link {
-        font-size: 7px;
-        letter-spacing: 0.16em;
-        padding: 9px 9px 9px 10px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
+      .metric-sep {
+        display: none;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="grid-layer" aria-hidden="true"></div>
-  <div class="bloom-layer" aria-hidden="true"></div>
-  <div class="grain" aria-hidden="true"></div>
 
-  <main class="portal-shell">
-    <div class="topline" aria-hidden="true">
-      <span class="topline-left">Science Coherence Editorial Portal</span>
-      <a class="topline-right" href="mailto:sciencecoherence@proton.me">Contact</a>
+  <canvas id="cursor-trail" aria-hidden="true"></canvas>
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- TOPBAR -->
+  <nav class="topbar">
+    <div class="topbar-brand">Science Coherence</div>
+    <div class="topbar-right">
+      <span class="topbar-tag">Research Portal v3</span>
+      <span class="topbar-status">Coherence Online</span>
+      <a class="topline-contact" href="mailto:contact@sciencecoherence.com">Contact</a>
     </div>
+  </nav>
 
+  <main class="shell">
+
+    <!-- ═══════════════════ HERO ═══════════════════ -->
     <header class="hero">
-      <div class="hero-copy">
-        <p class="label">Science Coherence Institute Projects</p>
-        <h1>Portal</h1>
-        <p>Current projects in preview, actively building and reviewing current development.</p>
-        <div class="hero-meta" aria-label="Portal metadata">
-          <span class="chip">Main branch</span>
-          <span class="chip">Live routes</span>
-          <span class="chip">Design preview</span>
-        </div>
+      <div class="hero-eyebrow">◎ <span>Active</span> — Science Coherence Portal</div>
+      <h1 class="hero-title">Science<br>Coherence</h1>
+      <p class="hero-subtitle">
+        <span>Science of Living</span>
+        <span>Science of Being</span>
+      </p>
+
+      <div class="hero-branches">
+        <span class="branch-tag cosmos">Cosmos</span>
+        <span class="branch-tag ethos">Ethos</span>
+        <span class="branch-tag regenesis">Regenesis</span>
       </div>
 
-      <aside class="hero-note" aria-label="Portal note">
-        <p class="note-kicker">For Reviewers</p>
-        <p class="note-copy">Editorial entry point for both active website streams.</p>
-        <div class="note-rule" aria-hidden="true"></div>
-        <div class="note-meta">
-          <span>Feedback welcome</span>
-          <span></span>
+      <p class="hero-desc">A living framework bridging biophysics, ancestral biology, theoretical physics,
+        and philosophy into a single unified model of biological coherence and self-realization.</p>
+
+      <p class="hero-framework-note">Science Coherence is in active development — an early-stage transmission.<br>
+        What you are navigating is the signal before the noise has been fully cleared.</p>
+
+      <div class="hero-metrics">
+        <div class="metric">
+          <div class="metric-value">2</div>
+          <div class="metric-label">Live Sites</div>
         </div>
-      </aside>
+        <div class="metric-sep"></div>
+        <div class="metric">
+          <div class="metric-value">2</div>
+          <div class="metric-label">Research Streams</div>
+        </div>
+        <div class="metric-sep"></div>
+        <div class="metric">
+          <div class="metric-value">4</div>
+          <div class="metric-label">Publications</div>
+        </div>
+        <div class="metric-sep"></div>
+        <div class="metric">
+          <div class="metric-value">3</div>
+          <div class="metric-label">Core Branches</div>
+        </div>
+      </div>
     </header>
 
-    <section class="route-grid" aria-label="Website portals">
-      <article class="route-card main">
-        <h2 class="route-title">Main Website</h2>
-        <p class="route-note"><code>main-project</code>.</p>
+    <!-- ═══════════════════ SCIENCE OF LIVING ═══════════════════ -->
+    <div class="sec-header sec-green sec-s1">
+      <div class="sec-label">
+        <div class="sec-icon">◎</div>
+        <div>
+          <div class="sec-name">Science of Living</div>
+          <div class="sec-sub">Regenesis · Cosmos · Ethos — sciencecoherence.com</div>
+        </div>
+      </div>
+      <span class="sec-badge active">Active</span>
+    </div>
+    <div class="card-grid card-grid-full sec-gap sec-s2">
+      <article class="agent-card card-green">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(120,196,150,.35);">⬡</div>
+          <div>
+            <div class="agent-name">The Science of Living</div>
+            <div class="agent-type">sciencecoherence.com — Main Public Site</div>
+          </div>
+        </div>
+        <p class="agent-desc">Biological optimization, ancestral frameworks, and the unified model of cellular
+          coherence.
+          The primary public-facing architecture spanning all three branches of the framework.</p>
+        <div class="agent-status">
+          <span class="agent-status-dot active"></span> Active — In Development
+        </div>
+        <div class="link-grid">
+          <a class="portal-link" href="./main-project/index.html">
+            <span class="portal-link-label">Main Page</span><span class="portal-link-arrow">→</span>
+          </a>
+          <a class="portal-link" href="./main-project/regenesis.html" data-branch="regenesis">
+            <span class="portal-link-label">Regenesis</span><span class="portal-link-arrow">→</span>
+          </a>
+          <a class="portal-link" href="./main-project/cosmos.html" data-branch="cosmos">
+            <span class="portal-link-label">Cosmos</span><span class="portal-link-arrow">→</span>
+          </a>
+          <a class="portal-link" href="./main-project/ethos.html" data-branch="ethos">
+            <span class="portal-link-label">Ethos</span><span class="portal-link-arrow">→</span>
+          </a>
+          <a class="portal-link" href="./main-project/sciencecoherence-architecture.html">
+            <span class="portal-link-label">Architecture 1A</span><span class="portal-link-arrow">→</span>
+          </a>
+          <a class="portal-link" href="./main-project/sciencecoherence-architecture-1B.html">
+            <span class="portal-link-label">Architecture 1B</span><span class="portal-link-arrow">→</span>
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <!-- ═══════════════════ SCIENCE OF BEING ═══════════════════ -->
+    <div class="sec-header sec-blue sec-gap sec-s3">
+      <div class="sec-label">
+        <div class="sec-icon">◈</div>
+        <div>
+          <div class="sec-name">Science of Being</div>
+          <div class="sec-sub">Consciousness · Unified Field · Speculative Cosmology</div>
+        </div>
+      </div>
+      <span class="sec-badge active">Active — Living Model</span>
+    </div>
+    <div class="card-grid card-grid-full sec-gap sec-s4">
+      <article class="agent-card card-blue">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(122,176,232,.35);">◈</div>
+          <div>
+            <div class="agent-name">The Science of Being</div>
+            <div class="agent-type">ethos.sciencecoherence.com — Theoretical Framework</div>
+          </div>
+        </div>
+        <p class="agent-desc">Consciousness, unified field theory, speculative cosmology, and the living
+          time-crystalline framework. The philosophical and theoretical architecture underpinning
+          the entire Science Coherence model.</p>
+        <div class="agent-status">
+          <span class="agent-status-dot active"
+            style="background:var(--blue);box-shadow:0 0 6px var(--blue-glow);"></span>
+          Active — Living Model
+        </div>
+        <div class="link-grid">
+          <a class="portal-link" href="./ethos-project/index.html">
+            <span class="portal-link-label">Model Page</span><span class="portal-link-arrow">→</span>
+          </a>
+          <a class="portal-link" href="./ethos-project/ethos.html" data-branch="ethos">
+            <span class="portal-link-label">Ethos Theory</span><span class="portal-link-arrow">→</span>
+          </a>
+          <a class="portal-link" href="./ethos-project/cosmos.html" data-branch="cosmos">
+            <span class="portal-link-label">Cosmos Theory</span><span class="portal-link-arrow">→</span>
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <!-- ═══════════════════ RESEARCH STREAMS ═══════════════════ -->
+    <div class="sec-header sec-violet sec-gap sec-s5">
+      <div class="sec-label">
+        <div class="sec-icon" style="border-color:rgba(160,120,224,.4);color:var(--violet);">⬟</div>
+        <div>
+          <div class="sec-name">Research Streams</div>
+          <div class="sec-sub">Time-Crystalline Biology · Biohacking Protocols</div>
+        </div>
+      </div>
+      <span class="sec-badge active">Active</span>
+    </div>
+    <div class="card-grid sec-gap sec-s6">
+      <!-- TCB -->
+      <article class="agent-card card-violet">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(160,120,224,.35);">⌬</div>
+          <div>
+            <div class="agent-name">Time-Crystalline Biology</div>
+            <div class="agent-type">tcb.sciencecoherence.com</div>
+          </div>
+        </div>
+        <p class="agent-desc">Time-crystalline structure and unified field equations. Biological coherence
+          as a temporal phase-locking phenomenon across five nested oscillatory scales.</p>
+        <div class="agent-status">
+          <span class="agent-status-dot active"
+            style="background:var(--violet);box-shadow:0 0 6px var(--violet-glow);"></span>
+          Active — Framework Online
+        </div>
         <div class="link-list">
-          <a class="portal-link" href="./main-project/index.html"><span>Main
-              Page</span><span>&rarr;</span></a>
-          <a class="portal-link"
-            href="./main-project/regenesis.html"><span>Regenesis</span><span>&rarr;</span></a>
-          <a class="portal-link" href="./main-project/sciencecoherence-architecture.html"><span>Website
-              Architecture 1A</span><span>&rarr;</span></a>
-          <a class="portal-link"
-            href="./main-project/sciencecoherence-architecture-1B.html"><span>WebsiteArchitecture
-              1B</span><span>&rarr;</span></a>
+          <a class="portal-link" href="./tcb-project/index.html">
+            <span class="portal-link-label">TCB Framework — Main</span><span class="portal-link-arrow">→</span>
+          </a>
         </div>
       </article>
 
-      <article class="route-card model">
-        <h2 class="route-title">Ethos Website</h2>
-        <p class="route-note"><code>ethos-project</code>.</p>
-        <div class="link-list">
-          <a class="portal-link" href="./ethos-project/index.html"><span>Model Page</span><span>&rarr;</span></a>
-          <a class="portal-link" href="./ethos-project/ethos.html"><span>Ethos Guide</span><span>&rarr;</span></a>
-          <a class="portal-link" href="./ethos-project/cosmos.html"><span>Cosmos View</span><span>&rarr;</span></a>
+      <!-- Biohacking -->
+      <article class="agent-card card-amber">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(232,160,96,.35);">⬡</div>
+          <div>
+            <div class="agent-name">Bio-Hacking</div>
+            <div class="agent-type">biohack.sciencecoherence.com</div>
+          </div>
+        </div>
+        <p class="agent-desc">Layered substrate interventions, nervous system repair protocols,
+          and primal optimization frameworks for biological re-crystallization.</p>
+        <div class="agent-status">
+          <span class="agent-status-dot" style="background:var(--amber);"></span> Initializing Stream
+        </div>
+        <span class="coming-badge">Stream Pending</span>
+        <div class="coming-note">
+          <strong>Architecture in progress</strong>
+          Protocols, layered interventions, and substrate optimization frameworks are being structured.
         </div>
       </article>
-    </section>
+    </div>
+
+    <!-- ═══════════════════ PUBLICATIONS ═══════════════════ -->
+    <div class="sec-header sec-amber sec-gap sec-s7">
+      <div class="sec-label">
+        <div class="sec-icon" style="border-color:rgba(232,160,96,.4);color:var(--amber);">◫</div>
+        <div>
+          <div class="sec-name">Publications</div>
+          <div class="sec-sub">Research Papers · Protocols · Philosophy</div>
+        </div>
+      </div>
+      <span class="sec-badge paper">4 Papers</span>
+    </div>
+    <div class="card-grid sec-gap sec-s8">
+
+      <!-- Paper 1: TCB -->
+      <article class="agent-card card-violet">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(160,120,224,.35);">◧</div>
+          <div>
+            <div class="agent-name">Time-Crystalline Biology</div>
+            <div class="agent-type">Theoretical Paper · PDF</div>
+          </div>
+        </div>
+        <span class="paper-type research">Research Paper</span>
+        <p class="agent-desc">Foundational theoretical framework. Biological coherence as temporal
+          phase-locking, microtubule time crystals, Fröhlich condensation, and the five-layer
+          oscillatory hierarchy.</p>
+        <div class="link-list">
+          <a class="portal-link external" href="./publications/time-crystalline-biology.pdf" target="_blank">
+            <span class="portal-link-label">Open Paper</span><span class="portal-link-arrow">→</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Paper 2: Raw Organ Protocol -->
+      <article class="agent-card card-green">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(120,196,150,.35);">◧</div>
+          <div>
+            <div class="agent-name">Raw Organ Meat Framework</div>
+            <div class="agent-type">Protocol Paper · PDF</div>
+          </div>
+        </div>
+        <span class="paper-type protocol">Protocol Paper</span>
+        <p class="agent-desc">Evolutionary substrate requirements for biological re-crystallization. Raw
+          organ meats, quantum-coherent lattice architecture, and primal nutritional protocols
+          for cellular coherence restoration.</p>
+        <div class="link-list">
+          <a class="portal-link external" href="./publications/raw-organ-protocol-designed.pdf" target="_blank">
+            <span class="portal-link-label">Open Paper</span><span class="portal-link-arrow">→</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Paper 3: Operating with Intention -->
+      <article class="agent-card card-blue">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(122,176,232,.35);">◧</div>
+          <div>
+            <div class="agent-name">Operating with Intention</div>
+            <div class="agent-type">Philosophy Paper · PDF</div>
+          </div>
+        </div>
+        <span class="paper-type philosophy">Philosophy Paper</span>
+        <p class="agent-desc">Cognitive sovereignty and the mechanics of intentional living. Uninstalling
+          reactive cultural conditioning and overwriting it with directed neuroplasticity through
+          coherence-aligned practice.</p>
+        <div class="link-list">
+          <a class="portal-link external" href="./publications/operating-with-intention-converted.pdf" target="_blank">
+            <span class="portal-link-label">Open Paper</span><span class="portal-link-arrow">→</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Paper 4: Ethos of Being -->
+      <article class="agent-card card-amber">
+        <div class="agent-header">
+          <div class="agent-icon" style="border-color:rgba(232,160,96,.35);">◧</div>
+          <div>
+            <div class="agent-name">Ethos of Being</div>
+            <div class="agent-type">Theoretical Paper · PDF</div>
+          </div>
+        </div>
+        <span class="paper-type theory">Theory Paper</span>
+        <p class="agent-desc">The philosophical architecture of the Science of Being. Coherence equilibrium,
+          self-actualizing recursion, and the unified ontological model bridging consciousness
+          with cosmological structure.</p>
+        <div class="link-list">
+          <a class="portal-link external" href="./publications/ethos-of-being.pdf" target="_blank">
+            <span class="portal-link-label">Open Paper</span><span class="portal-link-arrow">→</span>
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- ═══════════════════ UPDATE LOG ═══════════════════ -->
+    <div class="update-section sec-s9">
+      <div class="update-head">
+        <span class="update-head-label">// Update Status</span>
+        <span class="update-count" id="update-count"></span>
+      </div>
+      <div class="update-list" id="update-list"></div>
+    </div>
+
   </main>
 
   <script>
-    const cards = document.querySelectorAll('.route-card');
+    (function () {
 
-    cards.forEach((card) => {
-      card.addEventListener('pointermove', (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        card.style.setProperty('--mx', `${x}px`);
-        card.style.setProperty('--my', `${y}px`);
+      /* ================================================================
+       UPDATE LOG — add new entries to the TOP of this array
+       Fields:
+         date   — "DD Mon YYYY"
+         stream — "living" | "model" | "tcb" | "biohack" | "portal" | "pub"
+         tag    — e.g. "New Page", "Revision", "Structure"
+         text   — one-line description
+      ================================================================ */
+      var UPDATES = [
+        { date: '11 Mar 2026', stream: 'portal', tag: 'Rethink', text: 'Portal fully restructured — four sections: Science of Living, Science of Being, Research, Publications.' },
+        { date: '11 Mar 2026', stream: 'pub', tag: 'New Section', text: 'Publications section live — 4 papers now accessible from the portal.' },
+        { date: '08 Mar 2026', stream: 'living', tag: 'Update', text: 'Cosmos added Time-Crystalline Biology cross-link.' },
+        { date: '08 Mar 2026', stream: 'living', tag: 'Update', text: 'Cosmos and Regenesis CSS and SVG Updated.' },
+        { date: '08 Mar 2026', stream: 'living', tag: 'Update', text: 'Index Page Updated.' },
+        { date: '08 Mar 2026', stream: 'pub', tag: 'New Paper', text: 'Added Operating with Intention — Philosophy Paper PDF.' },
+        { date: '08 Mar 2026', stream: 'pub', tag: 'New Paper', text: 'Added Raw Organ Meat Framework — Protocol Paper PDF.' },
+        { date: '08 Mar 2026', stream: 'pub', tag: 'New Paper', text: 'Added Time-Crystalline Biology — Theoretical Paper PDF.' },
+        { date: '06 Mar 2026', stream: 'portal', tag: 'New Stream', text: 'Bio-Hacking stream initialised — architecture in progress.' },
+        { date: '06 Mar 2026', stream: 'tcb', tag: 'New Stream', text: 'Time-Crystalline Biology framework main page live.' },
+        { date: '06 Mar 2026', stream: 'portal', tag: 'Rename', text: 'Streams renamed to Science of Living & Science of Being.' },
+        { date: '05 Mar 2026', stream: 'living', tag: 'Structure', text: 'Architecture 1B module published — full cross-link matrix.' },
+        { date: '04 Mar 2026', stream: 'living', tag: 'Structure', text: 'Architecture 1A master document completed.' },
+        { date: '02 Mar 2026', stream: 'model', tag: 'New Page', text: 'Cosmos Theory page added to cohera stream.' },
+        { date: '28 Feb 2026', stream: 'model', tag: 'New Page', text: 'Ethos Theory page drafted and published.' },
+        { date: '20 Feb 2026', stream: 'living', tag: 'New Page', text: 'Ethos branch page live on main project.' },
+        { date: '15 Feb 2026', stream: 'living', tag: 'New Page', text: 'Cosmos branch page published.' },
+        { date: '10 Feb 2026', stream: 'living', tag: 'New Page', text: 'Regenesis branch page launched.' }
+      ];
+
+      var listEl = document.getElementById('update-list');
+      var countEl = document.getElementById('update-count');
+      if (listEl) {
+        if (countEl) countEl.textContent = UPDATES.length + ' entries';
+        listEl.innerHTML = UPDATES.length === 0
+          ? '<p style="padding:16px 20px;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);">No updates logged yet.</p>'
+          : UPDATES.map(function (u) {
+            return '<div class="update-item">'
+              + '<span class="update-dot stream-' + u.stream + '"></span>'
+              + '<div class="update-body">'
+              + '<div class="update-meta">'
+              + '<span class="update-date">' + u.date + '</span>'
+              + '<span class="update-tag">' + u.tag + '</span>'
+              + '</div>'
+              + '<p class="update-text">' + u.text + '</p>'
+              + '</div>'
+              + '</div>';
+          }).join('');
+      }
+
+      /* ── CURSOR ── */
+      var dot = document.getElementById('cursor-dot');
+      var ring = document.getElementById('cursor-ring');
+      var trailEl = document.getElementById('cursor-trail');
+      var mx = -300, my = -300, rx = -300, ry = -300;
+      var pts = [];
+      var tCtx = trailEl.getContext('2d');
+
+      function resizeTrail() { trailEl.width = window.innerWidth; trailEl.height = window.innerHeight; }
+      resizeTrail();
+      window.addEventListener('resize', resizeTrail);
+
+      document.addEventListener('mousemove', function (e) {
+        mx = e.clientX; my = e.clientY;
+        dot.style.left = (mx - 2.5) + 'px';
+        dot.style.top = (my - 2.5) + 'px';
+        pts.push({ x: mx, y: my });
+        if (pts.length > 22) pts.shift();
       });
-    });
+
+      document.querySelectorAll('a, .agent-card').forEach(function (el) {
+        el.addEventListener('mouseenter', function () { document.body.classList.add('cursor-hover'); });
+        el.addEventListener('mouseleave', function () { document.body.classList.remove('cursor-hover'); });
+      });
+
+      function loop() {
+        rx += (mx - rx) * 0.11;
+        ry += (my - ry) * 0.11;
+        ring.style.left = (rx - 14) + 'px';
+        ring.style.top = (ry - 14) + 'px';
+        tCtx.clearRect(0, 0, trailEl.width, trailEl.height);
+        for (var i = 1; i < pts.length; i++) {
+          var t = i / pts.length;
+          tCtx.beginPath();
+          tCtx.moveTo(pts[i - 1].x, pts[i - 1].y);
+          tCtx.lineTo(pts[i].x, pts[i].y);
+          tCtx.strokeStyle = 'rgba(201,169,110,' + (t * 0.25) + ')';
+          tCtx.lineWidth = t * 1.5;
+          tCtx.stroke();
+        }
+        requestAnimationFrame(loop);
+      }
+      loop();
+
+      /* ── PARTICLES ── */
+      var pc = document.getElementById('particle-canvas');
+      var pCtx = pc.getContext('2d');
+      var W, H, PCOUNT = 55, pars = [];
+      var pmx = innerWidth / 2, pmy = innerHeight / 2;
+      var COLS = [[122, 176, 232], [201, 169, 110], [120, 196, 150], [160, 120, 224]];
+
+      document.addEventListener('mousemove', function (e) { pmx = e.clientX; pmy = e.clientY; });
+      function sizePC() { W = pc.width = innerWidth; H = pc.height = innerHeight; }
+      sizePC();
+      window.addEventListener('resize', function () { sizePC(); buildPars(true); });
+
+      function makePar(init) {
+        var c = COLS[Math.floor(Math.random() * COLS.length)];
+        return {
+          x: Math.random() * W, y: init ? Math.random() * H : H + 10,
+          vx: (Math.random() - .5) * .25, vy: -(Math.random() * .35 + .08),
+          life: 0, max: Math.random() * 360 + 160, sz: Math.random() * 1.2 + .25,
+          r: c[0], g: c[1], b: c[2]
+        };
+      }
+      function buildPars(init) { pars = []; for (var i = 0; i < PCOUNT; i++) pars.push(makePar(init)); }
+      buildPars(true);
+
+      function tickP() {
+        pCtx.clearRect(0, 0, W, H);
+        for (var i = 0; i < pars.length; i++) {
+          var p = pars[i];
+          var dx = pmx - p.x, dy = pmy - p.y, d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 240) { p.vx += dx / d * .0025; p.vy += dy / d * .0025; }
+          p.vx *= .98; p.vy *= .98; p.x += p.vx; p.y += p.vy; p.life++;
+          if (p.life > p.max || p.y < -20) { pars[i] = makePar(false); continue; }
+          var al = Math.min(p.life / 60, 1) * Math.max(1 - p.life / p.max, 0) * .45;
+          if (al < .01) continue;
+          var g = pCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.sz * 3);
+          g.addColorStop(0, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + al + ')');
+          g.addColorStop(1, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',0)');
+          pCtx.beginPath(); pCtx.arc(p.x, p.y, p.sz * 3, 0, Math.PI * 2); pCtx.fillStyle = g; pCtx.fill();
+        }
+        for (var a = 0; a < pars.length; a++) {
+          for (var b = a + 1; b < pars.length; b++) {
+            var ex = pars[a].x - pars[b].x, ey = pars[a].y - pars[b].y, ed = Math.sqrt(ex * ex + ey * ey);
+            if (ed < 80) {
+              pCtx.beginPath(); pCtx.moveTo(pars[a].x, pars[a].y); pCtx.lineTo(pars[b].x, pars[b].y);
+              pCtx.strokeStyle = 'rgba(160,180,240,' + ((1 - ed / 80) * .05) + ')';
+              pCtx.lineWidth = .5; pCtx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(tickP);
+      }
+      tickP();
+
+      /* ── 3D TILT ── */
+      document.querySelectorAll('.agent-card').forEach(function (card) {
+        card.addEventListener('pointermove', function (e) {
+          var r = card.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width;
+          var py = (e.clientY - r.top) / r.height;
+          var tx = (px - .5) * 2, ty = (py - .5) * 2;
+          card.style.transform = 'perspective(900px) rotateX(' + (-ty * 4) + 'deg) rotateY(' + (tx * 4) + 'deg) translateZ(3px)';
+          card.style.transition = 'transform .08s ease';
+        });
+        card.addEventListener('pointerleave', function () {
+          card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) translateZ(0)';
+          card.style.transition = 'transform .7s cubic-bezier(.16,1,.3,1)';
+        });
+      });
+
+    })();
   </script>
 </body>
 
 </html>
-
-
