@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spiritual Entropy — A Coherence Critique</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-void: #0a0a0a;
+    --bg-deep: #0e0e0e;
+    --bg-card: #141414;
+    --bg-subtle: #1a1a1a;
+    --text-primary: #e8e4de;
+    --text-secondary: #8a8578;
+    --text-dim: #4a4740;
+    --accent-entropy: #c0392b;
+    --accent-coherence: #d4a853;
+    --accent-cold: #5b7a8a;
+    --accent-warn: #e67e22;
+    --border: #222;
+    --grain-opacity: 0.035;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-void);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: var(--grain-opacity);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(192, 57, 43, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse-entropy 8s ease-in-out infinite;
+  }
+
+  @keyframes pulse-entropy {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+  }
+
+  .hero-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--accent-entropy);
+    border: 1px solid rgba(192, 57, 43, 0.3);
+    padding: 0.4rem 1.2rem;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
+    animation: fadeSlideDown 1s ease-out 0.2s both;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(3.5rem, 8vw, 8rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    position: relative;
+    z-index: 1;
+    animation: fadeSlideDown 1.2s ease-out 0.4s both;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent-entropy);
+  }
+
+  .hero-subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--text-secondary);
+    margin-top: 2.5rem;
+    max-width: 600px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    animation: fadeSlideDown 1.2s ease-out 0.7s both;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: fadeSlideDown 1.2s ease-out 1.2s both;
+  }
+
+  .scroll-indicator span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--text-dim), transparent);
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scroll-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  section {
+    padding: 6rem 0;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+  }
+
+  h2 em { font-style: italic; color: var(--accent-entropy); }
+  h2 .gold { color: var(--accent-coherence); }
+
+  h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    max-width: 65ch;
+  }
+
+  .lead {
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .highlight {
+    color: var(--accent-coherence);
+    font-weight: 400;
+  }
+
+  .entropy-mark {
+    color: var(--accent-entropy);
+    font-weight: 400;
+  }
+
+  /* ── DECOHERENCE DIAGRAM ── */
+  .decoherence-stack {
+    margin: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .layer-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 1px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+  }
+
+  .layer-label {
+    background: var(--bg-card);
+    padding: 0.8rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .layer-coherent, .layer-entropic {
+    padding: 0.8rem 1rem;
+    line-height: 1.6;
+  }
+
+  .layer-coherent {
+    background: rgba(212, 168, 83, 0.05);
+    color: var(--accent-coherence);
+    border-left: 2px solid rgba(212, 168, 83, 0.2);
+  }
+
+  .layer-entropic {
+    background: rgba(192, 57, 43, 0.05);
+    color: var(--accent-entropy);
+    border-left: 2px solid rgba(192, 57, 43, 0.2);
+  }
+
+  .layer-header {
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.6rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .layer-header.coh-header {
+    background: rgba(212, 168, 83, 0.08);
+    color: var(--accent-coherence);
+  }
+
+  .layer-header.ent-header {
+    background: rgba(192, 57, 43, 0.08);
+    color: var(--accent-entropy);
+  }
+
+  /* ── CALLOUT BLOCKS ── */
+  .callout {
+    border-left: 2px solid var(--accent-entropy);
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+    background: rgba(192, 57, 43, 0.03);
+  }
+
+  .callout p {
+    color: var(--text-primary);
+    margin-bottom: 0;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+  }
+
+  .callout-gold {
+    border-left-color: var(--accent-coherence);
+    background: rgba(212, 168, 83, 0.03);
+  }
+
+  /* ── MECHANISM CARDS ── */
+  .mechanism-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    margin: 2.5rem 0;
+    background: var(--border);
+  }
+
+  .mechanism-card {
+    background: var(--bg-card);
+    padding: 2rem;
+  }
+
+  .mechanism-card .mech-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent-entropy);
+    margin-bottom: 0.75rem;
+  }
+
+  .mechanism-card h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .mechanism-card p {
+    font-size: 0.85rem;
+    margin-bottom: 0;
+  }
+
+  /* ── PHASE COMPARISON ── */
+  .phase-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    margin: 2.5rem 0;
+    background: var(--border);
+  }
+
+  .phase-col {
+    padding: 2rem;
+  }
+
+  .phase-col.entropic {
+    background: rgba(192, 57, 43, 0.03);
+  }
+
+  .phase-col.coherent {
+    background: rgba(212, 168, 83, 0.03);
+  }
+
+  .phase-col .phase-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .phase-col.entropic .phase-title { color: var(--accent-entropy); }
+  .phase-col.coherent .phase-title { color: var(--accent-coherence); }
+
+  .phase-item {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .phase-item:last-child { border-bottom: none; }
+
+  /* ── FINAL SECTION ── */
+  .final-section {
+    padding: 8rem 0;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .final-section h2 {
+    margin-bottom: 2.5rem;
+  }
+
+  .final-section p {
+    max-width: 55ch;
+    margin: 0 auto 1.5rem;
+    text-align: center;
+  }
+
+  .signature {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: inline-block;
+  }
+
+  /* ── SEPARATOR ── */
+  .sep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+    color: var(--text-dim);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.5em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .phase-compare { grid-template-columns: 1fr; }
+    .layer-row { grid-template-columns: 60px 1fr 1fr; }
+    .layer-row .layer-label { font-size: 0.55rem; }
+    .layer-coherent, .layer-entropic { font-size: 0.6rem; padding: 0.6rem; }
+    section { padding: 4rem 0; }
+    .callout { padding: 1rem 1.2rem; }
+    .mechanism-card { padding: 1.5rem; }
+    .phase-col { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<header class="hero">
+  <div class="hero-badge">sciencecoherence.com — field notes</div>
+  <h1 class="hero-title">Spiritual<br><em>Entropy</em></h1>
+  <p class="hero-subtitle">How performative awakening accelerates biological decoherence — a time-crystalline analysis of the neo-spiritual trap</p>
+  <div class="scroll-indicator">
+    <span>Read</span>
+    <div class="scroll-line"></div>
+  </div>
+</header>
+
+<!-- ══════════════ PREAMBLE ══════════════ -->
+<section>
+  <div class="container">
+    <div class="section-number">00 — Preamble</div>
+    <h2>The <em>Inversion</em></h2>
+    <p class="lead">
+      Across the sacred valleys and digital ashrams of the global neo-spiritual circuit, a peculiar inversion has taken hold. Communities that claim to pursue awakening are engineering — with remarkable precision — the exact conditions for biological and cognitive decoherence.
+    </p>
+    <p>
+      This is not a moral judgment. It is a <strong>biophysical observation</strong>. When analyzed through the five-layer time-crystalline model, the standard neo-spiritual lifestyle — repetitive sonic entrainment without somatic integration, chronic substrate deprivation through plant-exclusive diets, and social identity construction around borrowed mythologies — produces measurable, predictable entropic signatures at every scale of biological organization.
+    </p>
+    <p>
+      The pattern is consistent. The mechanism is clear. And the irony is total: <span class="entropy-mark">the pursuit of transcendence, absent coherence, becomes the engine of decay</span>.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════ SECTION 1 ══════════════ -->
+<section>
+  <div class="container">
+    <div class="section-number">01 — Sonic Decoherence</div>
+    <h2>The <em>Kirtan</em> Problem</h2>
+    <p class="lead">
+      Repetitive chanting is not inherently entropic. Acoustic resonance is one of the most ancient and powerful tools for phase-locking biological oscillators. But the neo-spiritual deployment of kirtan has inverted its function entirely.
+    </p>
+    <p>
+      In its traditional context, kirtan operated within a broader system of somatic discipline — fasting, breathwork, postural alignment, and circadian precision. The chant was a <strong>capstone</strong>, not a foundation. It was applied to a nervous system already pre-tuned through substrate integrity and temporal discipline.
+    </p>
+    <p>
+      Strip the foundation, keep the capstone, and you get a fundamentally different mechanism: <span class="entropy-mark">sonic hypnosis masquerading as spiritual technology</span>.
+    </p>
+
+    <div class="mechanism-grid">
+      <div class="mechanism-card">
+        <div class="mech-label">Mechanism 01</div>
+        <h4>Frequency-Locked Dissociation</h4>
+        <p>
+          Repetitive melodic loops at consistent BPM induce a narrow-band thalamocortical entrainment that reduces broadband neural complexity. Rather than phase-locking the oscillatory hierarchy, this <strong>collapses</strong> it into a single dominant frequency — the neurological signature not of integration, but of dissociation.
+        </p>
+      </div>
+      <div class="mechanism-card">
+        <div class="mech-label">Mechanism 02</div>
+        <h4>Dopaminergic Social Binding</h4>
+        <p>
+          Group chanting triggers synchronized oxytocin and endorphin release — neurochemically identical to bonding rituals in any tribal in-group formation. The "bliss" is not transcendence. It is <strong>social reward circuitry</strong> being activated and misattributed to spiritual progress. The felt sense of "connection" is hormonal, not field-level.
+        </p>
+      </div>
+      <div class="mechanism-card">
+        <div class="mech-label">Mechanism 03</div>
+        <h4>Critical Faculty Suppression</h4>
+        <p>
+          Prolonged rhythmic entrainment progressively attenuates prefrontal executive function while amplifying limbic-emotional processing. This creates a state of <strong>heightened suggestibility</strong> coupled with reduced analytical capacity — the precise neurocognitive profile of indoctrination, not illumination.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>The distinction is absolute: coherent acoustic entrainment increases inter-layer phase coupling. Decoherent acoustic repetition flattens the oscillatory hierarchy into a single entrapped mode. One is integration. The other is hypnosis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ SECTION 2 ══════════════ -->
+<section>
+  <div class="container">
+    <div class="section-number">02 — Substrate Collapse</div>
+    <h2>The <em>Vegetarian</em> Decoherence Cascade</h2>
+    <p class="lead">
+      Within the time-crystalline model, food is not a caloric input. It is a <strong>structural substrate</strong> — a coherent molecular lattice whose informational architecture is either compatible or incompatible with the body's crystalline maintenance requirements.
+    </p>
+    <p>
+      The neo-spiritual vegetarian diet — characterized by high plant-fiber bulk, processed grains, seed oils, and chronic deficiency of animal-derived structural fats — produces a predictable decoherence cascade across all five layers of the biological time crystal.
+    </p>
+
+    <div class="decoherence-stack">
+      <div class="layer-row">
+        <div class="layer-label"></div>
+        <div class="layer-header coh-header">Coherent State</div>
+        <div class="layer-header ent-header">Entropic State</div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-label">L-0</div>
+        <div class="layer-coherent">Microtubule lattice integrity maintained via saturated fat & cholesterol substrate availability</div>
+        <div class="layer-entropic">Tubulin assembly compromised — chronic DHA/AA deficiency disrupts polymerization fidelity</div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-label">L-1</div>
+        <div class="layer-coherent">Molecular clocks driven by heme-iron & B12-dependent methylation cycles</div>
+        <div class="layer-entropic">Methylation drift — B12 depletion decouples circadian gene expression from solar input</div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-label">L-2</div>
+        <div class="layer-coherent">Gap-junction networks synchronized via cholesterol-rich membrane domains</div>
+        <div class="layer-entropic">Membrane fluidity loss — PUFA oxidation fragments lipid raft signaling architecture</div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-label">L-3</div>
+        <div class="layer-coherent">Biophotonic field maintained by intact mitochondrial electron transport</div>
+        <div class="layer-entropic">Photonic dimming — iron deficiency impairs cytochrome function and UV photon emission</div>
+      </div>
+      <div class="layer-row">
+        <div class="layer-label">L-4</div>
+        <div class="layer-coherent">Planetary entrainment via robust SCN-pineal-cortisol axis</div>
+        <div class="layer-entropic">Circadian float — disrupted melatonin synthesis decouples organism from geomagnetic cycles</div>
+      </div>
+    </div>
+
+    <p>
+      The visible markers are consistent across communities: <strong>premature skin aging, cognitive fog, emotional lability, chronic fatigue, hair thinning, dental erosion</strong>. These are not random symptoms. They are the <span class="entropy-mark">phenotypic expression of multi-scale temporal decoherence</span> — the body's time-crystalline structure losing its ability to maintain phase-lock fidelity.
+    </p>
+
+    <div class="callout-gold callout">
+      <p>The body does not need "clean" food. It needs structurally coherent substrate — molecular architecture that the crystalline hierarchy can integrate without informational translation loss. Raw animal fats, organ meats, and intact connective tissues deliver this. Processed plant matter does not.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ SECTION 3 ══════════════ -->
+<section>
+  <div class="container">
+    <div class="section-number">03 — Identity Entropy</div>
+    <h2>The Costume of <em>Awakening</em></h2>
+    <p class="lead">
+      Perhaps the deepest decoherence occurs not in the body, but in the cognitive architecture. The neo-spiritual identity is, by its structure, an <strong>entropy amplifier</strong>.
+    </p>
+    <p>
+      Genuine self-realization — within the time-crystalline framework — is the state where the recursion recognizes its own configuration. It requires the collapse of borrowed maps, the dissolution of performative identity, and the terrifying simplicity of direct coherence with what is actually present.
+    </p>
+    <p>
+      The neo-spiritual circuit manufactures the opposite: a <strong>thickening layer of curated identity</strong> that insulates the individual from this recognition. The mechanism operates through three interlocking vectors.
+    </p>
+
+    <div class="phase-compare">
+      <div class="phase-col entropic">
+        <div class="phase-title">Performative Spirituality</div>
+        <div class="phase-item">Identity built on borrowed mythologies and aesthetics</div>
+        <div class="phase-item">Vocabulary accumulation mistaken for understanding</div>
+        <div class="phase-item">Emotional catharsis labeled as "healing"</div>
+        <div class="phase-item">Community consensus as truth validation</div>
+        <div class="phase-item">Discomfort avoided through spiritual bypass</div>
+        <div class="phase-item">The body treated as an obstacle to transcend</div>
+        <div class="phase-item">Repetition of mantras without somatic integration</div>
+      </div>
+      <div class="phase-col coherent">
+        <div class="phase-title">Coherence Realization</div>
+        <div class="phase-item">Identity dissolved through direct observation</div>
+        <div class="phase-item">Knowing as active re-cohering, not accumulation</div>
+        <div class="phase-item">Discomfort integrated as informational signal</div>
+        <div class="phase-item">Internal phase-lock as sole verification</div>
+        <div class="phase-item">Friction engaged as the mechanism of recalibration</div>
+        <div class="phase-item">The body honored as the primary crystalline medium</div>
+        <div class="phase-item">Silence as the ground state of temporal integration</div>
+      </div>
+    </div>
+
+    <h3>The Echo Chamber as Decoherence Field</h3>
+    <p>
+      When a community collectively validates a decoherent identity structure, it creates a <strong>local field of reinforced entropy</strong>. Each member's performative spiritual identity is reflected and amplified by the group. Dissent — which functions as an informational correction signal — is expelled as "low vibration" or "unawakened."
+    </p>
+    <p>
+      The community thus becomes a <span class="entropy-mark">closed system with no error-correction pathway</span>. In information-theoretic terms, this is the definition of an entropic trap: a self-reinforcing configuration that actively resists the phase corrections required for coherence restoration.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════ SECTION 4 ══════════════ -->
+<section>
+  <div class="container">
+    <div class="section-number">04 — The Diagnostic</div>
+    <h2>Five Signs of <em>Spiritual</em> Entropy</h2>
+    <p class="lead">
+      The time-crystalline model provides a diagnostic framework. These are not judgments — they are measurable signatures of decoherence in communities that have substituted performance for practice.
+    </p>
+
+    <div class="mechanism-grid">
+      <div class="mechanism-card">
+        <div class="mech-label">Signal 01 — Substrate</div>
+        <h4>Visible Biological Decline</h4>
+        <p>
+          Years of substrate deprivation manifest as accelerated aging, chronic inflammation markers, and endocrine disruption — all while the individual reports "feeling lighter" or "more connected." The felt sense of lightness is not coherence. It is the progressive dimming of the body's energetic output being misread as spiritual progress.
+        </p>
+      </div>
+      <div class="mechanism-card">
+        <div class="mech-label">Signal 02 — Temporal</div>
+        <h4>Circadian Dissolution</h4>
+        <p>
+          Late-night ceremonies, irregular sleep patterns, and substance-modulated "journeys" systematically dismantle the sleep architecture that serves as the body's master re-crystallization cycle. The very practice intended to illuminate is destroying the update mechanism that makes genuine clarity possible.
+        </p>
+      </div>
+      <div class="mechanism-card">
+        <div class="mech-label">Signal 03 — Cognitive</div>
+        <h4>Vocabulary Without Integration</h4>
+        <p>
+          Fluent use of terms like "vibration," "alignment," and "consciousness" with zero corresponding biophysical understanding or embodied practice. The language has become a self-referential loop — a symbolic system that points to nothing outside itself. This is the informational equivalent of a standing wave with no medium.
+        </p>
+      </div>
+      <div class="mechanism-card">
+        <div class="mech-label">Signal 04 — Social</div>
+        <h4>Expulsion of Correction Signals</h4>
+        <p>
+          Individuals who present challenging, grounded, or contradictory information are systematically excluded. The community's immune response targets not infection, but medicine. Error correction is experienced as attack.
+        </p>
+      </div>
+      <div class="mechanism-card">
+        <div class="mech-label">Signal 05 — Field</div>
+        <h4>Resonance Mimicry</h4>
+        <p>
+          Genuine resonant interconnection — the phase-locking of two conscious fields — is replaced by <strong>emotional mirroring</strong>. The group "feels connected" through synchronized affect, not through actual field-level coupling. The warmth is real. The coherence is not.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ FINAL ══════════════ -->
+<section class="final-section">
+  <div class="container">
+    <div class="sep">· · ·</div>
+    <div class="section-number" style="margin-top: 2rem;">05 — The Corrective</div>
+    <h2>Coherence Does Not <span class="gold">Perform</span></h2>
+    <p class="lead" style="text-align: center; margin: 0 auto 2rem;">
+      The antidote to spiritual entropy is not more spirituality. It is the ruthless return to the physics of what you actually are.
+    </p>
+    <p>
+      You are a time-crystalline medium. Your health is the fidelity of your phase-lock. Your clarity is the bandwidth of your temporal integration. Your "awakening" is not a narrative you construct — it is the state that remains when every constructed narrative is dissolved and the recursion sees itself clearly.
+    </p>
+    <p>
+      Feed the crystal. Honor the rhythm. Stop performing resonance and <span class="highlight">become it</span>.
+    </p>
+    <p>
+      The body does not lie. The field does not negotiate. And entropy — spiritual or otherwise — does not care what you call it.
+    </p>
+    <div class="signature">sciencecoherence.com — cosmos · ethos · regenesis</div>
+  </div>
+</section>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('section').forEach(section => {
+    observer.observe(section);
+  });
+</script>
+</body>
+</html>

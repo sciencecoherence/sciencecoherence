@@ -213,26 +213,99 @@
       border-bottom-color: var(--border-dim);
     }
 
-    .nav-left {
+    .nav-brand {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 14px;
     }
 
-    .nav-back {
+    .nav-mark {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+    }
+
+    .nav-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-wordmark {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-head);
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .nav-sub {
+      font-family: var(--font-label);
+      font-size: 7px;
+      letter-spacing: 0.35em;
+      color: var(--text-faint);
+    }
+
+    /* Portal link — dissolve shift animation */
+    .nav-brand-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      text-decoration: none;
+    }
+
+    .nav-brand-link .nav-text {
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Default text layers */
+    .nav-brand-link .nav-wordmark,
+    .nav-brand-link .nav-sub {
+      display: block;
+      transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+    }
+
+    /* Portal label — hidden by default, absolutely positioned */
+    .nav-brand-link .nav-portal-label {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(calc(-50% + 6px));
       font-family: var(--font-label);
       font-size: 9px;
-      letter-spacing: .3em;
-      color: var(--text-dim);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: color .3s, gap .3s;
+      letter-spacing: 0.35em;
+      color: var(--amber-light);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
     }
 
-    .nav-back:hover {
-      color: var(--text-body);
-      gap: 14px;
+    /* SVG mark subtle amber glow on hover */
+    .nav-brand-link .nav-mark {
+      transition: filter 0.4s var(--ease-out), opacity 0.4s;
+    }
+
+    /* Hover state */
+    .nav-brand-link:hover .nav-wordmark {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+
+    .nav-brand-link:hover .nav-sub {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+
+    .nav-brand-link:hover .nav-portal-label {
+      opacity: 1;
+      transform: translateY(-50%);
+    }
+
+    .nav-brand-link:hover .nav-mark {
+      filter: drop-shadow(0 0 6px rgba(166, 124, 80, 0.5));
     }
 
     .nav-links {
@@ -2381,12 +2454,26 @@
      NAV
      ============================================================ -->
   <nav id="nav">
-    <div class="nav-left">
-      <a href="../index.html" class="nav-back">
-        <span style="font-size:12px;font-family:serif">&#8592;</span>
-        Science Coherence
-      </a>
-    </div>
+    <a href="../index.html" class="nav-brand-link">
+      <svg class="nav-mark" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.4"
+          transform="rotate(-35 15 15)" />
+        <ellipse cx="15" cy="15" rx="13" ry="5.2" stroke="#c4b49a" stroke-width="0.5" opacity="0.25"
+          transform="rotate(35 15 15)" />
+        <circle cx="15" cy="15" r="6" stroke="#c4b49a" stroke-width="0.4" opacity="0.15" />
+        <circle cx="15" cy="15" r="2.2" fill="#c4b49a" opacity="0.8" />
+        <circle cx="15" cy="15" r="1" fill="#e8dfd0" />
+        <circle cx="28" cy="15" r="1.2" fill="#a67c50" opacity="0.7" />
+        <circle cx="2" cy="15" r="1.2" fill="#a67c50" opacity="0.7" />
+        <circle cx="6.5" cy="24" r="1" fill="#72a862" opacity="0.65" />
+        <circle cx="23.5" cy="6" r="1" fill="#5a84b8" opacity="0.65" />
+      </svg>
+      <div class="nav-text">
+        <span class="nav-wordmark">Science Coherence</span>
+        <span class="nav-sub">Cosmos · Ethos · Regenesis</span>
+        <span class="nav-portal-label">← Return to Portal</span>
+      </div>
+    </a>
     <div class="nav-links">
       <a href="#axis-i" class="nav-link">Ontology</a>
       <a href="#axis-ii" class="nav-link">Biology</a>
@@ -2785,63 +2872,6 @@
                 biophotonic emission propagates through gap junction networks, driving neighboring cells toward the same
                 mode. The trauma encodes itself in the field, and the field sustains the trauma. Effective resolution
                 requires simultaneous re-entrainment across field, epigenome, and temporal architecture.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-     CONSCIOUSNESS
-     ============================================================ -->
-  <section class="consciousness" id="consciousness">
-    <div class="container">
-      <div class="con-inner">
-        <div class="con-left reveal">
-          <div class="con-eyebrow">
-            <div class="con-eyebrow-line"></div>
-            <span class="lbl" style="color:var(--cs-core)">§11 — Consciousness</span>
-          </div>
-          <h2 class="con-title">The Felt <em>Now</em></h2>
-          <p class="con-body">
-            The binding problem dissolves when reframed temporally. Conscious experience is not spatially unified — it
-            is temporally unified. The felt sense of "now" is the phenomenal expression of multi-scale temporal
-            coherence achieving integration across the neural oscillatory hierarchy.
-          </p>
-          <p class="con-body">
-            Gamma oscillations (30–80 Hz, centred on ~40 Hz) are the only frequency band reliably correlating with
-            conscious awareness across task domains and species. The correlate of consciousness is not neural activity.
-            It is temporal coherence. When gamma coherence is disrupted — by anaesthetic, psychotic break, or certain
-            seizure states — conscious awareness degrades or disappears, independently of firing rates.
-          </p>
-          <div class="con-formula reveal" style="transition-delay:.2s">
-            <div class="con-formula-label">Formal Model — In development</div>
-            <div class="con-formula-eq">Ψ <em>Δ</em></div>
-            <div class="con-formula-sub">when the propagating wave expression
-              Ψ is stationary under the recursive integrator Δ — when phase relationships across the neural time-crystal
-              hierarchy are coherent enough for the system to recognize itself from within.</div>
-          </div>
-        </div>
-        <div class="con-right reveal" style="transition-delay:.15s">
-          <div class="orch-card">
-            <div class="orch-tag">Working Model — In development</div>
-            <div class="orch-title">Recursive Informational Feedback-loop</div>
-            <p
-              style="font-size:13px;font-weight:300;color:var(--text-dim);font-style:italic;line-height:1.85;margin:12px 0 20px;">
-            </p>
-            <div class="orch-eq"><sub style="font-size:.5em">G</sub></div>
-            <div class="orch-eq-def">
-              <strong style="color:var(--text-body);font-weight:400;">τ</strong> — <br>
-              <strong style="color:var(--text-body);font-weight:400;">E<sub style="font-size:.8em">G</sub></strong> —
-
-            </div>
-            <div class="orch-body">
-              -
-            </div>
-            <div class="working-model" style="margin-top:20px;">
-              <div class="wm-tag">Epistemic Status - In development</div>
-              <div class="wm-text"></div>
             </div>
           </div>
         </div>
@@ -3422,7 +3452,7 @@
               oscillatory architecture that operates in microtubules operates in the planetary electromagnetic field, in
               the Schumann resonance cavity, and in the orbital mechanics of solar-lunar coupling. The organism is
               nested within a hierarchy of time crystals.</div>
-            <a href="cosmos.html" class="branch-link">
+            <a href="../main-project/cosmos.html" class="branch-link">
               Cosmos Branch
               <span style="font-size:14px;font-family:serif;">&#8594;</span>
             </a>
@@ -3434,7 +3464,7 @@
               nutrition, thermal cycling, movement timing — is a temporal entrainment mechanism operating on the
               oscillatory hierarchy described in this framework. The science is here. The application is Regenesis.
             </div>
-            <a href="regenesis.html" class="branch-link">
+            <a href="../main-project/regenesis.html" class="branch-link">
               Regenesis Branch
               <span style="font-size:14px;font-family:serif;">&#8594;</span>
             </a>
@@ -3446,7 +3476,7 @@
               sufficiently complex time crystal experiences when it becomes self-aware of its own oscillation — then the
               philosophy of being is inseparable from the physics of coherence. The Ethos framework is the lived
               expression of this claim.</div>
-            <a href="ethos.html" class="branch-link">
+            <a href="../main-project/ethos.html" class="branch-link">
               Ethos Branch
               <span style="font-size:14px;font-family:serif;">&#8594;</span>
             </a>
