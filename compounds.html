@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Science Coherence — The Compound Library</title>
+  <meta name="description" content="Twenty-three compounds and the sleep architecture, read through the five-layer time-crystalline hierarchy and placed on the Protocol’s day: foundational substrate, standardized extracts, synergy, interactions and the register.">
+  <meta name="author" content="Dr. William Conroy">
+  <meta name="theme-color" content="#0b100d">
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/Newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/DMSans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    (function () {
+      var t = null;
+      try { t = JSON.parse(localStorage.getItem('sc-theme')); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/protocol-next.css">
+  <link rel="stylesheet" href="assets/house.css">
+  <style>
+    /* ---------- the compound library: this page only ---------- */
+    #lattice { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: pan-y; }
+    .hero.compound { min-height: 640px; }
+    .hero.compound .hero-text { max-width: min(600px, 46vw); top: auto; bottom: clamp(60px, 11vh, 120px); }
+    .hero.compound h1 { font-size: clamp(40px, min(6vw, 9.2vh), 100px); margin-bottom: 22px; }
+    .hero.compound .eyebrow { margin-bottom: 18px; }
+    .hero.compound .sub { font-size: clamp(16px, min(1.4vw, 2.4vh), 20px); margin-bottom: 18px; }
+    .hero.compound .cue { bottom: clamp(14px, 2.6vh, 30px); }
+    .hero.compound .cue::after { height: 30px; }
+    @media (max-width: 860px) { .hero.compound .hero-text { max-width: none; bottom: 100px; } .hero.compound .cue { right: 50%; transform: translateX(50%); } }
+    .body table.data a:not(.button), .body .card > p a, .body .callout a { color: var(--cream); text-decoration: underline; text-decoration-color: rgba(var(--l-rgb), .4); text-underline-offset: .22em; text-decoration-thickness: 1px; transition: color .3s var(--ease), text-decoration-color .3s; }
+    .body table.data a:not(.button):hover, .body .card > p a:hover, .body .callout a:hover { color: var(--lime); text-decoration-color: var(--lime); }
+    .body table.data tbody th a { text-decoration: none; }
+    .body .cmp-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 34px 0 0; }
+    .body .cmp-links .button { text-decoration: none; }
+
+    /* the compound cards */
+    .cmp-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 26px; }
+    .cmp-filter button { appearance: none; background: transparent; border: 1px solid var(--line-strong); border-radius: 999px; padding: 8px 14px; font: 500 10px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); cursor: pointer; transition: all .3s var(--ease); }
+    .cmp-filter button:hover { color: var(--cream); }
+    .cmp-filter button[aria-pressed="true"] { color: var(--acc, var(--lime)); border-color: var(--acc, var(--lime)); background: color-mix(in srgb, var(--acc, var(--lime)) 9%, transparent); }
+    .cmp-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin: 10px 0 46px; }
+    .cmp { position: relative; display: flex; flex-direction: column; padding: 34px 36px 26px 40px; border: 1px solid var(--line); border-left: 0; border-radius: 0 var(--radius-lg) var(--radius-lg) 0; background: rgba(var(--bg-rgb), .42); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); scroll-margin-top: calc(var(--top-h) + 30px); transition: border-color .4s var(--ease), background .4s var(--ease); }
+    .cmp::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 55%, transparent); }
+    .cmp:hover { border-color: color-mix(in srgb, var(--accent) 35%, transparent); }
+    .cmp[hidden] { display: none; }
+    .cmp-k { font: 500 10.5px/1.4 var(--mono); letter-spacing: .26em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; }
+    .cmp h3 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(30px, 2.7vw, 40px); line-height: 1.05; letter-spacing: -.015em; color: var(--cream); margin: 0 0 10px; }
+    .cmp-std { font: 400 12px/1.5 var(--mono); letter-spacing: .14em; color: var(--ink-faint); margin: 0 0 26px; }
+    .body .cmp ul { list-style: none; padding: 0; margin: 0 0 26px; }
+    .body .cmp li { position: relative; padding-left: 30px; margin: 0 0 14px; font-family: var(--serif); font-style: italic; font-size: clamp(16.5px, 1.25vw, 18px); line-height: 1.5; color: var(--ink-soft); }
+    .body .cmp li::before { content: '—'; position: absolute; left: 0; color: var(--ink-faint); font-style: normal; }
+    .cmp-sf { border-top: 1px solid var(--line); padding-top: 20px; margin-top: auto; }
+    .cmp-sf span { display: block; font: 500 9.5px/1.4 var(--mono); letter-spacing: .24em; text-transform: uppercase; color: var(--accent); opacity: .8; margin-bottom: 8px; }
+    .body .cmp-sf p { font: 400 13px/1.7 var(--mono); color: var(--ink-faint); margin: 0; }
+    .cmp-ft { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 22px; padding-top: 16px; border-top: 1px dashed var(--line); font: 500 10px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); }
+    .cmp-ft b { font-weight: 500; color: var(--cream); }
+    .cmp-ft .lay { display: inline-flex; gap: 6px; }
+    .cmp-ft .lay i { font-style: normal; color: var(--accent); }
+    .cmp-ft .in { color: var(--lime); }
+    .cmp-ft .open { margin-left: auto; color: var(--cream); text-decoration: none; border: 1px solid var(--line-strong); border-radius: 999px; padding: 8px 14px; transition: all .3s var(--ease); }
+    .cmp-ft .open:hover, .cmp-ft .open:focus-visible { color: var(--lime); border-color: var(--lime); outline: none; }
+    @media (max-width: 900px) { .cmp-grid { grid-template-columns: 1fr; } .cmp { padding: 28px 22px 22px 28px; } }
+
+    /* the monograph: a reading layer over the page */
+    html.mono-open { overflow: hidden; }
+    .mono { position: fixed; inset: 0; z-index: 50; overflow-y: auto; overscroll-behavior: contain; background: rgba(var(--bg-rgb), .72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); animation: monoIn .45s var(--ease); }
+    .mono[hidden] { display: none; }
+    @keyframes monoIn { from { opacity: 0; } to { opacity: 1; } }
+    .mono-panel { --accent: var(--teal); position: relative; width: min(1040px, 100% - 2 * clamp(12px, 4vw, 48px)); margin: clamp(16px, 6vh, 64px) auto; padding: clamp(28px, 5vw, 64px); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); background: rgba(var(--bg-rgb), .96); box-shadow: var(--shadow); outline: none; }
+    .mono-panel::before { content: ''; position: absolute; left: 0; top: 40px; bottom: 40px; width: 2px; background: var(--accent); box-shadow: 0 0 14px var(--accent); }
+    .mono-x { position: sticky; top: 0; float: right; margin: -12px -12px 0 0; z-index: 2; }
+    .mono-head .cmp-k { margin-bottom: 14px; }
+    .mono-head h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(40px, 5.4vw, 76px); line-height: .98; letter-spacing: -.03em; color: var(--cream); margin: 0 0 18px; }
+    .mono-head h2 em { display: block; font-style: italic; color: var(--accent); }
+    .mono-head .sub { font-family: var(--serif); font-style: italic; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: var(--ink-soft); max-width: 760px; margin: 0 0 34px; }
+    .mono-sec { padding-top: clamp(46px, 7vh, 72px); scroll-margin-top: 20px; }
+    .mono-sec > .ch-num { margin-bottom: 18px; }
+    .mono-sec > h3 { font-family: var(--serif); font-weight: 300; font-size: clamp(28px, 3.2vw, 44px); line-height: 1.08; letter-spacing: -.02em; color: var(--cream); margin: 0 0 12px; }
+    .body .mono-sec > .mono-sum { font-family: var(--serif); font-style: italic; color: var(--ink-soft); margin: 0 0 28px; }
+    .mono-nav { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .mono-nav a { text-decoration: none; }
+  </style>
+</head>
+<body data-doc="regenesis-compound-library">
+  <!-- The Regenesis Compound Library. This file is the page only: every word it shows
+       lives in assets/compounds-data.js. -->
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="ctl" href="library.html" aria-label="The Library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 4v16M9 4v16M13.5 5l4 15M4 20h16"/></svg><span>Library</span></a>
+    <p class="kicker" aria-hidden="true">The <b>Compounds</b><span id="k-sec"></span></p>
+    <div class="top-right">
+      <a class="ctl" href="protocol.html" aria-label="The Protocol">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9Z"/><path d="M12 3v18M4 7.5l16 9M20 7.5l-16 9"/></svg>
+        <span>Protocol</span>
+      </a>
+      <a class="ctl" href="temporal-matrix.html" aria-label="The Temporal Matrix">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 3v4"/></svg>
+        <span>Matrix</span>
+      </a>
+      <button class="ctl theme-btn" type="button" id="theme" aria-label="Switch theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav class="rail" id="rail" aria-label="Sections"></nav>
+
+  <section class="hero compound hub" aria-labelledby="doc-title">
+    <canvas id="lattice" aria-label="The five nested layers of the biological time crystal, each a line of coupled oscillators: noise when out of phase, one travelling wave when locked. Coherence inputs fall into the layers and raise their coupling." role="img"></canvas>
+    <div class="hero-text">
+      <p class="eyebrow" id="h-eyebrow">Compound library</p>
+      <h1 id="doc-title">The Compound <em>Library.</em></h1>
+      <p class="sub" id="h-sub"></p>
+      <p class="meta" id="h-meta"></p>
+    </div>
+    <a class="ctl cue" href="#overview">Begin</a>
+  </section>
+
+  <section class="caution-band" aria-label="Before reading">
+    <div class="wrap">
+      <aside class="caution">
+        <span>Before reading</span>
+        <p>This is an operating document: the author’s own library, recorded as he uses it. It is not medical advice. Most mechanisms cited come from laboratory, animal and early human studies, and the combinations as a whole have not been tested in trials. Several compounds act on hormones, blood pressure, clotting, the thyroid and mood, and interact with medicines, including some in the Protocol itself; the interactions are set out in each monograph. Anyone considering any part of it should do so with a qualified clinician who knows their history.</p>
+      </aside>
+    </div>
+  </section>
+
+  <main class="doc" id="doc"></main>
+
+  <div class="mono" id="mono" hidden role="dialog" aria-modal="true" aria-labelledby="mono-title">
+    <article class="mono-panel" id="mono-panel" tabindex="-1">
+      <button class="icon-button mono-x" type="button" id="mono-close" aria-label="Close the monograph">✕</button>
+      <div class="body" id="mono-body"></div>
+    </article>
+  </div>
+
+
+  <footer class="end">
+    <div class="wrap">
+      <p>The Regenesis Compound Library · Dr. William Conroy · Science Coherence</p>
+      <nav aria-label="Elsewhere">
+        <a class="ctl" href="protocol.html">The Protocol</a>
+        <a class="ctl" href="protocol-matrix.html">The day, live</a>
+        <a class="ctl" href="library.html">The Library</a>
+        <a class="ctl" href="temporal-matrix.html">The Temporal Matrix</a>
+      </nav>
+    </div>
+  </footer>
+
+  <dialog id="lexicon-dialog" class="lex-dialog" aria-label="Lexicon details">
+    <div class="lex-dialog-top">
+      <span class="tag" id="lex-dialog-category"></span>
+      <button class="icon-button" id="lex-dialog-close" aria-label="Close details">✕</button>
+    </div>
+    <h3 id="lex-dialog-term" class="lex-dialog-title"></h3>
+    <div class="formula lex-dialog-formula" id="lex-dialog-formula"></div>
+    <div class="lex-dialog-body" id="lex-dialog-desc"></div>
+    <p class="search-hint">Esc or click outside to close</p>
+  </dialog>
+
+    <script>window.SC_GLOSS_DEFER = true;</script>
+  <script src="assets/glossary.js"></script>
+  <script src="assets/compounds-data.js"></script>
+  <script src="assets/matrix-engine.js"></script>
+  <script src="assets/protocol-data.js"></script>
+  <script src="assets/fx-sky.js"></script>
+  <script>
+  /* ==========================================================================
+     The lattice — the opening of the compound library.
+     The five nested layers of the biological time crystal (L0 substrate to
+     L4 solar interface), each a ring of coupled oscillators drawn as a line.
+     Out of phase, the line is noise; phase-locked, it becomes one travelling
+     wave. Each layer's coherence is the Kuramoto order parameter r, printed
+     beside it. Coherence inputs fall into the layers a compound acts on and
+     raise their coupling. Substrate before signal: a layer can only lock as
+     far as the layer beneath it allows, and the field (L3) returns to the
+     substrate as repair fidelity. The pointer is a decoherence input.
+     The page names its layers with <body data-layers="0,2">; none = all.
+     Canvas 2D, dependency-free; still under reduced motion.
+     ========================================================================== */
+  (function () {
+    'use strict';
+    const cv = document.getElementById('lattice'); if (!cv) return;
+    const ctx = cv.getContext('2d');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const TAU = Math.PI * 2;
+    const LAYERS = [
+      { code: 'L0', name: 'Intracellular substrate', c: 'green' },
+      { code: 'L1', name: 'Molecular clock', c: 'amber' },
+      { code: 'L2', name: 'Cellular network', c: 'teal' },
+      { code: 'L3', name: 'Organismic field', c: 'violet' },
+      { code: 'L4', name: 'Solar interface', c: 'blue' }
+    ];
+    const attr = (document.body.dataset.layers || '').split(',').map(s => parseInt(s, 10)).filter(n => n >= 0 && n < 5);
+    const HUB = !attr.length;
+    const TARGET = HUB ? [0, 1, 2, 3, 4] : attr;
+    const NAME = document.body.dataset.compound || '';
+    const ACC = document.body.dataset.accent || '';
+    let W = 0, H = 0, dpr = 1, col = {}, light = false, R = null, narrow = false;
+    let bands = [], drops = [];
+    const ptr = { x: -1e4, y: -1e4, on: false };
+    const gauss = () => { let u = 0, v = 0; while (!u) u = Math.random(); while (!v) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v); };
+
+    function colors() {
+      const cs = getComputedStyle(document.documentElement), g = k => cs.getPropertyValue('--' + k).trim();
+      light = document.documentElement.dataset.theme === 'light';
+      ['lime', 'teal', 'amber', 'blue', 'violet', 'rose', 'green', 'cream'].forEach(k => col[k] = rgb(g(k)));
+    }
+    function rgb(h) { if (!h || h[0] !== '#') return [200, 220, 180]; const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; }
+    const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${Math.max(0, Math.min(1, a))})`;
+
+    function layout() {
+      const r = cv.getBoundingClientRect(); W = r.width; H = r.height; dpr = Math.min(2, devicePixelRatio || 1);
+      cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      narrow = W < 860;
+      if (narrow) {
+        const txt = document.querySelector('.hero-text'), top = txt ? txt.getBoundingClientRect().top - r.top - 24 : H * .45;
+        R = { x0: W * .06, x1: W * .82, y0: 96, y1: Math.max(220, top) };
+      } else {
+        R = { x0: Math.max(W * .55, Math.min(W * .58, 800)), x1: W * .93 - 90, y0: Math.max(130, H * .18), y1: H * .82 };
+      }
+      const n = narrow ? 16 : 26, gap = (R.y1 - R.y0) / 5;
+      const keep = bands;
+      bands = LAYERS.map((L, i) => {
+        const old = keep[i];
+        const y = R.y1 - gap * (i + .5);
+        const osc = Array.from({ length: n }, (_, j) => ({
+          x: R.x0 + (R.x1 - R.x0) * j / (n - 1),
+          th: old && old.osc[j] ? old.osc[j].th : Math.random() * TAU,
+          w: 1.15 * (1 + .07 * gauss())
+        }));
+        return { L, i, y, amp: gap * .26, osc, K: old ? old.K : .12, boost: old ? old.boost : 0, r: old ? old.r : 0, psi: 0, flash: 0, on: TARGET.includes(i) };
+      });
+      if (reduce) settle();
+    }
+    /* under reduced motion, show the state the inputs lead to */
+    function settle() { bands.forEach(b => { b.boost = b.on ? 1.6 : .35; }); for (let k = 0; k < 600; k++) step(1 / 30, true); }
+
+    function order(b) {
+      let sx = 0, sy = 0; b.osc.forEach(o => { sx += Math.cos(o.th); sy += Math.sin(o.th); });
+      sx /= b.osc.length; sy /= b.osc.length; b.r = Math.hypot(sx, sy); b.psi = Math.atan2(sy, sx);
+    }
+
+    let tSpawn = 0;
+    function step(dt, quiet) {
+      // coherence inputs fall into the layers the page acts on
+      if (!quiet) {
+        tSpawn -= dt;
+        if (tSpawn <= 0) {
+          tSpawn = HUB ? .55 : .8;
+          const t = TARGET[(Math.random() * TARGET.length) | 0], b = bands[t];
+          drops.push({ x: R.x0 + Math.random() * (R.x1 - R.x0), y: R.y0 - 30, ty: b.y, b, v: 0, life: 1, c: HUB || !ACC ? b.L.c : ACC });
+        }
+        drops.forEach(d => {
+          if (!d.hit) { d.v += dt * 260; d.y = Math.min(d.ty, d.y + d.v * dt); }
+          if (d.y >= d.ty && !d.hit) { d.hit = true; d.b.boost = Math.min(2.2, d.b.boost + (HUB ? .3 : .32)); d.b.flash = 1; }
+          if (d.hit) d.life -= dt * 2.2;
+        });
+        drops = drops.filter(d => d.life > 0);
+      }
+      bands.forEach((b, i) => {
+        b.boost = Math.max(b.on ? 0 : .35, b.boost - dt * .055);
+        // substrate before signal: a layer locks only as far as the one below allows;
+        // the field (L3) returns to the substrate as repair fidelity
+        const below = i === 0 ? bands[3].r : bands[i - 1].r;
+        b.K = (.1 + b.boost) * (i === 0 ? .75 + .25 * below : .35 + .65 * below);
+        order(b);
+        const D = .09;
+        b.osc.forEach(o => {
+          let noise = D;
+          if (ptr.on && Math.abs(ptr.y - b.y) < b.amp * 2.2 && Math.abs(ptr.x - o.x) < 80) noise += 2.4;
+          o.th += (o.w + b.K * b.r * Math.sin(b.psi - o.th)) * dt + Math.sqrt(2 * noise * dt) * gauss();
+        });
+        b.flash = Math.max(0, b.flash - dt * 1.6);
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      const mono = '500 9.5px "JetBrains Mono", monospace';
+      ctx.font = mono;
+      // the closure: the field returns to the substrate
+      const b0 = bands[0], b3 = bands[3], xr = R.x1 + 26;
+      if (!narrow) {
+      ctx.strokeStyle = rgba(col.violet, light ? .45 : .3); ctx.lineWidth = 1; ctx.setLineDash([2, 5]);
+      ctx.beginPath(); ctx.moveTo(R.x1 + 6, b3.y); ctx.bezierCurveTo(xr + 22, b3.y, xr + 22, b0.y, R.x1 + 6, b0.y); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = rgba(col.violet, light ? .6 : .45); ctx.beginPath(); ctx.moveTo(R.x1 + 6, b0.y); ctx.lineTo(R.x1 + 13, b0.y - 3.5); ctx.lineTo(R.x1 + 13, b0.y + 3.5); ctx.fill();
+      }
+      bands.forEach((b, i) => {
+        const c = col[b.L.c], hi = b.on, base = hi ? (light ? .95 : .9) : (light ? .4 : .3);
+        // the axis of the layer
+        ctx.strokeStyle = rgba(c, light ? .14 : .1); ctx.beginPath(); ctx.moveTo(R.x0, b.y); ctx.lineTo(R.x1, b.y); ctx.stroke();
+        // the layer as one line through its oscillators: noise when out of phase, a wave when locked
+        const k = TAU * (1 + i * .5) / (R.x1 - R.x0);
+        const pts = b.osc.map(o => [o.x, b.y - b.amp * Math.sin(o.th + k * (o.x - R.x0))]);
+        ctx.strokeStyle = rgba(c, base * (.55 + .45 * b.r)); ctx.lineWidth = hi ? 1.5 : 1;
+        ctx.beginPath(); pts.forEach(([x, y], j) => { j ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke();
+        pts.forEach(([x, y]) => { ctx.fillStyle = rgba(c, base); ctx.beginPath(); ctx.arc(x, y, hi ? 2.1 : 1.5, 0, TAU); ctx.fill(); });
+        if (b.flash > 0) { ctx.strokeStyle = rgba(c, b.flash * .35); ctx.lineWidth = 6 * b.flash; ctx.beginPath(); pts.forEach(([x, y], j) => { j ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke(); ctx.lineWidth = 1; }
+        // labels: the layer, and its coherence
+        if ('letterSpacing' in ctx) ctx.letterSpacing = '1.6px';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = rgba(c, hi ? (light ? .95 : .85) : (light ? .55 : .42));
+        ctx.textAlign = 'left';
+        ctx.fillText(narrow ? b.L.code : (b.L.code + ' · ' + b.L.name).toUpperCase(), R.x0, b.y - b.amp - 12);
+        ctx.fillText('r ' + b.r.toFixed(2), R.x1 + (narrow ? 4 : 40), b.y);
+        if (!narrow) {                                      // the coherence of the layer, as a bar
+          const bw = 44, bx = R.x1 + 40, by = b.y + 9;
+          ctx.fillStyle = rgba(c, .14); ctx.fillRect(bx, by, bw, 2);
+          ctx.fillStyle = rgba(c, hi ? .85 : .45); ctx.fillRect(bx, by, bw * b.r, 2);
+        }
+        if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+      });
+      // coherence inputs
+      drops.forEach(d => {
+        const c = col[d.c] || col.lime, a = d.life;
+        if (!d.hit) { ctx.strokeStyle = rgba(c, .25); ctx.beginPath(); ctx.moveTo(d.x, d.y - 18); ctx.lineTo(d.x, d.y); ctx.stroke(); }
+        const g = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, 9); g.addColorStop(0, rgba(c, .55 * a)); g.addColorStop(1, rgba(c, 0));
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(d.x, d.y, 9, 0, TAU); ctx.fill();
+        ctx.fillStyle = rgba(light ? c : [255, 255, 255], .9 * a); ctx.beginPath(); ctx.arc(d.x, d.y, 1.6, 0, TAU); ctx.fill();
+      });
+      // what the picture is
+      if (!narrow) {
+        if ('letterSpacing' in ctx) ctx.letterSpacing = '2.4px';
+        ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.fillStyle = light ? 'rgba(29,43,37,.55)' : 'rgba(238,240,230,.45)';
+        const head = HUB ? 'THE FIVE NESTED LAYERS · r IS PHASE-LOCK' : (NAME.toUpperCase() + ' → ' + TARGET.map(i => LAYERS[i].code).join(' · '));
+        ctx.fillText(head, R.x0, R.y0 - 34);
+        ctx.fillStyle = light ? 'rgba(29,43,37,.4)' : 'rgba(238,240,230,.3)';
+        ctx.fillText('MOVE ACROSS A LAYER TO DECOHERE IT', R.x0, R.y1 + 34);
+        if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+      }
+    }
+
+    let running = false, visible = true, tPrev = performance.now();
+    function frame(now) {
+      if (!visible || document.hidden) { running = false; return; }
+      running = true;
+      const dt = Math.max(0, Math.min(.05, (now - tPrev) / 1000)); tPrev = now;
+      step(dt); draw(); requestAnimationFrame(frame);
+    }
+    function kick() { if (reduce) { draw(); return; } if (!running) { tPrev = performance.now(); requestAnimationFrame(frame); } }
+
+    colors(); layout();
+    const relayout = () => { if (narrow) { layout(); kick(); } };
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+    setTimeout(relayout, 1900);
+    cv.addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(); ptr.x = e.clientX - r.left; ptr.y = e.clientY - r.top; ptr.on = true; });
+    cv.addEventListener('pointerleave', () => { ptr.on = false; });
+    addEventListener('resize', () => { layout(); kick(); });
+    new MutationObserver(() => { colors(); kick(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) kick(); }).observe(cv);
+    document.addEventListener('visibilitychange', kick);
+    kick();
+  })();
+  </script>
+  <script src="assets/protocol-next.js"></script>
+  <script>
+  /* ==========================================================================
+     The compound cards and their monographs, drawn from assets/compounds-data.js.
+     A card is addressed by its compound: compounds.html#saffron opens Saffron.
+     ========================================================================== */
+  (function () {
+    'use strict';
+    const D = window.SC_COMPOUNDS; if (!D) return;
+    const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const BY = new Map(D.compounds.map(c => [c.slug, c]));
+    const code = n => D.layers[n].code;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- cards ---------- */
+    const card = c => `<article class="cmp" id="${c.slug}" data-accent="${c.accent}" data-group="${c.group}">
+        <p class="cmp-k">${esc(c.kicker)}</p>
+        <h3>${c.name}</h3>
+        <p class="cmp-std no-gloss">${esc(c.standard)}</p>
+        <ul>${c.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+        <div class="cmp-sf"><span>Speculative field</span><p>${c.field}</p></div>
+        <div class="cmp-ft"><span><b>${esc(c.dose)}</b></span><span>${esc(c.window)}</span>
+          <span class="lay">${c.layers.map(n => `<i data-accent="${D.layers[n].accent}">${code(n)}</i>`).join('')}</span>
+          ${c.inProtocol ? '<span class="in">In the Protocol</span>' : ''}
+          <a class="open" href="#${c.slug}">Monograph →</a></div>
+      </article>`;
+    $$('.cmp-grid').forEach(g => { g.innerHTML = D.compounds.filter(c => c.stratum === g.dataset.stratum).map(card).join(''); });
+
+    /* the filter of the extracts */
+    const filter = $('.cmp-filter');
+    if (filter) {
+      const groups = D.groups.filter(g => D.compounds.some(c => c.stratum === 'extract' && c.group === g.id));
+      filter.innerHTML = `<button type="button" aria-pressed="true" data-g="">All</button>` +
+        groups.map(g => `<button type="button" aria-pressed="false" data-g="${g.id}" style="--acc:var(--${g.accent})">${esc(g.label)}</button>`).join('');
+      filter.addEventListener('click', e => {
+        const b = e.target.closest('button'); if (!b) return;
+        $$('button', filter).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+        $$('.cmp-grid[data-stratum="extract"] .cmp').forEach(c => { c.hidden = !!b.dataset.g && c.dataset.group !== b.dataset.g; });
+      });
+    }
+
+    /* ---------- the monograph ---------- */
+    const box = $('#mono'), panel = $('#mono-panel'), body = $('#mono-body');
+    let open = null, back = null;
+    function math(el) {
+      const go = () => window.renderMathInElement(el, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false });
+      if (window.renderMathInElement) go();
+      else if (el.textContent.includes('$')) { let n = 0; const t = setInterval(() => { if (window.renderMathInElement) { clearInterval(t); go(); } else if (++n > 40) clearInterval(t); }, 150); }
+    }
+    function render(c) {
+      const i = D.compounds.indexOf(c), prev = D.compounds[i - 1], next = D.compounds[i + 1];
+      panel.style.setProperty('--accent', `var(--${c.accent})`);
+      body.innerHTML = `<header class="mono-head">
+          <p class="cmp-k">${esc(c.kicker)} · ${c.layers.map(code).join(' · ')}${c.inProtocol ? ' · In the Protocol' : ''}</p>
+          <h2 id="mono-title">${c.name} <em>${esc(c.motto.charAt(0).toUpperCase() + c.motto.slice(1))}.</em></h2>
+          <p class="sub">${c.subtitle}</p>
+          <dl class="doc-facts">${c.facts.map(f => `<div><dt>${esc(f.label)}</dt><dd>${esc(f.value)}</dd></div>`).join('')}</dl>
+          <aside class="callout doc-note"><p>${c.note}</p></aside>
+        </header>` +
+        c.sections.filter(s => s.id !== 'overview').map((s, k) => `<section class="mono-sec" id="m-${s.id}">
+          <p class="ch-num">${String(k + 1).padStart(2, '0')} · ${esc(s.label)}</p><h3>${s.title}</h3>${s.summary ? `<p class="mono-sum">${s.summary}</p>` : ''}${s.html}</section>`).join('') +
+        `<nav class="mono-nav">${prev ? `<a class="button" href="#${prev.slug}">← ${prev.name}</a>` : '<span></span>'}<a class="button" href="#register">The register</a>${next ? `<a class="button" href="#${next.slug}">${next.name} →</a>` : '<span></span>'}</nav>`;
+      /* the overview leads the monograph: its prose goes first, under the facts */
+      const ov = c.sections.find(s => s.id === 'overview');
+      if (ov) $('.mono-head', body).insertAdjacentHTML('beforeend', ov.html);
+      /* ids inside a monograph belong to the page, not to the reading layer */
+      $$('[id]', body).forEach(el => { if (el.id !== 'mono-title' && !el.id.startsWith('m-')) el.removeAttribute('id'); });
+      math(body);
+      if (window.SCHouse) window.SCHouse.gloss(body, 'compound-' + c.slug);
+    }
+    function show(slug) {
+      const c = BY.get(slug); if (!c) return false;
+      if (!open) back = document.activeElement;
+      open = c; render(c);
+      box.hidden = false; box.scrollTop = 0;
+      document.documentElement.classList.add('mono-open');
+      $('#k-sec').textContent = ' · ' + c.name.replace(/[™®]/g, '');
+      panel.focus({ preventScroll: true });
+      return true;
+    }
+    function hide(toCard) {
+      if (!open) return;
+      const c = open; open = null;
+      box.hidden = true; document.documentElement.classList.remove('mono-open');
+      if (toCard) { const el = document.getElementById(c.slug); if (el) el.scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' }); }
+      if (back && back.focus) back.focus({ preventScroll: true });
+    }
+    function route() {
+      const id = decodeURIComponent(location.hash.slice(1));
+      if (show(id)) return;
+      hide(false);
+      const el = id && document.getElementById(id); if (el) el.scrollIntoView();
+    }
+    function close() { const c = open; hide(true); if (c) history.replaceState(null, '', location.pathname + location.search); }
+    $('#mono-close').addEventListener('click', close);
+    box.addEventListener('click', e => { if (e.target === box) close(); });
+    addEventListener('keydown', e => { if (e.key === 'Escape' && open && !document.querySelector('.hc')) close(); });
+    addEventListener('hashchange', route);
+    if (BY.has(decodeURIComponent(location.hash.slice(1)))) requestAnimationFrame(route);
+  })();
+  </script>
+  <script src="assets/house-registry.js"></script>
+  <script src="assets/house.js"></script>
+</body>
+</html>

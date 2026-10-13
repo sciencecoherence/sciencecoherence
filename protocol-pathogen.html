@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Science Coherence — Pathogen Elimination &amp; Tissue Regeneration</title>
+  <meta name="description" content="The 21-agent operating document: biofilm and pathogen biophysics, the chronobiological master protocol, regenerative dynamics, the four-tier metal drainage cascade, priming and titration, compounding and the botanical lexicon.">
+  <meta name="author" content="Dr. William Conroy">
+  <meta name="theme-color" content="#0b100d">
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/Newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/DMSans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    (function () {
+      var t = null;
+      try { t = JSON.parse(localStorage.getItem('sc-theme')); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/protocol-next.css">
+  <link rel="stylesheet" href="assets/house.css">
+</head>
+<body data-doc="master-pathogen-regeneration">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="ctl" href="library.html" aria-label="The Library">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 4v16M9 4v16M13.5 5l4 15M4 20h16"/></svg>
+      <span>Library</span>
+    </a>
+    <p class="kicker" aria-hidden="true">The <b>Cleanse</b><span id="k-sec"></span></p>
+    <div class="top-right">
+      <a class="ctl" href="protocol.html" aria-label="The Protocol">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9Z"/><path d="M12 3v18M4 7.5l16 9M20 7.5l-16 9"/></svg>
+        <span>Protocol</span>
+      </a>
+      <a class="ctl" href="temporal-matrix.html" aria-label="The Temporal Matrix">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 3v4"/></svg>
+        <span>Matrix</span>
+      </a>
+      <button class="ctl theme-btn" type="button" id="theme" aria-label="Switch theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav class="rail" id="rail" aria-label="Sections"></nav>
+
+  <section class="hero cleanse" aria-labelledby="doc-title">
+    <canvas id="biofilm" aria-label="The biofilm sink: metals held in the matrix are released as it is stripped, and the four-tier cascade carries them down to capture." role="img"></canvas>
+    <div class="hero-text">
+      <p class="eyebrow" id="h-eyebrow">Operating document</p>
+      <h1 id="doc-title">Pathogen Elimination &amp; <em>Tissue Regeneration.</em></h1>
+      <p class="sub" id="h-sub"></p>
+      <p class="meta" id="h-meta"></p>
+    </div>
+    <a class="ctl cue" href="#overview">Begin</a>
+  </section>
+
+  <section class="caution-band" aria-label="Before reading">
+    <div class="wrap">
+      <aside class="caution">
+        <span>Before reading</span>
+        <p>This is an operating document: the author’s own protocol, recorded as he runs it. It is not medical advice, and the combination as a whole has not been tested in clinical trials; most of the mechanisms cited come from laboratory and early studies. Several agents act strongly on the liver, kidneys, blood and heart, interact with medicines (goldenseal, licorice, willow bark, red sage and others), and are unsuitable in pregnancy. Chelation and die-off reactions can be severe. Anyone considering any part of it should do so with a qualified clinician who knows their history.</p>
+      </aside>
+    </div>
+  </section>
+
+  <main class="doc" id="doc"></main>
+
+  <footer class="end">
+    <div class="wrap">
+      <p>Pathogen Elimination &amp; Tissue Regeneration · Dr. William Conroy · Science Coherence</p>
+      <nav aria-label="Elsewhere">
+        <a class="ctl" href="protocol.html">The Protocol</a>
+        <a class="ctl" href="protocol-matrix.html">The day, live</a>
+        <a class="ctl" href="library.html">The Library</a>
+        <a class="ctl" href="temporal-matrix.html">The Temporal Matrix</a>
+        <a class="ctl" href="compounds.html">The compounds</a>
+        <a class="ctl" href="index.html">The horizon</a>
+      </nav>
+    </div>
+  </footer>
+
+  <dialog id="lexicon-dialog" class="lex-dialog" aria-label="Lexicon details">
+    <div class="lex-dialog-top">
+      <span class="tag" id="lex-dialog-category"></span>
+      <button class="icon-button" id="lex-dialog-close" aria-label="Close details">✕</button>
+    </div>
+    <h3 id="lex-dialog-term" class="lex-dialog-title"></h3>
+    <div class="formula lex-dialog-formula" id="lex-dialog-formula"></div>
+    <div class="lex-dialog-body" id="lex-dialog-desc"></div>
+    <p class="search-hint">Esc or click outside to close</p>
+  </dialog>
+
+  <script>window.SC_GLOSS_DEFER = true;</script>
+  <script src="assets/doc-holographic-parasitic-elimination.js"></script>
+  <script src="assets/matrix-engine.js"></script>
+  <script src="assets/fx-sky.js"></script>
+  <script src="assets/fx-biofilm.js"></script>
+  <script src="assets/protocol-next.js"></script>
+  <script src="assets/glossary.js"></script>
+  <script src="assets/compounds-data.js"></script>
+  <script src="assets/house-registry.js"></script>
+  <script src="assets/house.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Science Coherence — The Library</title>
+  <meta name="description" content="Every article of Science Coherence: the research frameworks, philosophy, biophysics, methods, the Lab and the transmissions, by Dr. William Conroy.">
+  <meta name="author" content="Dr. William Conroy">
+  <meta name="theme-color" content="#0b100d">
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/Newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/DMSans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    (function () {
+      var t = null;
+      try { t = JSON.parse(localStorage.getItem('sc-theme')); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/library.css">
+  <link rel="stylesheet" href="assets/house.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="ctl" href="index.html" aria-label="The horizon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 15h18"/><path d="M6 15a6 6 0 0 1 12 0"/><path d="M12 5v2M5.6 8.6l1.4 1.4M18.4 8.6 17 10"/></svg>
+      <span>Horizon</span>
+    </a>
+    <a class="kicker" href="#/" id="kicker">The <b>Library</b><span id="k-sec"></span></a>
+    <div class="top-right">
+      <a class="ctl" href="coherence-field.html" aria-label="The Coherence Field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="2.2"/><path d="M12 3a9 9 0 0 1 9 9M12 21a9 9 0 0 1-9-9M16.5 4.6A9 9 0 0 1 19.4 7.5M7.5 19.4A9 9 0 0 1 4.6 16.5"/></svg>
+        <span>Field</span>
+      </a>
+      <a class="ctl" href="protocol.html" aria-label="The Protocol">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 3 20 7.5v9L12 21l-8-4.5v-9Z"/><path d="M12 3v18M4 7.5l16 9M20 7.5l-16 9"/></svg>
+        <span>Protocol</span>
+      </a>
+      <a class="ctl" href="temporal-matrix.html" aria-label="The Temporal Matrix">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 3v4"/></svg>
+        <span>Matrix</span>
+      </a>
+      <button class="ctl theme-btn" type="button" id="theme" aria-label="Switch theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- the library -->
+  <div id="library-view">
+    <section class="hero" aria-labelledby="lib-title">
+      <canvas id="stars" aria-hidden="true"></canvas>
+      <p class="star-cap" id="star-cap" aria-hidden="true"><b>The constellation</b>Every piece is a star, every collection a cluster. Hover to read a name; click to open it.</p>
+      <div class="hero-text">
+        <p class="eyebrow" id="h-eyebrow">Library</p>
+        <h1 id="lib-title">A place for <em>every thread.</em></h1>
+        <p class="sub" id="h-sub"></p>
+        <p class="meta" id="h-meta"></p>
+      </div>
+      <a class="ctl cue" href="#/browse">Browse</a>
+    </section>
+
+    <main class="lib" id="catalogue">
+      <div class="wrap">
+        <div class="controls" role="search">
+          <label class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+            <input id="q" type="search" placeholder="Search titles, ideas, or the full text…" autocomplete="off" aria-label="Search the library">
+            <kbd aria-hidden="true">/</kbd>
+          </label>
+          <select id="place" aria-label="Show a section or collection"></select>
+          <select id="sort" aria-label="Order">
+            <option value="shelves">On the shelves</option>
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="title">Title A–Z</option>
+            <option value="length">Longest first</option>
+          </select>
+          <button class="pill" type="button" id="kept-btn" aria-pressed="false">Kept <span id="kept-n">0</span></button>
+        </div>
+        <div class="types" id="types" role="group" aria-label="Filter by type"></div>
+        <p class="count" id="count" aria-live="polite"></p>
+        <div id="shelves"></div>
+        <div id="results" hidden></div>
+      </div>
+    </main>
+  </div>
+
+  <!-- the reader -->
+  <div id="reader-view" hidden>
+    <article class="reader" id="reader"></article>
+  </div>
+
+  <footer class="end">
+    <div class="wrap">
+      <p>The Library · Dr. William Conroy · Science Coherence</p>
+      <nav aria-label="Elsewhere">
+        <a class="ctl" href="#/">The Library</a>
+        <a class="ctl" href="coherence-field.html">The Coherence Field</a>
+        <a class="ctl" href="protocol.html">The Protocol</a>
+        <a class="ctl" href="protocol-matrix.html">The day, live</a>
+        <a class="ctl" href="temporal-matrix.html">The Temporal Matrix</a>
+        <a class="ctl" href="index.html">The horizon</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>window.SC_GLOSS_DEFER = true;</script>
+  <script src="sections.js"></script>
+  <script src="collections.js?v=20261008-biology"></script>
+  <script src="content.js?v=20261008-biology-v2"></script>
+  <script src="pages.js"></script>
+  <script src="assets/matrix-engine.js"></script>
+  <script src="assets/fx-sky.js"></script>
+  <script src="assets/library.js?v=20261008-biology"></script>
+  <script src="assets/glossary.js"></script>
+  <script src="assets/house-registry.js"></script>
+  <script src="assets/house.js"></script>
+</body>
+</html>

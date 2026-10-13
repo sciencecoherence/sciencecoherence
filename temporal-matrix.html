@@ -1,0 +1,1558 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Science Coherence — Temporal Matrix</title>
+  <meta name="description" content="The Temporal Matrix: every year born from the sky at its Turning, with its own time waves, six days, the dilated day and the yearly descent of entropic energy, read live.">
+  <meta name="author" content="Dr. William Conroy">
+  <meta name="theme-color" content="#0f1512">
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/Newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/JetBrainsMono-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    (function () {
+      var t = null;
+      try { t = JSON.parse(localStorage.getItem('sc-theme')); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <style>
+    @font-face { font-family: 'Newsreader'; font-style: normal; font-weight: 300 600; font-display: swap; src: url(assets/fonts/Newsreader-normal-latin.woff2) format('woff2'); }
+    @font-face { font-family: 'Newsreader'; font-style: italic; font-weight: 300 600; font-display: swap; src: url(assets/fonts/Newsreader-italic-latin.woff2) format('woff2'); }
+    @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(assets/fonts/DMSans-normal-latin.woff2) format('woff2'); }
+    @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400 600; font-display: swap; src: url(assets/fonts/JetBrainsMono-normal-latin.woff2) format('woff2'); }
+
+    /* Tokens: the site's own palette (styles.css), dark and light. */
+    :root {
+      color-scheme: dark;
+      --bg: #0f1512; --bg-rgb: 15,21,18; --bg-2: #131b17; --surface: #162019; --halo: #183a30; --edge: #0a0f0c;
+      --lime: #cfe38f; --l-rgb: 216,231,180;
+      --cream: #eef0e6; --c-rgb: 238,240,230;
+      --ink: rgba(238,240,230,.94); --ink-soft: rgba(225,232,214,.74); --ink-faint: rgba(207,227,143,.56);
+      --teal: #5fd3c4; --amber: #f0b45a; --blue: #7fb1ec; --violet: #b39cf0; --rose: #f08aa3; --green: #9ccf7a;
+      --grain-blend: overlay; --grain-op: .06;
+      --serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f6f4ec; --bg-rgb: 246,244,236; --bg-2: #efece1; --surface: #fbfaf5; --halo: #fdfcf6; --edge: #e8e4d4;
+      --lime: #356b31; --l-rgb: 23,61,50;
+      --cream: #1d2b25; --c-rgb: 29,43,37;
+      --ink: #1d2b25; --ink-soft: #3a4a42; --ink-faint: #5c6a5d;
+      --teal: #116a60; --amber: #96590f; --blue: #2d5f9a; --violet: #6b4fb3; --rose: #b23b5a; --green: #356b31;
+      --grain-blend: multiply; --grain-op: .045;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased;
+      background: var(--bg);
+      background-image: radial-gradient(110% 80% at 50% 42%, var(--halo) 0%, var(--bg) 55%, var(--edge) 100%);
+      background-attachment: fixed;
+      transition: background-color .8s var(--ease);
+    }
+    body.theme-shift *, body.theme-shift *::before { transition: background-color .8s var(--ease), color .8s var(--ease), border-color .8s var(--ease) !important; }
+    .grain { position: fixed; inset: -50%; z-index: 0; pointer-events: none; opacity: var(--grain-op); mix-blend-mode: var(--grain-blend);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      animation: grain 1.2s steps(6) infinite; }
+    @keyframes grain { 0% { transform: translate(0,0) } 25% { transform: translate(-3%,2%) } 50% { transform: translate(2%,-3%) } 75% { transform: translate(-2%,-1%) } 100% { transform: translate(0,0) } }
+
+    /* ---------- chrome ---------- */
+    .top {
+      position: fixed; z-index: 10; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: max(18px, env(safe-area-inset-top)) clamp(16px, 4vw, 44px) 0; pointer-events: none;
+    }
+    .top > * { pointer-events: auto; }
+    .ctl {
+      appearance: none; background: none; border: 0; cursor: pointer; text-decoration: none;
+      font: 500 10.5px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase;
+      color: var(--ink-faint); padding: 10px 0; display: inline-flex; align-items: center; gap: 10px;
+      transition: color .4s var(--ease);
+    }
+    .ctl:hover, .ctl:focus-visible { color: var(--lime); outline: none; }
+    .ctl svg { width: 16px; height: 16px; }
+    :root[data-theme="dark"] .theme-btn .i-moon, :root[data-theme="light"] .theme-btn .i-sun { display: none; }
+    .kicker { position: fixed; z-index: 5; top: max(22px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%);
+      font: 500 10.5px/1.4 var(--mono); letter-spacing: .34em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap; pointer-events: none; }
+    .kicker b { font-weight: 500; color: var(--lime); }
+
+    /* ---------- the instrument ---------- */
+    .stage { position: relative; height: 100vh; height: 100svh; min-height: 560px; }
+    #dial { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 1; touch-action: none; }
+    .center {
+      position: absolute; z-index: 2; left: 50%; top: var(--cy, 50%); transform: translate(-50%, -50%);
+      width: calc(var(--r, 300px) * .56); text-align: center; pointer-events: none;
+      display: grid; justify-items: center; gap: calc(var(--r, 300px) * .02);
+    }
+    .center .state { font: 500 max(9px, calc(var(--r, 300px) * .026))/1.3 var(--mono); letter-spacing: .28em; text-transform: uppercase; color: var(--ink-faint); padding-left: .28em; }
+    .center .state b { font-weight: 500; color: var(--acc, var(--lime)); }
+    .clock { font-family: var(--serif); font-weight: 300; font-size: max(34px, calc(var(--r, 300px) * .165)); line-height: 1; letter-spacing: -.02em;
+      color: var(--cream); font-variant-numeric: lining-nums tabular-nums; }
+    .clock .sep { opacity: .45; margin: 0 .02em; }
+    .clock .sec { color: var(--lime); }
+    /* door: the clock -> the Protocol (revealed only on hover; see DOORS in the script) */
+    .door-protocol { position: relative; pointer-events: auto; text-decoration: none; cursor: pointer; transition: color .5s var(--ease), text-shadow .5s var(--ease); }
+    .door-protocol::after {
+      content: 'The Protocol'; position: absolute; left: 50%; top: calc(100% + .32em); transform: translate(-50%, -3px);
+      font-family: var(--serif); font-style: italic; font-weight: 300; font-size: .34em; letter-spacing: .01em;
+      color: var(--lime); white-space: nowrap; opacity: 0; transition: opacity .8s var(--ease), transform .8s var(--ease); pointer-events: none;
+    }
+    .door-protocol:hover, .door-protocol:focus-visible { color: var(--cream); text-shadow: 0 0 22px rgba(var(--l-rgb), .35); outline: none; }
+    .door-protocol:hover::after, .door-protocol:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
+    .center:has(.door-protocol:hover) .date, .center:has(.door-protocol:focus-visible) .date { opacity: 0; transition: opacity .5s var(--ease); }
+    .center .date { transition: opacity .8s var(--ease); }
+    body.no-protocol .door-protocol { pointer-events: none; cursor: default; }
+    .door-cleanse { position: absolute; z-index: 4; width: 22px; height: 22px; margin: -11px 0 0 -11px; display: grid; place-items: center; text-decoration: none; color: var(--rose); animation: dcIn 1.2s var(--ease); }
+    .door-cleanse[hidden] { display: none; }
+    .door-cleanse i { width: 7px; height: 7px; border-radius: 50%; border: 1px solid currentColor; background: rgba(var(--bg-rgb), .6); box-shadow: 0 0 0 0 currentColor; animation: dcPulse 3.2s ease-in-out infinite; opacity: .55; transition: opacity .4s var(--ease), transform .4s var(--ease); }
+    .door-cleanse:hover i, .door-cleanse:focus-visible i { opacity: 1; transform: scale(1.5); background: currentColor; }
+    .door-cleanse .dc-l { position: absolute; left: 20px; top: 50%; transform: translate(-4px, -50%); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .4s var(--ease), transform .4s var(--ease);
+      padding: 8px 12px; border-radius: 10px; background: rgba(var(--bg-rgb), .9); border: 1px solid color-mix(in srgb, var(--rose) 45%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    .door-cleanse.west .dc-l { left: auto; right: 20px; transform: translate(4px, -50%); }
+    .door-cleanse:hover .dc-l, .door-cleanse:focus-visible .dc-l { opacity: 1; transform: translate(0, -50%); }
+    .door-cleanse .dc-l b { display: block; font: 500 9.5px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--rose); }
+    .door-cleanse .dc-l em { display: block; font: italic 400 15px/1.4 var(--serif); color: var(--cream); }
+    .door-cleanse:focus-visible { outline: none; }
+    @keyframes dcPulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 50%, transparent); } 50% { box-shadow: 0 0 0 6px transparent; } }
+    @keyframes dcIn { from { opacity: 0; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .door-cleanse i { animation: none; } }
+    body.no-protocol .door-protocol::after { display: none; }
+    .date { font-family: var(--serif); font-style: italic; font-size: max(15px, calc(var(--r, 300px) * .058)); color: var(--ink); }
+    .guide { font-family: var(--serif); font-size: max(12px, calc(var(--r, 300px) * .036)); line-height: 1.4; color: var(--ink-soft); max-width: 100%; }
+    .launch { font: 400 max(9.5px, calc(var(--r, 300px) * .028))/1.4 var(--mono); letter-spacing: .12em; color: var(--ink-faint); }
+
+    /* readouts */
+    .reads { position: absolute; z-index: 3; top: 50%; transform: translateY(-50%); display: grid; gap: 22px; width: min(250px, 20vw); }
+    .reads.left { left: clamp(16px, 4vw, 56px); }
+    .reads.right { right: clamp(16px, 4vw, 56px); text-align: right; }
+    .read dt { font: 500 9.5px/1.3 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 6px; }
+    .read dd { margin: 0; font-family: var(--serif); font-size: 20px; line-height: 1.2; color: var(--cream); font-variant-numeric: tabular-nums; }
+    .read dd small { display: block; font: 400 10.5px/1.5 var(--mono); letter-spacing: .06em; color: var(--ink-faint); margin-top: 4px; }
+    .reads { opacity: 0; animation: arrive 1.8s var(--ease) .9s forwards; }
+    @keyframes arrive { from { opacity: 0; filter: blur(6px); } to { opacity: 1; filter: none; } }
+    @media (max-width: 1100px) {
+      .reads { position: static; transform: none; width: auto; grid-template-columns: 1fr 1fr; gap: 18px 24px; text-align: left !important; padding: 0 clamp(16px, 5vw, 40px); animation: none; opacity: 1; }
+      .reads.right { text-align: left; }
+      .reads-wrap { display: grid; gap: 18px; padding: 8px 0 28px; }
+    }
+
+    /* time control */
+    .travel {
+      position: absolute; z-index: 4; left: 50%; bottom: max(22px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+      width: min(760px, calc(100vw - 32px)); display: grid; gap: 12px;
+    }
+    .travel-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+    .travel .label { font: 500 10px/1 var(--mono); letter-spacing: .24em; text-transform: uppercase; color: var(--ink-faint); }
+    .speeds { display: flex; gap: 4px; align-items: center; }
+    .pill {
+      appearance: none; cursor: pointer; border: 1px solid rgba(var(--l-rgb), .2); background: transparent; color: var(--ink-soft);
+      border-radius: 999px; padding: 7px 11px; font: 500 10px/1 var(--mono); letter-spacing: .1em; transition: all .35s var(--ease);
+    }
+    .pill:hover, .pill:focus-visible { border-color: rgba(var(--l-rgb), .55); color: var(--cream); outline: none; }
+    .pill[aria-pressed="true"] { background: rgba(var(--l-rgb), .14); border-color: var(--lime); color: var(--lime); }
+    .pill.live[aria-pressed="true"]::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: currentColor; margin-right: 7px; vertical-align: 1px; animation: blink 1.6s ease-in-out infinite; }
+    @keyframes blink { 50% { opacity: .25; } }
+    .track { position: relative; height: 34px; cursor: pointer; touch-action: none; }
+    .track .rail { position: absolute; left: 0; right: 0; top: 16px; height: 1px; background: rgba(var(--l-rgb), .25); }
+    .track .fill { position: absolute; left: 0; top: 16px; height: 1px; background: var(--lime); }
+    .track .rung { position: absolute; top: 11px; width: 1px; height: 11px; background: rgba(var(--l-rgb), .45); }
+    .track .star { position: absolute; top: 8px; width: 1px; height: 17px; background: var(--lime); }
+    .track .knob { position: absolute; top: 10px; width: 13px; height: 13px; margin-left: -6.5px; border-radius: 50%; background: var(--bg); border: 1.5px solid var(--lime); box-shadow: 0 0 0 4px rgba(var(--l-rgb), .1); transition: box-shadow .3s; }
+    .track:hover .knob, .track:focus-visible .knob { box-shadow: 0 0 0 7px rgba(var(--l-rgb), .16); }
+    .track:focus-visible { outline: none; }
+    .track .ends { position: absolute; top: 26px; left: 0; right: 0; display: flex; justify-content: space-between; font: 400 9.5px/1 var(--mono); letter-spacing: .1em; color: var(--ink-faint); }
+
+    /* tooltip */
+    .tip {
+      position: fixed; z-index: 20; pointer-events: none; max-width: 300px;
+      background: rgba(var(--bg-rgb), .94); border: 1px solid rgba(var(--l-rgb), .22); border-radius: 12px;
+      padding: 12px 14px; box-shadow: 0 16px 40px rgba(0,0,0,.35); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      opacity: 0; transform: translateY(4px); transition: opacity .25s var(--ease), transform .25s var(--ease);
+    }
+    .tip.on { opacity: 1; transform: none; }
+    .tip .t-k { font: 500 9.5px/1.3 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--acc, var(--lime)); }
+    .tip .t-h { font-family: var(--serif); font-size: 19px; color: var(--cream); margin: 6px 0 4px; }
+    .tip .t-p { font-family: var(--serif); font-size: 14.5px; line-height: 1.45; color: var(--ink-soft); margin: 0; }
+    .tip .t-m { font: 400 10px/1.6 var(--mono); color: var(--ink-faint); margin-top: 8px; letter-spacing: .04em; }
+    .tip .t-a { font: 500 9.5px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--lime); margin-top: 10px; }
+
+    .more { position: absolute; z-index: 4; right: clamp(16px, 4vw, 44px); bottom: max(26px, env(safe-area-inset-bottom)); }
+    @media (max-width: 1100px) { .more { display: none; } }
+
+    /* ---------- reading the instrument ---------- */
+    .read-on { position: relative; z-index: 2; padding: clamp(80px, 12vh, 140px) clamp(20px, 6vw, 40px) 120px; }
+    .col { width: min(760px, 100%); margin: 0 auto; }
+    .read-on .num { display: flex; align-items: center; gap: 14px; margin: 0 0 22px; font: 500 10.5px/1 var(--mono); letter-spacing: .3em; text-transform: uppercase; color: var(--ink-faint); }
+    .read-on .num::after { content: ''; flex: 0 0 48px; height: 1px; background: rgba(var(--l-rgb), .25); }
+    .read-on h2 { margin: 0 0 26px; font-family: var(--serif); font-weight: 300; font-size: clamp(36px, 5vw, 62px); line-height: 1.04; letter-spacing: -.02em; color: var(--cream); }
+    .read-on h2 em { font-style: italic; color: var(--lime); }
+    .read-on h3 { margin: 54px 0 12px; font-family: var(--serif); font-weight: 400; font-size: 26px; color: var(--cream); display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+    .read-on p { margin: 0 0 1em; font-family: var(--serif); font-size: clamp(17px, 1.4vw, 19.5px); line-height: 1.66; color: rgba(var(--c-rgb), .8); }
+    .read-on p.lead { font-size: clamp(20px, 1.9vw, 24px); line-height: 1.5; color: var(--ink); }
+    .tag { display: inline-flex; align-items: center; gap: 7px; font: 500 9px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); border: 1px solid rgba(var(--l-rgb), .22); border-radius: 999px; padding: 6px 9px 6px 8px; vertical-align: middle; }
+    .tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .tag.derived { color: var(--lime); }
+    .tag.observed { color: var(--teal); }
+    .tag .nt { text-transform: none; }
+    .tag sub { font-size: .8em; vertical-align: -.2em; line-height: 0; }
+    .read-on h3 sub, .read-on p sub { font-size: .68em; vertical-align: -.25em; line-height: 0; }
+    .read-on p.eq { font-family: var(--mono); font-size: clamp(13px, 1.2vw, 15px); letter-spacing: .02em; color: var(--cream); padding: 14px 18px; border-left: 2px solid rgba(var(--l-rgb), .4); background: rgba(var(--l-rgb), .04); border-radius: 0 10px 10px 0; overflow-x: auto; }
+    .read-on p.eq b { font-weight: 500; color: var(--lime); }
+    .center .sun { font: 400 max(9.5px, calc(var(--r, 300px) * .026))/1.4 var(--mono); letter-spacing: .1em; color: var(--ink-faint); }
+    .center .sun b { font-weight: 500; color: var(--amber); } .center .sun .orb { color: var(--oc, var(--lime)); }
+    .read dd .og { color: var(--acc, var(--cream)); } .tag.chosen { color: var(--blue); } .tag.postulate { color: var(--amber); } .tag.unresolved { color: var(--ink-soft); }
+    .tag.unresolved::before { background: none; border: 1px dashed currentColor; }
+    .consts { width: 100%; border-collapse: collapse; margin: 18px 0 8px; font-family: var(--serif); font-size: 17px; }
+    .consts td { padding: 12px 8px; border-bottom: 1px solid rgba(var(--l-rgb), .12); vertical-align: baseline; color: rgba(var(--c-rgb), .82); }
+    .consts td:first-child { width: 90px; font-size: 20px; color: var(--cream); }
+    .consts td:nth-child(2) { font-family: var(--mono); font-size: 13px; color: var(--cream); white-space: nowrap; }
+    .consts td:last-child { text-align: right; }
+    @media (max-width: 700px) {
+      .consts, .consts tbody, .consts tr, .consts td { display: block; width: auto !important; }
+      .consts tr { padding: 12px 0; border-bottom: 1px solid rgba(var(--l-rgb), .12); }
+      .consts td { border: 0; padding: 3px 0; text-align: left !important; white-space: normal !important; }
+    }
+    .days6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 20px 0 10px; }
+    .days6 span { text-align: center; padding: 14px 4px; border: 1px solid rgba(var(--l-rgb), .14); border-radius: 10px; font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--cream); border-top: 2px solid var(--c); }
+    .ladder { list-style: none; margin: 18px 0 0; padding: 0; border-top: 1px solid rgba(var(--l-rgb), .14); }
+    .ladder li { display: grid; grid-template-columns: 34px 170px 1fr auto; gap: 12px; align-items: baseline; padding: 12px 6px; border-bottom: 1px solid rgba(var(--l-rgb), .09); cursor: pointer; transition: background .3s var(--ease); }
+    .ladder li:hover { background: rgba(var(--l-rgb), .05); }
+    .ladder li.now { background: rgba(var(--l-rgb), .08); }
+    .ladder .i { font: 400 11px/1 var(--mono); color: var(--ink-faint); }
+    .ladder .s { font: 500 11.5px/1.3 var(--mono); letter-spacing: .16em; color: var(--c); }
+    .ladder .g { font-family: var(--serif); font-size: 16.5px; color: rgba(var(--c-rgb), .82); }
+    .ladder .g i { color: var(--cream); font-style: normal; }
+    .ladder .t { font: 400 11px/1 var(--mono); color: var(--ink-faint); white-space: nowrap; }
+    @media (max-width: 700px) { .ladder li { grid-template-columns: 26px 1fr auto; } .ladder .g { grid-column: 2 / 4; } .days6 { grid-template-columns: repeat(3, 1fr); } }
+    .sign { margin-top: 60px; font-family: var(--serif); font-style: italic; color: var(--ink-faint); }
+
+    @media (max-width: 1100px) {
+      .stage { height: auto; min-height: 0; }
+      .dial-box { position: relative; height: min(100vw, 78svh); min-height: 380px; margin-top: 70px; }
+      .travel { position: static; transform: none; margin: 0 auto 30px; }
+      .kicker { font-size: 9.5px; letter-spacing: .22em; }
+      .guide, .center .motto, .center .sun .cnt { display: none; }
+      .center { width: calc(var(--r, 300px) * .62); }
+    }
+    @media (max-width: 600px) { .top .ctl span { display: none; } .kicker { letter-spacing: .18em; } }
+    @media (min-width: 1101px) { .dial-box { position: absolute; inset: 0; } }
+    @media (prefers-reduced-motion: reduce) { .grain { animation: none; } .reads { animation: none; opacity: 1; } html { scroll-behavior: auto; } }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* ---------- new version: signs, days, calendar ---------- */
+    .top-right { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 28px); }
+    .center .date-btn { pointer-events: auto; appearance: none; background: none; border: 0; padding: 0; cursor: pointer; color: inherit; font: inherit; border-bottom: 1px dotted rgba(var(--l-rgb), .35); transition: border-color .3s var(--ease), color .3s var(--ease); }
+    .center .date-btn:hover, .center .date-btn:focus-visible { border-bottom-color: var(--lime); color: var(--cream); outline: none; }
+    .center .motto { font-family: var(--serif); font-style: italic; font-size: max(12px, calc(var(--r, 300px) * .036)); line-height: 1.4; color: var(--ink-soft); max-width: 92%; }
+    .read dd .sg { color: var(--acc, var(--cream)); }
+    .track .seg { position: absolute; top: 15px; height: 3px; border-radius: 2px; opacity: .5; }
+    .track .seg.gate { top: 12px; height: 9px; width: 3px !important; margin-left: -1px; opacity: .95; border-radius: 1px; }
+
+    /* sign and day cards in the reading */
+    .tides { display: grid; gap: 34px; margin-top: 26px; }
+    .tide h4 { margin: 0 0 4px; font: 500 10.5px/1.3 var(--mono); letter-spacing: .24em; text-transform: uppercase; color: var(--c); }
+    .tide > p { font-size: 16px !important; margin: 0 0 12px !important; color: var(--ink-soft) !important; }
+    .signs { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+    .sign-card { position: relative; appearance: none; text-align: left; cursor: pointer; color: inherit; font: inherit;
+      background: rgba(var(--l-rgb), .03); border: 1px solid rgba(var(--l-rgb), .12); border-radius: 14px; padding: 16px 16px 14px; transition: border-color .3s var(--ease), background .3s var(--ease), transform .3s var(--ease); }
+    .sign-card:hover, .sign-card:focus-visible { border-color: var(--c); background: rgba(var(--l-rgb), .06); outline: none; transform: translateY(-1px); }
+    .sign-card.now { border-color: var(--c); box-shadow: 0 0 0 1px var(--c) inset; }
+    .sign-card .gl { position: absolute; right: 14px; top: 12px; font-size: 22px; color: var(--c); opacity: .85; }
+    .sign-card .nm { font-family: var(--serif); font-size: 23px; color: var(--cream); }
+    .sign-card .ep { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--ink-soft); margin-top: 1px; }
+    .sign-card .mt { font: 400 10px/1.6 var(--mono); letter-spacing: .06em; color: var(--ink-faint); margin-top: 10px; }
+    .sign-card .gate-tag { font: 500 8.5px/1 var(--mono); letter-spacing: .2em; color: var(--c); border: 1px solid var(--c); border-radius: 999px; padding: 3px 6px; margin-left: 6px; vertical-align: 3px; }
+    .days-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin: 22px 0 8px; }
+    .day-card { border: 1px solid rgba(var(--l-rgb), .12); border-top: 2px solid var(--c); border-radius: 12px; padding: 16px; background: rgba(var(--l-rgb), .03); }
+    .day-card.now { background: rgba(var(--l-rgb), .08); }
+    .day-card .dh { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+    .day-card .nm { font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--cream); }
+    .day-card .gl { font-size: 18px; color: var(--c); }
+    .day-card .vb { font: 500 9.5px/1 var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--c); margin: 6px 0 10px; }
+    .day-card p { font-size: 15.5px !important; line-height: 1.55 !important; margin: 0 0 10px !important; }
+    .gs { font: 400 10px/1.6 var(--mono); letter-spacing: .05em; color: var(--ink-faint); }
+    .gs b { font-weight: 500; color: var(--ink-soft); }
+
+    .yl { list-style: none; margin: 14px 0 6px; padding: 0; border-top: 1px solid rgba(var(--l-rgb), .12); }
+    .yl li { font: 400 11.5px/1.5 var(--mono); letter-spacing: .03em; color: var(--ink-soft); padding: 9px 4px; border-bottom: 1px solid rgba(var(--l-rgb), .08); }
+    .yl li b { font-weight: 500; color: var(--cream); } .yl li.now { background: rgba(var(--l-rgb), .07); } .yl li.now b { color: var(--lime); }
+    /* ---------- the calendar ---------- */
+    dialog.cal {
+      width: min(980px, calc(100vw - 24px)); max-height: calc(100svh - 24px); padding: 0; border: 1px solid rgba(var(--l-rgb), .22); border-radius: 20px;
+      background: var(--bg); color: var(--ink); box-shadow: 0 30px 90px rgba(0,0,0,.5); overflow: hidden;
+    }
+    dialog.cal[open] { display: flex; flex-direction: column; animation: calIn .5s var(--ease); }
+    dialog.cal::backdrop { background: rgba(var(--bg-rgb), .72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+    @keyframes calIn { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
+    .cal-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 22px 12px; border-bottom: 1px solid rgba(var(--l-rgb), .1); flex-wrap: wrap; }
+    .cal-head .ttl { font: 500 10.5px/1.3 var(--mono); letter-spacing: .28em; text-transform: uppercase; color: var(--ink-faint); }
+    .cal-head .ttl b { font-weight: 500; color: var(--lime); }
+    .cyc { display: flex; align-items: center; gap: 8px; }
+    .cal-mode { display: inline-flex; border: 1px solid rgba(var(--l-rgb), .22); border-radius: 999px; padding: 3px; gap: 2px; }
+    .cal-mode button { appearance: none; cursor: pointer; border: 0; background: transparent; color: var(--ink-faint); border-radius: 999px; padding: 7px 14px;
+      font: 500 10px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; transition: all .3s var(--ease); }
+    .cal-mode button:hover, .cal-mode button:focus-visible { color: var(--cream); outline: none; }
+    .cal-mode button[aria-selected="true"] { background: rgba(var(--l-rgb), .14); color: var(--lime); }
+    .wk.orbital { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .cell .ev { font: 500 8.5px/1.3 var(--mono); letter-spacing: .03em; color: var(--amber); }
+    .cell .as { font: 400 8.5px/1.3 var(--mono); color: var(--ink-faint); }
+    .yearbar.orb button { flex: 1 0 0; }
+    .yearbar.orb .lbl { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(12, 1fr); pointer-events: none; }
+    .yearbar.orb .lbl span { display: grid; place-items: center; font: 500 8.5px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--cream); opacity: .8; }
+    @media (max-width: 760px) { .yearbar.orb .lbl span { font-size: 6.5px; letter-spacing: 0; } .cell .as { display: none; } }
+    .cyc .lbl { font-family: var(--serif); font-size: 19px; color: var(--cream); min-width: 88px; text-align: center; }
+    .cyc .sub { font: 400 10px/1.3 var(--mono); color: var(--ink-faint); letter-spacing: .05em; }
+    .ibtn { appearance: none; cursor: pointer; background: transparent; color: var(--ink-soft); border: 1px solid rgba(var(--l-rgb), .2); border-radius: 999px; width: 30px; height: 30px; display: inline-grid; place-items: center; font: 500 13px/1 var(--mono); transition: all .3s var(--ease); }
+    .ibtn:hover, .ibtn:focus-visible { border-color: var(--lime); color: var(--lime); outline: none; }
+    .cal-body { overflow: auto; padding: 16px 22px 24px; display: grid; gap: 18px; }
+    .yearbar { position: relative; display: flex; height: 30px; border-radius: 8px; overflow: hidden; gap: 1px; }
+    .yearbar button { appearance: none; border: 0; padding: 0; cursor: pointer; background: var(--c); opacity: .28; min-width: 3px; transition: opacity .25s var(--ease); position: relative; }
+    .yearbar button:hover, .yearbar button:focus-visible { opacity: .6; outline: none; }
+    .yearbar button.sel { opacity: 1; }
+    .yearbar .nowmark { position: absolute; top: -3px; bottom: -3px; width: 2px; margin-left: -1px; background: var(--cream); border-radius: 1px; pointer-events: none; box-shadow: 0 0 6px rgba(var(--c-rgb), .5); }
+    .yb-ends { display: flex; justify-content: space-between; font: 400 9.5px/1 var(--mono); letter-spacing: .08em; color: var(--ink-faint); margin-top: 6px; }
+    .sign-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 26px; align-items: start; }
+    .sp-l .row1 { display: flex; align-items: center; gap: 12px; }
+    .sp-l .gl { width: 54px; height: 54px; border-radius: 50%; border: 1px solid var(--c); display: grid; place-items: center; font-size: 24px; color: var(--c); flex: none; }
+    .sp-l .tide { font: 500 9.5px/1.3 var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--c); }
+    .sp-l .nm { font-family: var(--serif); font-weight: 300; font-size: 38px; line-height: 1.02; color: var(--cream); }
+    .sp-l .ep { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink-soft); margin-top: 2px; }
+    .sp-l .motto { font-family: var(--serif); font-style: italic; font-size: 19px; line-height: 1.4; color: var(--ink); margin: 16px 0 10px; }
+    .sp-l .txt { font-family: var(--serif); font-size: 16px; line-height: 1.6; color: rgba(var(--c-rgb), .8); margin: 0 0 12px; }
+    .facts { display: grid; grid-template-columns: auto 1fr; gap: 5px 14px; font: 400 10.5px/1.5 var(--mono); letter-spacing: .03em; color: var(--ink-faint); margin: 12px 0 0; }
+    .facts dt { color: var(--ink-faint); text-transform: uppercase; letter-spacing: .14em; font-size: 9.5px; }
+    .facts dd { margin: 0; color: var(--cream); }
+    .sp-nav { display: flex; gap: 8px; margin-top: 16px; }
+    .sp-nav .pill { font-size: 9.5px; }
+    .wk { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; }
+    .wk .hd { text-align: center; font: 500 9px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--c); padding: 2px 0 6px; border-bottom: 1px solid var(--c); margin-bottom: 3px; }
+    .wk .hd span { display: block; font-size: 13px; letter-spacing: 0; margin-bottom: 3px; }
+    .cell { appearance: none; text-align: left; cursor: pointer; color: inherit; font: inherit; position: relative; min-height: 64px; padding: 7px 7px 6px; border-radius: 9px;
+      border: 1px solid rgba(var(--l-rgb), .1); background: rgba(var(--l-rgb), .025); display: flex; flex-direction: column; gap: 2px; transition: border-color .25s var(--ease), background .25s var(--ease); }
+    .cell:hover, .cell:focus-visible { border-color: var(--c); background: rgba(var(--l-rgb), .07); outline: none; }
+    .cell.blank { visibility: hidden; }
+    .cell .d { font-family: var(--serif); font-size: 21px; line-height: 1; color: var(--cream); }
+    .cell .y { position: absolute; right: 7px; top: 8px; font: 400 9px/1 var(--mono); color: var(--ink-faint); }
+    .cell .cv { font: 400 9.5px/1.3 var(--mono); color: var(--ink-faint); margin-top: auto; }
+    .cell .ing { font: 500 8.5px/1.3 var(--mono); letter-spacing: .04em; color: var(--c2, var(--lime)); }
+    .cell.today { border-color: var(--lime); background: rgba(var(--l-rgb), .12); }
+    .cell.today::after { content: 'now'; position: absolute; left: 36px; top: 9px; font: 500 8px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--lime); }
+    .cell.past .d { opacity: .55; }
+    .cell.today .y { display: none; }
+    .cell.thr { border-style: dashed; }
+    .finder { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 14px 16px; border: 1px solid rgba(var(--l-rgb), .12); border-radius: 14px; background: rgba(var(--l-rgb), .03); }
+    .finder label { font: 500 9.5px/1.3 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faint); }
+    .finder input { font: 400 13px/1 var(--mono); color: var(--cream); background: transparent; border: 1px solid rgba(var(--l-rgb), .25); border-radius: 8px; padding: 8px 10px; color-scheme: inherit; }
+    .finder input:focus-visible { outline: none; border-color: var(--lime); }
+    .finder .out { flex: 1 1 260px; font-family: var(--serif); font-size: 16px; color: var(--ink); }
+    .finder .out i { color: var(--acc, var(--lime)); }
+    .finder .out small { display: block; font: 400 10px/1.5 var(--mono); color: var(--ink-faint); letter-spacing: .04em; }
+    /* the day sheet: a date opened from the calendar */
+    .cell.sel { border-color: var(--c); background: rgba(var(--l-rgb), .1); box-shadow: 0 0 0 1px var(--c) inset; }
+    .cell .jn { position: absolute; right: 6px; bottom: 6px; min-width: 14px; height: 14px; padding: 0 3px; border-radius: 7px; background: var(--c); color: var(--bg);
+      font: 600 8.5px/14px var(--mono); text-align: center; }
+    .ds { animation: dsIn .45s var(--ease); }
+    @keyframes dsIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .ds .row1 { display: flex; align-items: center; gap: 12px; }
+    .ds .gl { width: 54px; height: 54px; border-radius: 50%; border: 1px solid var(--c); display: grid; place-items: center; font-size: 24px; color: var(--c); flex: none; }
+    .ds .tide { font: 500 9.5px/1.3 var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--c); }
+    .ds .nm { font-family: var(--serif); font-weight: 300; font-size: 34px; line-height: 1.04; color: var(--cream); }
+    .ds .nm i { color: var(--c2); font-style: normal; }
+    .ds .ep { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--ink-soft); margin-top: 2px; }
+    .ds .span { font: 400 10.5px/1.6 var(--mono); letter-spacing: .03em; color: var(--ink-faint); margin: 12px 0 0; }
+    .ds .span b { font-weight: 400; color: var(--cream); }
+    .ds .txt { font-family: var(--serif); font-size: 16px; line-height: 1.6; color: var(--ink); margin: 12px 0 0; }
+    .ds .txt.s { font-style: italic; color: rgba(var(--c-rgb), .8); font-size: 15px; }
+    .ds .sp-nav { flex-wrap: wrap; }
+    .jr { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(var(--l-rgb), .12); display: grid; gap: 16px; }
+    .jr h5 { margin: 0 0 8px; font: 500 9.5px/1.3 var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--ink-faint); display: flex; justify-content: space-between; gap: 10px; }
+    .jr h5 span { letter-spacing: .06em; text-transform: none; color: var(--ink-faint); opacity: .8; }
+    .jr .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .jr .chip { appearance: none; cursor: pointer; font: 500 10px/1 var(--mono); letter-spacing: .06em; color: var(--ink-soft); background: transparent;
+      border: 1px solid rgba(var(--l-rgb), .2); border-radius: 999px; padding: 7px 10px 7px 8px; display: inline-flex; align-items: center; gap: 7px; transition: all .25s var(--ease); }
+    .jr .chip::before { content: ''; width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--w); transition: all .25s var(--ease); }
+    .jr .chip:hover, .jr .chip:focus-visible { border-color: var(--w); color: var(--cream); outline: none; }
+    .jr .chip[aria-pressed="true"] { border-color: var(--w); color: var(--cream); background: color-mix(in srgb, var(--w) 14%, transparent); }
+    .jr .chip[aria-pressed="true"]::before { background: var(--w); box-shadow: 0 0 8px var(--w); }
+    .jr .chip small { font-size: 9px; color: var(--ink-faint); }
+    .jr .ms { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 7px 12px; }
+    .jr .ms > span { font: 500 9.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+    .jr .dots { display: flex; align-items: center; gap: 5px; }
+    .jr .dots button { appearance: none; cursor: pointer; width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(var(--l-rgb), .28); background: transparent; padding: 0;
+      font: 500 9px/1 var(--mono); color: var(--ink-faint); transition: all .2s var(--ease); }
+    .jr .dots button:hover, .jr .dots button:focus-visible { border-color: var(--c); color: var(--cream); outline: none; }
+    .jr .dots button.on { background: var(--c); border-color: var(--c); color: var(--bg); }
+    .jr .dots em { font: italic 400 13px/1 var(--serif); color: var(--ink-faint); margin-left: 6px; min-width: 60px; }
+    .jr .ms input { width: 90px; font: 400 13px/1 var(--mono); color: var(--cream); background: transparent; border: 1px solid rgba(var(--l-rgb), .25); border-radius: 8px; padding: 6px 8px; color-scheme: inherit; }
+    .jr .ms input:focus-visible { outline: none; border-color: var(--c); }
+    .jr .ms small { font: 400 10px/1 var(--mono); color: var(--ink-faint); margin-left: 6px; }
+    .jr textarea { width: 100%; box-sizing: border-box; min-height: 84px; resize: vertical; font: 400 15px/1.55 var(--serif); color: var(--cream); background: rgba(var(--l-rgb), .03);
+      border: 1px solid rgba(var(--l-rgb), .2); border-radius: 10px; padding: 10px 12px; }
+    .jr textarea:focus-visible { outline: none; border-color: var(--c); }
+    .jr .row { display: flex; align-items: center; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+    .jr .row .hint { font: 400 9.5px/1.3 var(--mono); color: var(--ink-faint); letter-spacing: .04em; }
+    .jr .notes { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .jr .notes li { border-left: 2px solid var(--c); padding: 4px 0 4px 12px; }
+    .jr .notes .tm { font: 400 9.5px/1.4 var(--mono); letter-spacing: .05em; color: var(--ink-faint); display: flex; gap: 10px; align-items: center; }
+    .jr .notes .tm b { font-weight: 500; color: var(--c); }
+    .jr .notes .tm button { appearance: none; border: 0; background: transparent; cursor: pointer; color: var(--ink-faint); font: inherit; padding: 0 2px; text-decoration: underline dotted; }
+    .jr .notes .tm button:hover { color: var(--cream); }
+    .jr .notes p { margin: 3px 0 0; font-family: var(--serif); font-size: 15.5px; line-height: 1.55; color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .jr .sleepy { font: 400 11px/1.6 var(--mono); color: var(--ink-faint); }
+    .jr .sleepy code { color: var(--cream); }
+    .jr .err { font: 400 10px/1.4 var(--mono); color: var(--rose); min-height: 1em; }
+    @media (max-width: 760px) {
+      .sign-panel { grid-template-columns: 1fr; gap: 16px; }
+      .ds .nm { font-size: 28px; }
+      .cal-head, .cal-body { padding-left: 14px; padding-right: 14px; }
+      .cell { min-height: 54px; padding: 5px 4px 4px; }
+      .cell .d { font-size: 17px; } .cell .y { display: none; } .cell .cv { font-size: 8px; }
+      .cell .ing { font-size: 7.5px; }
+      .wk { gap: 3px; } .wk .hd { font-size: 7.5px; letter-spacing: .06em; }
+      .sp-l .nm { font-size: 30px; }
+      .cal-head { display: grid; grid-template-columns: 1fr auto; row-gap: 10px; }
+      .cal-head .cyc { grid-column: 1 / -1; grid-row: 2; justify-content: center; }
+      .yb-ends { font-size: 8px; gap: 12px; } .yb-ends span:last-child { text-align: right; }
+      .cell.today::after { display: none; }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/house.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="ctl" href="index.html" aria-label="Back to the horizon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="5.2"/><ellipse cx="12" cy="12" rx="10" ry="2.6"/></svg>
+      <span>Horizon</span>
+    </a>
+    <div class="top-right">
+    <button class="ctl" type="button" id="open-cal" aria-haspopup="dialog">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+      <span>Calendar</span>
+    </button>
+    <button class="ctl theme-btn" type="button" id="theme" aria-label="Switch theme">
+      <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+      <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+    </button>
+    </div>
+  </header>
+  <p class="kicker" aria-hidden="true">The <b>Temporal Matrix</b></p>
+
+  <main>
+    <h1 class="sr">The Temporal Matrix</h1>
+    <section class="stage" aria-label="The instrument">
+      <div class="dial-box">
+        <canvas id="dial" aria-hidden="true"></canvas>
+        <div class="center" id="center" role="timer" aria-live="off">
+          <span class="state" id="c-state">—</span>
+          <a class="clock door-protocol" id="c-clock" data-door="protocol" href="protocol.html" aria-label="The Protocol"><span id="c-h">00</span><span class="sep">:</span><span id="c-m">00</span><span class="sep">:</span><span class="sec" id="c-s">00</span></a>
+          <span class="date"><button type="button" class="date-btn" id="c-date" title="Open the calendar">—</button></span>
+          <span class="motto" id="c-guide"></span>
+          <span class="launch" id="c-launch"></span>
+          <span class="sun" id="c-sun" title="☉ the sun's true ecliptic longitude · the orbital date · the degree of the revolution counted in Matrix dates since the March equinox"></span>
+        </div>
+      </div>
+
+      <div class="reads-wrap">
+        <dl class="reads left">
+          <div class="read"><dt>Matrix time in the year</dt><dd id="r-tau">—<small id="r-tau-s">of τ* dates</small></dd></div>
+          <div class="read"><dt>Recurrence depth q</dt><dd id="r-q">—<small id="r-q-s">of Q</small></dd></div>
+          <div class="read"><dt>Entropic energy J</dt><dd id="r-j">—<small id="r-j-s">of J₀ · restarts each year</small></dd></div>
+          <div class="read"><dt>Integrated this year</dt><dd id="r-int">—<small>of the descent</small></dd></div>
+        </dl>
+        <dl class="reads right">
+          <div class="read"><dt>Time wave</dt><dd id="r-sign">—<small id="r-sign-s">—</small></dd></div>
+          <div class="read"><dt>Orbital date</dt><dd id="r-orb">—<small id="r-orb-s">—</small></dd></div>
+          <div class="read"><dt>Next date</dt><dd id="r-next">—<small id="r-next-s">—</small></dd></div>
+          <div class="read"><dt>Next time wave</dt><dd id="r-rung">—<small id="r-rung-s">—</small></dd></div>
+          <div class="read"><dt>The year turns</dt><dd id="r-year">—<small id="r-year-s">—</small></dd></div>
+        </dl>
+      </div>
+
+      <div class="travel" aria-label="Travel through Matrix time">
+        <div class="travel-row">
+          <span class="label" id="t-label">Live</span>
+          <div class="speeds" role="group" aria-label="Speed">
+            <button class="pill live" type="button" data-speed="live" aria-pressed="true">Live</button>
+            <button class="pill" type="button" data-speed="pause" aria-pressed="false" aria-label="Pause">❙❙</button>
+            <button class="pill" type="button" data-speed="10000" aria-pressed="false">10 000×</button>
+            <button class="pill" type="button" data-speed="100000" aria-pressed="false">100 000×</button>
+            <button class="pill" type="button" data-speed="1000000" aria-pressed="false">1 000 000×</button>
+          </div>
+        </div>
+        <div class="track" id="track" role="slider" tabindex="0" aria-label="Matrix time in the year" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0">
+          <div class="rail"></div><div class="fill" id="t-fill"></div>
+          <div id="t-rungs"></div>
+          <div class="knob" id="t-knob"></div>
+          <div class="ends"><span id="t-start">Turning · Origo</span><span id="t-star">τ* · Turning</span></div>
+        </div>
+      </div>
+      <a class="ctl more" href="#read">Read the instrument ↓</a>
+    </section>
+
+    <section class="read-on" id="read">
+      <div class="col">
+        <p class="num">Reading the instrument</p>
+        <h2>Four clocks, <em>one rhythm.</em></h2>
+        <p class="lead">The dial is read from the outside in: the astral year, the orbital year, the day, and the descent. The orbital year counts the revolution itself, one date for each degree, 360 dates in twelve months of thirty. The astral year is exactly as long as one full descent, τ* Matrix dates, and it is divided by the descent's own spans. Each year is born from the sky: at its Turning the mean tropical year of that instant is taken, and the year's length, its time waves and its descent all follow from it. Every year the entropic energy is released again from J₀ to zero, and the instant it reaches zero the next year begins.</p>
+
+
+        <p class="num" style="margin-top:56px">Where it comes from</p>
+        <h3>One date, one degree <span class="tag chosen">Chosen: the founding decision</span></h3>
+        <p>Everything in the instrument follows from one decision: a Matrix date is one degree of the Earth's revolution around the sun. The tropical year, the time from one March equinox to the next, is read from the sky at the opening of each year. For the year on the dial, Cycle <span data-live="cycle">1</span>, it is the mean tropical year at its Turning, Y = <span data-live="Y">365.2421896698</span> days; divided into 360 equal parts, each part lasts</p>
+        <p class="eq">Y / 360 = <span data-live="dateDays">1.0145616380</span> days = <b data-live="dateHms">24 h 20 m 58.126 s</b></p>
+        <p>This is the length of every Matrix date. It is one degree of the mean revolution. The real orbit is an ellipse, faster near the January perihelion, so counted from the March equinox the Earth's true position falls behind the counted degree by up to about four degrees by early autumn and meets it again at the next equinox. The clock shows both: ☉ the sun's true longitude, and the degree counted in Matrix dates since the equinox.</p>
+
+        <h3>The dilation <span class="tag derived">Derived: D₀</span></h3>
+        <p>A Matrix date is longer than a civil day by D₀ = <span data-live="D0">20 m 58.126 s</span>. The clock carries this difference inside the night: it races from 00:00 to 04:00, gaining the whole D₀ while the body sleeps, and repays it by noon. Noon therefore always falls on peak sun and the afternoon runs true; the extra length never displaces the light the body entrains to.</p>
+
+        <h3><span>α, J<sub>0</sub> and Q</span> <span class="tag derived"><span>Derived: <span class="nt">α, J<sub>0</sub></span>, Q</span></span></h3>
+        <p>The same difference, as a fraction of a day, is α:</p>
+        <p class="eq">α = Y / 360 − 1 = <span data-live="Yexcess">5.2421896698</span> / 360 = <span data-live="alpha">0.014561637971…</span>  ≈ 1 / <span data-live="alphaInv">68.67</span></p>
+        <p>Because Y is given to ten decimal places, α is exactly a ratio of whole numbers. Written out and reduced by <span data-live="gcd">6</span>, the largest factor its two terms share, it is</p>
+        <p class="eq">α = <span data-live="alphaRaw">52 421 896 698</span> / 3 600 000 000 000 = <b><span data-live="J0">8 736 982 783</span> / <span data-live="Q">600 000 000 000</span></b></p>
+        <p>The fraction cannot be reduced further. Its numerator is the entropic energy of the year, <span style="white-space:nowrap">J<sub>0</sub> = <span data-live="J0">8 736 982 783</span></span>, and its denominator the full recurrence depth, <span style="white-space:nowrap">Q = <span data-live="Q">600 000 000 000</span></span>. Neither is chosen; both are α itself, written in its lowest terms, so that α = J<sub>0</sub> / Q. The sky's year shortens a little every year, so each year has its own J<sub>0</sub> and its own Q.</p>
+
+        <h3>The descent, the time waves, the year <span class="tag derived">Derived</span></h3>
+        <p>α is expanded as a continued fraction:</p>
+        <p class="eq">α = [0; <span data-live="pq">68, 1, 2, 15, 1, 2, 2, 3, 19, 1, 1, 22, 1, 1, 10, 2, 8, 1, 19</span>]</p>
+        <p>Its successive convergents are the rungs of the descent, the states the year passes through as J falls from J<sub>0</sub> to zero. Its <span data-live="nSigns">19</span> partial quotients are the year's <span data-live="nSigns">19</span> time waves, each time wave carrying one as its number. Summing the time the energy is held at each rung, dτ/dq = J / J<sub>0</sub> from q = 0 to Q, gives the length of the year, τ* ≈ <span data-live="tau4">715.5313</span> Matrix dates. Nothing else is introduced: from one date, one degree, come the day, the dilation, J<sub>0</sub>, the ladder, the time waves and the year.</p>
+
+        <h3>The body's own day <span class="tag observed">Observed</span> <span class="tag postulate">Framework prediction</span></h3>
+        <p>Kept away from daylight and every clock, the human circadian system does not run on 24 hours. Under the controlled dim-light protocols of the last decades its intrinsic period averages about 24.2 h: 24.18 h in Czeisler and colleagues' 1999 study in <em>Science</em>, and 24.15 ± 0.2 h across 157 people in Duffy and colleagues' 2011 study in <em>PNAS</em>, with women slightly shorter than men. The earliest free-running studies, in which people chose their own light, found periods closer to 25 h. The measured period depends on the conditions of measurement.</p>
+        <p>The framework predicts that the body's native day is the Matrix date, 24 h 20 m 58 s, about 24.35 h, and that the lower averages reflect the conditions under which it has been measured. This is a prediction, not an established result: 24.35 h lies within the spread of individual periods, about one standard deviation above today's average. Living by a clock of that length, anchored to the sun, is what the protocol and its daily journal are built to test.</p>
+
+        <h3>The orbital year <span class="tag chosen">One date, one degree</span></h3>
+        <p>The ring between the astral year and the day is the orbital calendar. It counts the same Matrix dates as the astral year, continuously from the launch at the March equinox, and every 360 of them it completes one revolution: twelve months of thirty dates, each month thirty degrees of the orbit and exactly five weeks of six. Its months are named by the geometry of the orbit rather than by the seasons of either hemisphere: the sun's two crossings of the equator, its northern and southern turns, and the Earth's farthest and nearest points from the sun. On the ring the lime point is the counted degree and the amber ☉ is the sun's true longitude; the two separate by up to about four degrees through the year and meet again at the equinox. Orbital dates begin at whole counted degrees, so they do not start at the same moments as astral dates, which begin again at every Turning. Today is <span data-live="orbToday">—</span>.</p>
+        <div class="signs months" id="months"></div>
+
+        <h3>The astral year <span class="tag derived">Derived: τ*</span></h3>
+        <p>A year of the Temporal Matrix lasts τ* Matrix dates, and τ* is different every year. For Cycle <span data-live="cycle">1</span> it is τ* = <span data-live="tauFrac">6 251 584 658 434 / 8 736 982 783</span> ≈ <span data-live="tau4">715.5313</span> Matrix dates, about <span data-live="civilDays">725.95</span> civil days. It holds <span data-live="nDates">716</span> dates: <span data-live="nWhole">715</span> whole dates and a final <em>threshold date</em> of <span data-live="thrFrac">0.5313</span> date (<span id="thr-len">12 h 56 m</span> of civil time). Dates are counted from each year's turning, so every year opens on Differa, date 1 of Origo, and the turning falls at a different hour each year, just as the date does each date. Cycle 1 opens at the launch, the March Equinox, 20 March 2027, 20:25 UTC. <span id="y-next"></span></p>
+        <div class="years" id="years"></div>
+
+        <h3>The time waves <span class="tag derived">Intervals derived</span> <span class="tag chosen">Names authored</span></h3>
+        <p>The year's divisions are not chosen. They are the spans between the hard rungs of the descent, and their lengths come out of the continued fraction of α = J₀/Q. Each time wave carries a <em>number</em>, the partial quotient of that continued fraction which produces the rung closing it. This year there are <span data-live="nSigns">19</span>: <span data-live="pq">68, 1, 2, 15, 1, …</span>.</p>
+        <p>The time waves are named by their place in the year. Every year opens with <em>Origo, Limen, Scissa, Vortex</em> and <em>Sedes</em> and runs on through <em>Nexus, Fornax, Lyra, Echo, Nodus, Corpus, Spira, Acus, Filum, Petra, Lumen</em> and <em>Conflux</em> as far as it reaches; a longer year continues with <em>Vela, Speculum, Clavis, Pons, Vena, Gemma, Arcus, Stella, Silentium, Sal, Aura, Limbus</em> and <em>Quies</em>. Every year closes with <em>Una</em> and <em>Monas</em>, and that is not a choice: the last rung before zero always holds exactly one unit of energy, J = 1, so the last time wave is always the Last Unit. A place keeps its meaning from year to year; its number, its length and its dates are the sky's. For a century and more around the launch every year opens with the same numbers, 68, 1, 2, 15, 1, and over many centuries only 68, 1, 2 hold. A time wave shorter than seven dates is a <em>gate</em>, a passage rather than a season; this year has <span data-live="nGates">5</span>. A gate can even be shorter than a single date and open and close inside it. The time waves fall into five tides by how much energy is still held, and together they make an astrology of the Matrix itself: a map of where each year's energy is released, and of what each stretch of time asks for. Open any time wave to see its dates.</p>
+        <div class="tides" id="tides"></div>
+
+        <h3>The six days <span class="tag chosen">Defined by the framework</span></h3>
+        <p>A week is six dates, one full turn of the coherence cycle: difference, selection, realization, integration, resonance and stillness. Weeks run on through the time waves without stopping and begin again with each year, so a time wave can open on any day of the week.</p>
+        <div class="days-grid" id="days6"></div>
+
+        <h3>The day <span class="tag chosen">Chosen: the 04:00 boundary and the wave's profile</span></h3>
+        <p>The middle ring is the 24-hour face, anchored to the sun: 12:00 is always peak sun and 00:00 solar midnight. In this year one Matrix date lasts <span data-live="dateFull">24 h 20 m 58.125520752 s</span> of civil time, and the dilation is permanent. The clock races from 00:00 to 04:00, gaining the full D₀ = <span data-live="D0">20 m 58.126 s</span>, and repays it from 04:00 to noon; the afternoon runs true. The wave drawn on the ring keeps its full depth for ever, so the date boundary lands about 21 minutes later on the clock every date and walks round the face without stopping.</p>
+
+        <h3>The descent <span class="tag derived">Derived</span></h3>
+        <p>The <span data-live="nRings">20</span> inner rings are this year's states of the descent: LAUNCH on the outside, ABSOLUTE at the centre. They are the convergents of the continued fraction of α = J₀/Q, computed exactly, and integrating dτ/dq = J<sub>ret</sub>/J₀ across them gives τ*. Each year runs the whole descent once: J starts at J₀ = <span data-live="J0">8 736 982 783</span> on Origo 1 and reaches 0 at the turning. Touch a ring to read it, or click it to travel there in the current year.</p>
+        <ol class="ladder" id="ladder"></ol>
+
+        <h3>What is declared <span class="tag postulate">Framework definitions</span></h3>
+        <p>That each year is born from the sky: its Y is the mean tropical year at its Turning, from Laskar's formula, rounded to ten decimals, and everything in that year is derived from it. That one year is exactly one descent, τ* Matrix dates, and that the descent begins again at every turning. That the Matrix date keeps its full dilation for ever, with noon on peak sun.</p>
+
+        <h3>What does not line up <span class="tag unresolved">Open</span></h3>
+        <p>Because each year's τ* is born from a slightly different Y, year lengths are not regular: the first cycles run between about 650 and 850 Matrix dates, from under two to well over two tropical years. The turning therefore wanders through the seasons without a fixed rhythm. <span id="y-wander"></span> It is shown, not adjusted: each year's length is derived, and bending it to the seasons would be fitting a constant to close a pattern.</p>
+
+        <h3>Declared constants</h3>
+        <table class="consts" id="consts"></table>
+        <p id="y-ref" style="font-size:16px">Each year's Y comes from Laskar's formula for the mean tropical year, Y(T) = 365.2421896698 − 6.15359·10<sup>−6</sup> T − 7.29·10<sup>−10</sup> T<sup>2</sup> + 2.64·10<sup>−10</sup> T<sup>3</sup> days, with T in Julian centuries from J2000.0, evaluated at the instant of the year's Turning and rounded to ten decimals. The real mean year shortens by about 0.53 s per century, which moves the tenth decimal about every fourteen hours, and beyond the first five numbers that is enough to give each year entirely different time waves. The founding value, 365.2421896698, is the mean year at J2000.0, 1 January 2000 at 12:00; it no longer runs any year, but its canon table is checked each time the page loads, to prove the exact arithmetic every year relies on. <span id="y-drift"></span></p>
+        <p class="sign">Every value on this page is computed live by the same engine, and checked each time the page loads.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="tip" id="tip" role="tooltip"></div>
+
+  <dialog class="cal" id="cal" aria-labelledby="cal-ttl">
+    <div class="cal-head">
+      <div class="cal-mode" role="tablist" aria-label="Which calendar">
+        <button type="button" role="tab" id="mode-astral" aria-selected="true">Astral</button>
+        <button type="button" role="tab" id="mode-orbital" aria-selected="false">Orbital</button>
+      </div>
+      <p class="sr" id="cal-ttl">The Matrix calendar</p>
+      <div class="cyc">
+        <button class="ibtn" type="button" id="cyc-prev" aria-label="Previous year">‹</button>
+        <div><div class="lbl" id="cyc-lbl">Cycle 1</div><div class="sub" id="cyc-sub">—</div></div>
+        <button class="ibtn" type="button" id="cyc-next" aria-label="Next year">›</button>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="pill" type="button" id="cal-today">Today</button>
+        <button class="ibtn" type="button" id="cal-close" aria-label="Close the calendar">✕</button>
+      </div>
+    </div>
+    <div class="cal-body">
+      <div>
+        <div class="yearbar" id="yearbar" role="tablist" aria-label="The time waves of the year"></div>
+        <div class="yb-ends"><span id="yb-a">—</span><span id="yb-b">—</span></div>
+      </div>
+      <div class="sign-panel">
+        <div class="sp-l" id="sp-l"></div>
+        <div>
+          <div class="wk" id="wk"></div>
+        </div>
+      </div>
+      <div class="finder">
+        <label for="find-in">Find any moment</label>
+        <input type="datetime-local" id="find-in">
+        <div class="out" id="find-out">Enter a date and time, a birth for instance, to read its time wave, its date and its day.</div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="assets/house-registry.js"></script>
+  <script src="assets/matrix-engine.js"></script>
+  <script src="assets/protocol-data.js"></script>
+  <script src="assets/journal.js"></script>
+  <script>
+  (() => {
+    'use strict';
+
+    /* ---------------- doors ----------------
+       Hidden links out of the Matrix. Each one is on (true) or off (false).
+         protocol   hover the clock   -> the Protocol
+       Add ?doors=all to the address to preview every door. */
+    /* the door's state lives in assets/house-registry.js */
+    const HDOORS = (window.SC_HOUSE && window.SC_HOUSE.doors) || {};
+    const DOORS = { protocol: !!(HDOORS.protocol && HDOORS.protocol.on), 'cleanse-clock': !!(HDOORS['cleanse-clock'] && HDOORS['cleanse-clock'].on) };
+    const doorOpen = name => new URLSearchParams(location.search).get('doors') === 'all' || DOORS[name] === true;
+    if (!doorOpen('protocol')) {
+      document.body.classList.add('no-protocol');
+      const d = document.querySelector('.door-protocol'); if (d) { d.removeAttribute('href'); d.setAttribute('tabindex', '-1'); d.removeAttribute('aria-label'); }
+    }
+    const M = window.SCMatrix;
+    const $ = id => document.getElementById(id);
+    const root = document.documentElement;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (M.CAL360.longitude === null) M.CAL360.longitude = -new Date().getTimezoneOffset() / 4;
+
+    const ACC = { teal: 'teal', amber: 'amber', blue: 'blue', violet: 'violet', rose: 'rose', green: 'green' };
+    const DAYS = M.CAL360.days, DAY_ACC = DAYS.map(d => d.accent);
+    /* The year being read. Every year is derived from the sky at its own
+       Turning, so the ladder, the signs, τ* and the number of dates change from
+       one year to the next; useYear() swaps them in when the reading crosses a
+       Turning (live, in study mode, or by travelling). */
+    const TWO = Math.PI * 2;
+    let YR = null, L = [], SG = [], YT = 1, NDATES = 1;
+    function useYear(y) { if (y === YR) return false; YR = y; L = y.ladder; SG = y.signs; YT = y.tauStar; NDATES = y.datesPerYear; return true; }
+    const pad = n => String(n).padStart(2, '0');
+    const group = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    const ms2 = s => { const m = Math.floor(s / 60), x = s - m * 60; return `${m}m ${x.toFixed(6).padStart(9, '0')}s`; };
+    const hms = s => { s = Math.max(0, s); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60; return `${h}h ${pad(m)}m ${x.toFixed(3).padStart(6, '0')}s`; };
+    const dur = ms => { const s = Math.max(0, Math.floor(ms / 1000)), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60);
+      return d ? `${d}d ${pad(h)}h ${pad(m)}m` : `${h}h ${pad(m)}m ${pad(s % 60)}s`; };
+    const fD = new Intl.DateTimeFormat(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
+    const fDY = new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+    const fT = new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit' });
+    const fDT = new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    const esc = x => String(x).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+    /* ---------- palette from CSS ---------- */
+    let C = {};
+    function readPalette() {
+      const cs = getComputedStyle(root);
+      const v = k => cs.getPropertyValue(k).trim();
+      C = { lime: v('--lime'), l: v('--l-rgb'), c: v('--c-rgb'), bgRgb: v('--bg-rgb'), bg: v('--bg'), light: root.dataset.theme === 'light',
+            teal: v('--teal'), amber: v('--amber'), blue: v('--blue'), violet: v('--violet'), rose: v('--rose'), green: v('--green') };
+    }
+    const accColor = a => C[ACC[a] || 'green'] || C.lime;
+    const hexA = (hex, a) => { const h = hex.replace('#', ''); const n = parseInt(h.length === 3 ? h.split('').map(x => x + x).join('') : h, 16); return `rgba(${n >> 16 & 255},${n >> 8 & 255},${n & 255},${a})`; };
+
+    /* ---------- theme ---------- */
+    function applyTheme(t, animate) {
+      root.dataset.theme = t; readPalette();
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', t === 'light' ? '#f6f4ec' : '#0f1512');
+      $('theme').setAttribute('aria-label', t === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+      if (animate) { document.body.classList.add('theme-shift'); setTimeout(() => document.body.classList.remove('theme-shift'), 900); }
+      if (typeof buildReading === 'function' && YR) buildReading();
+    }
+    $('theme').addEventListener('click', () => {
+      const t = root.dataset.theme === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('sc-theme', JSON.stringify(t)); } catch (e) {}
+      applyTheme(t, true);
+    });
+
+    /* ---------- geometry ----------
+       Outside in: the year (its signs and dates) at R, the day at .8R, the
+       descent band from .635R to .5R, and a clear core inside .5R for the
+       reading, so no ring ever runs under the clock. */
+    const cv = $('dial'), cx = cv.getContext('2d');
+    let W = 0, H = 0, DPR = 1, CX = 0, CY = 0, R = 300;
+    const G = {};
+    function resize() {
+      const box = cv.parentElement.getBoundingClientRect();
+      DPR = Math.min(devicePixelRatio || 1, 2);
+      W = box.width; H = box.height;
+      cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+      cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      const wide = innerWidth > 1100;
+      CX = W / 2; CY = wide ? H * .47 : H / 2;
+      R = wide ? Math.min(W * .3, H * .38) : Math.min(W, H) * (W < 560 ? .36 : .4);
+      G.year = R; G.orb = R * .895; G.day = R * .76; G.dIn = R * .6; G.core = R * .47;
+      const center = $('center');
+      center.style.setProperty('--r', R + 'px');
+      center.style.setProperty('--cy', CY + 'px');
+      buildStars();
+    }
+    const ringR = i => G.dIn - (G.dIn - G.core) * (i / (L.length - 1));   // descent ring i
+    const yAng = y => -Math.PI / 2 + y / YT * TWO;
+
+    let stars = [];
+    function buildStars() {
+      const n = Math.round(Math.min(420, W * H / 5200));
+      stars = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.1 + .2, a: Math.random() * .5 + .1, p: Math.random() * 6.28 }));
+    }
+
+    /* ---------- the moment being read ---------- */
+    let T = null, lastSign = -1, lastDay = -1, lastOrb = -1;
+    const now = () => new Date(M.simNow());
+    const S = { ring: 0 };
+    let hoverRing = -1, hoverSign = -1, hoverDate = -1, hoverMonth = -1;
+
+    function draw(time) {
+      cx.clearRect(0, 0, W, H);
+      const t = T;
+      if (!t) return;
+      const a0 = -Math.PI / 2;
+      const lineCol = a => `rgba(${C.l},${a})`;
+
+      for (const s of stars) {
+        const tw = reduce ? 1 : .6 + .4 * Math.sin(time * .0006 + s.p);
+        cx.fillStyle = `rgba(${C.c},${(s.a * tw * (C.light ? .35 : .55)).toFixed(3)})`;
+        cx.fillRect(s.x, s.y, s.r, s.r);
+      }
+      const g = cx.createRadialGradient(CX, CY, G.core * .6, CX, CY, R * 1.25);
+      g.addColorStop(0, `rgba(${C.l},${C.light ? .05 : .07})`); g.addColorStop(1, `rgba(${C.l},0)`);
+      cx.fillStyle = g; cx.beginPath(); cx.arc(CX, CY, R * 1.25, 0, TWO); cx.fill();
+
+      /* ── THE YEAR: this year's signs and dates ──────────── */
+      const yNow = t.yearTau;
+      // dates: one tick per date, coloured by its day, longer at each week start
+      for (let d = 0; d < NDATES; d++) {
+        const a = yAng(d), isToday = d === t.dayIndex, wk = d % 6 === 0, hov = d === hoverDate;
+        const len = isToday ? 13 : hov ? 11 : wk ? 7 : 4;
+        cx.strokeStyle = isToday ? C.lime : hexA(accColor(DAY_ACC[d % 6]), hov ? .95 : wk ? .6 : .32);
+        cx.lineWidth = isToday ? 2 : hov ? 1.6 : .8;
+        cx.beginPath();
+        cx.moveTo(CX + Math.cos(a) * (G.year + 5), CY + Math.sin(a) * (G.year + 5));
+        cx.lineTo(CX + Math.cos(a) * (G.year + 5 + len), CY + Math.sin(a) * (G.year + 5 + len));
+        cx.stroke();
+      }
+      // the signs: a band of arcs, gates as jewels
+      for (const sg of SG) {
+        const col = accColor(sg.accent), cur = sg.i === t.sign, past = sg.i < t.sign && !t.pending, hov = sg.i === hoverSign;
+        const a1 = yAng(sg.start), a2 = yAng(sg.end);
+        if (!sg.gate) {
+          cx.strokeStyle = hexA(col, hov ? .9 : cur ? .3 : past ? .55 : (C.light ? .3 : .24));
+          cx.lineWidth = hov ? 4 : 3; cx.lineCap = 'butt';
+          cx.beginPath(); cx.arc(CX, CY, G.year, a1 + .006, a2 - .006); cx.stroke();
+          if (cur) { cx.strokeStyle = col; cx.lineWidth = 3; cx.beginPath(); cx.arc(CX, CY, G.year, a1 + .006, Math.max(a1 + .007, yAng(yNow))); cx.stroke(); }
+        } else {
+          const am = (a1 + a2) / 2, px = CX + Math.cos(am) * G.year, py = CY + Math.sin(am) * G.year, sz = hov || cur ? 5 : 3.6;
+          cx.save(); cx.translate(px, py); cx.rotate(am + Math.PI / 4);
+          cx.fillStyle = hexA(col, cur || hov ? 1 : past ? .85 : .6); cx.fillRect(-sz / 2, -sz / 2, sz, sz); cx.restore();
+        }
+        // boundary
+        cx.strokeStyle = lineCol(sg.i === 0 ? .9 : .38); cx.lineWidth = sg.i === 0 ? 1.6 : 1;
+        const bl = sg.i === 0 ? 14 : 7;
+        cx.beginPath(); cx.moveTo(CX + Math.cos(a1) * (G.year - bl), CY + Math.sin(a1) * (G.year - bl));
+        cx.lineTo(CX + Math.cos(a1) * (G.year + 3), CY + Math.sin(a1) * (G.year + 3)); cx.stroke();
+      }
+      // sign names on the seasons
+      cx.font = `500 ${Math.max(8.5, R * .025)}px "JetBrains Mono", monospace`;
+      cx.textAlign = 'center'; cx.textBaseline = 'middle';
+      for (const sg of SG) {
+        if (sg.gate && sg.i !== t.sign) continue;
+        const a = yAng((sg.start + sg.end) / 2), rr = G.year + Math.max(26, R * .085);
+        /* a name that does not fit its own arc is left to the tooltip, unless it is the wave of now */
+        const room = (sg.end - sg.start) / YT * TWO * rr, need = cx.measureText(sg.name).width * 1.35 + 8;
+        if (room < need && sg.i !== t.sign && sg.i !== hoverSign) continue;
+        cx.fillStyle = sg.i === t.sign ? accColor(sg.accent) : sg.i === hoverSign ? lineCol(.9) : lineCol(C.light ? .55 : .45);
+        cx.save(); cx.translate(CX + Math.cos(a) * rr, CY + Math.sin(a) * rr);
+        let rot = a + Math.PI / 2; if (Math.sin(a) > 0) rot += Math.PI;
+        cx.rotate(rot); cx.fillText(sg.name.toUpperCase().split('').join(' '), 0, 0); cx.restore();
+      }
+      // now on the year
+      { const a = yAng(yNow), pulse = reduce ? 1 : .7 + .3 * Math.sin(time * .003);
+        cx.fillStyle = C.lime; cx.globalAlpha = pulse;
+        cx.beginPath(); cx.arc(CX + Math.cos(a) * (G.year - 12), CY + Math.sin(a) * (G.year - 12), 2.8, 0, TWO); cx.fill(); cx.globalAlpha = 1; }
+
+      /* ── THE ORBIT: 360 counted dates, twelve months ─────── */
+      { const o = t.orbital, oAng = deg => a0 + deg / 360 * TWO, OM = M.ORBITAL_MONTHS;
+        cx.strokeStyle = lineCol(.14); cx.lineWidth = 1;
+        cx.beginPath(); cx.arc(CX, CY, G.orb, 0, TWO); cx.stroke();
+        for (let m = 0; m < 12; m++) {
+          const col = accColor(OM[m].accent), cur = m === o.month, hov = m === hoverMonth;
+          cx.strokeStyle = hexA(col, hov ? .85 : cur ? .3 : (C.light ? .26 : .2)); cx.lineWidth = hov ? 3 : 2;
+          cx.beginPath(); cx.arc(CX, CY, G.orb, oAng(m * 30) + .01, oAng(m * 30 + 30) - .01); cx.stroke();
+          if (cur) { cx.strokeStyle = col; cx.lineWidth = 2; cx.beginPath(); cx.arc(CX, CY, G.orb, oAng(m * 30) + .01, Math.max(oAng(m * 30) + .011, oAng(o.deg))); cx.stroke(); }
+          const a = oAng(m * 30), cardinal = m % 3 === 0;
+          cx.strokeStyle = lineCol(cardinal ? .6 : .32); cx.lineWidth = 1;
+          cx.beginPath(); cx.moveTo(CX + Math.cos(a) * (G.orb - (cardinal ? 7 : 4)), CY + Math.sin(a) * (G.orb - (cardinal ? 7 : 4)));
+          cx.lineTo(CX + Math.cos(a) * (G.orb + (cardinal ? 7 : 4)), CY + Math.sin(a) * (G.orb + (cardinal ? 7 : 4))); cx.stroke();
+        }
+        // degree ticks, one per orbital date, inside the ring
+        for (let dgr = 0; dgr < 360; dgr++) {
+          if (dgr % 30 === 0) continue;
+          const a = oAng(dgr), isToday = dgr === o.dayIndex;
+          cx.strokeStyle = isToday ? C.lime : lineCol(dgr % 6 === 0 ? .26 : .12); cx.lineWidth = isToday ? 1.8 : .7;
+          const l = isToday ? 8 : dgr % 6 === 0 ? 4 : 2.5;
+          cx.beginPath(); cx.moveTo(CX + Math.cos(a) * (G.orb - 3 - l), CY + Math.sin(a) * (G.orb - 3 - l)); cx.lineTo(CX + Math.cos(a) * (G.orb - 3), CY + Math.sin(a) * (G.orb - 3)); cx.stroke();
+        }
+        // month names between the orbit and the astral ring
+        cx.font = `500 ${Math.max(7.5, R * .021)}px "JetBrains Mono", monospace`;
+        const lr = (G.orb + G.year) / 2;
+        const small = R < 200;
+        for (let m = 0; m < 12; m++) {
+          if (small && m !== o.month && m !== hoverMonth) continue;
+          const a = oAng(m * 30 + 15);
+          cx.fillStyle = m === o.month ? accColor(OM[m].accent) : m === hoverMonth ? lineCol(.9) : lineCol(C.light ? .5 : .4);
+          cx.save(); cx.translate(CX + Math.cos(a) * lr, CY + Math.sin(a) * lr);
+          let rot = a + Math.PI / 2; if (Math.sin(a) > 0) rot += Math.PI;
+          cx.rotate(rot); cx.fillText(OM[m].name.toUpperCase().split('').join(' '), 0, 0); cx.restore();
+        }
+        // the counted degree (lime) and the sun's true longitude (☉, amber)
+        const sun = solarLongitude(t.ms), as = oAng(sun), ac = oAng(o.deg);
+        cx.strokeStyle = C.amber; cx.lineWidth = 1.2;
+        cx.beginPath(); cx.arc(CX + Math.cos(as) * G.orb, CY + Math.sin(as) * G.orb, 4.2, 0, TWO); cx.stroke();
+        cx.fillStyle = C.amber; cx.beginPath(); cx.arc(CX + Math.cos(as) * G.orb, CY + Math.sin(as) * G.orb, 1.3, 0, TWO); cx.fill();
+        cx.fillStyle = C.lime; cx.beginPath(); cx.arc(CX + Math.cos(ac) * G.orb, CY + Math.sin(ac) * G.orb, 2.8, 0, TWO); cx.fill();
+      }
+
+      /* ── THE DAY: 24 hours and the permanent dilation wave ─ */
+      const K = G.day * .55;
+      cx.strokeStyle = lineCol(.18); cx.lineWidth = 1;
+      cx.beginPath(); cx.arc(CX, CY, G.day, 0, TWO); cx.stroke();
+      const N = 360, wave = [];
+      for (let k = 0; k <= N; k++) { const phi = k / N, a = a0 + phi * TWO, rr = G.day + (M.velocity(phi, 1, YR.d0) - 1) * K; wave.push([CX + Math.cos(a) * rr, CY + Math.sin(a) * rr]); }
+      cx.beginPath(); wave.forEach(([x, y], k) => k ? cx.lineTo(x, y) : cx.moveTo(x, y));
+      for (let k = N; k >= 0; k--) { const a = a0 + k / N * TWO; cx.lineTo(CX + Math.cos(a) * G.day, CY + Math.sin(a) * G.day); }
+      cx.closePath(); cx.fillStyle = `rgba(${C.l},${C.light ? .12 : .1})`; cx.fill();
+      cx.beginPath(); wave.forEach(([x, y], k) => k ? cx.lineTo(x, y) : cx.moveTo(x, y));
+      cx.strokeStyle = lineCol(.75); cx.lineWidth = 1.2; cx.stroke();
+      cx.font = `400 ${Math.max(8.5, R * .026)}px "JetBrains Mono", monospace`;
+      for (let h = 0; h < 24; h++) {
+        const a = a0 + h / 24 * TWO, major = h % 6 === 0;
+        cx.strokeStyle = lineCol(major ? .6 : .28); cx.lineWidth = 1;
+        cx.beginPath(); cx.moveTo(CX + Math.cos(a) * (G.day + 4), CY + Math.sin(a) * (G.day + 4));
+        cx.lineTo(CX + Math.cos(a) * (G.day + (major ? 12 : 7)), CY + Math.sin(a) * (G.day + (major ? 12 : 7))); cx.stroke();
+        if (major) { cx.fillStyle = lineCol(.6); const rr = G.day + Math.max(14, Math.min(22, R * .1)); cx.fillText(pad(h), CX + Math.cos(a) * rr, CY + Math.sin(a) * rr); }
+      }
+      // where the next date begins on the face
+      { const a = a0 + t.nextDatePhase * TWO; cx.fillStyle = lineCol(.55);
+        cx.beginPath(); cx.arc(CX + Math.cos(a) * (G.day - 8), CY + Math.sin(a) * (G.day - 8), 2.2, 0, TWO); cx.fill(); }
+      const hand = (frac, r0, r1, col, w) => { const a = a0 + frac * TWO; cx.strokeStyle = col; cx.lineWidth = w;
+        cx.beginPath(); cx.moveTo(CX + Math.cos(a) * r0, CY + Math.sin(a) * r0); cx.lineTo(CX + Math.cos(a) * r1, CY + Math.sin(a) * r1); cx.stroke(); return a; };
+      hand(t.uniform, G.day * .9, G.day * 1.02, lineCol(.4), 1);
+      const ha = hand(t.phi, G.day * .87, G.day * 1.06, C.lime, 2);
+      cx.fillStyle = C.lime; cx.beginPath(); cx.arc(CX + Math.cos(ha) * G.day * 1.06, CY + Math.sin(ha) * G.day * 1.06, 3.2, 0, TWO); cx.fill();
+
+      /* ── THE DESCENT: twenty states, in a band clear of the core ── */
+      const cur = t.rung.i;
+      for (let i = 0; i < L.length; i++) {
+        const rr = ringR(i), col = accColor(L[i].accent);
+        const past = i < cur && !t.pending, isCur = i === cur, hov = i === hoverRing;
+        cx.strokeStyle = hexA(col, isCur ? .35 : past ? .5 : (hov ? .9 : (C.light ? .18 : .14)));
+        cx.lineWidth = isCur ? 1.1 : past ? .9 : .7;
+        cx.beginPath(); cx.arc(CX, CY, rr, 0, TWO); cx.stroke();
+        if (hov && !isCur) { cx.strokeStyle = hexA(col, .95); cx.lineWidth = 1.6; cx.beginPath(); cx.arc(CX, CY, rr, 0, TWO); cx.stroke(); }
+        if (isCur) {
+          const p = t.rungProgress;
+          const breathe = reduce ? 1 : .75 + .25 * Math.sin(time * .002);
+          cx.strokeStyle = col; cx.lineWidth = 2.2; cx.globalAlpha = breathe;
+          cx.beginPath(); cx.arc(CX, CY, rr, a0, a0 + Math.max(.004, p) * TWO); cx.stroke();
+          cx.globalAlpha = 1;
+          const ea = a0 + p * TWO, ex = CX + Math.cos(ea) * rr, ey = CY + Math.sin(ea) * rr;
+          cx.fillStyle = col; cx.beginPath(); cx.arc(ex, ey, 2.8, 0, TWO); cx.fill();
+          const glow = cx.createRadialGradient(ex, ey, 0, ex, ey, 12);
+          glow.addColorStop(0, hexA(col, .45)); glow.addColorStop(1, hexA(col, 0));
+          cx.fillStyle = glow; cx.beginPath(); cx.arc(ex, ey, 12, 0, TWO); cx.fill();
+        }
+      }
+      // a quiet core for the reading
+      const core = cx.createRadialGradient(CX, CY, 0, CX, CY, G.core * .96);
+      core.addColorStop(0, `rgba(${C.bgRgb},${C.light ? .5 : .55})`); core.addColorStop(.85, `rgba(${C.bgRgb},${C.light ? .35 : .4})`); core.addColorStop(1, `rgba(${C.bgRgb},0)`);
+      cx.fillStyle = core; cx.beginPath(); cx.arc(CX, CY, G.core * .96, 0, TWO); cx.fill();
+    }
+
+    /* The sun's apparent ecliptic longitude (low-precision solar position,
+       Astronomical Almanac; about 0.01°). 0° is the March equinox. */
+    function solarLongitude(ms) {
+      const n = ms / 86400000 + 2440587.5 - 2451545.0;
+      const L = 280.460 + 0.9856474 * n, g = (357.528 + 0.9856003 * n) * Math.PI / 180;
+      const lam = L + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g);
+      return ((lam % 360) + 360) % 360;
+    }
+
+    /* ---------- text readouts ---------- */
+    function writeText(t) {
+      $('c-h').textContent = pad(t.h); $('c-m').textContent = pad(t.m); $('c-s').textContent = pad(t.s);
+      const sg = SG[t.sign], ds = SG[t.dateSign], day = DAYS[t.weekday];
+      const acc = accColor(sg.accent);
+      $('center').style.setProperty('--acc', acc);
+      $('c-state').innerHTML = `<b>${sg.name}</b> · ${sg.principle}`;
+      $('c-date').textContent = `${day.name}, ${t.dayInSign} ${ds.name}${t.threshold ? ' · threshold' : ''}`;
+      $('c-guide').textContent = sg.motto;
+      if (t.pending) {
+        const s = Math.floor(t.toLaunchMs / 1000);
+        $('c-launch').textContent = `Launch in ${Math.floor(s / 86400)}d ${pad(Math.floor(s % 86400 / 3600))}:${pad(Math.floor(s % 3600 / 60))}:${pad(s % 60)}`;
+      } else $('c-launch').textContent = `Cycle ${t.cycle} · date ${t.dateOfYear} of ${NDATES} · ${t.rung.state}`;
+
+      /* where the Earth is in its revolution: the sun's true longitude
+         (0° at the March equinox) and the degree counted in Matrix dates */
+      const atMs = t.ms;
+      const counted = ((t.calendarTau % 360) + 360) % 360;
+      const fx = v => { const x = v.toFixed(2); return x === '360.00' ? '0.00' : x; };
+      const o = t.orbital;
+      $('c-sun').innerHTML = `<b>☉ ${fx(solarLongitude(atMs))}°</b> · <span class="orb" style="--oc:${accColor(o.monthInfo.accent)}">${o.day} ${o.monthInfo.name}</span><span class="cnt"> · counted ${fx(counted)}°</span>`;
+      const od = $('r-orb'); od.style.setProperty('--acc', accColor(o.monthInfo.accent));
+      od.firstChild.nodeValue = `${o.monthInfo.glyph} ${o.day} ${o.monthInfo.name}`;
+      $('r-orb-s').textContent = `orbital year ${o.year} · ${fx(o.deg)}° · next date in ${dur(o.toNextDateMs)}`;
+
+      $('r-tau').firstChild.nodeValue = t.yearTau.toFixed(t.yearTau < 10 ? 5 : 3);
+      $('r-tau-s').textContent = `of τ* ${YT.toFixed(3)} · Cycle ${t.cycle}${t.pending ? ', before launch' : ''} · Y ${YR.Ystr}`;
+      $('r-q').firstChild.nodeValue = t.q < 1e6 ? t.q.toFixed(t.q < 100 ? 3 : 1) : group(Math.round(t.q));
+      $('r-j').firstChild.nodeValue = group(Math.round(t.load));
+      /* this year's own Q and J₀, which change at every Turning */
+      $('r-q-s').textContent = `of Q = ${group(YR.Q)} · Cycle ${t.cycle}`;
+      $('r-j-s').textContent = `of J₀ = ${group(YR.J0)} · restarts each year`;
+      $('r-int').firstChild.nodeValue = (t.integration * 100).toFixed(6) + ' %';
+
+      const sd = $('r-sign'); sd.style.setProperty('--acc', acc);
+      sd.firstChild.nodeValue = `${sg.glyph} ${sg.name}`;
+      $('r-sign-s').textContent = `${sg.epithet} · ${Math.min(100, t.signProgress * 100).toFixed(1)} % through`;
+      const nd = Math.floor(t.nextDatePhase * 86400);
+      $('r-next').firstChild.nodeValue = `${pad(Math.floor(nd / 3600) % 24)}:${pad(Math.floor(nd % 3600 / 60))}:${pad(nd % 60)}`;
+      $('r-next-s').textContent = `in ${dur(t.toNextDateMs)} civil`;
+      const nx = SG[t.sign + 1];
+      $('r-rung').firstChild.nodeValue = nx ? `${nx.glyph} ${nx.name}` : 'The Turning';
+      $('r-rung-s').textContent = `in ${dur(t.toNextSignMs)} · ${fT.format(t.nextSignAt)}`;
+      $('r-year').firstChild.nodeValue = fDY.format(t.nextYearAt);
+      $('r-year-s').textContent = t.pending ? `launch in ${dur(t.toLaunchMs)}` : `${fT.format(t.nextYearAt)} · in ${dur(t.toNextYearMs)} · Cycle ${t.cycle + 1}`;
+
+      /* The Turning: the far end of the track holds the closing instant itself,
+         q = Q and J = 0, before the next year's launch. The live model never
+         sits here: at τ* the year is already the next one. */
+      if (atTurning && mode === 'pause') {
+        const TU = YR.turning;
+        $('c-state').innerHTML = `<b>${TU.name}</b> · ${TU.epithet}`;
+        $('c-guide').textContent = 'J reaches zero. The same instant is the next year’s launch.';
+        $('c-launch').textContent = `Cycle ${t.cycle} closes · Cycle ${t.cycle + 1} opens`;
+        $('r-tau').firstChild.nodeValue = YT.toFixed(3);
+        $('r-q').firstChild.nodeValue = group(YR.Q);
+        $('r-j').firstChild.nodeValue = '0';
+        $('r-int').firstChild.nodeValue = (100).toFixed(6) + ' %';
+        $('r-rung').firstChild.nodeValue = 'The Turning';
+        $('r-rung-s').textContent = 'now';
+      }
+
+      if (t.sign !== lastSign || t.weekday !== lastDay || t.orbital.dayIndex !== lastOrb) {
+        lastSign = t.sign; lastDay = t.weekday; lastOrb = t.orbital.dayIndex;
+        document.querySelectorAll('#ladder li').forEach((li, i) => li.classList.toggle('now', i === t.rung.i));
+        document.querySelectorAll('.sign-card[data-i]').forEach(c => c.classList.toggle('now', Number(c.dataset.i) === t.sign));
+        document.querySelectorAll('.month-card').forEach(c => c.classList.toggle('now', Number(c.dataset.m) === t.orbital.month));
+        { const el = document.querySelector('[data-live="orbToday"]'); if (el) el.textContent = `${t.orbital.day} ${t.orbital.monthInfo.name} of orbital year ${t.orbital.year}, orbital date ${t.orbital.dayIndex + 1} of 360`; }
+        document.querySelectorAll('.day-card').forEach((c, i) => c.classList.toggle('now', i === t.weekday));
+      }
+    }
+
+    /* ---------- time travel, inside the current year ---------- */
+    const track = $('track');
+    function buildTrack() {
+      const box = $('t-rungs'); box.innerHTML = '';
+      $('t-star').textContent = `τ* ${YT.toFixed(2)} · Turning`;
+      track.setAttribute('aria-valuemax', YT.toFixed(2));
+      SG.forEach(sg => {
+        const d = document.createElement('div'); d.className = 'seg' + (sg.gate ? ' gate' : ''); d.dataset.acc = sg.accent;
+        d.style.left = (sg.start / YT * 100) + '%'; d.style.width = ((sg.end - sg.start) / YT * 100) + '%';
+        d.title = `${sg.name} · ${sg.epithet}`; box.appendChild(d);
+      });
+      paintTrack();
+    }
+    function paintTrack() { document.querySelectorAll('#t-rungs .seg').forEach(d => { d.style.background = accColor(d.dataset.acc); }); }
+    let mode = 'live';
+    const curCycle = () => Math.max(1, T ? T.cycle : 1);
+    function setPressed(m) { document.querySelectorAll('.pill[data-speed]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.speed === m))); }
+    let atTurning = false;
+    function goLive() { atTurning = false; M.simExit(); mode = 'live'; setPressed('live'); }
+    /* y is Matrix time inside the given cycle, in that cycle's own dates. */
+    function enterAt(y, cycle = curCycle()) {
+      const cy = M.cycle(cycle), yT = cy.year.tauStar;
+      atTurning = y >= yT - 1e-3;
+      if (!M.SIM.on) M.simEnter();
+      M.simJumpTo(cy.start + Math.max(0, Math.min(yT - 1e-7, y)) * cy.year.msCal);
+    }
+    function hold() { if (!M.SIM.on) { const ms = T && !T.pending ? T.ms : M.CAL360.epochLive; M.simEnter(); M.simJumpTo(ms); } }
+    function setSpeed(x) { atTurning = false; hold(); M.simSetPaused(false); M.simSetSpeed(x); mode = String(x); setPressed(mode); }
+    function pause() { hold(); M.simSetPaused(true); mode = 'pause'; setPressed('pause'); }
+    document.querySelectorAll('.pill[data-speed]').forEach(b => b.addEventListener('click', () => {
+      const s = b.dataset.speed;
+      if (s === 'live') goLive(); else if (s === 'pause') pause(); else setSpeed(Number(s));
+    }));
+    function yFromX(clientX) { const r = track.getBoundingClientRect(); return (clientX - r.left) / r.width * YT; }
+    let dragging = false;
+    track.addEventListener('pointerdown', e => { dragging = true; track.setPointerCapture(e.pointerId); pause(); enterAt(yFromX(e.clientX)); });
+    track.addEventListener('pointermove', e => { if (dragging) enterAt(yFromX(e.clientX)); });
+    track.addEventListener('pointerup', () => { dragging = false; });
+    track.addEventListener('keydown', e => {
+      const step = e.shiftKey ? 10 : 1, y = T && !T.pending ? T.yearTau : 0;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); pause(); enterAt(y + (e.key === 'ArrowRight' ? step : -step)); }
+      if (e.key === 'Home') { e.preventDefault(); pause(); enterAt(0); }
+      if (e.key === 'End') { e.preventDefault(); pause(); enterAt(YT - 1e-4); }
+    });
+    addEventListener('keydown', e => {
+      if (e.target.closest('input, textarea, dialog')) return;
+      if (e.code === 'Space' && e.target === document.body) { e.preventDefault(); if (mode === 'pause') setSpeed(100000); else pause(); }
+      if (e.key === 'l' || e.key === 'L') goLive();
+      if (e.key === 'c' || e.key === 'C') openCal();
+    });
+    function writeTrack(t) {
+      const pct = t.pending ? 0 : t.yearFraction * 100;
+      $('t-knob').style.left = pct + '%'; $('t-fill').style.width = pct + '%';
+      track.setAttribute('aria-valuenow', t.yearTau.toFixed(2));
+      track.setAttribute('aria-valuetext', `Cycle ${t.cycle}, τ ${t.yearTau.toFixed(2)}, ${SG[t.sign].name}`);
+      const lbl = mode === 'live' ? (t.pending ? 'Live · awaiting launch' : `Live · Cycle ${t.cycle}`) : mode === 'pause' ? `Paused · Cycle ${t.cycle}` : `Study · ${group(Number(mode))}× · Cycle ${t.cycle}`;
+      $('t-label').textContent = lbl;
+    }
+
+    /* ---------- hover: read any ring ---------- */
+    const tip = $('tip');
+    function ringAt(x, y) {
+      const dx = x - CX, dy = y - CY, d = Math.hypot(dx, dy);
+      let ang = Math.atan2(dy, dx) + Math.PI / 2; if (ang < 0) ang += TWO;
+      const frac = ang / TWO;
+      if (d > G.year - Math.max(9, R * .03) && d < G.year + Math.max(40, R * .12)) {
+        const yy = frac * YT, di = Math.min(NDATES - 1, Math.floor(yy));
+        return { kind: 'year', y: yy, d: di, sign: YR.signAt(yy) };
+      }
+      if (Math.abs(d - G.orb) < Math.max(12, R * .04)) { const deg = frac * 360; return { kind: 'orbit', deg, month: Math.min(11, Math.floor(deg / 30)), di: Math.min(359, Math.floor(deg)) }; }
+      if (d > G.day * .84 && d < G.day * 1.12) return { kind: 'day', frac };
+      const step = (G.dIn - G.core) / (L.length - 1);
+      if (d <= G.dIn + step / 2 && d >= G.core - step / 2) {
+        const i = Math.round((G.dIn - d) / step);
+        if (i >= 0 && i < L.length) return { kind: 'ring', i };
+      }
+      return null;
+    }
+    function showTip(html, x, y, acc) {
+      tip.innerHTML = html; tip.style.setProperty('--acc', acc || C.lime);
+      const w = tip.offsetWidth, h = tip.offsetHeight;
+      let lx = x + 18, ly = y + 18;
+      if (lx + w > innerWidth - 10) lx = x - w - 18;
+      if (ly + h > innerHeight - 10) ly = y - h - 18;
+      tip.style.left = lx + 'px'; tip.style.top = ly + 'px'; tip.classList.add('on');
+    }
+    function hideTip() { tip.classList.remove('on'); hoverRing = -1; hoverSign = -1; hoverDate = -1; hoverMonth = -1; cv.style.cursor = ''; }
+    function stateTip(i) {
+      const s = L[i], tau = i === 0 ? 0 : s.tau, sg = SG[i];
+      const head = sg ? `${sg.glyph} ${sg.name} · ${sg.principle}` : `${YR.turning.name} · ${YR.turning.principle}`;
+      const body = sg ? sg.guide : YR.turning.text;
+      return `<div class="t-k">${pad(i)} · ${s.state}</div><div class="t-h">${head}</div><p class="t-p">${esc(body)}</p>`
+        + `<div class="t-m">q ${group(s.q)} · J ${group(s.J)}<br>τ ${tau.toFixed(3)} in the year · integrated ${(s.integration * 100).toFixed(4)} %</div><div class="t-a">Click to travel here</div>`;
+    }
+    cv.addEventListener('pointermove', e => {
+      const r = cv.getBoundingClientRect(), hit = ringAt(e.clientX - r.left, e.clientY - r.top);
+      hoverRing = -1; hoverSign = -1; hoverDate = -1; hoverMonth = -1;
+      if (!hit) { hideTip(); return; }
+      if (hit.kind === 'ring') {
+        hoverRing = hit.i; cv.style.cursor = 'pointer';
+        showTip(stateTip(hit.i), e.clientX, e.clientY, accColor(L[hit.i].accent));
+      } else if (hit.kind === 'year') {
+        hoverSign = hit.sign; hoverDate = hit.d; cv.style.cursor = 'pointer';
+        const sg = SG[hit.sign], ds = SG[YR.signAt(hit.d)], wd = hit.d % 6, cyc = T.cycle;
+        showTip(`<div class="t-k">${sg.gate ? 'Gate' : 'Time wave'} ${hit.sign + 1} of ${SG.length} · No. ${sg.number}</div><div class="t-h">${sg.glyph} ${sg.name}, ${esc(sg.epithet)}</div><p class="t-p">${esc(sg.motto)}</p>`
+          + `<div class="t-m">Date ${hit.d + 1} of ${NDATES}: ${DAYS[wd].name}, ${hit.d - ds.firstDate + 1} ${ds.name}<br>Cycle ${cyc} · begins ${fDT.format(M.civilOfDate(cyc, hit.d))}</div><div class="t-a">Click to open in the calendar</div>`, e.clientX, e.clientY, accColor(sg.accent));
+      } else if (hit.kind === 'orbit') {
+        hoverMonth = hit.month; cv.style.cursor = 'pointer';
+        const mo = M.ORBITAL_MONTHS[hit.month], oy = T.orbital.year;
+        showTip(`<div class="t-k">Orbital month ${hit.month + 1} of 12 · ${hit.month * 30}° – ${hit.month * 30 + 30}°</div><div class="t-h">${mo.glyph} ${mo.name}, ${esc(mo.epithet)}</div><p class="t-p">${esc(mo.text)}</p>`
+          + `<div class="t-m">${hit.di % 30 + 1} ${mo.name}, orbital year ${oy} · begins ${fDT.format(M.civilOfOrbital(oy, hit.di))}</div><div class="t-a">Click to open the orbital calendar</div>`, e.clientX, e.clientY, accColor(mo.accent));
+      } else {
+        cv.style.cursor = 'default';
+        const phi = hit.frac, v = M.velocity(phi, 1, YR.d0);
+        const reg = phi < M.SLEEP_END ? ['00:00 – 04:00', 'The clock races', 'It gains the whole daily lead of 20m 58s before dawn.'] : phi < M.NOON ? ['04:00 – 12:00', 'The clock repays', 'The lead is handed back so noon falls on peak sun.'] : ['12:00 – 24:00', 'The clock runs true', 'The afternoon carries no wave; midnight stays on solar midnight.'];
+        const s = Math.floor(phi * 86400);
+        showTip(`<div class="t-k">${reg[0]}</div><div class="t-h">${reg[1]}</div><p class="t-p">${reg[2]}</p><div class="t-m">${pad(Math.floor(s / 3600))}:${pad(Math.floor(s % 3600 / 60))} · v = ${v.toFixed(6)} · dilation permanent</div>`, e.clientX, e.clientY);
+      }
+    });
+    cv.addEventListener('pointerleave', hideTip);
+    addEventListener('scroll', hideTip, { passive: true });
+    cv.addEventListener('click', e => {
+      const r = cv.getBoundingClientRect(), hit = ringAt(e.clientX - r.left, e.clientY - r.top);
+      if (!hit) return;
+      if (hit.kind === 'ring') { pause(); enterAt(hit.i === 0 ? 0 : Math.min(YT - 1e-6, L[hit.i].tau + 1e-6)); }
+      if (hit.kind === 'year') { hideTip(); openCal(T.cycle, hit.sign); }
+      if (hit.kind === 'orbit') { hideTip(); openOrbital(T.orbital.year, hit.month); }
+    });
+
+    /* ---------- the calendar ---------- */
+    const dlg = $('cal');
+    const CAL = { cycle: 1, sign: 0, day: null, mode: 'astral', oyear: 1, omonth: 0 };
+    /* Each cycle is its own year: its own Y, signs, length and dates. */
+    const yearOf = c => M.cycle(c).year;
+    function openCal(cycle, sign) {
+      CAL.mode = 'astral';
+      CAL.cycle = cycle !== undefined ? cycle : (T ? T.cycle : 1);
+      CAL.sign = sign !== undefined ? sign : (T ? T.sign : 0);
+      CAL.day = null;
+      renderCal();
+      if (!dlg.open) dlg.showModal();
+    }
+    $('open-cal').addEventListener('click', () => openCal());
+    $('c-date').addEventListener('click', () => openCal());
+    $('cal-close').addEventListener('click', () => dlg.close());
+    dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+    $('cyc-prev').addEventListener('click', () => { if (CAL.mode === 'orbital') CAL.oyear--; else { CAL.cycle--; CAL.day = null; } renderCal(); });
+    $('cyc-next').addEventListener('click', () => { if (CAL.mode === 'orbital') CAL.oyear++; else { CAL.cycle++; CAL.day = null; } renderCal(); });
+    $('cal-today').addEventListener('click', () => { const r = M.cal360(new Date());
+      if (CAL.mode === 'orbital') { CAL.oyear = r.orbital.year; CAL.omonth = r.orbital.month; renderCal(); } else openDay(r.cycle, r.dayIndex); });
+    $('mode-astral').addEventListener('click', () => { CAL.mode = 'astral'; renderCal(); });
+    $('mode-orbital').addEventListener('click', () => { if (CAL.mode !== 'orbital') { const o = (T || M.cal360(new Date())).orbital; CAL.oyear = o.year; CAL.omonth = o.month; } CAL.mode = 'orbital'; renderCal(); });
+    dlg.addEventListener('cancel', e => { if (CAL.day !== null && !e.target.closest?.('textarea')) { e.preventDefault(); CAL.day = null; renderCal(); } });
+    dlg.addEventListener('keydown', e => {
+      if (e.target.closest('input, textarea')) return;
+      const k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!k) return;
+      e.preventDefault();
+      if (CAL.mode === 'orbital') stepMonth(k); else if (CAL.day !== null) stepDay(k); else stepSign(k);
+    });
+    function stepSign(k) {
+      CAL.day = null;
+      CAL.sign += k;
+      if (CAL.sign >= yearOf(CAL.cycle).signs.length) { CAL.cycle++; CAL.sign = 0; }
+      if (CAL.sign < 0) { CAL.cycle--; CAL.sign = yearOf(CAL.cycle).signs.length - 1; }
+      renderCal();
+    }
+    function stepName(k) {
+      const S = yearOf(CAL.cycle).signs, i = CAL.sign + k;
+      if (i < 0) { const p = yearOf(CAL.cycle - 1).signs; return p[p.length - 1].name; }
+      if (i >= S.length) return yearOf(CAL.cycle + 1).signs[0].name;
+      return S[i].name;
+    }
+    function renderCal() {
+      $('mode-astral').setAttribute('aria-selected', String(CAL.mode === 'astral'));
+      $('mode-orbital').setAttribute('aria-selected', String(CAL.mode === 'orbital'));
+      $('yearbar').classList.toggle('orb', CAL.mode === 'orbital');
+      $('wk').classList.toggle('orbital', CAL.mode === 'orbital');
+      $('yearbar').setAttribute('aria-label', CAL.mode === 'orbital' ? 'The twelve orbital months' : 'The time waves of the year');
+      if (CAL.mode === 'orbital') return renderOrbital();
+      const c = CAL.cycle, cy = M.cycle(c), Y = cy.year, S = Y.signs, n = S.length;
+      if (CAL.sign >= n) CAL.sign = n - 1;
+      const sg = S[CAL.sign], col = accColor(sg.accent), tide = Y.tides[sg.tide];
+      $('cyc-lbl').textContent = `Cycle ${c}`;
+      $('cyc-sub').textContent = `${fDY.format(M.civilOfYearTau(c, 0))} – ${fDY.format(M.civilOfYearTau(c, Y.tauStar))} · Y ${Y.Ystr} · ${n} time waves`;
+      // the year bar
+      const bar = $('yearbar');
+      bar.innerHTML = S.map(s => `<button type="button" role="tab" aria-selected="${s.i === CAL.sign}" class="${s.i === CAL.sign ? 'sel' : ''}" data-i="${s.i}" style="--c:${accColor(s.accent)};flex:${s.length} 0 0" title="${s.name} · ${esc(s.epithet)}" aria-label="${s.name}"></button>`).join('')
+        + (T && T.cycle === c ? `<span class="nowmark" style="left:${T.yearFraction * 100}%"></span>` : '');
+      bar.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { CAL.sign = Number(b.dataset.i); CAL.day = null; renderCal(); }));
+      $('yb-a').textContent = `Turning · ${fDT.format(M.civilOfYearTau(c, 0))}`;
+      $('yb-b').textContent = `${fDT.format(M.civilOfYearTau(c, Y.tauStar))} · Turning`;
+      // the sign, or the date opened in it
+      if (CAL.day !== null && CAL.day >= sg.firstDate && CAL.day <= sg.lastDate) renderDay(c, CAL.day);
+      else { CAL.day = null; renderSign(c, sg, col, tide); }
+      renderWeeks(c, sg, col);
+    }
+    function renderSign(c, sg, col, tide) {
+      const Y = yearOf(c), n = Y.signs.length;
+      const opens = M.civilOfYearTau(c, sg.start), closes = M.civilOfYearTau(c, sg.end);
+      const civilLen = sg.length * Y.msCal;
+      const chargeTxt = sg.charge >= 1e-4 ? (sg.charge * 100).toFixed(4) + ' %' : (sg.charge * 100).toExponential(2) + ' %';
+      const datesTxt = sg.dates ? `${sg.firstDate + 1} – ${sg.lastDate + 1} of ${Y.datesPerYear} · ${sg.dates} date${sg.dates > 1 ? 's' : ''}` : `none of its own: opens and closes inside date ${sg.within + 1}`;
+      $('sp-l').style.setProperty('--c', col);
+      $('sp-l').innerHTML = `<div class="row1"><div class="gl">${sg.glyph}</div><div><div class="tide">${tide.name} · ${sg.gate ? 'gate' : 'season'} · time wave ${sg.i + 1} of ${n}</div><div class="nm">${sg.name}</div><div class="ep">${esc(sg.epithet)}</div></div></div>`
+        + `<p class="motto">${esc(sg.motto)}</p><p class="txt">${esc(sg.text)}</p>`
+        + `<p class="txt"><i>${sg.principle}.</i> ${esc(sg.guide)}</p>`
+        + `<dl class="facts"><dt>Number</dt><dd>${sg.number}</dd>`
+        + `<dt>Dates</dt><dd>${datesTxt}</dd>`
+        + `<dt>Length</dt><dd>${sg.length.toFixed(4)} Matrix dates · ${dur(civilLen)} civil</dd>`
+        + `<dt>Opens</dt><dd>${fDT.format(opens)}</dd><dt>Closes</dt><dd>${fDT.format(closes)}</dd>`
+        + `<dt>Released</dt><dd>${chargeTxt} of J₀ · J ${group(sg.jFrom)} → ${group(sg.jTo)}</dd>`
+        + `<dt>State</dt><dd>${sg.state}</dd><dt>Gift</dt><dd>${esc(sg.gift)}</dd><dt>Shadow</dt><dd>${esc(sg.shadow)}</dd></dl>`
+        + `<div class="sp-nav"><button class="pill" type="button" data-k="-1">‹ ${stepName(-1)}</button><button class="pill" type="button" data-k="1">${stepName(1)} ›</button><button class="pill" type="button" data-go>Travel here</button></div>`;
+      $('sp-l').querySelectorAll('[data-k]').forEach(b => b.addEventListener('click', () => stepSign(Number(b.dataset.k))));
+      $('sp-l').querySelector('[data-go]').addEventListener('click', () => { pause(); enterAt(sg.start + 1e-6, c); dlg.close(); });
+    }
+    /* the sign's dates, or the one date a date-less gate opens and closes inside */
+    const dateRange = sg => sg.dates ? [sg.firstDate, sg.lastDate] : [sg.within, sg.within];
+    function renderWeeks(c, sg, col) {
+      const Y = yearOf(c), S = Y.signs, ND = Y.datesPerYear, [d0, d1] = dateRange(sg);
+      const wk = $('wk');
+      wk.style.setProperty('--c', col);
+      let h = DAYS.map(d => `<div class="hd" style="--c:${accColor(d.accent)}"><span>${d.glyph}</span>${d.short}</div>`).join('');
+      for (let k = 0; k < d0 % 6; k++) h += '<div class="cell blank" aria-hidden="true"></div>';
+      for (let d = d0; d <= d1; d++) {
+        const start = M.civilOfDate(c, d), ds = S[Y.signAt(d)], dayIn = d - ds.firstDate + 1;
+        const ing = S.filter(s => s.start > d && s.start < d + 1).map(s => `<span class="ing" style="--c2:${accColor(s.accent)}">→ ${s.name} ${fT.format(M.civilOfYearTau(c, s.start))}</span>`);
+        if (d === ND - 1) ing.push(`<span class="ing">→ Turning ${fT.format(M.civilOfYearTau(c, Y.tauStar))}</span>`);
+        const today = T && T.cycle === c && T.dayIndex === d;
+        const past = !today && T && dateEnd(c, d).getTime() <= T.ms;
+        const day = DAYS[d % 6];
+        h += `<button type="button" class="cell${today ? ' today' : ''}${past ? ' past' : ''}${d === ND - 1 ? ' thr' : ''}${CAL.day === d ? ' sel' : ''}" data-d="${d}" aria-pressed="${CAL.day === d}" style="--c:${accColor(day.accent)}" title="${day.name}, ${dayIn} ${ds.name} · date ${d + 1} · ${fDT.format(start)}">`
+          + `<span class="d">${dayIn}</span><span class="y">${d + 1}</span>${ing.join('')}<span class="cv">${fD.format(start)}<br>${fT.format(start)}</span></button>`;
+      }
+      wk.innerHTML = h;
+      wk.querySelectorAll('.cell[data-d]').forEach(b => b.addEventListener('click', () => openDay(c, Number(b.dataset.d))));
+      markWeeks(c, sg);
+    }
+
+    /* ---------- the orbital calendar ----------
+       360 counted dates, twelve months of thirty. Each date shows the civil
+       moment it begins, the astral date it begins in, and any equinox,
+       solstice, perihelion or aphelion of the true sun that falls inside it. */
+    function openOrbital(year, month) {
+      CAL.mode = 'orbital'; CAL.oyear = year; CAL.omonth = month; CAL.day = null;
+      renderCal(); if (!dlg.open) dlg.showModal();
+    }
+    function stepMonth(k) {
+      CAL.omonth += k;
+      if (CAL.omonth > 11) { CAL.omonth = 0; CAL.oyear++; } if (CAL.omonth < 0) { CAL.omonth = 11; CAL.oyear--; }
+      renderCal();
+    }
+    const solarAnomaly = ms => { const n = ms / 86400000 + 2440587.5 - 2451545; return (((357.528 + 0.9856003 * n) % 360) + 360) % 360; };
+    function orbitalEvents(a, b) {
+      const ev = [], la = solarLongitude(a), lb = solarLongitude(b), ga = solarAnomaly(a), gb = solarAnomaly(b);
+      const crossed = (x, y, t) => (x <= t && y > t) || (t === 0 && x > y);
+      const NAMES = [[0, 'March equinox'], [90, 'June solstice'], [180, 'September equinox'], [270, 'December solstice']];
+      NAMES.forEach(([t, nm]) => { if (crossed(la, lb, t)) ev.push('☉ ' + nm); });
+      if (crossed(ga, gb, 0)) ev.push('☉ perihelion'); if (crossed(ga, gb, 180)) ev.push('☉ aphelion');
+      return ev;
+    }
+    function renderOrbital() {
+      const y = CAL.oyear, m = CAL.omonth, OM = M.ORBITAL_MONTHS, mo = OM[m], col = accColor(mo.accent);
+      const at = di => M.civilOfOrbital(y, di);
+      $('cyc-lbl').textContent = `Orbital year ${y}`;
+      $('cyc-sub').textContent = `${fDY.format(at(0))} – ${fDY.format(at(360))} · 360 dates · twelve months of thirty`;
+      const bar = $('yearbar');
+      bar.innerHTML = OM.map((q, i) => `<button type="button" role="tab" aria-selected="${i === m}" class="${i === m ? 'sel' : ''}" data-i="${i}" style="--c:${accColor(q.accent)}" title="${q.name} · ${esc(q.epithet)}" aria-label="${q.name}"></button>`).join('')
+        + `<div class="lbl" aria-hidden="true">${OM.map(q => `<span>${q.name.slice(0, 4)}</span>`).join('')}</div>`
+        + (T && T.orbital.year === y ? `<span class="nowmark" style="left:${T.orbital.deg / 360 * 100}%"></span>` : '');
+      bar.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { CAL.omonth = Number(b.dataset.i); renderCal(); }));
+      $('yb-a').textContent = `Ortiva 1 · ${fDT.format(at(0))}`;
+      $('yb-b').textContent = `${fDT.format(at(360))} · next Ortiva`;
+      const a0 = at(m * 30), a1 = at(m * 30 + 30);
+      const evs = []; for (let d = m * 30; d < m * 30 + 30; d++) orbitalEvents(at(d).getTime(), at(d + 1).getTime()).forEach(x => evs.push(`${x}: ${d % 30 + 1} ${mo.name}`));
+      $('sp-l').style.setProperty('--c', col);
+      $('sp-l').innerHTML = `<div class="row1"><div class="gl">${mo.glyph}</div><div><div class="tide">Orbital month ${m + 1} of 12 · ${m * 30}° – ${m * 30 + 30}°</div><div class="nm">${mo.name}</div><div class="ep">${esc(mo.epithet)}</div></div></div>`
+        + `<p class="txt" style="margin-top:16px">${esc(mo.text)}</p>`
+        + `<dl class="facts"><dt>Dates</dt><dd>${m * 30 + 1} – ${m * 30 + 30} of 360 · five weeks of six</dd>`
+        + `<dt>Opens</dt><dd>${fDT.format(a0)}</dd><dt>Closes</dt><dd>${fDT.format(a1)}</dd>`
+        + `<dt>Length</dt><dd>${dur(a1 - a0)} civil</dd>`
+        + `<dt>The sun</dt><dd>${evs.length ? evs.map(esc).join('<br>') : 'no equinox, solstice or apsis this month'}</dd></dl>`
+        + `<div class="sp-nav"><button class="pill" type="button" data-k="-1">‹ ${OM[(m + 11) % 12].name}</button><button class="pill" type="button" data-k="1">${OM[(m + 1) % 12].name} ›</button><button class="pill" type="button" data-go>Travel here</button></div>`;
+      $('sp-l').querySelectorAll('[data-k]').forEach(b => b.addEventListener('click', () => stepMonth(Number(b.dataset.k))));
+      $('sp-l').querySelector('[data-go]').addEventListener('click', () => { pause(); if (!M.SIM.on) M.simEnter(); M.simJumpTo(a0.getTime() + 1); dlg.close(); });
+      const wk = $('wk'); wk.style.setProperty('--c', col);
+      let h = '';
+      for (let i = 0; i < 30; i++) {
+        const di = m * 30 + i, st = at(di), en = at(di + 1), r = M.cal360(st);
+        const S = r.year.signs, ws = S[r.dateSign];
+        const today = T && T.orbital.year === y && T.orbital.dayIndex === di;
+        const past = !today && T && en.getTime() <= T.ms;
+        const ev = orbitalEvents(st.getTime(), en.getTime()).map(x => `<span class="ev">${esc(x)}</span>`).join('');
+        h += `<button type="button" class="cell${today ? ' today' : ''}${past ? ' past' : ''}" data-ms="${st.getTime()}" data-c="${r.cycle}" data-d="${r.dayIndex}" style="--c:${col}" title="${i + 1} ${mo.name} · orbital date ${di + 1} · ${fDT.format(st)} · astral: ${DAYS[r.weekday].name}, ${r.dayInSign} ${ws.name}">`
+          + `<span class="d">${i + 1}</span><span class="y">${di}°</span>${ev}<span class="as">${DAYS[r.weekday].short} ${r.dayInSign} ${ws.name}</span><span class="cv">${fD.format(st)}<br>${fT.format(st)}</span></button>`;
+      }
+      wk.innerHTML = h;
+      // a date of the orbit opens the day sheet of the astral date it begins in
+      wk.querySelectorAll('.cell[data-ms]').forEach(b => b.addEventListener('click', () => { CAL.mode = 'astral'; openDay(Number(b.dataset.c), Number(b.dataset.d)); }));
+    }
+
+    /* ---------- the day sheet ----------
+       A date opened from the calendar: its day, its sign, its civil span, and,
+       on this computer with the journal service running, the journal of that date. */
+    const JR = window.SCJournal || null, PW = (window.SCProtocol && window.SCProtocol.WINDOWS) || [];
+    const DRAFT = {};                                   // unsent notes, per date, kept while the page is open
+    let dsToken = 0;
+    const signOfDate = (c, d) => { const Y = yearOf(c); return Y.signs[Y.signAt(d)]; };
+    const dateEnd = (c, d) => { const Y = yearOf(c); return d >= Y.datesPerYear - 1 ? M.civilOfYearTau(c, Y.tauStar) : M.civilOfDate(c, d + 1); };
+    const liveNow = () => M.cal360(new Date());
+    function openDay(c, d) {
+      if (d < 0) { c--; d = yearOf(c).datesPerYear - 1; } else if (d > yearOf(c).datesPerYear - 1) { c++; d = 0; }
+      CAL.cycle = c; CAL.sign = signOfDate(c, d).i; CAL.day = d;
+      const lost = !dlg.contains(document.activeElement) || document.activeElement === document.body;
+      renderCal();
+      // the clicked control was redrawn: keep the keyboard inside the calendar
+      if (lost || !document.activeElement || !document.activeElement.isConnected || document.activeElement === document.body) { const x = $('wk').querySelector('.cell.sel'); if (x) x.focus({ preventScroll: true }); }
+      if (matchMedia('(max-width: 760px)').matches) $('sp-l').scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' });
+    }
+    function stepDay(k) { openDay(CAL.cycle, CAL.day + k); const x = $('sp-l').querySelector(`[data-dk="${k}"]`); if (x) x.focus({ preventScroll: true }); }
+    const WSHORT = { vehicle: 'Elixir', pre: 'Pre-workout', post: 'Post-workout', cutoff: 'Food cutoff', evening: 'Evening reset' };
+    function matrixAt(ms) { const r = M.cal360(new Date(ms)); return { r, hm: `${pad(r.h)}:${pad(r.m)}` }; }
+    function matrixLabel(ms) {
+      const { r, hm } = matrixAt(ms), S = r.year.signs, sg = S[r.dateSign] || S[r.sign];
+      return `Cycle ${r.cycle} · date ${r.dateOfYear}/${r.datesPerYear} · ${DAYS[r.weekday].name} ${r.dayInSign} ${sg.name} · ${hm}`;
+    }
+    /* the civil moment a Matrix-clock hour falls on, inside date d */
+    function windowAt(c, d, hour) {
+      const a = M.civilOfDate(c, d).getTime(), b = dateEnd(c, d).getTime();
+      const f0 = M.cal360(new Date(a)).sol.frac, fT = M.consumed(((hour % 24) + 24) % 24 / 24, 1, yearOf(c).d0);
+      return Math.min(b - 1, a + (((fT - f0) % 1) + 1) % 1 * 86400000);
+    }
+    function renderDay(c, d) {
+      const Y = yearOf(c), S = Y.signs, ND = Y.datesPerYear;
+      const sg = signOfDate(c, d), day = DAYS[d % 6], col = accColor(day.accent), scol = accColor(sg.accent);
+      const a = M.civilOfDate(c, d), b = dateEnd(c, d), n = d - sg.firstDate + 1;
+      const ing = S.filter(s => s.start > d && s.start < d + 1).map(s => `${s.glyph} ${s.name} opens at ${fT.format(M.civilOfYearTau(c, s.start))}`);
+      if (d === ND - 1) ing.push(`The Turning at ${fT.format(M.civilOfYearTau(c, Y.tauStar))}`);
+      const live = liveNow(), isToday = live.cycle === c && live.dayIndex === d;
+      const el = $('sp-l');
+      el.style.setProperty('--c', col);
+      el.innerHTML = `<div class="ds" style="--c2:${scol}"><div class="row1"><div class="gl">${day.glyph}</div><div>`
+        + `<div class="tide">${isToday ? 'Today · ' : ''}date ${d + 1} of ${ND} · cycle ${c}</div>`
+        + `<div class="nm">${day.name}, ${n} <i>${sg.name}</i></div><div class="ep">${esc(day.epithet)} · ${day.verb}</div></div></div>`
+        + `<p class="span">From <b>${fDT.format(a)}</b><br>to <b>${fDT.format(b)}</b> · ${dur(b - a)}${ing.length ? '<br>' + ing.map(esc).join('<br>') : ''}</p>`
+        + `<p class="txt">${esc(day.text)}</p>`
+        + `<p class="txt s">${sg.glyph} ${esc(sg.motto)}</p>`
+        + `<div class="sp-nav"><button class="pill" type="button" data-dk="-1" aria-label="Previous date">‹ ${d === 0 ? 'Previous year' : 'Date ' + d}</button>`
+        + `<button class="pill" type="button" data-dk="1" aria-label="Next date">${d + 1 >= ND ? 'Next year' : 'Date ' + (d + 2)} ›</button>`
+        + `<button class="pill" type="button" data-go>Travel here</button><button class="pill" type="button" data-back>${sg.name}</button></div>`
+        + `<div class="jr" id="jr" hidden></div></div>`;
+      el.querySelectorAll('[data-dk]').forEach(x => x.addEventListener('click', () => stepDay(Number(x.dataset.dk))));
+      el.querySelector('[data-go]').addEventListener('click', () => { pause(); enterAt((isToday ? live.yearTau : d + 1e-6), c); dlg.close(); });
+      el.querySelector('[data-back]').addEventListener('click', () => { CAL.day = null; renderCal(); });
+      renderJournal(c, d, isToday);
+    }
+
+    /* the journal of a date */
+    async function renderJournal(c, d, isToday) {
+      const tok = ++dsToken;
+      if (!JR) return;
+      const ok = await JR.ready;
+      const box = $('jr'); if (!box || tok !== dsToken) return;
+      if (!ok) {
+        if (JR.local) { box.hidden = false; box.innerHTML = `<p class="sleepy">The journal is asleep. Start it with <code>journal/Start-Journal.cmd</code>, then open the page it opens.</p>`; }
+        return;
+      }
+      const a = M.civilOfDate(c, d).getTime(), b = dateEnd(c, d).getTime();
+      let list;
+      try { list = await JR.list(a, b); } catch (e) { box.hidden = false; box.innerHTML = `<p class="err">The journal did not answer: ${esc(e.message)}</p>`; return; }
+      if (tok !== dsToken) return;
+      const nowOr = mid => (isToday ? Date.now() : mid);
+      const mid = a + (b - a) / 2, key = `${c}:${d}`;
+      const wins = PW.slice().sort((x, y) => x.start - y.start);
+      const done = id => list.find(e => e.kind === 'window' && e.window === id);
+      const metric = nm => list.find(e => e.kind === 'metric' && e.name === nm);
+      const notes = list.filter(e => e.kind === 'note' || e.kind === 'event');
+      const hh = h => `${pad(Math.floor(h))}:${pad(Math.round(h % 1 * 60))}`;
+      let h = `<div><h5>The windows <span>${list.filter(e => e.kind === 'window').length} of ${wins.length}</span></h5><div class="chips">`
+        + wins.map(w => `<button type="button" class="chip" data-w="${w.id}" aria-pressed="${!!done(w.id)}" style="--w:${accColor(w.accent)}" title="${esc(w.name)} · ${hh(w.start)}">${esc(WSHORT[w.id] || w.short || w.name)}<small>${hh(w.start)}</small></button>`).join('')
+        + `</div></div>`;
+      h += `<div><h5>The measures</h5><div class="ms">` + JR.MEASURES.map(m => {
+        const e = metric(m.name);
+        if (m.scale) {
+          const v = e ? e.value : 0;
+          return `<span>${m.label}</span><div class="dots" data-m="${m.name}" role="group" aria-label="${m.label}, 1 to ${m.scale}">`
+            + Array.from({ length: m.scale }, (_, i) => `<button type="button" data-v="${i + 1}" class="${v >= i + 1 ? 'on' : ''}" aria-pressed="${v === i + 1}" aria-label="${i + 1}">${i + 1}</button>`).join('')
+            + `<em>${v ? (v <= 2 ? m.low : v >= 4 ? m.high : '') : ''}</em></div>`;
+        }
+        return `<span>${m.label}</span><div><input type="number" inputmode="decimal" data-n="${m.name}" step="${m.step}" min="${m.min}" max="${m.max}" value="${e && e.value !== null ? e.value : ''}" aria-label="${m.label} in ${m.unit}"><small>${m.unit}</small></div>`;
+      }).join('') + `</div></div>`;
+      h += `<div><h5>Notes <span>${notes.length || ''}</span></h5><ul class="notes">`
+        + notes.map(e => { const { hm } = matrixAt(e.at); return `<li data-id="${e.id}"><div class="tm"><b>${hm}</b><span>${fT.format(new Date(e.at))}</span><button type="button" data-edit>edit</button><button type="button" data-del>delete</button></div><p>${esc(e.text || '')}</p></li>`; }).join('')
+        + `</ul><textarea id="jr-text" placeholder="${isToday ? 'What is happening now…' : 'A note for this date…'}" aria-label="A note">${esc(DRAFT[key] ? DRAFT[key].text : '')}</textarea>`
+        + `<div class="row"><button class="pill" type="button" id="jr-save">${DRAFT[key] && DRAFT[key].id ? 'Update note' : 'Save note'}</button>`
+        + `${DRAFT[key] && DRAFT[key].id ? '<button class="pill" type="button" id="jr-cancel">Cancel</button>' : ''}<span class="hint">${isToday ? 'Timed now' : 'Timed at mid-date'} · Ctrl+Enter saves · kept in journal/data on this computer</span></div>`
+        + `<p class="err" id="jr-err"></p></div>`;
+      box.innerHTML = h; box.hidden = false;
+      const err = m => { const x = $('jr-err'); if (x) x.textContent = m || ''; };
+      const redo = () => {
+        const f = document.activeElement, sel = f && f.dataset ? (f.dataset.w ? `[data-w="${f.dataset.w}"]` : f.dataset.v && f.parentElement.dataset.m ? `.dots[data-m="${f.parentElement.dataset.m}"] [data-v="${f.dataset.v}"]` : f.dataset.n ? `[data-n="${f.dataset.n}"]` : (f.id === 'jr-save' || f.id === 'jr-text') ? '#jr-text' : null) : null;
+        markWeeks(c, yearOf(c).signs[CAL.sign]);
+        return renderJournal(c, d, isToday).then(() => { const x = sel && $('jr') && $('jr').querySelector(sel); if (x) x.focus({ preventScroll: true }); });
+      };
+      const run = p => p.then(redo).catch(e => err('Not saved: ' + e.message));
+      box.querySelectorAll('[data-w]').forEach(x => x.addEventListener('click', () => {
+        const w = PW.find(q => q.id === x.dataset.w), e = done(w.id);
+        if (e) return run(JR.remove(e.id));
+        const at = windowAt(c, d, w.start);
+        run(JR.add({ kind: 'window', window: w.id, name: w.name, done: true, at, matrix: matrixLabel(at) }));
+      }));
+      box.querySelectorAll('.dots').forEach(g => g.querySelectorAll('button').forEach(x => x.addEventListener('click', () => {
+        const nm = g.dataset.m, v = Number(x.dataset.v), e = metric(nm);
+        if (e && e.value === v) return run(JR.remove(e.id));
+        if (e) return run(JR.update({ id: e.id, value: v }));
+        const at = nowOr(mid); run(JR.add({ kind: 'metric', name: nm, value: v, at, matrix: matrixLabel(at) }));
+      })));
+      box.querySelectorAll('input[data-n]').forEach(inp => inp.addEventListener('change', () => {
+        const m = JR.MEASURES.find(q => q.name === inp.dataset.n), e = metric(m.name), raw = inp.value.trim();
+        if (!raw) return e ? run(JR.remove(e.id)) : null;
+        const v = Number(raw); if (!isFinite(v) || v < m.min || v > m.max) return err(`${m.label}: between ${m.min} and ${m.max} ${m.unit}`);
+        if (e) return run(JR.update({ id: e.id, value: v }));
+        const at = nowOr(mid); run(JR.add({ kind: 'metric', name: m.name, value: v, unit: m.unit, at, matrix: matrixLabel(at) }));
+      }));
+      const ta = $('jr-text');
+      ta.addEventListener('input', () => { DRAFT[key] = Object.assign(DRAFT[key] || {}, { text: ta.value }); });
+      const save = () => {
+        const text = ta.value.trim(), dr = DRAFT[key] || {};
+        if (!text) return err('Write something first.');
+        const p = dr.id ? JR.update({ id: dr.id, text }) : (() => { const at = nowOr(mid); return JR.add({ kind: 'note', text, at, matrix: matrixLabel(at) }); })();
+        p.then(() => { delete DRAFT[key]; redo(); }).catch(e => err('Not saved: ' + e.message));
+      };
+      $('jr-save').addEventListener('click', save);
+      ta.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); save(); } });
+      const cancel = $('jr-cancel'); if (cancel) cancel.addEventListener('click', () => { delete DRAFT[key]; redo(); });
+      box.querySelectorAll('.notes li').forEach(li => {
+        const e = notes.find(q => q.id === li.dataset.id);
+        li.querySelector('[data-edit]').addEventListener('click', () => { DRAFT[key] = { id: e.id, text: e.text || '' }; renderJournal(c, d, isToday); setTimeout(() => { const t = $('jr-text'); if (t) { t.focus(); t.setSelectionRange(t.value.length, t.value.length); } }, 0); });
+        li.querySelector('[data-del]').addEventListener('click', () => {
+          const btn = li.querySelector('[data-del]');
+          if (btn.dataset.sure) return run(JR.remove(e.id));
+          btn.dataset.sure = '1'; btn.textContent = 'sure?'; setTimeout(() => { btn.textContent = 'delete'; delete btn.dataset.sure; }, 2500);
+        });
+      });
+    }
+    /* how many entries each date of the sign holds */
+    async function markWeeks(c, sg) {
+      if (!JR || !(await JR.ready)) return;
+      const Y = yearOf(c), [d0, d1] = dateRange(sg), a0 = M.civilOfDate(c, 0).getTime();
+      let list; try { list = await JR.list(M.civilOfDate(c, d0).getTime(), dateEnd(c, d1).getTime()); } catch (e) { return; }
+      if (CAL.cycle !== c || CAL.sign !== sg.i) return;
+      const n = {};
+      list.forEach(e => { const d = Math.min(Y.datesPerYear - 1, Math.floor((e.at - a0) / Y.msCal)); n[d] = (n[d] || 0) + 1; });
+      $('wk').querySelectorAll('.cell[data-d]').forEach(x => {
+        const k = n[x.dataset.d]; let s = x.querySelector('.jn');
+        if (!k) { if (s) s.remove(); return; }
+        if (!s) { s = document.createElement('span'); s.className = 'jn'; x.appendChild(s); }
+        s.textContent = k; s.title = `${k} journal entr${k > 1 ? 'ies' : 'y'}`;
+      });
+    }
+
+    // finder: any civil moment, read on the Matrix in its own year
+    $('find-in').addEventListener('input', e => {
+      const v = e.target.value; if (!v) return;
+      const date = new Date(v); if (isNaN(date)) return;
+      const r = M.cal360(date), S = r.year.signs, sg = S[r.sign], ds = S[r.dateSign];
+      const out = $('find-out'); out.style.setProperty('--acc', accColor(sg.accent));
+      out.innerHTML = `<i>${sg.glyph} ${sg.name}</i>, ${esc(sg.epithet)} · ${DAYS[r.weekday].name}, ${r.dayInSign} ${ds.name}`
+        + `<small>Orbital: ${r.orbital.day} ${r.orbital.monthInfo.name}, orbital year ${r.orbital.year}</small>`
+        + `<small>Cycle ${r.cycle} (Y ${r.year.Ystr}, ${S.length} time waves) · date ${r.dateOfYear} of ${r.datesPerYear} · Matrix clock ${pad(r.h)}:${pad(r.m)} · ${r.pending ? 'before launch' : r.rung.state}</small>`
+        + ` <button class="pill" type="button" id="find-open" style="margin-top:6px">Open its time wave</button>`;
+      $('find-open').addEventListener('click', () => { CAL.mode = 'astral'; CAL.cycle = r.cycle; CAL.sign = r.sign; CAL.day = null; renderCal(); dlg.querySelector('.cal-body').scrollTo({ top: 0, behavior: 'smooth' }); });
+    });
+
+    /* ---------- the written part ---------- */
+    function buildReading() {
+      paintTrack();
+      $('tides').innerHTML = YR.tides.map((td, k) => `<div class="tide" style="--c:${accColor(td.accent)}"><h4>${['I', 'II', 'III', 'IV', 'V'][k]} · ${td.name}</h4><p>${esc(td.text)}</p><div class="signs">`
+        + SG.filter(s => s.tide === k).map(s => `<button type="button" class="sign-card${T && T.sign === s.i ? ' now' : ''}" data-i="${s.i}" style="--c:${accColor(s.accent)}"><span class="gl">${s.glyph}</span>`
+          + `<div class="nm">${s.name}${s.gate ? '<span class="gate-tag">GATE</span>' : ''}</div><div class="ep">${esc(s.epithet)} · ${s.principle}</div>`
+          + `<div class="mt">No. ${s.number} · ${s.dates ? `dates ${s.firstDate + 1}–${s.lastDate + 1}` : `inside date ${s.within + 1}`} · ${s.length.toFixed(3)} τ</div></button>`).join('') + '</div></div>').join('');
+      document.querySelectorAll('.sign-card[data-i]').forEach(b => b.addEventListener('click', () => openCal(T ? T.cycle : 1, Number(b.dataset.i))));
+      $('months').innerHTML = M.ORBITAL_MONTHS.map((q, i) => `<button type="button" class="sign-card month-card${T && T.orbital.month === i ? ' now' : ''}" data-m="${i}" style="--c:${accColor(q.accent)}"><span class="gl">${q.glyph}</span>`
+        + `<div class="nm">${q.name}</div><div class="ep">${esc(q.epithet)}</div><div class="mt">Month ${i + 1} · ${i * 30}° – ${i * 30 + 30}° · dates ${i * 30 + 1}–${i * 30 + 30}</div></button>`).join('');
+      document.querySelectorAll('.month-card').forEach(b => b.addEventListener('click', () => openOrbital(T ? T.orbital.year : 1, Number(b.dataset.m))));
+      $('days6').innerHTML = DAYS.map((d, i) => `<div class="day-card${T && T.weekday === i ? ' now' : ''}" style="--c:${accColor(d.accent)}"><div class="dh"><span class="nm">${d.name}</span><span class="gl">${d.glyph}</span></div>`
+        + `<div class="vb">${d.verb} · ${esc(d.epithet)}</div><p>${esc(d.text)}</p><div class="gs"><b>Gift</b> ${esc(d.gift)} · <b>Shadow</b> ${esc(d.shadow)}</div></div>`).join('');
+      $('ladder').innerHTML = L.map((s, i) => { const sg = SG[i];
+        const g = sg ? `<i>${sg.name} · ${sg.principle}.</i> ${esc(sg.guide)}` : `<i>${YR.turning.name} · ${YR.turning.principle}.</i> ${esc(YR.turning.text)}`;
+        return `<li data-i="${i}" class="${T && T.rung.i === i ? 'now' : ''}" style="--c:${accColor(s.accent)}"><span class="i">${pad(i)}</span><span class="s">${s.state}</span><span class="g">${g}</span><span class="t">τ ${(i === 0 ? 0 : s.tau).toFixed(3)}</span></li>`; }).join('');
+      document.querySelectorAll('#ladder li').forEach(li => li.addEventListener('click', () => {
+        const i = Number(li.dataset.i); pause(); enterAt(i === 0 ? 0 : Math.min(YT - 1e-6, L[i].tau + 1e-6)); scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      }));
+      /* This year's constants, derived from the sky at its Turning. */
+      const cyc = T ? T.cycle : 1, frac = YR.tauStarFr;
+      const rows = [
+        ['Y', YR.Ystr, `Mean tropical year at this year's Turning (Cycle ${cyc}), from Laskar's formula, ten decimals`, 'observed', 'Read'],
+        ['J₀', group(YR.J0), 'Initial entropic energy of this year: the numerator of α in lowest terms', 'derived', 'Exact'],
+        ['Q', group(YR.Q), 'Recurrence horizon of this year: the denominator of α', 'derived', 'Exact'],
+        ['α', 'J₀ / Q', `= (Y − 360) / 360 = [0; ${YR.partialQuotients.join(', ')}]`, 'derived', 'Derived'],
+        ['τ*', YT.toFixed(10), `This year: ${group(frac.n)} / ${group(frac.d)} Matrix dates`, 'derived', 'Derived'],
+        [String(NDATES), `${Math.floor(YT)} + ${(YT - Math.floor(YT)).toFixed(4)}`, 'Dates in this year: whole dates and the threshold date', 'derived', 'Derived'],
+        ['D₀', ms2(YR.leadMs / 1000), "This year's dilation: one Matrix date (Y / 360 days) minus 24 h", 'derived', 'Derived'],
+        ['Y₂₀₀₀', '365.2421896698', 'The J2000.0 reference year: 19 time waves, τ* 715.5313. Kept as the canon and checked on every load', 'chosen', 'Reference'],
+        ['04:00', 'φ = 1/6', 'End of the racing phase, and the wave profiles sin⁴ / sin²', 'chosen', 'Chosen']
+      ];
+      $('consts').innerHTML = rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td><span class="tag ${r[3]}">${r[4]}</span></td></tr>`).join('');
+      /* the written derivation, filled with this year's own numbers */
+      { const Yx = YR.units - 3600000000000n, gcdN = (a, b) => { while (b) { [a, b] = [b, a % b]; } return a; };
+        const hmsLong = ms => { const s = ms / 1000, h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s - h * 3600 - m * 60; return `${h} h ${m} m ${x.toFixed(9)} s`; };
+        const v = {
+          cycle: String(T ? T.cycle : 1), Y: YR.Ystr, dateDays: (YR.Y / 360).toFixed(10),
+          dateHms: hmsLong(YR.msCal).replace(/(\.\d{3})\d+ s$/, '$1 s'), dateFull: hmsLong(YR.msCal),
+          D0: ms2(YR.leadMs / 1000).replace('m ', ' m ').replace(/s$/, ' s'),
+          Yexcess: (Number(Yx) / 1e10).toFixed(10), alpha: YR.alpha.toFixed(12) + '…', alphaInv: (1 / YR.alpha).toFixed(2),
+          alphaRaw: group(String(Yx)), gcd: group(String(gcdN(Yx, 3600000000000n))),
+          J0: group(YR.J0), Q: group(YR.Q), pq: YR.partialQuotients.join(', '),
+          nSigns: String(SG.length), nRings: String(L.length), nGates: String(SG.filter(x => x.gate).length),
+          tau4: YT.toFixed(4), tauFrac: `${group(String(YR.tauStarFr.n))} / ${group(String(YR.tauStarFr.d))}`,
+          civilDays: (YR.msYear / 86400000).toFixed(2), nDates: String(NDATES), nWhole: String(Math.floor(YT)),
+          thrFrac: (YT - Math.floor(YT)).toFixed(4)
+        };
+        document.querySelectorAll('[data-live]').forEach(el => { const k = el.dataset.live; if (v[k] !== undefined) el.textContent = v[k]; });
+        /* the years around this one, each read from the sky at its own Turning */
+        const cyc0 = T ? T.cycle : 1, list = [];
+        for (let k = Math.max(cyc0 - 1, 0); k < Math.max(cyc0 - 1, 0) + 7; k++) {
+          const c = M.cycle(k), y = c.year;
+          list.push(`<li class="${k === cyc0 ? 'now' : ''}"><b>Cycle ${k}</b> · ${fDY.format(new Date(c.start))} · Y ${y.Ystr} · ${y.signs.length} time waves · ${y.tauStar.toFixed(2)} dates · ${(y.msYear / 86400000).toFixed(1)} civil days</li>`);
+        }
+        $('years').innerHTML = `<ul class="yl">${list.join('')}</ul>`;
+        /* how the Turning wanders through the seasons: the sun's longitude at each one */
+        const lon = ms => { const n = ms / 86400000 + 2440587.5 - 2451545, Lm = 280.460 + 0.9856474 * n, g = (357.528 + 0.9856003 * n) * Math.PI / 180; return (((Lm + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) % 360) + 360) % 360; };
+        const w = []; for (let k = 1; k <= 6; k++) w.push(`${Math.round(lon(M.cycle(k).start)) % 360}°`);
+        $('y-wander').textContent = `The sun stands at ${w.join(', ')} of its longitude at the first six Turnings (0° is the March equinox).`;
+      }
+      $('thr-len').textContent = dur((YT - Math.floor(YT)) * YR.msCal).replace(/^0d /, '');
+      { const nowY = M.laskarYear(Date.now());
+        $('y-drift').textContent = `Right now the mean tropical year is ${nowY.toFixed(10)} days, ${((365.2421896698 - nowY) * 86400).toFixed(3)} s shorter than the J2000 value; Cycle 1 was read at ${M.cycle(1).year.Ystr}.`; }
+      $('y-next').textContent = `Cycle 2 opens on ${fDT.format(M.civilOfYearTau(2, 0))} your time.`;
+    }
+
+    /* ---------- a door in the hours of the cleanse ----------
+       During each window of the pathogen protocol, a small mark rests inside
+       the day ring at that window's hours; it leads to that window. */
+    const CL = doorOpen('cleanse-clock') && HDOORS['cleanse-clock'] ? HDOORS['cleanse-clock'] : null;
+    let clEl = null, clOn = null;
+    if (CL) {
+      clEl = document.createElement('a'); clEl.className = 'door-cleanse'; clEl.hidden = true;
+      clEl.innerHTML = '<i aria-hidden="true"></i><span class="dc-l"><b></b><em></em></span>';
+      clEl.addEventListener('click', () => { if (window.SCHouse) window.SCHouse.find('door:cleanse-clock', CL.where, true); });
+      cv.parentElement.appendChild(clEl);
+    }
+    function cleanseDoor(t) {
+      if (!clEl || !t) return;
+      const h = t.phi * 24, w = CL.windows.find(x => h >= x.from && h < x.to);
+      if (!w) { if (clOn) { clEl.hidden = true; clOn = null; } return; }
+      const a = -Math.PI / 2 + ((w.from + w.to) / 2) / 24 * TWO, rr = G.day * .86;
+      clEl.style.left = (CX + Math.cos(a) * rr) + 'px'; clEl.style.top = (CY + Math.sin(a) * rr) + 'px';
+      clEl.classList.toggle('west', Math.cos(a) > 0);
+      if (clOn !== w.id) {
+        clOn = w.id; clEl.hidden = false;
+        clEl.href = CL.to + '#' + w.id;
+        clEl.setAttribute('aria-label', `The cleanse · ${w.name}`);
+        const hm = x => pad(Math.floor(x)) + ':' + pad(Math.round(x % 1 * 60));
+        clEl.querySelector('b').textContent = `${hm(w.from)}–${hm(w.to)} · ${w.name}`;
+        clEl.querySelector('em').textContent = 'The cleanse, now running ↗';
+      }
+    }
+
+    /* ---------- loop ---------- */
+    function frame(time) {
+      T = M.cal360(now());
+      if (useYear(T.year)) { buildTrack(); buildReading(); if (dlg.open) renderCal(); }
+      draw(time);
+      cleanseDoor(T);
+      writeText(T);
+      writeTrack(T);
+      if (!reduce || M.SIM.on) requestAnimationFrame(frame);
+    }
+    applyTheme(root.dataset.theme === 'light' ? 'light' : 'dark', false);
+    resize();
+    T = M.cal360(now());
+    useYear(T.year); buildTrack();
+    buildReading();
+    addEventListener('resize', () => resize());
+    if (reduce) { frame(performance.now()); setInterval(() => frame(performance.now()), 1000); }
+    else requestAnimationFrame(frame);
+    window.addEventListener('pageshow', () => { readPalette(); });
+  })();
+  </script>
+  <script src="assets/glossary.js"></script>
+  <script src="assets/house.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+name: Prepare approved site for Hostinger
+
+# The repository root is the copy that the site owner approved manually.
+# Hostinger must follow the generated hostinger branch, never main.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hostinger-publication
+  cancel-in-progress: false
+
+jobs:
+  prepare-release:
+    if: github.repository == 'sciencecoherence/sciencecoherence.com'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out approved files
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check the approved site
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s index.html || { echo 'index.html is missing or empty'; exit 1; }
+          test -s writingroom/index.php || { echo 'Writing Room PHP entry point is missing'; exit 1; }
+          test -s writingroom/public/index.html || { echo 'Writing Room interface is missing'; exit 1; }
+
+          # A private setting or local Writing Room state must never enter Git.
+          if git ls-files | grep -Eq '(^|/)(\.private|data|__pycache__)/|(^|/)(\.env(\..*)?|token\.txt|database\.php|[^/]+\.(key|pem|p12))$'; then
+            echo 'Private or local runtime files are tracked. Stop and remove them from Git.'
+            exit 1
+          fi
+
+      - name: Assemble web files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/hostinger-site"
+          rsync -a ./ "$RUNNER_TEMP/hostinger-site/" \
+            --exclude='/.git/' \
+            --exclude='/.github/' \
+            --exclude='/README.md' \
+            --exclude='**/.gitignore' \
+            --exclude='/.gitattributes' \
+            --exclude='**/.private/' \
+            --exclude='**/.env*' \
+            --exclude='**/*.key' \
+            --exclude='**/*.pem' \
+            --exclude='**/*.p12' \
+            --exclude='**/*.md' \
+            --exclude='**/*.py' \
+            --exclude='**/*.pyc' \
+            --exclude='**/*.cmd' \
+            --exclude='**/*.ps1' \
+            --include='/writingroom/schema.sql' \
+            --exclude='**/*.sql' \
+            --exclude='/writingroom/data/' \
+            --exclude='/writingroom/tests/' \
+            --exclude='**/__pycache__/'
+          test -s "$RUNNER_TEMP/hostinger-site/index.html"
+
+      - name: Update the Hostinger release branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+          if git fetch origin hostinger 2>/dev/null; then
+            git switch -C hostinger origin/hostinger
+          else
+            git switch --orphan hostinger
+          fi
+
+          git rm -r -f --ignore-unmatch . >/dev/null
+          git clean -fdx >/dev/null
+          cp -a "$RUNNER_TEMP/hostinger-site/." .
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo 'The Hostinger release already matches the approved copy.'
+            exit 0
+          fi
+
+          git commit -m "Publish approved site from ${GITHUB_SHA:0:12}"
+          git push origin HEAD:hostinger

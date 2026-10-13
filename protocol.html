@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Science Coherence — The Protocol</title>
+  <meta name="description" content="Holographic Cosmic Repolymerization, the full operating document: holographic biophysics, the master protocol, epigenetic repolymerization, biophysics and shielding, the mind recoding engine and the lexicon.">
+  <meta name="author" content="Dr. William Conroy">
+  <meta name="theme-color" content="#0b100d">
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/Newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/DMSans-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script>
+    (function () {
+      var t = null;
+      try { t = JSON.parse(localStorage.getItem('sc-theme')); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/protocol-next.css">
+  <link rel="stylesheet" href="assets/house.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="ctl" href="protocol-matrix.html" aria-label="The day, live">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 9 9" stroke-width="2.4"/><path d="M12 12 16 8"/></svg>
+      <span>The day</span>
+    </a>
+    <p class="kicker" aria-hidden="true">The <b>Protocol</b><span id="k-sec"></span></p>
+    <div class="top-right">
+      <a class="ctl" href="temporal-matrix.html" aria-label="The Temporal Matrix">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 3v4"/></svg>
+        <span>Matrix</span>
+      </a>
+      <button class="ctl theme-btn" type="button" id="theme" aria-label="Switch theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav class="rail" id="rail" aria-label="Sections"></nav>
+
+  <section class="hero" aria-labelledby="doc-title">
+    <canvas id="holo" aria-hidden="true"></canvas>
+    <p class="holo-cap" aria-hidden="true"><b>The holographic boundary</b>All the information inside a volume is encoded on its bounding surface.</p>
+    <div class="hero-text">
+      <p class="eyebrow" id="h-eyebrow">Operating document</p>
+      <h1 id="doc-title">Holographic Cosmic <em>Repolymerization.</em></h1>
+      <p class="sub" id="h-sub"></p>
+      <p class="meta" id="h-meta"></p>
+    </div>
+    <a class="ctl cue" href="#overview">Begin</a>
+  </section>
+
+  <main class="doc" id="doc"></main>
+
+  <footer class="end">
+    <div class="wrap">
+      <p>Holographic Cosmic Repolymerization · Dr. William Conroy · Science Coherence</p>
+      <nav aria-label="Elsewhere">
+        <a class="ctl" href="protocol-matrix.html">The day, live</a>
+        <a class="ctl" href="temporal-matrix.html">The Temporal Matrix</a>
+        <a class="ctl" href="compounds.html">The compounds</a>
+        <a class="ctl" href="index.html">The horizon</a>
+      </nav>
+    </div>
+  </footer>
+
+  <dialog id="lexicon-dialog" class="lex-dialog" aria-label="Lexicon details">
+    <div class="lex-dialog-top">
+      <span class="tag" id="lex-dialog-category"></span>
+      <button class="icon-button" id="lex-dialog-close" aria-label="Close details">✕</button>
+    </div>
+    <h3 id="lex-dialog-term" class="lex-dialog-title"></h3>
+    <div class="formula lex-dialog-formula" id="lex-dialog-formula"></div>
+    <div class="lex-dialog-body" id="lex-dialog-desc"></div>
+    <p class="search-hint">Esc or click outside to close</p>
+  </dialog>
+
+  <script>window.SC_GLOSS_DEFER = true;</script>
+  <script src="documents.js"></script>
+  <script src="assets/matrix-engine.js"></script>
+  <script src="assets/protocol-data.js"></script>
+  <script src="assets/fx-sky.js"></script>
+  <script src="assets/fx-hologram.js"></script>
+  <script src="assets/protocol-next.js"></script>
+  <script src="assets/fx-dayring.js"></script>
+  <script src="assets/glossary.js"></script>
+  <script src="assets/compounds-data.js"></script>
+  <script src="assets/house-registry.js"></script>
+  <script src="assets/house.js"></script>
+</body>
+</html>

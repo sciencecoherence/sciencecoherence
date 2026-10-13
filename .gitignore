@@ -1,24 +1,4 @@
-# OS-specific files
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# IDE/Editor files
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Temporary files
-tmp/
-temp/
-
-# Log files
-*.log
-
-# Gemini/Antigravity artifacts (if you don't want them in the repo)
-.gemini/
-.agent/
-brain/
-*.md # Optional: exclude internal documentation if desired, though task.md/plan.md are usually fine locally
-sciencecoherence.code-workspace
+# Private settings must never reach GitHub (see writingroom/.gitignore).
+database.php
+.env
+.env.*

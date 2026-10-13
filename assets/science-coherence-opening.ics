@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Science Coherence//Event Horizon//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:event-horizon-20270320@sciencecoherence.com
+DTSTAMP:20260923T140000Z
+DTSTART:20270320T202500Z
+DTEND:20270320T212500Z
+SUMMARY:Science Coherence & Cohera open
+DESCRIPTION:Science Coherence and the Cohera platform open together at the March Equinox. Imagination becomes reality.
+LOCATION:sciencecoherence.com
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:The event horizon opens in 15 minutes
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,1150 +1,1738 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Science Coherence — Portal</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Cinzel:wght@300;400;500&family=Jost:wght@100;200;300;400&display=swap"
-    rel="stylesheet">
-  <style>
-    :root {
-      --bg: #020408;
-      --bg-panel: #06080f;
-      --bg-card: rgba(8, 13, 22, .88);
-      --bg-raised: rgba(10, 16, 28, .9);
-      --line: rgba(160, 180, 240, .1);
-      --line-mid: rgba(160, 180, 240, .18);
-      --line-hi: rgba(160, 180, 240, .35);
-
-      --green: #78c496;
-      --green-dim: rgba(120, 196, 150, .18);
-      --green-glow: rgba(120, 196, 150, .28);
-      --blue: #7ab0e8;
-      --blue-dim: rgba(122, 176, 232, .14);
-      --blue-glow: rgba(122, 176, 232, .3);
-      --violet: #a078e0;
-      --violet-dim: rgba(160, 120, 224, .14);
-      --amber: #e8a060;
-      --amber-dim: rgba(232, 160, 96, .14);
-      --crimson: #d06880;
-
-      /* gold accent for topbar / cursor */
-      --gold: #c9a96e;
-      --gold-bright: #e0c080;
-      --gold-glow: rgba(201, 169, 110, .28);
-
-      --text-head: #b39a85;
-      --text-alt: #ffffff;
-      --text-body: #9ea8c0;
-      --text-dim: #6070a0;
-      --text-faint: #3a4464;
-
-      --font-mono: 'Cinzel', serif;
-      --font-ui: 'Jost', sans-serif;
-      --font-head: 'Cormorant Garamond', Georgia, serif;
-
-      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    *,
-    *::before,
-    *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box
-    }
-
-    html {
-      scroll-behavior: smooth;
-      overflow-x: hidden
-    }
-
-    body {
-      min-height: 100dvh;
-      background: var(--bg);
-      color: var(--text-body);
-      font-family: var(--font-ui);
-      font-weight: 400;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      cursor: none;
-      overflow-x: hidden;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit
-    }
-
-    /* ── CURSOR ── */
-    #cursor-dot {
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: var(--gold-bright);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      mix-blend-mode: screen;
-      top: -20px;
-      left: -20px;
-      will-change: left, top;
-    }
-
-    #cursor-ring {
-      position: fixed;
-      width: 36px;
-      height: 36px;
-      border: 1px solid rgba(201, 169, 110, .5);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9998;
-      top: -40px;
-      left: -40px;
-      transition: width .3s var(--ease-out), height .3s var(--ease-out), border-color .3s;
-    }
-
-    body.cursor-hover #cursor-ring {
-      width: 54px;
-      height: 54px;
-      border-color: rgba(201, 169, 110, .8);
-    }
-
-    canvas#cursor-trail {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9997;
-    }
-
-    canvas#particle-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── SCANLINES ── */
-    .scanlines {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 9990;
-      background: repeating-linear-gradient(to bottom,
-          transparent 0px,
-          transparent 3px,
-          rgba(0, 0, 0, .08) 3px,
-          rgba(0, 0, 0, .08) 4px);
-    }
-
-    /* ── GRID OVERLAY ── */
-    .grid-overlay {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      background-image:
-        linear-gradient(var(--line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--line) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
-      opacity: .4;
-    }
-
-    /* ── TOPBAR ── */
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 28px;
-      height: 44px;
-      background: rgba(4, 13, 20, 0.92);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(12px);
-    }
-
-    .topbar-brand {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: .25em;
-      color: var(--text-body);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .topbar-brand::before {
-      content: '';
-      display: inline-block;
-      width: 22px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold));
-    }
-
-    .topbar-right {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .topbar-tag {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: .18em;
-      color: var(--text-dim);
-      text-transform: uppercase;
-    }
-
-    .topbar-status {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: .14em;
-      color: var(--green);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .topbar-status::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 8px var(--green-glow);
-      animation: blink 2.8s ease-in-out infinite;
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1)
-      }
-
-      50% {
-        opacity: .4;
-        transform: scale(.7)
-      }
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-        transform: scale(1)
-      }
-
-      50% {
-        opacity: .4;
-        transform: scale(.7)
-      }
-    }
-
-    .topline-contact {
-      font-family: var(--font-label);
-      font-size: 8.5px;
-      letter-spacing: .28em;
-      color: var(--text-faint);
-      transition: color .3s;
-      cursor: none
-    }
-
-    .topline-contact:hover {
-      color: var(--gold)
-    }
-
-    /* ── SHELL ── */
-    .shell {
-      position: relative;
-      z-index: 10;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 28px 80px;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      padding: 40px 0 10px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: .28em;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      opacity: 0;
-      animation: fadeUp .6s var(--ease-out) .1s forwards;
-    }
-
-    .hero-eyebrow span {
-      color: var(--green);
-    }
-
-    .hero-title {
-      font-family: var(--font-head);
-      font-size: clamp(64px, 10.5vw, 148px);
-      font-weight: 300;
-      color: var(--text-head);
-      letter-spacing: -.03em;
-      line-height: .86;
-      text-transform: none;
-      margin-bottom: 10px;
-      opacity: 0;
-      animation: fadeUp .7s var(--ease-out) .2s forwards;
-    }
-
-    .hero-subtitle {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: .22em;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp .7s var(--ease-out) .3s forwards;
-    }
-
-    .hero-subtitle span {
-      margin-right: 24px;
-    }
-
-    .hero-desc {
-      max-width: 56ch;
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--text-body);
-      line-height: 1.85;
-      margin-bottom: 10px;
-      opacity: 0;
-      animation: fadeUp .7s var(--ease-out) .4s forwards;
-    }
-
-    .hero-framework-note {
-      max-width: 140ch;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: .06em;
-      color: var(--text-dim);
-      line-height: 1.9;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp .7s var(--ease-out) .45s forwards;
-    }
-
-    .hero-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 36px;
-      opacity: 0;
-      animation: fadeUp .7s var(--ease-out) .5s forwards;
-    }
-
-    .chip {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      padding: 5px 12px;
-      border: 1px solid var(--line-mid);
-      color: var(--text-dim);
-      background: rgba(0, 229, 160, .03);
-    }
-
-    /* ── SECTION HEADER ── */
-    .sec-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 28px 0 16px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 0;
-    }
-
-    .sec-label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .sec-icon {
-      width: 32px;
-      height: 32px;
-      border: 1px solid var(--line-mid);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-    }
-
-    .sec-name {
-      font-family: var(--font-head);
-      font-size: 13px;
-      letter-spacing: .2em;
-      color: var(--text-alt);
-    }
-
-    .sec-sub {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .22em;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
-
-    .sec-badge {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .2em;
-      padding: 4px 10px;
-      border: 1px solid;
-      text-transform: uppercase;
-    }
-
-    .sec-badge.active {
-      color: var(--green);
-      border-color: rgba(0, 229, 160, .35);
-    }
-
-    .sec-badge.pending {
-      color: var(--amber);
-      border-color: rgba(255, 184, 77, .35);
-    }
-
-    /* ── CARD GRID ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--line);
-      margin-bottom: 2px;
-    }
-
-    .card-grid-3 {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    @media(max-width:760px) {
-
-      .card-grid,
-      .card-grid-3 {
-        grid-template-columns: 1fr
-      }
-    }
-
-    /* ── AGENT CARD ── */
-    .agent-card {
-      background: var(--bg-card);
-      padding: 28px 26px 26px;
-      position: relative;
-      overflow: hidden;
-      transition: background .2s;
-    }
-
-    .agent-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--card-accent, var(--green)), transparent);
-      opacity: 0;
-      transition: opacity .3s;
-    }
-
-    .agent-card:hover {
-      background: var(--bg-raised);
-    }
-
-    .agent-card:hover::before {
-      opacity: 1;
-    }
-
-    .agent-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .agent-icon {
-      width: 38px;
-      height: 38px;
-      border: 1px solid var(--line-mid);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      background: var(--bg-panel);
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    .agent-icon::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--card-accent, var(--green));
-      opacity: .08;
-    }
-
-    .agent-name {
-      font-family: var(--font-head);
-      font-size: 11px;
-      letter-spacing: .18em;
-      color: var(--text-head);
-      text-transform: uppercase;
-    }
-
-    .agent-type {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .14em;
-      color: var(--text-dim);
-      margin-top: 2px;
-    }
-
-    .agent-desc {
-      font-size: 13px;
-      font-weight: 300;
-      color: var(--text-body);
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-
-    .agent-status {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .2em;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    .agent-status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--text-faint);
-    }
-
-    .agent-status-dot.active {
-      background: var(--green);
-      box-shadow: 0 0 6px var(--green-glow);
-      animation: blink 2s infinite;
-    }
-
-    /* link list style */
-    .link-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .portal-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 9px 12px;
-      border: 1px solid var(--line);
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: .14em;
-      color: var(--text-body);
-      text-transform: uppercase;
-      transition: border-color .2s, color .2s, background .2s;
-      cursor: none;
-    }
-
-    .portal-link:hover {
-      border-color: var(--card-accent, var(--green));
-      color: var(--card-accent, var(--green));
-      background: rgba(0, 229, 160, .04);
-    }
-
-    .portal-link-arrow {
-      font-size: 12px;
-      opacity: .5;
-    }
-
-    .portal-link:hover .portal-link-arrow {
-      opacity: 1;
-    }
-
-    /* coming soon */
-    .coming-badge {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .2em;
-      color: var(--amber);
-      border: 1px solid rgba(255, 184, 77, .3);
-      padding: 4px 10px;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .coming-note {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: .08em;
-      color: var(--text-dim);
-      line-height: 1.9;
-    }
-
-    .coming-note strong {
-      display: block;
-      color: var(--text-body);
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-
-    /* card accent variants */
-    .card-green {
-      --card-accent: var(--green);
-    }
-
-    .card-blue {
-      --card-accent: var(--blue);
-    }
-
-    .card-violet {
-      --card-accent: var(--violet);
-    }
-
-    .card-amber {
-      --card-accent: var(--amber);
-    }
-
-    /* section accent color for icon border */
-    .sec-green .sec-icon {
-      border-color: rgba(0, 229, 160, .4);
-      color: var(--green);
-    }
-
-    .sec-blue .sec-icon {
-      border-color: rgba(58, 184, 255, .4);
-      color: var(--blue);
-    }
-
-    .sec-violet.sec-icon {
-      border-color: rgba(155, 111, 255, .4);
-      color: var(--violet);
-    }
-
-    .sec-amber .sec-icon {
-      border-color: rgba(255, 184, 77, .4);
-      color: var(--amber);
-    }
-
-    /* ── UPDATE LOG ── */
-    .update-section {
-      margin-top: 48px;
-      border: 1px solid var(--line);
-      background: var(--bg-panel);
-    }
-
-    .update-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .update-head-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: var(--green);
-    }
-
-    .update-count {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .18em;
-      color: var(--text-dim);
-    }
-
-    .update-list {
-      max-height: 280px;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: var(--line-mid) transparent;
-    }
-
-    .update-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 12px 20px;
-      border-bottom: 1px solid var(--line);
-      transition: background .15s;
-    }
-
-    .update-item:last-child {
-      border-bottom: none;
-    }
-
-    .update-item:hover {
-      background: var(--bg-raised);
-    }
-
-    .update-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      margin-top: 5px;
-      background: var(--text-faint);
-    }
-
-    .update-dot.stream-living {
-      background: var(--green);
-      box-shadow: 0 0 5px var(--green-glow);
-    }
-
-    .update-dot.stream-model {
-      background: var(--blue);
-      box-shadow: 0 0 5px var(--blue-glow);
-    }
-
-    .update-dot.stream-tcb {
-      background: var(--violet);
-      box-shadow: 0 0 5px rgba(155, 111, 255, .3);
-    }
-
-    .update-dot.stream-biohack {
-      background: var(--amber);
-      box-shadow: 0 0 5px rgba(255, 184, 77, .25);
-    }
-
-    .update-dot.stream-portal {
-      background: var(--text-body);
-    }
-
-    .update-body {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .update-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 3px;
-    }
-
-    .update-date {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .14em;
-      color: var(--text-dim);
-    }
-
-    .update-tag {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: .14em;
-      color: var(--green);
-      text-transform: uppercase;
-    }
-
-    .update-text {
-      font-size: 12px;
-      font-weight: 300;
-      color: var(--text-body);
-      line-height: 1.5;
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px)
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0)
-      }
-    }
-
-    .sec-header {
-      opacity: 0;
-      animation: fadeUp .6s var(--ease-out) .55s forwards;
-    }
-
-    .card-grid {
-      opacity: 0;
-      animation: fadeUp .7s var(--ease-out) .65s forwards;
-    }
-
-    .update-section {
-      opacity: 0;
-      animation: fadeUp .7s var(--ease-out) .8s forwards;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media(max-width:600px) {
-      .shell {
-        padding: 0 16px 60px;
-      }
-
-      .topbar {
-        padding: 0 16px;
-      }
-
-      .hero {
-        padding: 32px 0 28px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <canvas id="cursor-trail" aria-hidden="true"></canvas>
-  <canvas id="particle-canvas" aria-hidden="true"></canvas>
-  <div id="cursor-dot" aria-hidden="true"></div>
-  <div id="cursor-ring" aria-hidden="true"></div>
-  <div class="scanlines" aria-hidden="true"></div>
-  <div class="grid-overlay" aria-hidden="true"></div>
-
-  <main class="shell">
-
-    <!-- HERO -->
-    <header class="hero">
-      <h1 class="hero-title">Science Coherence</h1>
-      <p class="hero-subtitle">
-        <span>Project Portal</span>
-        <span><a class="topline-contact" href="mailto:contact@sciencecoherence.com">Contact</a></span>
-      </p>
-      <div class="hero-chips">
-        <span class="chip">Active project streams in preview — navigate, review, and help us build from here.</span>
-      </div>
-      <p class="hero-framework-note">Science Coherence is a living framework — currently in active development.<br>The
-        version available represents the first coherent layer of a much larger architecture:<br>an early-stage
-        transmission. What you are navigating is the signal before the noise has been fully
-        cleared.</p>
-
-    </header>
-
-    <!-- SECTION: SCIENCE OF LIVING -->
-    <div class="sec-header sec-green">
-      <div class="sec-label">
-        <div class="sec-icon">◎</div>
-        <div>
-          <div class="sec-name">Science of Living</div>
-          <div class="sec-sub">Regenesis · Cosmos · Ethos — Main Site</div>
-        </div>
-      </div>
-      <span class="sec-badge active">Active</span>
-    </div>
-    <div class="card-grid">
-      <article class="agent-card card-green">
-        <div class="agent-header">
-          <div class="agent-icon">⬡</div>
-          <div>
-            <div class="agent-name">The Science of Living</div>
-            <div class="agent-type">sciencecoherence.com</div>
-          </div>
-        </div>
-        <p class="agent-desc">Main public-facing site. Biological optimization, ancestral frameworks, and the unified
-          model of cellular coherence.</p>
-        <div class="agent-status">
-          <span class="agent-status-dot active"></span> Active — In Development
-        </div>
-        <div class="link-list">
-          <a class="portal-link" href="./main-project/index.html"><span class="portal-link-label">Main Page</span><span
-              class="portal-link-arrow">→</span></a>
-          <a class="portal-link" href="./main-project/regenesis.html" data-branch="regenesis"><span
-              class="portal-link-label">Regenesis</span><span class="portal-link-arrow">→</span></a>
-          <a class="portal-link" href="./main-project/cosmos.html" data-branch="cosmos"><span
-              class="portal-link-label">Cosmos</span><span class="portal-link-arrow">→</span></a>
-          <a class="portal-link" href="./main-project/ethos.html" data-branch="ethos"><span
-              class="portal-link-label">Ethos</span><span class="portal-link-arrow">→</span></a>
-          <a class="portal-link" href="./main-project/sciencecoherence-architecture.html"><span
-              class="portal-link-label">Architecture 1A</span><span class="portal-link-arrow">→</span></a>
-          <a class="portal-link" href="./main-project/sciencecoherence-architecture-1B.html"><span
-              class="portal-link-label">Architecture 1B</span><span class="portal-link-arrow">→</span></a>
-        </div>
-      </article>
-
-      <article class="agent-card card-blue">
-        <div class="agent-header">
-          <div class="agent-icon">◈</div>
-          <div>
-            <div class="agent-name">The Science of Being</div>
-            <div class="agent-type">ethos.sciencecoherence.com</div>
-          </div>
-        </div>
-        <p class="agent-desc">Theoretical framework. Consciousness, unified field theory, speculative cosmology, and
-          the living time-crystalline framework.</p>
-        <div class="agent-status">
-          <span class="agent-status-dot active"></span> Active — Living Model
-        </div>
-        <div class="link-list">
-          <a class="portal-link" href="./ethos-project/index.html"><span class="portal-link-label">Model
-              Page</span><span class="portal-link-arrow">→</span></a>
-          <a class="portal-link" href="./ethos-project/ethos.html" data-branch="ethos"><span
-              class="portal-link-label">Ethos Theory</span><span class="portal-link-arrow">→</span></a>
-          <a class="portal-link" href="./ethos-project/cosmos.html" data-branch="cosmos"><span
-              class="portal-link-label">Cosmos Theory</span><span class="portal-link-arrow">→</span></a>
-        </div>
-      </article>
-    </div>
-
-    <!-- SECTION: RESEARCH STREAMS -->
-    <div class="sec-header sec-violet" style="margin-top:2px; animation-delay:.7s;">
-      <div class="sec-label">
-        <div class="sec-icon" style="border-color:rgba(155,111,255,.4);color:var(--violet);">⬟</div>
-        <div>
-          <div class="sec-name">Research Streams</div>
-          <div class="sec-sub">Time-Crystalline Biology · Biohacking</div>
-        </div>
-      </div>
-      <span class="sec-badge active">Active</span>
-    </div>
-    <div class="card-grid" style="animation-delay:.75s;">
-      <article class="agent-card card-violet">
-        <div class="agent-header">
-          <div class="agent-icon" style="border-color:rgba(155,111,255,.35);">⌬</div>
-          <div>
-            <div class="agent-name">Time-Crystalline Biology</div>
-            <div class="agent-type">tcb.sciencecoherence.com</div>
-          </div>
-        </div>
-        <p class="agent-desc">Time-crystalline structure and unified field equations. Biological coherence as temporal
-          phase-locking phenomenon.</p>
-        <div class="agent-status">
-          <span class="agent-status-dot active"
-            style="background:var(--violet);box-shadow:0 0 6px rgba(155,111,255,.4);"></span> Active — Framework Online
-        </div>
-        <div class="link-list">
-          <a class="portal-link" href="./tcb-project/index.html" data-branch="tcb"><span class="portal-link-label">TCB
-              Framework — Main</span><span class="portal-link-arrow">→</span></a>
-        </div>
-      </article>
-
-      <article class="agent-card card-amber">
-        <div class="agent-header">
-          <div class="agent-icon" style="border-color:rgba(255,184,77,.35);">⬡</div>
-          <div>
-            <div class="agent-name">Bio-Hacking</div>
-            <div class="agent-type">biohack.sciencecoherence.com</div>
-          </div>
-        </div>
-        <p class="agent-desc">Layered substrate interventions, nervous system repair protocols, and primal optimization
-          frameworks.</p>
-        <div class="agent-status">
-          <span class="agent-status-dot" style="background:var(--amber);"></span> Initializing Stream
-        </div>
-        <span class="coming-badge">Stream Pending</span>
-        <div class="coming-note">
-          <strong>No pages yet</strong>
-          Protocols, layered interventions, and substrate optimization frameworks are being architected.
-        </div>
-      </article>
-    </div>
-
-    <!-- UPDATE LOG -->
-    <div class="update-section">
-      <div class="update-head">
-        <span class="update-head-label">// Update Status</span>
-        <span class="update-count" id="update-count"></span>
-      </div>
-      <div class="update-list" id="update-list"></div>
-    </div>
-
-  </main>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Science Coherence — Event Horizon (rewrite)</title>
+  <meta name="description" content="Science Coherence and the Cohera platform open together at the March Equinox: 20 March 2027, 20:25 UTC.">
+  <meta name="author" content="Dr. William Conroy">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#050807">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Science Coherence">
+  <meta property="og:title" content="Science Coherence — Event Horizon">
+  <meta property="og:description" content="Science Coherence and Cohera open together at the March Equinox · 20 March 2027 · 20:25 UTC.">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/Newsreader-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/JetBrainsMono-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <script>
     (function () {
-
-      /* ================================================================
-       UPDATE LOG — add new entries to the TOP of this array
-       Fields:
-         date   — "DD Mon YYYY"
-         stream — "living" | "model" | "tcb" | "biohack" | "portal"
-         tag    — e.g. "New Page", "Revision", "Structure"
-         text   — one-line description
-      ================================================================ */
-      var UPDATES = [
-        { date: '08 Mar 2026', stream: 'living', tag: 'Update', text: 'Cosmos added Time-Crystalline Biology cross-link.' },
-        { date: '08 Mar 2026', stream: 'living', tag: 'Update', text: 'Cosmos and Regenesis CSS and SVG Updated.' },
-        { date: '08 Mar 2026', stream: 'living', tag: 'Update', text: 'Index Page Updated.' },
-        { date: '08 Mar 2026', stream: 'living', tag: 'New Stream', text: 'Added Operating with Intention - Philosophy Paper PDF.' },
-        { date: '08 Mar 2026', stream: 'living', tag: 'New Stream', text: 'Added Raw Organ Meat Framework - Protocol Paper PDF.' },
-        { date: '08 Mar 2026', stream: 'living', tag: 'New Stream', text: 'Added Time-Crystalline Biology - Theorical Paper PDF.' },
-        { date: '06 Mar 2026', stream: 'portal', tag: 'New Stream', text: 'Bio-Hacking stream initialised — architecture in progress.' },
-        { date: '06 Mar 2026', stream: 'tcb', tag: 'New Stream', text: 'Time-Crystalline Biology framework main page live.' },
-        { date: '06 Mar 2026', stream: 'portal', tag: 'Rename', text: 'Streams renamed to Science of Living & Science of Being.' },
-        { date: '05 Mar 2026', stream: 'living', tag: 'Structure', text: 'Architecture 1B module published — full cross-link matrix.' },
-        { date: '04 Mar 2026', stream: 'living', tag: 'Structure', text: 'Architecture 1A master document completed.' },
-        { date: '02 Mar 2026', stream: 'model', tag: 'New Page', text: 'Cosmos Theory page added to cohera stream.' },
-        { date: '28 Feb 2026', stream: 'model', tag: 'New Page', text: 'Ethos Theory page drafted and published.' },
-        { date: '20 Feb 2026', stream: 'living', tag: 'New Page', text: 'Ethos branch page live on main project.' },
-        { date: '15 Feb 2026', stream: 'living', tag: 'New Page', text: 'Cosmos branch page published.' },
-        { date: '10 Feb 2026', stream: 'living', tag: 'New Page', text: 'Regenesis branch page launched.' }
-      ];
-
-      var listEl = document.getElementById('update-list');
-      var countEl = document.getElementById('update-count');
-      if (listEl) {
-        if (countEl) countEl.textContent = UPDATES.length + ' entries';
-        listEl.innerHTML = UPDATES.length === 0
-          ? '<p style="padding:16px 20px;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);">No updates logged yet.</p>'
-          : UPDATES.map(function (u) {
-            return '<div class="update-item">'
-              + '<span class="update-dot stream-' + u.stream + '"></span>'
-              + '<div class="update-body">'
-              + '<div class="update-meta">'
-              + '<span class="update-date">' + u.date + '</span>'
-              + '<span class="update-tag">' + u.tag + '</span>'
-              + '</div>'
-              + '<p class="update-text">' + u.text + '</p>'
-              + '</div>'
-              + '</div>';
-          }).join('');
-      }
-
-      /* ── CURSOR ── */
-      var dot = document.getElementById('cursor-dot');
-      var ring = document.getElementById('cursor-ring');
-      var trailEl = document.getElementById('cursor-trail');
-      var mx = -300, my = -300, rx = -300, ry = -300;
-      var pts = [];
-      var tCtx = trailEl.getContext('2d');
-
-      function resizeTrail() { trailEl.width = window.innerWidth; trailEl.height = window.innerHeight; }
-      resizeTrail();
-      window.addEventListener('resize', resizeTrail);
-
-      document.addEventListener('mousemove', function (e) {
-        mx = e.clientX; my = e.clientY;
-        dot.style.left = (mx - 2.5) + 'px';
-        dot.style.top = (my - 2.5) + 'px';
-        pts.push({ x: mx, y: my });
-        if (pts.length > 22) pts.shift();
-      });
-
-      document.querySelectorAll('a, .agent-card').forEach(function (el) {
-        el.addEventListener('mouseenter', function () { document.body.classList.add('cursor-hover'); });
-        el.addEventListener('mouseleave', function () { document.body.classList.remove('cursor-hover'); });
-      });
-
-      function loop() {
-        rx += (mx - rx) * 0.11;
-        ry += (my - ry) * 0.11;
-        ring.style.left = (rx - 14) + 'px';
-        ring.style.top = (ry - 14) + 'px';
-        tCtx.clearRect(0, 0, trailEl.width, trailEl.height);
-        for (var i = 1; i < pts.length; i++) {
-          var t = i / pts.length;
-          tCtx.beginPath();
-          tCtx.moveTo(pts[i - 1].x, pts[i - 1].y);
-          tCtx.lineTo(pts[i].x, pts[i].y);
-          tCtx.strokeStyle = 'rgba(201,169,110,' + (t * 0.25) + ')';
-          tCtx.lineWidth = t * 1.5;
-          tCtx.stroke();
-        }
-        requestAnimationFrame(loop);
-      }
-      loop();
-
-      /* ── PARTICLES ── */
-      var pc = document.getElementById('particle-canvas');
-      var pCtx = pc.getContext('2d');
-      var W, H, PCOUNT = 55, pars = [];
-      var pmx = innerWidth / 2, pmy = innerHeight / 2;
-      var COLS = [[122, 176, 232], [201, 169, 110], [120, 196, 150], [160, 120, 224]];
-
-      document.addEventListener('mousemove', function (e) { pmx = e.clientX; pmy = e.clientY; });
-      function sizePC() { W = pc.width = innerWidth; H = pc.height = innerHeight; }
-      sizePC();
-      window.addEventListener('resize', function () { sizePC(); buildPars(true); });
-
-      function makePar(init) {
-        var c = COLS[Math.floor(Math.random() * COLS.length)];
-        return {
-          x: Math.random() * W, y: init ? Math.random() * H : H + 10,
-          vx: (Math.random() - .5) * .25, vy: -(Math.random() * .35 + .08),
-          life: 0, max: Math.random() * 360 + 160, sz: Math.random() * 1.2 + .25,
-          r: c[0], g: c[1], b: c[2]
-        };
-      }
-      function buildPars(init) { pars = []; for (var i = 0; i < PCOUNT; i++) pars.push(makePar(init)); }
-      buildPars(true);
-
-      function tickP() {
-        pCtx.clearRect(0, 0, W, H);
-        for (var i = 0; i < pars.length; i++) {
-          var p = pars[i];
-          var dx = pmx - p.x, dy = pmy - p.y, d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 240) { p.vx += dx / d * .0025; p.vy += dy / d * .0025; }
-          p.vx *= .98; p.vy *= .98; p.x += p.vx; p.y += p.vy; p.life++;
-          if (p.life > p.max || p.y < -20) { pars[i] = makePar(false); continue; }
-          var al = Math.min(p.life / 60, 1) * Math.max(1 - p.life / p.max, 0) * .45;
-          if (al < .01) continue;
-          var g = pCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.sz * 3);
-          g.addColorStop(0, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + al + ')');
-          g.addColorStop(1, 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',0)');
-          pCtx.beginPath(); pCtx.arc(p.x, p.y, p.sz * 3, 0, Math.PI * 2); pCtx.fillStyle = g; pCtx.fill();
-        }
-        for (var a = 0; a < pars.length; a++) {
-          for (var b = a + 1; b < pars.length; b++) {
-            var ex = pars[a].x - pars[b].x, ey = pars[a].y - pars[b].y, ed = Math.sqrt(ex * ex + ey * ey);
-            if (ed < 80) {
-              pCtx.beginPath(); pCtx.moveTo(pars[a].x, pars[a].y); pCtx.lineTo(pars[b].x, pars[b].y);
-              pCtx.strokeStyle = 'rgba(160,180,240,' + ((1 - ed / 80) * .05) + ')'; pCtx.lineWidth = .5; pCtx.stroke();
-            }
-          }
-        }
-        requestAnimationFrame(tickP);
-      }
-      tickP();
-
-      /* ── 3D TILT ── */
-      document.querySelectorAll('.agent-card').forEach(function (card) {
-        card.addEventListener('pointermove', function (e) {
-          var r = card.getBoundingClientRect();
-          var px = (e.clientX - r.left) / r.width;
-          var py = (e.clientY - r.top) / r.height;
-          var tx = (px - .5) * 2, ty = (py - .5) * 2;
-          card.style.transform = 'perspective(900px) rotateX(' + (-ty * 5) + 'deg) rotateY(' + (tx * 5) + 'deg) translateZ(3px)';
-          card.style.transition = 'transform .08s ease';
-        });
-        card.addEventListener('pointerleave', function () {
-          card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) translateZ(0)';
-          card.style.transition = 'transform .7s cubic-bezier(.16,1,.3,1)';
-        });
-      });
-
+      var t = null;
+      try { t = JSON.parse(localStorage.getItem('sc-theme')); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.dataset.theme = t;
     })();
   </script>
-</body>
+  <style>
+    /* Self-hosted fonts, same files as the site (assets/fonts). */
+    @font-face { font-family: 'Newsreader'; font-style: normal; font-weight: 300 600; font-display: swap;
+      src: url(assets/fonts/Newsreader-normal-latin.woff2) format('woff2'); }
+    @font-face { font-family: 'Newsreader'; font-style: italic; font-weight: 300 600; font-display: swap;
+      src: url(assets/fonts/Newsreader-italic-latin.woff2) format('woff2'); }
+    @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 400 700; font-display: swap;
+      src: url(assets/fonts/DMSans-normal-latin.woff2) format('woff2'); }
+    @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400 600; font-display: swap;
+      src: url(assets/fonts/JetBrainsMono-normal-latin.woff2) format('woff2'); }
 
+    /* Colour tokens: the site's own palette (styles.css), dark and light. */
+    :root {
+      color-scheme: dark;
+      --bg: #0f1512; --bg-rgb: 15,21,18; --bg-2: #131b17; --surface: #162019;
+      --halo: #0a1410; --land: #050807; --edge: #020303;
+      --green: #173d32;
+      --lime: #cfe38f;                 /* accent */
+      --l-rgb: 216,231,180;            /* accent, for translucent lines */
+      --cream: #eef0e6;                /* strongest text */
+      --c-rgb: 238,240,230;
+      --ink: rgba(238,240,230,.94);
+      --ink-soft: rgba(225,232,214,.76);
+      --ink-faint: rgba(207,227,143,.58);
+      --on-core: #f3f5ea; --on-core-soft: rgba(225,235,210,.78); --on-core-accent: #d9e8a6;
+      --vignette: rgba(0,0,0,.55);
+      --grain-blend: overlay; --grain-op: .07;
+      --serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+      --rs: 120px;           /* horizon radius, set live by the script */
+      --cy: 46vh;            /* horizon centre, set live by the script */
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f6f4ec; --bg-rgb: 246,244,236; --bg-2: #efece1; --surface: #fbfaf5;
+      --halo: #fdfcf6; --land: #f6f4ec; --edge: #e4e0cf;
+      --lime: #356b31;
+      --l-rgb: 23,61,50;
+      --cream: #1d2b25;
+      --c-rgb: 29,43,37;
+      --ink: #1d2b25;
+      --ink-soft: #3a4a42;
+      --ink-faint: #5c6a5d;
+      --vignette: rgba(120,112,80,.16);
+      --grain-blend: multiply; --grain-op: .05;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      background: var(--land);
+      background-image: radial-gradient(120% 90% at 50% 44%, var(--halo) 0%, var(--land) 55%, var(--edge) 100%);
+      transition: background-color .8s var(--ease);
+      color: var(--ink);
+      font-family: var(--sans);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+    #sky { z-index: 0; }
+    #disk { z-index: 1; }
+    #ring { z-index: 1; }
+
+    /* Film grain + vignette: the analogue layer that keeps the digital glow from feeling flat. */
+    .grain, .vignette { position: fixed; inset: 0; pointer-events: none; z-index: 2; }
+    .vignette { background: radial-gradient(130% 100% at 50% 46%, transparent 45%, var(--vignette) 100%); }
+    .grain {
+      inset: -50%;
+      opacity: var(--grain-op);
+      mix-blend-mode: var(--grain-blend);
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      animation: grain 1.2s steps(6) infinite;
+    }
+    @keyframes grain {
+      0% { transform: translate(0,0) } 20% { transform: translate(-3%,2%) } 40% { transform: translate(2%,-3%) }
+      60% { transform: translate(-2%,-1%) } 80% { transform: translate(3%,3%) } 100% { transform: translate(0,0) }
+    }
+
+    /* ---------- chrome ---------- */
+    .top, .foot {
+      position: fixed; left: 0; right: 0; z-index: 5;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: max(18px, env(safe-area-inset-top)) clamp(16px, 4vw, 44px) 0;
+      pointer-events: none;
+    }
+    .top > *, .foot > * { pointer-events: auto; }
+    .foot { top: auto; bottom: 0; padding: 0 clamp(16px, 4vw, 44px) max(18px, env(safe-area-inset-bottom)); }
+    .top { top: 0; justify-content: flex-end; }
+
+    .brand { display: flex; align-items: center; gap: 11px; color: var(--ink); text-decoration: none; }
+    .brand svg { width: 28px; height: 28px; flex: none; }
+    .brand span { font-family: var(--sans); font-size: 15px; letter-spacing: -.01em; color: var(--ink-soft); }
+    .brand b { font-weight: 600; color: var(--ink); }
+
+    .ctl {
+      appearance: none; background: none; border: 0; cursor: pointer;
+      font: 500 10.5px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase;
+      color: var(--ink-faint); padding: 10px 0; display: inline-flex; align-items: center; gap: 9px;
+      transition: color .4s var(--ease);
+    }
+    .ctl:hover, .ctl:focus-visible { color: var(--lime); }
+    .ctl:focus-visible { outline: 1px solid var(--ink-faint); outline-offset: 4px; }
+    .bars { display: inline-flex; gap: 2px; align-items: flex-end; height: 10px; }
+    .bars i { width: 2px; height: 3px; background: currentColor; border-radius: 1px; transition: height .3s; }
+    .sound-on .bars i { animation: bar 1.4s var(--ease) infinite alternate; }
+    .sound-on .bars i:nth-child(2) { animation-delay: -.5s; } .sound-on .bars i:nth-child(3) { animation-delay: -.9s; }
+    @keyframes bar { from { height: 3px } to { height: 10px } }
+
+
+    /* ---------- the countdown, held inside the horizon ---------- */
+    .core {
+      position: fixed; z-index: 5; left: 50%; top: var(--cy);
+      width: calc(var(--rs) * 1.7); transform: translate(-50%, -50%);
+      display: grid; justify-items: center; text-align: center;
+      pointer-events: none;
+      opacity: 0; animation: arrive 2.4s var(--ease) .6s forwards;
+    }
+    @keyframes arrive { from { opacity: 0; filter: blur(8px); } to { opacity: 1; filter: blur(0); } }
+    .core .lbl {
+      font: 500 max(9px, calc(var(--rs) * .068))/1 var(--mono);
+      letter-spacing: .32em; text-transform: uppercase; color: var(--on-core-soft);
+      padding-left: .32em;
+    }
+    .days {
+      font-family: var(--serif); font-weight: 300; font-variant-numeric: lining-nums tabular-nums;
+      font-size: calc(var(--rs) * .74); line-height: .92; letter-spacing: -.035em;
+      color: var(--on-core);
+      margin: calc(var(--rs) * .05) 0 calc(var(--rs) * .06);
+      text-shadow: 0 0 calc(var(--rs) * .25) rgba(216,231,180,.18);
+    }
+    .clock {
+      display: flex; gap: .5em; align-items: baseline;
+      font: 400 max(11px, calc(var(--rs) * .105))/1 var(--mono);
+      font-variant-numeric: tabular-nums; letter-spacing: .06em; color: var(--on-core-soft);
+    }
+    .clock .sep { color: var(--on-core-soft); opacity: .6; }
+    .clock .s { color: var(--on-core-accent); display: inline-block; }
+    .clock .s.tick { animation: tick .9s var(--ease); }
+    @keyframes tick { from { opacity: .25; filter: blur(3px); transform: translateY(-.18em); } to { opacity: 1; filter: blur(0); transform: none; } }
+
+    /* ---------- the line above the horizon ---------- */
+    .kicker {
+      position: fixed; z-index: 4; left: 50%; transform: translate(-50%, -100%);
+      top: max(96px, calc(var(--cy) - var(--rs) * 2.12));
+      width: calc(100vw - 32px); text-align: center; display: grid; gap: 12px; justify-items: center;
+      pointer-events: none; opacity: 0; animation: arrive 2.4s var(--ease) .2s forwards;
+    }
+    .kicker .reach {
+      margin: 0; font: 500 clamp(10.5px, 1.05vw, 12.5px)/1.5 var(--mono); letter-spacing: .34em; text-transform: uppercase;
+      color: var(--ink-soft); padding-left: .34em;
+      text-shadow: 0 0 18px var(--bg);
+    }
+    .kicker .reach i { font-style: normal; color: var(--lime); }
+
+    /* ---------- the caption beneath the horizon ---------- */
+    .caption {
+      position: fixed; z-index: 4; left: 50%; transform: translateX(-50%);
+      top: calc(var(--cy) + var(--rs) * 1.95);
+      width: min(560px, calc(100vw - 32px));
+      text-align: center; display: grid; gap: 13px; justify-items: center;
+      opacity: 0; animation: arrive 2.4s var(--ease) 1.4s forwards;
+    }
+    .eyebrow { font: 500 10.5px/1 var(--mono); letter-spacing: .3em; text-transform: uppercase; color: var(--ink-faint); padding-left: .3em; }
+    .line {
+      margin: 0; font-family: var(--serif); font-weight: 300;
+      font-size: clamp(26px, 3.6vw, 42px); line-height: 1.1; letter-spacing: -.015em; color: var(--ink);
+    }
+    .line em { font-style: italic; color: var(--lime); }
+
+    /* The three-line passage: one line at a time, breathing in and out. */
+    .verse {
+      margin: 0 0 4px; position: relative; width: 100%; height: 1.5em;
+      font-family: var(--serif); font-style: italic; font-weight: 300;
+      font-size: clamp(15px, 1.5vw, 18px); line-height: 1.5; color: var(--ink-soft);
+    }
+    .verse span {
+      position: absolute; inset: 0; opacity: 0; transform: translateY(6px);
+      transition: opacity 1.8s var(--ease), transform 1.8s var(--ease);
+    }
+    .verse span.on { opacity: 1; transform: none; }
+    .when { margin: 0; font: 400 11.5px/1.7 var(--mono); letter-spacing: .08em; color: var(--ink-soft); }
+    .when span { color: var(--ink-faint); display: block; }
+    .cal {
+      appearance: none; cursor: pointer; margin-top: 4px;
+      background: rgba(var(--l-rgb), .04); color: var(--lime);
+      border: 1px solid rgba(var(--l-rgb), .22); border-radius: 999px;
+      font: 500 10.5px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase;
+      padding: 11px 18px 11px 20px; transition: background .5s var(--ease), border-color .5s var(--ease);
+    }
+    .cal:hover, .cal:focus-visible, .cal[aria-expanded="true"] { background: rgba(var(--l-rgb), .1); border-color: rgba(var(--l-rgb), .5); outline: none; }
+    .cal-wrap { position: relative; }
+    .cal-menu {
+      position: absolute; left: 50%; bottom: calc(100% + 10px); transform: translate(-50%, 6px);
+      min-width: 250px; margin: 0; padding: 6px; list-style: none; text-align: left;
+      background: rgba(var(--bg-rgb), .95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(var(--l-rgb), .18); border-radius: 14px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.6);
+      opacity: 0; visibility: hidden; transition: opacity .35s var(--ease), transform .35s var(--ease), visibility 0s .35s;
+    }
+    .cal-menu.open { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition: opacity .35s var(--ease), transform .35s var(--ease); }
+    .cal-menu a {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 14px;
+      padding: 11px 14px; border-radius: 9px; text-decoration: none;
+      font: 400 14px/1.2 var(--sans); color: var(--ink);
+    }
+    .cal-menu a small { font: 400 10px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); }
+    .cal-menu a:hover, .cal-menu a:focus-visible { background: rgba(var(--l-rgb), .08); outline: none; color: var(--cream); }
+    .cal-menu li + li.sep { border-top: 1px solid rgba(var(--l-rgb), .1); margin-top: 4px; padding-top: 4px; }
+
+    .enter[hidden] { display: none; }
+
+    /* Opening state: the horizon is crossed. */
+    body.crossed .core .lbl, body.crossed .clock, body.crossed .days { opacity: 0; transition: opacity 2s; }
+    body.crossed .caption, body.crossed .kicker { opacity: 0; transition: opacity 2.5s; animation: none; pointer-events: none; }
+
+    .open-msg {
+      position: fixed; inset: 0; z-index: 6; display: grid; place-content: center; justify-items: center; gap: 22px;
+      text-align: center; padding: 24px; pointer-events: none; opacity: 0; transition: opacity 3s var(--ease) 2.5s;
+    }
+    body.crossed .open-msg { opacity: 1; pointer-events: auto; }
+    .open-msg p { margin: 0; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(30px, 5vw, 64px); color: var(--cream); letter-spacing: -.015em; }
+    .open-msg .eyebrow { color: var(--ink-soft); }
+    .open-msg a { color: var(--lime); font: 500 11px/1 var(--mono); letter-spacing: .24em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid rgba(var(--l-rgb),.4); padding-bottom: 6px; }
+
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* Short landscape phones: tuck the caption. */
+    @media (max-height: 560px) {
+      .caption { gap: 6px; top: calc(var(--cy) + var(--rs) * 1.55); }
+      .caption .line { font-size: 19px; }
+      .caption .when span, .caption .verse, .caption .cal-wrap { display: none; }
+      .kicker { top: 64px; transform: translate(-50%, 0); }
+    }
+    @media (max-width: 520px) {
+      .kicker .reach { font-size: 10px; letter-spacing: .2em; padding-left: .2em; }
+      .brand span { font-size: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .grain { animation: none; }
+      .core, .caption, .kicker { animation: none; opacity: 1; }
+      .verse { height: auto; } .verse span { position: static; display: block; opacity: 1; transform: none; }
+      .clock .s.tick { animation: none; }
+    }
+
+    /* =================================================================
+       "Always becoming." — the introduction behind the horizon
+       ================================================================= */
+    .portal {
+      position: fixed; z-index: 4; left: 50%; top: var(--cy);
+      width: calc(var(--rsl, 100px) * 2); height: calc(var(--rsl, 100px) * 2);
+      transform: translate(-50%, -50%); border-radius: 50%;
+      background: transparent; border: 0; padding: 0; cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .portal:focus-visible { outline: 1px solid rgba(var(--l-rgb),.5); outline-offset: 10px; }
+    .hint {
+      margin-top: calc(var(--rs) * .07);
+      font-family: var(--serif); font-style: italic; font-weight: 300;
+      font-size: max(10px, calc(var(--rs) * .088)); letter-spacing: .01em;
+      color: var(--on-core-soft); opacity: 0; transition: opacity 1.2s var(--ease), color .6s;
+    }
+    body.portal-hover .hint { opacity: 1; color: var(--on-core-accent); }
+    body.crossed .hint, body.crossed .portal { display: none; }
+    body.no-intro .hint, body.no-intro .portal { display: none !important; }
+
+    .intro {
+      position: fixed; inset: 0; z-index: 20;
+      background:
+        radial-gradient(90% 60% at 50% 0%, rgba(var(--l-rgb), .09), transparent 70%),
+        radial-gradient(120% 90% at 50% 100%, var(--bg-2), var(--bg) 70%);
+      background-color: var(--bg);
+      color: var(--ink);
+      clip-path: circle(0 at 50% var(--cy));
+      visibility: hidden;
+      transition: clip-path 1.5s cubic-bezier(.7, 0, .2, 1), visibility 0s 1.5s;
+    }
+    body.intro-open .intro {
+      clip-path: circle(150% at 50% var(--cy)); visibility: visible;
+      transition: clip-path 1.6s cubic-bezier(.7, 0, .2, 1), visibility 0s;
+    }
+    body.intro-open .kicker, body.intro-open .core, body.intro-open .caption, body.intro-open .top { visibility: hidden; }
+    .intro-scroll {
+      position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden;
+      overscroll-behavior: contain; scroll-behavior: smooth;
+      scrollbar-width: thin; scrollbar-color: rgba(var(--l-rgb),.2) transparent;
+    }
+    .intro .grain { position: fixed; z-index: 0; }
+
+    .intro-bar {
+      position: fixed; z-index: 3; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: max(16px, env(safe-area-inset-top)) clamp(16px, 4vw, 44px) 14px;
+      background: linear-gradient(var(--bg) 30%, rgba(var(--bg-rgb),0));
+      pointer-events: none;
+    }
+    .intro-bar > * { pointer-events: auto; }
+    .intro-bar .mark { font: 500 10.5px/1 var(--mono); letter-spacing: .3em; text-transform: uppercase; color: var(--ink-faint); }
+    .intro-close {
+      appearance: none; background: none; cursor: pointer; color: var(--ink-soft);
+      border: 1px solid rgba(var(--l-rgb),.2); border-radius: 999px;
+      font: 500 10.5px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase;
+      padding: 10px 16px 10px 14px; display: inline-flex; gap: 10px; align-items: center;
+      transition: color .4s, border-color .4s, background .4s;
+    }
+    .intro-close:hover, .intro-close:focus-visible { color: var(--lime); border-color: rgba(var(--l-rgb),.5); background: rgba(var(--l-rgb),.05); outline: none; }
+    .intro-close svg { width: 12px; height: 12px; }
+    .intro-progress { position: fixed; z-index: 4; top: 0; left: 0; height: 1px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, rgba(var(--l-rgb),.1), var(--lime)); }
+
+    /* chapter rail */
+    .rail {
+      position: fixed; z-index: 3; left: clamp(16px, 3vw, 40px); top: 50%; transform: translateY(-50%);
+      list-style: none; margin: 0; padding: 0; display: grid; gap: 14px;
+    }
+    .rail a { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink-faint); font: 500 10px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; transition: color .5s; }
+    .rail a::before { content: ''; width: 14px; height: 1px; background: currentColor; transition: width .6s var(--ease); }
+    .rail a span { opacity: 0; transform: translateX(-4px); transition: opacity .5s, transform .5s var(--ease); white-space: nowrap; }
+    .rail a.on { color: var(--lime); }
+    .rail a.on::before { width: 30px; }
+    .rail:hover a span { opacity: 1; transform: none; }
+    .rail:hover { background: linear-gradient(90deg, rgba(var(--bg-rgb),.95) 60%, rgba(var(--bg-rgb),0)); }
+    .rail { padding: 14px 40px 14px 0; }
+    @media (max-width: 1100px) { .rail { display: none; } }
+
+    /* chapters */
+    .ch {
+      position: relative; z-index: 1; overflow: hidden;
+      min-height: 100vh; padding: clamp(110px, 16vh, 170px) clamp(20px, 6vw, 40px) clamp(80px, 12vh, 140px);
+      display: grid; align-content: center;
+    }
+    .ch + .ch::before {
+      content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: clamp(60px, 10vh, 110px);
+      background: linear-gradient(rgba(var(--l-rgb),0), rgba(var(--l-rgb),.28), rgba(var(--l-rgb),0));
+    }
+    .col { width: min(680px, 100%); margin: 0 auto; }
+    .col.wide { width: min(1040px, 100%); }
+    .watermark {
+      position: absolute; z-index: -1; right: -2vw; top: 50%; transform: translateY(-50%);
+      font-family: var(--serif); font-weight: 300; font-size: clamp(180px, 34vw, 520px); line-height: .8;
+      color: rgba(var(--l-rgb), .045); pointer-events: none; user-select: none; white-space: nowrap;
+    }
+    .ch .num { display: flex; align-items: center; gap: 14px; margin: 0 0 26px; font: 500 10.5px/1 var(--mono); letter-spacing: .3em; text-transform: uppercase; color: var(--ink-faint); }
+    .ch .num b { font-weight: 500; color: var(--lime); letter-spacing: .1em; }
+    .ch .num::after { content: ''; flex: 0 0 48px; height: 1px; background: rgba(var(--l-rgb),.25); }
+    .ch h2 {
+      margin: 0 0 30px; font-family: var(--serif); font-weight: 300;
+      font-size: clamp(38px, 5.6vw, 72px); line-height: 1.02; letter-spacing: -.025em; color: var(--cream);
+      text-wrap: balance;
+    }
+    .ch h2 em { font-style: italic; color: var(--lime); }
+    .ch p { margin: 0 0 1.15em; font-family: var(--serif); font-size: clamp(18px, 1.5vw, 20.5px); line-height: 1.68; color: rgba(var(--c-rgb),.8); text-wrap: pretty; }
+    .ch p.lead { font-size: clamp(21px, 2vw, 26px); line-height: 1.5; color: var(--ink); }
+    .pull {
+      margin: 42px 0; padding: 4px 0 4px 26px; border-left: 1px solid rgba(var(--l-rgb),.35);
+      font-family: var(--serif); font-style: italic; font-weight: 300;
+      font-size: clamp(22px, 2.3vw, 30px); line-height: 1.35; color: var(--cream);
+    }
+    .tag {
+      display: inline-flex; align-items: center; gap: 8px; vertical-align: middle;
+      font: 500 9.5px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase;
+      color: var(--ink-soft); border: 1px solid rgba(var(--l-rgb),.2); border-radius: 999px; padding: 6px 10px 6px 9px;
+    }
+    .tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+    .tag.derived { color: var(--lime); } .tag.postulate { color: #c9a766; } .tag.unresolved { color: var(--ink-soft); }
+    :root[data-theme="light"] .tag.postulate { color: #96590f; }
+    .tag.unresolved::before { background: none; border: 1px dashed currentColor; }
+
+    /* reveal */
+    .rv { opacity: 0; transform: translateY(22px); transition: opacity 1.3s var(--ease), transform 1.3s var(--ease); }
+    .rv.in { opacity: 1; transform: none; }
+    .rv.d1 { transition-delay: .12s; } .rv.d2 { transition-delay: .24s; } .rv.d3 { transition-delay: .36s; } .rv.d4 { transition-delay: .48s; }
+
+    /* 0 · opening */
+    .ch-open { text-align: center; }
+    .ch-open .col { display: grid; justify-items: center; }
+    .ch-open h2 { font-size: clamp(48px, 8.4vw, 118px); margin-bottom: 34px; }
+    .ch-open .lead { max-width: 560px; }
+    .seed { width: 9px; height: 9px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 22px 6px rgba(var(--l-rgb),.35), 0 0 80px 20px rgba(var(--l-rgb),.1); margin-bottom: 46px; animation: seed 5s var(--ease) infinite; }
+    @keyframes seed { 0%, 100% { transform: scale(1); opacity: .9 } 50% { transform: scale(1.5); opacity: 1 } }
+    .descend { margin-top: 44px; font: 500 10px/1 var(--mono); letter-spacing: .3em; text-transform: uppercase; color: var(--ink-faint); display: grid; justify-items: center; gap: 14px; }
+    .descend i { width: 1px; height: 46px; background: linear-gradient(var(--lime), transparent); animation: drop 2.6s var(--ease) infinite; transform-origin: top; }
+    @keyframes drop { 0% { transform: scaleY(0); opacity: 1 } 70% { transform: scaleY(1); opacity: 1 } 100% { transform: scaleY(1); opacity: 0 } }
+
+    /* II · recursion diagram */
+    .loop { width: 100%; margin: 12px 0 40px; }
+    .loop svg { width: 100%; height: auto; display: block; overflow: visible; }
+    .loop .edge { fill: none; stroke: rgba(var(--l-rgb),.42); stroke-width: 1.1; }
+    .loop .edge.closure { stroke: rgba(var(--l-rgb),.3); }
+    .loop .flow { fill: none; stroke: var(--lime); stroke-width: 1.4; stroke-dasharray: 2 14; stroke-linecap: round; animation: flow 3.2s linear infinite; opacity: .85; }
+    .loop .flow.closure { opacity: .75; }
+    @keyframes flow { to { stroke-dashoffset: -64; } }
+    .loop .node circle { fill: var(--surface); stroke: rgba(var(--l-rgb),.55); stroke-width: 1; }
+    .loop .node .halo { fill: rgba(var(--l-rgb),.06); stroke: none; }
+    .loop .node text.g { font-family: var(--serif); font-size: 30px; fill: var(--cream); text-anchor: middle; dominant-baseline: central; }
+    .loop .node text.n { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; fill: rgba(var(--l-rgb),.7); text-anchor: middle; text-transform: uppercase; }
+    .loop text.cl { font-family: var(--serif); font-style: italic; font-size: 14px; fill: rgba(var(--l-rgb),.62); text-anchor: middle; }
+    .loop .pulse { fill: var(--cream); }
+    .nodes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(var(--l-rgb),.12); border: 1px solid rgba(var(--l-rgb),.12); border-radius: 14px; overflow: hidden; }
+    .nodes > div { background: var(--surface); padding: 24px 22px 26px; }
+    .nodes .g { font-family: var(--serif); font-size: 36px; color: var(--cream); line-height: 1; }
+    .nodes .n { margin: 14px 0 10px; font: 500 10.5px/1 var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--lime); }
+    .nodes p { margin: 0; font-size: 15.5px !important; line-height: 1.55 !important; color: rgba(var(--c-rgb),.7) !important; }
+    .arrows { list-style: none; margin: 34px 0 0; padding: 0; max-width: 820px; border-top: 1px solid rgba(var(--l-rgb), .16); }
+    .arrows li { display: grid; grid-template-columns: 110px 1fr; gap: 18px; align-items: baseline; padding: 15px 10px; border-bottom: 1px solid rgba(var(--l-rgb), .1); transition: background .4s var(--ease); cursor: default; }
+    .arrows li b { font-family: var(--serif); font-weight: 400; font-size: 22px; color: var(--cream); white-space: nowrap; }
+    .arrows li span { font-family: var(--serif); font-size: 18px; line-height: 1.5; color: rgba(var(--c-rgb), .78); }
+    .arrows li[data-e^="c"] b { color: var(--lime); }
+    .arrows li.on { background: rgba(var(--l-rgb), .06); }
+    @media (max-width: 520px) { .arrows li { grid-template-columns: 1fr; gap: 4px; } }
+    .closures { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 34px; }
+    .closures div { border-top: 1px solid rgba(var(--l-rgb),.18); padding-top: 18px; }
+    .closures b { display: block; font-family: var(--serif); font-weight: 400; font-size: 24px; color: var(--cream); margin-bottom: 8px; }
+    .closures p { font-size: 17px !important; margin: 0 !important; }
+    @media (max-width: 760px) { .nodes { grid-template-columns: 1fr 1fr; } .closures { grid-template-columns: 1fr; } .loop text.cl { font-size: 20px; } }
+    @media (max-width: 520px) {
+      .nodes { grid-template-columns: 1fr; }
+      .intro-bar .mark { display: none; }
+      .intro-bar { justify-content: flex-end; }
+      .intro-close .long { display: none; }
+      .loop text.cl { display: none; }
+    }
+
+    /* III · order of causation */
+    .order { list-style: none; margin: 10px 0 36px; padding: 0; counter-reset: o; }
+    .order li {
+      counter-increment: o; position: relative; display: grid; grid-template-columns: 56px 1fr; align-items: baseline;
+      padding: 16px 0; border-bottom: 1px solid rgba(var(--l-rgb),.09);
+      font-family: var(--serif); font-size: clamp(22px, 2.4vw, 30px); font-weight: 300; color: var(--ink);
+    }
+    .order li::before { content: counter(o, decimal-leading-zero); font: 500 11px/1 var(--mono); letter-spacing: .14em; color: var(--ink-faint); }
+    .order li small { grid-column: 2; font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--ink-faint); margin-top: 4px; }
+    .order li.renew { color: var(--lime); font-style: italic; border-bottom: 0; }
+    .order li.renew::before { content: '↺'; font-family: var(--serif); font-size: 20px; color: var(--lime); }
+    .order li .bar { position: absolute; left: 0; bottom: -1px; height: 1px; width: 0; background: var(--lime); transition: width 1.6s var(--ease); }
+    .order.in li .bar { width: 100%; animation: as-one 4.8s ease-in-out 1.6s infinite; }
+    @keyframes as-one { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+    .ch p.together { font-style: italic; color: var(--lime); font-size: clamp(19px, 1.7vw, 22px); margin-top: -12px; }
+
+    /* IV · survival */
+    .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(22px, 3vw, 40px); margin: 36px 0 8px; }
+    .three h3 { margin: 12px 0 12px; font-family: var(--serif); font-weight: 400; font-size: 24px; line-height: 1.2; color: var(--cream); }
+    .three .i { font: 500 10.5px/1 var(--mono); letter-spacing: .2em; color: var(--lime); }
+    .three p { font-size: 16.5px !important; line-height: 1.6 !important; }
+    @media (max-width: 760px) { .three { grid-template-columns: 1fr; } }
+
+    /* V · lexicon */
+    .lex { display: grid; grid-template-columns: repeat(16, 1fr); gap: 6px; margin: 24px 0 22px; }
+    .lex span {
+      aspect-ratio: 1; display: grid; place-items: center; border-radius: 6px;
+      font-family: var(--serif); font-size: clamp(13px, 1.6vw, 21px); color: rgba(var(--c-rgb),.62);
+      background: rgba(var(--l-rgb),.035); border: 1px solid rgba(var(--l-rgb),.07);
+      opacity: 0; transform: scale(.85); transition: opacity .8s var(--ease), transform .8s var(--ease), background .4s, color .4s;
+    }
+    .lex.in span { opacity: 1; transform: none; }
+    .lex span.key { color: var(--bg); background: var(--lime); border-color: var(--lime); }
+    .lex span.open { background: transparent; border: 1px dashed rgba(var(--l-rgb),.35); color: rgba(var(--l-rgb),.35); font-size: 12px; }
+    .lex span:hover { background: rgba(var(--l-rgb),.14); color: var(--cream); }
+    .lex span.key:hover { background: var(--cream); color: var(--bg); }
+    .lex-legend { display: flex; flex-wrap: wrap; gap: 10px 22px; font: 400 11px/1.4 var(--mono); letter-spacing: .06em; color: var(--ink-faint); margin-bottom: 30px; }
+    .lex-legend i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; vertical-align: -1px; margin-right: 8px; background: rgba(var(--l-rgb),.1); border: 1px solid rgba(var(--l-rgb),.15); }
+    .lex-legend i.k { background: var(--lime); } .lex-legend i.o { background: none; border-style: dashed; border-color: rgba(var(--l-rgb),.45); }
+    @media (max-width: 620px) { .lex { grid-template-columns: repeat(8, 1fr); } }
+
+    /* VI · time */
+    .eq { margin: 30px 0 34px; padding: 26px 0; border-top: 1px solid rgba(var(--l-rgb),.14); border-bottom: 1px solid rgba(var(--l-rgb),.14); text-align: center; font-family: var(--serif); font-size: clamp(28px, 3.6vw, 44px); color: var(--cream); letter-spacing: .02em; }
+    .eq sub { font-size: .45em; letter-spacing: .04em; }
+    .eq .frac { display: inline-grid; vertical-align: middle; text-align: center; line-height: 1.05; margin: 0 .15em; }
+    .eq .frac span:first-child { border-bottom: 1px solid rgba(var(--c-rgb),.6); padding: 0 .12em .05em; }
+    .ladder { columns: 2; column-gap: 40px; margin: 26px 0 34px; padding: 0; list-style: none; }
+    .ladder li { display: flex; align-items: baseline; gap: 14px; padding: 7px 0; break-inside: avoid; font: 500 12px/1.2 var(--mono); letter-spacing: .22em; color: var(--ink-soft); }
+    .ladder li b { width: 22px; font-weight: 400; color: var(--ink-faint); letter-spacing: .05em; }
+    .ladder li:first-child { color: var(--lime); }
+    .days6 { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 18px 0 30px; }
+    .days6 span { text-align: center; padding: 16px 4px; border: 1px solid rgba(var(--l-rgb),.14); border-radius: 10px; font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--cream); }
+    .days6 span small { display: block; margin-top: 6px; font: 500 9px/1 var(--mono); font-style: normal; letter-spacing: .2em; color: var(--ink-faint); }
+    @media (max-width: 620px) { .days6 { grid-template-columns: repeat(3, 1fr); } .ladder { columns: 1; } }
+    .facts { display: grid; gap: 14px; margin-top: 8px; }
+    .facts div { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: baseline; }
+    .facts p { margin: 0 !important; font-size: 17px !important; }
+
+    /* VII · scales */
+    .index { list-style: none; margin: 30px 0 0; padding: 0; border-top: 1px solid rgba(var(--l-rgb),.12); }
+    .index li { display: grid; grid-template-columns: 70px 1fr; gap: 10px 20px; padding: 24px 0; border-bottom: 1px solid rgba(var(--l-rgb),.12); }
+    .index .k { font: 500 11px/1.8 var(--mono); letter-spacing: .16em; color: var(--lime); }
+    .index h3 { margin: 0 0 8px; font-family: var(--serif); font-weight: 400; font-size: clamp(22px, 2.2vw, 28px); color: var(--cream); }
+    .index p { margin: 0 !important; font-size: 16.5px !important; line-height: 1.6 !important; color: rgba(var(--c-rgb),.66) !important; }
+    .index .t { display: block; margin-top: 10px; font: 400 10.5px/1.5 var(--mono); letter-spacing: .1em; color: var(--ink-faint); }
+
+    /* close */
+    .ch-close { text-align: center; }
+    .ch-close .col { display: grid; justify-items: center; }
+    .ch-close .date { font: 500 12px/1.8 var(--mono); letter-spacing: .24em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 34px; }
+    .return {
+      appearance: none; cursor: pointer; background: rgba(var(--l-rgb),.05); color: var(--lime);
+      border: 1px solid rgba(var(--l-rgb),.3); border-radius: 999px; padding: 15px 26px;
+      font: 500 11px/1 var(--mono); letter-spacing: .24em; text-transform: uppercase;
+      transition: background .5s var(--ease), border-color .5s var(--ease);
+    }
+    .return:hover, .return:focus-visible { background: rgba(var(--l-rgb),.12); border-color: rgba(var(--l-rgb),.6); outline: none; }
+    .ch .sign { margin-top: 56px; font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--ink-faint); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .intro, body.intro-open .intro { transition: none; }
+      .rv, .lex span { opacity: 1; transform: none; transition: none; }
+      .loop .flow, .seed, .descend i, .loop .node .halo, .loop .node circle { animation: none; }
+    }
+
+    /* theme switch */
+    .top-ctl { display: flex; align-items: center; gap: 18px; }
+    .theme-btn { padding: 8px; margin: -8px 0; }
+    .theme-btn svg { width: 16px; height: 16px; }
+    :root[data-theme="dark"] .theme-btn .i-moon, :root[data-theme="light"] .theme-btn .i-sun { display: none; }
+    body.theme-shift *, body.theme-shift *::before { transition: background-color .8s var(--ease), color .8s var(--ease), border-color .8s var(--ease) !important; }
+
+    /* immersion inside the introduction */
+    .intro-scroll { scroll-snap-type: y proximity; }
+    .ch { scroll-snap-align: start; }
+    #motes { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .watermark { transition: transform .2s linear; will-change: transform; }
+    .loop .edge, .loop .flow { transition: opacity .5s var(--ease), stroke .5s; }
+    .loop.focus .edge, .loop.focus .flow { opacity: .15; }
+    .loop.focus .edge.hl { opacity: 1; stroke: var(--lime); }
+    .loop.focus .flow.hl { opacity: 1; }
+    .loop .node { cursor: pointer; }
+    .loop .node circle:not(.halo) { transition: stroke .4s, stroke-width .4s; }
+    .loop .node.on circle:not(.halo) { stroke: var(--lime); stroke-width: 2; }
+    .loop .node .halo { transition: fill .6s; }
+    .loop .node.on .halo { fill: rgba(var(--l-rgb), .18); }
+    .loop .node .halo { animation: together 4.8s ease-in-out infinite; }
+    .loop .node circle:not(.halo) { animation: together-ring 4.8s ease-in-out infinite; }
+    @keyframes together { 0%, 100% { fill: rgba(var(--l-rgb), .04); } 50% { fill: rgba(var(--l-rgb), .17); } }
+    @keyframes together-ring { 0%, 100% { stroke: rgba(var(--l-rgb), .45); } 50% { stroke: rgba(var(--l-rgb), .95); } }
+    .loop.focus .node .halo, .loop.focus .node circle:not(.halo) { animation: none; }
+    .nodes > div { transition: background .5s var(--ease); }
+    .nodes > div.on { background: var(--surface); box-shadow: inset 0 0 0 1px var(--lime), inset 0 0 40px rgba(var(--l-rgb), .08); }
+    .loop-caption { min-height: 1.6em; color: var(--lime) !important; margin: -18px 0 26px; font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink-soft); text-align: center; transition: opacity .4s; }
+    .lex span { cursor: default; }
+    .lex span.sel { outline: 1px solid var(--lime); outline-offset: 2px; }
+    .lex-read { min-height: 3.2em; margin: -6px 0 22px; padding: 14px 18px; border-left: 1px solid rgba(var(--l-rgb), .35); font-family: var(--serif); font-size: 17px; line-height: 1.5; color: var(--ink-soft); }
+    .lex-read b { font-weight: 400; font-size: 26px; color: var(--cream); margin-right: 12px; vertical-align: -3px; }
+    .keys { position: fixed; z-index: 3; left: clamp(16px, 3vw, 40px); bottom: 22px; font: 400 10px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); opacity: .8; }
+    .keys kbd { font: inherit; border: 1px solid rgba(var(--l-rgb), .3); border-radius: 4px; padding: 3px 6px; margin: 0 2px; }
+    @media (max-width: 1100px), (pointer: coarse) { .keys { display: none; } }
+
+    /* door: the clock -> the Temporal Matrix (revealed only on hover) */
+    .door-matrix { position: relative; pointer-events: auto; text-decoration: none; cursor: pointer; transition: color .5s var(--ease), text-shadow .5s var(--ease); }
+    .door-matrix::after {
+      content: 'Temporal Matrix'; position: absolute; left: 50%; top: calc(100% + .7em); transform: translate(-50%, -3px);
+      font-family: var(--serif); font-style: italic; font-weight: 300; font-size: max(10px, calc(var(--rs) * .088)); letter-spacing: .01em;
+      color: var(--on-core-accent); white-space: nowrap; opacity: 0; transition: opacity .8s var(--ease), transform .8s var(--ease); pointer-events: none;
+    }
+    .door-matrix:hover, .door-matrix:focus-visible { color: var(--on-core); text-shadow: 0 0 18px rgba(216,231,180,.35); outline: none; }
+    .door-matrix:hover::after, .door-matrix:focus-visible::after { opacity: 1; transform: translate(-50%, 0); }
+    body.no-matrix .door-matrix, body.crossed .door-matrix { pointer-events: none; cursor: default; }
+    body.no-matrix .door-matrix::after { display: none; }
+  </style>
+  <link rel="stylesheet" href="assets/house.css">
+</head>
+<body>
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <canvas id="disk" aria-hidden="true"></canvas>
+  <canvas id="ring" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="top">
+    <div class="top-ctl">
+      <button class="ctl theme-btn" type="button" data-theme-toggle aria-label="Switch to light theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+      </button>
+    <button class="ctl sound-on" id="sound" type="button" aria-pressed="true">
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span id="sound-label">Sound on</span>
+    </button>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="sr">Science Coherence and Cohera open at the March Equinox, 20 March 2027, 20:25 UTC</h1>
+
+    <div class="kicker">
+      <p class="reach">Reaching the singularity <i>event horizon</i> in</p>
+    </div>
+
+    <div class="core" role="timer" aria-label="Time until opening">
+      <span class="lbl" id="days-label" hidden>days</span>
+      <span class="days" id="d">—</span>
+      <a class="clock door-matrix" data-door="matrix" href="temporal-matrix.html" aria-label="The Temporal Matrix">
+        <span id="h">00</span><span class="sep">:</span><span id="m">00</span><span class="sep">:</span><span class="s" id="s">00</span>
+      </a>
+      <span class="hint" aria-hidden="true" data-field="portal.hint">Always becoming</span>
+    </div>
+    <p class="sr" id="sr-remaining" aria-live="polite"></p>
+    <button class="portal" id="portal" type="button" aria-label="Always becoming — open the introduction" aria-controls="intro"></button>
+
+    <section class="caption" aria-label="Opening">
+      <p class="line" data-field="caption.line">Revealing the code of <em>reality.</em></p>
+      <p class="verse" id="verse">
+        <span class="on" data-field="caption.verse1">Possibility. Selection. Realization.</span>
+        <span data-field="caption.verse2">Imagination opens possibility.</span>
+        <span data-field="caption.verse3">Selection shapes its realization.</span>
+        <span data-field="caption.verse4">Recursive persistence becomes reality.</span>
+        <span data-field="caption.verse5">A living body of work is about to open.</span>
+      </p>
+      <!-- Hidden for the minimal version; remove these comment marks to bring the date and calendar back.
+      <p class="when">
+        March Equinox · 20 March 2027 · 20:25 UTC
+        <span id="local"></span>
+      </p>
+      <div class="cal-wrap">
+        <button class="cal" id="cal" type="button" aria-expanded="false" aria-controls="cal-menu">Add to calendar</button>
+        <ul class="cal-menu" id="cal-menu" aria-label="Choose your calendar"></ul>
+      </div>
+      -->
+    </section>
+
+    <div class="open-msg" aria-live="polite">
+      <span class="eyebrow" data-field="open.eyebrow">March Equinox · 2027</span>
+      <p data-field="open.message">The horizon is crossed.</p>
+      <a class="enter" id="enter" href="#" hidden data-field="open.enter">Enter</a>
+    </div>
+  </main>
+
+  <!-- ===================== Always becoming. ===================== -->
+  <section class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="intro-title" aria-hidden="true">
+    <div class="intro-progress" id="intro-progress" aria-hidden="true"></div>
+    <div class="intro-bar">
+      <span class="mark">Always becoming</span>
+      <div class="top-ctl">
+      <button class="ctl theme-btn" type="button" data-theme-toggle aria-label="Switch to light theme">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+      </button>
+      <button class="intro-close" id="intro-close" type="button">
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11"/></svg>
+        Return<span class="long">to the horizon</span>
+      </button>
+      </div>
+    </div>
+
+    <ol class="rail" id="rail" aria-label="Chapters">
+      <li><a href="#c0" data-c="c0">00<span>Always becoming</span></a></li>
+      <li><a href="#c1" data-c="c1">01<span>Before measurement</span></a></li>
+      <li><a href="#c2" data-c="c2">02<span>The recursion</span></a></li>
+      <li><a href="#c3" data-c="c3">03<span>The order</span></a></li>
+      <li><a href="#c4" data-c="c4">04<span>Survival</span></a></li>
+      <li><a href="#c5" data-c="c5">05<span>One language</span></a></li>
+      <li><a href="#c6" data-c="c6">06<span>Time</span></a></li>
+      <li><a href="#c7" data-c="c7">07<span>Across scales</span></a></li>
+      <li><a href="#c8" data-c="c8">08<span>The opening</span></a></li>
+    </ol>
+
+    <canvas id="motes" aria-hidden="true"></canvas>
+    <p class="keys" aria-hidden="true"><kbd>↑</kbd><kbd>↓</kbd> chapters · <kbd>Esc</kbd> return</p>
+    <div class="intro-scroll" id="intro-scroll" tabindex="-1">
+
+      <article>
+        <!-- 00 -->
+        <section class="ch ch-open" id="c0">
+          <div class="col">
+            <div class="seed rv" aria-hidden="true"></div>
+            <p class="num rv d1" style="justify-content:center" data-field="c0.num"><b>00</b>An introduction</p>
+            <h2 class="rv d2" id="intro-title" data-field="c0.title">Always <em>becoming.</em></h2>
+            <p class="lead rv d3" data-field="c0.lead">Every account of the world starts somewhere. This one starts inside.</p>
+            <p class="rv d3" style="max-width:560px" data-field="c0.body">There is no first moment standing apart from the rest, and no observer waiting there to record it. There is only where you are — already inside the process, which is exactly where it can be entered.</p>
+            <p class="rv d4" style="font-style:italic;color:var(--ink-soft)" data-field="c0.quote">Imagination is a beginning.</p>
+            <div class="descend rv d4" aria-hidden="true">Descend<i></i></div>
+          </div>
+        </section>
+
+        <!-- 01 -->
+        <section class="ch" id="c1">
+          <span class="watermark" aria-hidden="true">∅</span>
+          <div class="col">
+            <p class="num rv" data-field="c1.num"><b>01</b>Before anything is measured</p>
+            <h2 class="rv d1" data-field="c1.title">Something appears <em>before it is proven.</em></h2>
+            <p class="lead rv d2" data-field="c1.lead">Think of the moment an idea arrives. It is not yet evidence, not yet a result, not yet anything anyone could check. Yet everything that follows — the experiment, the instrument, the proof — begins there.</p>
+            <p class="rv d3" data-field="c1.body">Science Coherence, the body of work of Dr. William Conroy, takes that ordinary moment seriously — at every scale. Physics, biology, consciousness and computation are read as connected scales of one system, each beginning the same way: with a difference that was not there before.</p>
+            <p class="rv" data-field="c1.body2">And there is nowhere to stand outside it. Whoever observes the world is produced by the same process as the world observed. No detached vantage point, no external tribunal — only participation.</p>
+            <blockquote class="pull rv" data-field="c1.quote">The question is not what reality is made of, seen from outside. It is how reality keeps making itself, seen from within.</blockquote>
+          </div>
+        </section>
+
+        <!-- 02 -->
+        <section class="ch" id="c2">
+          <span class="watermark" aria-hidden="true">∇Φ</span>
+          <div class="col wide">
+            <div class="col" style="margin:0">
+              <p class="num rv" data-field="c2.num"><b>02</b>The recursion</p>
+              <h2 class="rv d1" data-field="c2.title">One loop, <em>four movements.</em></h2>
+              <p class="lead rv d2" data-field="c2.lead">Possibility meets constraint. What is selected is rendered, and the rendered world individuates into organizations that persist — each one refreshing the loop that made it.</p>
+            </div>
+
+            <figure class="loop rv d2" aria-label="The recursion: nabla Phi to Lambda to Omega to Delta, with directed closures Delta to Lambda and Omega to nabla Phi">
+              <svg viewBox="0 0 800 330" role="img">
+                <defs>
+                  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0 1 L9 5 L0 9" style="fill:none;stroke:rgba(var(--l-rgb),.75);stroke-width:1.2"/>
+                  </marker>
+                </defs>
+                <!-- forward -->
+                <path class="edge" data-e="f1" d="M142 170 H254" marker-end="url(#ah)"/>
+                <path class="edge" data-e="f2" d="M342 170 H454" marker-end="url(#ah)"/>
+                <path class="edge" data-e="f3" d="M542 170 H654" marker-end="url(#ah)"/>
+                <path class="flow" data-e="f1" d="M142 170 H254"/><path class="flow" data-e="f2" d="M342 170 H454"/><path class="flow" data-e="f3" d="M542 170 H654"/>
+                <!-- closures -->
+                <path class="edge closure" data-e="c2" d="M500 128 C 480 20, 120 20, 100 128" marker-end="url(#ah)"/>
+                <path class="flow closure" data-e="c2" d="M500 128 C 480 20, 120 20, 100 128"/>
+                <path class="edge closure" data-e="c1" d="M700 212 C 680 320, 320 320, 300 212" marker-end="url(#ah)"/>
+                <path class="flow closure" data-e="c1" d="M700 212 C 680 320, 320 320, 300 212"/>
+                <text class="cl" x="300" y="24" data-field="c2.closure_omega">Ω → ∇Φ · realized states refresh the field of possibilities</text>
+                <text class="cl" x="500" y="324" data-field="c2.closure_delta">Δ → Λ · persistent organizations refresh what can be selected</text>
+                <!-- nodes -->
+                <g class="node" data-n="0" tabindex="0" role="button" aria-label="∇Φ"><circle class="halo" cx="100" cy="170" r="54"/><circle cx="100" cy="170" r="40"/><text class="g" x="100" y="170">∇Φ</text></g>
+                <g class="node" data-n="1" tabindex="0" role="button" aria-label="Λ"><circle class="halo" cx="300" cy="170" r="54"/><circle cx="300" cy="170" r="40"/><text class="g" x="300" y="170">Λ</text></g>
+                <g class="node" data-n="2" tabindex="0" role="button" aria-label="Ω"><circle class="halo" cx="500" cy="170" r="54"/><circle cx="500" cy="170" r="40"/><text class="g" x="500" y="170">Ω</text></g>
+                <g class="node" data-n="3" tabindex="0" role="button" aria-label="Δ"><circle class="halo" cx="700" cy="170" r="54"/><circle cx="700" cy="170" r="40"/><text class="g" x="700" y="170">Δ</text></g>
+              </svg>
+            </figure>
+            <p class="loop-caption" id="loop-caption" aria-live="polite"></p>
+
+            <div class="nodes rv d1" id="node-cards">
+              <div><div class="g">∇Φ</div><div class="n">Imagination</div><p data-field="c2.node_phi">A difference appears. Generative, and prior to any data about it.</p></div>
+              <div><div class="g">Λ</div><div class="n">Selection</div><p data-field="c2.node_lambda">Some differences are admitted, most are not. The constraint decides which.</p></div>
+              <div><div class="g">Ω</div><div class="n">Rendering</div><p data-field="c2.node_omega">What is admitted is brought into structure: the realized world.</p></div>
+              <div><div class="g">Δ</div><div class="n">Recursive persistence</div><p data-field="c2.node_delta">Each persistent organization inside the realized world — a proton, a cell, a mind — running its own recursion.</p></div>
+            </div>
+
+            <ul class="arrows" id="arrows" aria-label="The five directed edges">
+              <li class="rv" data-e="f1"><b>∇Φ → Λ</b><span data-field="c2.arrow_f1">Possibility meets constraint.</span></li>
+              <li class="rv" data-e="f2"><b>Λ → Ω</b><span data-field="c2.arrow_f2">What is selected is rendered.</span></li>
+              <li class="rv" data-e="f3"><b>Ω → Δ</b><span data-field="c2.arrow_f3">The realized world individuates persistent organizations — a proton, a cell, a mind.</span></li>
+              <li class="rv" data-e="c1"><b>Δ → Λ</b><span data-field="c2.arrow_c1">Persistent organizations refresh what can be selected.</span></li>
+              <li class="rv" data-e="c2"><b>Ω → ∇Φ</b><span data-field="c2.arrow_c2">Realized states refresh the field of possibilities.</span></li>
+            </ul>
+            <p class="rv" style="margin-top:30px;max-width:680px" data-field="c2.note">Two returns, each running in one direction only. The loop needs nothing outside it to turn — no first mover, no controller, no observer at the edge.</p>
+          </div>
+        </section>
+
+        <!-- 03 -->
+        <section class="ch" id="c3">
+          <span class="watermark" aria-hidden="true">→</span>
+          <div class="col">
+            <p class="num rv" data-field="c3.num"><b>03</b>The order of causation</p>
+            <h2 class="rv d1" data-field="c3.title">The order <em>is the argument.</em></h2>
+            <p class="lead rv d2" data-field="c3.lead">Ordinary method runs the other way: gather data, then imagine an explanation. Here the dependence is reversed — imagination is first in the order, and evidence is last: the record of what survived.</p>
+            <ol class="order rv" id="order">
+              <li data-field="c3.step1">Imagination<i class="bar"></i></li>
+              <li data-field="c3.step2">Selection<i class="bar"></i></li>
+              <li data-field="c3.step3">Realization<i class="bar"></i></li>
+              <li data-field="c3.step4">Recursive organization<i class="bar"></i></li>
+              <li data-field="c3.step5">Persistence<i class="bar"></i></li>
+              <li data-field="c3.step6">Measurement<i class="bar"></i></li>
+              <li class="renew" data-field="c3.step7">renewed Imagination</li>
+            </ol>
+            <p class="rv together" data-field="c3.together">An order of dependence, not a sequence in time: every step is running now.</p>
+            <p class="rv" data-field="c3.persistence">Nothing is measurable unless it persists, and nothing persists unless it passes through selection and coherent recursion. Measurement is real and necessary. It simply depends on everything else.</p>
+            <blockquote class="pull rv" data-field="c3.quote">Evidence judges what survived. It has no say in what may be imagined.</blockquote>
+            <p class="rv" data-field="c3.scope">The claim is universal in scope: imagination as the generative primitive in physics, holography, time-crystalline dynamics, consciousness, biology, AI and computation alike — not as a metaphor carried from one to the next, but as the same operation at each.</p>
+            <p class="rv"><span class="tag postulate" data-field="c3.tag">Framework postulate · stated to be developed and tested</span></p>
+          </div>
+        </section>
+
+        <!-- 04 -->
+        <section class="ch" id="c4">
+          <span class="watermark" aria-hidden="true">Δ</span>
+          <div class="col wide">
+            <div class="col" style="margin:0">
+              <p class="num rv" data-field="c4.num"><b>04</b>The standard of survival</p>
+              <h2 class="rv d1" data-field="c4.title">Reality is <em>what holds.</em></h2>
+              <p class="lead rv d2" data-field="c4.lead">No committee certifies what is real. A structure is real to the degree that it survives being run through the loop, again and again, without contradiction building up inside it.</p>
+            </div>
+            <div class="three">
+              <div class="rv"><span class="i">I</span><h3 data-field="c4.pillar1_title">Run it.</h3><p data-field="c4.pillar1_text">An idea is not validated by agreement. It is placed inside the recursion and left to meet everything already realized.</p></div>
+              <div class="rv d1"><span class="i">II</span><h3 data-field="c4.pillar2_title">Watch what dissolves.</h3><p data-field="c4.pillar2_text">Failure is information. What cannot hold on contact — with a body, a rhythm, another account — falls away, and the record keeps it.</p></div>
+              <div class="rv d2"><span class="i">III</span><h3 data-field="c4.pillar3_title">Keep it open.</h3><p data-field="c4.pillar3_text">Every definition, equation and conclusion stays revisable. A structure that cannot be contradicted has not proven its strength; it has avoided the test.</p></div>
+            </div>
+            <blockquote class="pull rv col" style="margin-left:0" data-field="c4.quote">A claim that states how it could fail is an inquiry. A claim that cannot fail is only a position.</blockquote>
+          </div>
+        </section>
+
+        <!-- 05 -->
+        <section class="ch" id="c5">
+          <span class="watermark" aria-hidden="true">Λ</span>
+          <div class="col wide">
+            <div class="col" style="margin:0">
+              <p class="num rv" data-field="c5.num"><b>05</b>Meta-Mathematics</p>
+              <h2 class="rv d1" data-field="c5.title">A language that <em>means the same thing twice.</em></h2>
+              <p class="lead rv d2" data-field="c5.lead">In most sciences a letter changes meaning when it crosses a border — Λ in one field, Λ in another, unrelated. Meta-Mathematics refuses that. A symbol keeps its identity in every equation it enters.</p>
+              <p class="rv" data-field="c5.lexicon_intro">The lexicon is finite and exact: sixty-four entries — thirteen base-13 digits, twenty-six Latin letters, twenty-four Greek letters, and ∇.</p>
+            </div>
+            <div class="lex" id="lex" aria-label="The 64-entry lexicon"></div>
+            <p class="lex-read" id="lex-read" aria-live="polite"><b>∇Φ</b>Touch a symbol to read it.</p>
+            <div class="lex-legend rv">
+              <span><i class="k"></i>The recursion: ∇ Φ Λ Ω Δ</span>
+              <span><i class="o"></i>Three base-13 glyphs above 9 — not yet fixed</span>
+              <span><i></i>Fixed entries</span>
+            </div>
+            <div class="col" style="margin:0">
+              <p class="rv"><span class="tag unresolved" data-field="c5.tag">Three digits above 9 · unresolved, left open</span></p>
+              <p class="rv" data-field="c5.code_origin">Nothing is added to make the pattern look complete. The code is not invented here; it is uncovered — already present in mathematics, in matter, in living systems, in thought.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 06 -->
+        <section class="ch" id="c6">
+          <span class="watermark" aria-hidden="true">τ</span>
+          <div class="col">
+            <p class="num rv" data-field="c6.num"><b>06</b>The Temporal Matrix</p>
+            <h2 class="rv d1" data-field="c6.title">Time, measured <em>by what remains.</em></h2>
+            <p class="lead rv d2" data-field="c6.lead">The Temporal Matrix runs two clocks together: physical Matrix time τ, and q, the depth of recursion. Their rate of exchange is the entropic energy still retained.</p>
+            <div class="eq rv" aria-label="d tau over d q equals J ret over J zero">
+              <span class="frac"><span>dτ</span><span>dq</span></span> = <span class="frac"><span>J<sub>ret</sub></span><span>J<sub>0</sub></span></span>
+            </div>
+            <p class="rv" data-field="c6.body">At q = 0 the experiment starts — a start, not a singularity — and from there every counter runs live. The descent is not drawn by hand. It is derived from the continued fraction of α = J<sub>0</sub>/Q in exact arithmetic: a launch state, nineteen hard rungs, and an absorption point, τ* ≈ 715.53 Matrix days, that no one chose.</p>
+            <p class="rv"><span class="tag derived" data-field="c6.tag">Derived · not chosen, not rounded</span></p>
+            <ol class="ladder rv" id="ladder" aria-label="The twenty states of the ladder"></ol>
+            <p class="rv" data-field="c6.calendar_intro">The calendar keeps 360 days, and names them in six:</p>
+            <div class="days6 rv">
+              <span>Differa<small>I</small></span><span>Selecta<small>II</small></span><span>Realis<small>III</small></span>
+              <span>Integra<small>IV</small></span><span>Resona<small>V</small></span><span>Stilla<small>VI</small></span>
+            </div>
+            <div class="facts">
+              <div class="rv"><span class="tag postulate" data-field="c6.postulate_tag">Postulate</span><p data-field="c6.postulate_text">Earth's rotation converges until 360 rotations fill one tropical year. Stated plainly, and exposed to length-of-day measurement inside the experiment's own window.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 07 -->
+        <section class="ch" id="c7">
+          <span class="watermark" aria-hidden="true">Ω</span>
+          <div class="col">
+            <p class="num rv" data-field="c7.num"><b>07</b>Across scales</p>
+            <h2 class="rv d1" data-field="c7.title">Same loop, <em>every depth.</em></h2>
+            <p class="lead rv d2" data-field="c7.lead">A cell, a sentence, a planet's rotation, a line of code. The inquiry moves freely between them because it holds that they are one operation, performed at different depths.</p>
+            <ul class="index">
+              <li class="rv"><span class="k">01</span><div><h3 data-field="c7.path1_title">Philosophy</h3><p data-field="c7.path1_text">Being and perception without an outside — consciousness as participation in what becomes.</p></div></li>
+              <li class="rv"><span class="k">02</span><div><h3 data-field="c7.path2_title">Psychology</h3><p data-field="c7.path2_text">The psycho-quantum mechanics of the universe: the universe perceiving, remembering, meaning and creating itself, from quantum event to cosmos and us.</p></div></li>
+              <li class="rv"><span class="k">03</span><div><h3 data-field="c7.path3_title">Meta-Mathematics</h3><p data-field="c7.path3_text">One notation for generative difference, recursive invariants and boundary operators.</p></div></li>
+              <li class="rv"><span class="k">04</span><div><h3 data-field="c7.path4_title">Physics</h3><p data-field="c7.path4_text">The generative architecture: possibility, selection, and the loop that holds across scales.</p></div></li>
+              <li class="rv"><span class="k">05</span><div><h3 data-field="c7.path5_title">Biophysics</h3><p data-field="c7.path5_text">The loop inside living tissue: interfacial water, chromatin, proton dynamics.</p></div></li>
+              <li class="rv"><span class="k">06</span><div><h3 data-field="c7.path6_title">Notes &amp; Methods</h3><p data-field="c7.path6_text">How propositions are tested, and how to find your way through the library.</p></div></li>
+              <li class="rv"><span class="k">LAB</span><div><h3 data-field="c7.path7_title">The Lab</h3><p data-field="c7.path7_text">Propositions taken out of argument and run — their failure conditions stated first.</p></div></li>
+              <li class="rv"><span class="k">PROT</span><div><h3 data-field="c7.path8_title">The Protocol</h3><p data-field="c7.path8_text">The recursion carried into one body, and written down as it runs.</p></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 08 -->
+        <section class="ch ch-close" id="c8">
+          <div class="col">
+            <div class="seed rv" aria-hidden="true"></div>
+            <p class="num rv d1" style="justify-content:center" data-field="c8.num"><b>08</b>Science Coherence · Cohera</p>
+            <h2 class="rv d2" data-field="c8.title">The horizon <em>opens.</em></h2>
+            <p class="lead rv d3" data-field="c8.lead">On the March Equinox the sun crosses the celestial equator, and Science Coherence opens together with the Cohera platform. Until then, the loop keeps running here.</p>
+            <p class="date rv d3" style="margin-bottom:34px" data-field="c8.date">March Equinox · 20 March 2027 · 20:25 UTC</p>
+            <button class="return rv d4" id="intro-return" type="button" data-field="c8.return">Return to the horizon</button>
+            <p class="sign rv d4" data-field="c8.sign">A living body of work is about to open.<br>— Dr. William Conroy</p>
+          </div>
+        </section>
+      </article>
+    </div>
+  </section>
+
+
+<script src="assets/house-registry.js"></script>
+<script>
+(() => {
+  'use strict';
+
+  /* ------------------------------------------------------------------
+     Configuration
+     EPOCH      the opening: March Equinox, 20 March 2027, 20:25 UTC.
+     ORIGIN     the September Equinox, 23 Sep 2026, 00:05 UTC — the horizon
+                grows from one equinox to the next. Visual only.
+     OPEN_URL   where "Enter" points once the horizon is crossed. Left null
+                until launch: the page links nowhere.
+     ?rehearse  in the address bar runs the last 15 seconds, to preview
+                the opening moment.
+  ------------------------------------------------------------------ */
+  const params = new URLSearchParams(location.search);
+  const REHEARSE = params.has('rehearse');
+  const EPOCH = REHEARSE ? Date.now() + 15000 : Date.UTC(2027, 2, 20, 20, 25, 0);
+  const ORIGIN = Date.UTC(2026, 8, 23, 0, 5, 0);
+  const OPEN_URL = null;
+  /* ---------------- doors ----------------
+     Hidden links out of the horizon. Each one is on (true) or off (false).
+       introduction  hover the black hole  -> "Always becoming"
+       matrix        hover the clock       -> the Temporal Matrix
+     Add ?doors=all to the address to preview every door without turning it on for visitors. */
+  /* the doors' state lives in assets/house-registry.js */
+  const HD = (window.SC_HOUSE && window.SC_HOUSE.doors) || {};
+  const DOORS = { introduction: !!(HD.introduction && HD.introduction.on), matrix: HD.matrix ? !!HD.matrix.on : true };
+  const DOORS_PREVIEW = params.get('doors') === 'all';
+  const doorOpen = name => DOORS_PREVIEW || DOORS[name] === true;
+  const INTRO_ENABLED = doorOpen('introduction');
+  if (!INTRO_ENABLED) document.body.classList.add('no-intro');
+  if (!doorOpen('matrix')) {
+    document.body.classList.add('no-matrix');
+    const d = document.querySelector('.door-matrix'); if (d) { d.removeAttribute('href'); d.setAttribute('tabindex', '-1'); d.removeAttribute('aria-label'); }
+  }
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  const sky = document.getElementById('sky'), skx = sky.getContext('2d');
+  const disk = document.getElementById('disk'), dkx = disk.getContext('2d');
+  const ring = document.getElementById('ring'), rgx = ring.getContext('2d');
+
+  let W = 0, H = 0, DPR = 1, CX = 0, CY = 0, BASE = 100, RS = 100;
+
+  /* Canvas palette. Dark: light added to darkness. Light: ink laid on paper. */
+  const PALETTES = {
+    dark: {
+      add: 'lighter', hot: [246, 240, 214], cool: [156, 200, 114], pMul: 1, bodyMul: 1,
+      g0: '250,244,220', g1: '226,232,190', g2: '150,185,140', g3: '60,90,70',
+      tick: '216,231,180', mark: '241,236,217', ring0: '250,244,222', ring1: '216,231,180',
+      sh0: '#000', sh1: '#010201', shE: '1,2,1', star: null, starMul: 1,
+      glow: ['226,228,190', .12, '120,160,120', .05], after: ['216,231,180', '23,61,50']
+    },
+    light: {
+      add: 'source-over', hot: [14, 48, 37], cool: [96, 130, 80], pMul: 1.35, bodyMul: 1.05,
+      g0: '23,61,50', g1: '31,77,64', g2: '92,122,80', g3: '160,178,140',
+      tick: '29,43,37', mark: '23,61,50', ring0: '23,61,50', ring1: '136,166,83',
+      sh0: '#0f271e', sh1: '#173d32', shE: '23,61,50', star: [29, 43, 37], starMul: .55,
+      glow: ['23,61,50', .08, '53,107,49', .03], after: ['217,232,166', '255,255,255']
+    }
+  };
+  let P = PALETTES.dark;
+  let crossed = false, crossT = 0;
+
+  /* ---------------- countdown ---------------- */
+  const $ = id => document.getElementById(id);
+  const elD = $('d'), elH = $('h'), elM = $('m'), elS = $('s'), elSR = $('sr-remaining'), elDL = $('days-label');
+  const pad = n => String(n).padStart(2, '0');
+  let lastS = -1, lastSRMinute = -1;
+
+  function tickClock() {
+    const ms = Math.max(0, EPOCH - Date.now());
+    const t = Math.ceil(ms / 1000);
+    const d = Math.floor(t / 86400), h = Math.floor(t % 86400 / 3600), m = Math.floor(t % 3600 / 60), s = t % 60;
+    elD.textContent = d;
+    elDL.textContent = d === 1 ? 'day' : 'days';
+    elH.textContent = pad(h); elM.textContent = pad(m);
+    if (s !== lastS) {
+      elS.textContent = pad(s);
+      if (!reduce) { elS.classList.remove('tick'); void elS.offsetWidth; elS.classList.add('tick'); }
+      lastS = s;
+    }
+    const minuteKey = Math.floor(t / 60);
+    if (minuteKey !== lastSRMinute) {
+      lastSRMinute = minuteKey;
+      elSR.textContent = `${d} days, ${h} hours and ${m} minutes until the opening.`;
+    }
+    if (ms <= 0 && !crossed) cross();
+  }
+
+  function cross() {
+    crossed = true; crossT = performance.now();
+    document.body.classList.add('crossed');
+    if (OPEN_URL) { const a = $('enter'); a.href = OPEN_URL; a.hidden = false; }
+    swell();
+  }
+
+  const local = new Date(Date.UTC(2027, 2, 20, 20, 25, 0));
+  try {
+    $('local').textContent = 'Your time · ' + local.toLocaleString(undefined, {
+      weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+    });
+  } catch (e) {}
+
+  /* ---------------- calendar ----------------
+     Direct "add event" links for the web calendars that accept them, and a
+     hosted .ics file for everything else (Apple Calendar opens it directly;
+     Proton, Thunderbird, Fastmail… import it). */
+  const EV = {
+    title: 'Science Coherence & Cohera open',
+    details: 'Science Coherence and the Cohera platform open together at the March Equinox. Revealing the code of reality.',
+    location: 'sciencecoherence.com',
+    start: '20270320T202500Z', end: '20270320T212500Z',
+    startISO: '2027-03-20T20:25:00Z', endISO: '2027-03-20T21:25:00Z',
+    ics: 'assets/science-coherence-opening.ics'
+  };
+  const enc = encodeURIComponent;
+  const outlook = host => `https://${host}/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent`
+    + `&subject=${enc(EV.title)}&startdt=${enc(EV.startISO)}&enddt=${enc(EV.endISO)}&body=${enc(EV.details)}&location=${enc(EV.location)}`;
+  const isApple = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
+  const calendars = [
+    { name: 'Google Calendar', href: `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${enc(EV.title)}&dates=${EV.start}/${EV.end}&details=${enc(EV.details)}&location=${enc(EV.location)}` },
+    { name: 'Apple Calendar', href: EV.ics, file: true },
+    { name: 'Outlook.com', href: outlook('outlook.live.com') },
+    { name: 'Microsoft 365', href: outlook('outlook.office.com') },
+    { name: 'Yahoo Calendar', href: `https://calendar.yahoo.com/?v=60&title=${enc(EV.title)}&st=${EV.start}&et=${EV.end}&desc=${enc(EV.details)}&in_loc=${enc(EV.location)}` },
+    { name: 'Proton & other calendars', href: EV.ics, file: true, sep: true }
+  ];
+  if (isApple) calendars.unshift(calendars.splice(1, 1)[0]);   // Apple first on Apple devices
+
+  const calBtn = $('cal'), calMenu = $('cal-menu');
+  if (calBtn && calMenu) {
+  calendars.forEach(c => {
+    const li = document.createElement('li'); if (c.sep) li.className = 'sep';
+    const a = document.createElement('a');
+    a.href = c.href;
+    if (c.file) { a.setAttribute('type', 'text/calendar'); if (!(isApple && c.name.startsWith('Apple'))) a.download = 'science-coherence-opening.ics'; }
+    else { a.target = '_blank'; a.rel = 'noopener'; }
+    a.innerHTML = `<span>${c.name}</span><small>${c.file ? '.ics' : 'open ↗'}</small>`;
+    a.addEventListener('click', () => setMenu(false));
+    li.appendChild(a); calMenu.appendChild(li);
+  });
+  function setMenu(open) {
+    calMenu.classList.toggle('open', open);
+    calBtn.setAttribute('aria-expanded', String(open));
+    if (open) calMenu.querySelector('a').focus({ preventScroll: true });
+  }
+  calBtn.addEventListener('click', e => { e.stopPropagation(); setMenu(!calMenu.classList.contains('open')); });
+  document.addEventListener('click', e => { if (!e.target.closest('.cal-wrap')) setMenu(false); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && calMenu.classList.contains('open')) { setMenu(false); calBtn.focus(); }
+  });
+  }
+
+  /* ---------------- the passage, one line at a time ---------------- */
+  if (!reduce) {
+    const lines = [...document.querySelectorAll('#verse span')];
+    let vi = 0;
+    setInterval(() => {
+      lines[vi].classList.remove('on');
+      vi = (vi + 1) % lines.length;
+      lines[vi].classList.add('on');
+    }, 5200);
+  }
+
+  /* ---------------- geometry ---------------- */
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  function progress() { return clamp((Date.now() - ORIGIN) / (EPOCH - ORIGIN), 0, 1); }
+
+  function resize() {
+    DPR = Math.min(window.devicePixelRatio || 1, 1.75);
+    W = innerWidth; H = innerHeight;
+    for (const c of [sky, disk, ring]) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }
+    skx.setTransform(DPR, 0, 0, DPR, 0, 0); dkx.setTransform(DPR, 0, 0, DPR, 0, 0); rgx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    CX = W / 2;
+    CY = H * (H < 560 ? .42 : .44);
+    BASE = clamp(Math.min(W * .21, H * .165), 84, 168);
+    buildStars();
+  }
+
+  /* The horizon grows from 82% to 112% of its base size between the equinoxes. */
+  function horizonRadius(now) {
+    const p = progress();
+    let r = BASE * (0.82 + 0.30 * Math.pow(p, 1.6));
+    if (crossed) {
+      const k = clamp((now - crossT) / 6000, 0, 1);
+      const e = k * k * (3 - 2 * k);
+      r = r + (Math.hypot(W, H) * .75 - r) * e;
+    }
+    return r;
+  }
+
+  /* ---------------- starfield with gravitational lensing ---------------- */
+  let stars = [];
+  function buildStars() {
+    const n = Math.round(clamp(W * H / 2600, 260, 900));
+    const R = Math.hypot(W, H) * .62;
+    stars = [];
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const d = Math.sqrt(Math.random()) * R;
+      const warm = Math.random();
+      stars.push({
+        x: Math.cos(a) * d, y: Math.sin(a) * d,
+        z: .25 + Math.random() * .75,                         // depth, for parallax
+        m: Math.pow(Math.random(), 3.2),                       // magnitude
+        tw: Math.random() * Math.PI * 2, tws: .4 + Math.random() * 1.6,
+        c: warm < .12 ? [233, 220, 176] : warm < .3 ? [196, 222, 170] : [236, 238, 226]
+      });
+    }
+  }
+
+  /* ---------------- accretion disk particles ---------------- */
+  const TILT = 0.19;                   // disk seen almost edge-on
+  const R_IN = 1.55, R_OUT = 4.6;      // in horizon radii
+  let parts = [];
+  function spawn(p, r) {
+    p.r = r !== undefined ? r : R_IN + Math.pow(Math.random(), .7) * (R_OUT - R_IN);
+    p.a = Math.random() * Math.PI * 2;
+    p.w = (Math.random() - .5) * .07;  // thickness jitter
+    p.s = .5 + Math.random() * 1.1;    // size
+    p.k = Math.random();               // brightness seed
+    p.life = 0;
+    return p;
+  }
+  function buildParts() {
+    const n = Math.round(clamp(W * H / 420, 1400, 3800));
+    parts = [];
+    for (let i = 0; i < n; i++) parts.push(spawn({}));
+  }
+
+  /* A touch sends a small handful of matter towards the horizon. */
+  function seed(x, y) {
+    const dx = (x - CX) / RS, dy = (y - CY) / (RS * TILT);
+    const r0 = clamp(Math.hypot(dx, dy * .35), R_IN + .3, R_OUT + 1.5);
+    const a0 = Math.atan2(dy, dx);
+    for (let i = 0; i < 70; i++) {
+      const p = spawn({}, r0 + (Math.random() - .5) * .4);
+      p.a = a0 + (Math.random() - .5) * .5; p.k = .8 + Math.random() * .2; p.s = 1 + Math.random();
+      p.seeded = true;
+      parts.push(p);
+    }
+    if (parts.length > 4200) parts.splice(0, parts.length - 4200);
+  }
+
+  /* ---------------- pointer parallax ---------------- */
+  let px = 0, py = 0, tx = 0, ty = 0, hold = 0;
+  addEventListener('pointermove', e => { tx = (e.clientX / W - .5); ty = (e.clientY / H - .5); }, { passive: true });
+  addEventListener('pointerdown', e => {
+    if (e.target.closest('button, a, .intro')) return;
+    if (!reduce && !crossed) seed(e.clientX, e.clientY);
+  });
+  if (window.DeviceOrientationEvent && matchMedia('(pointer: coarse)').matches) {
+    addEventListener('deviceorientation', e => {
+      if (e.gamma == null) return;
+      tx = clamp(e.gamma / 45, -.5, .5); ty = clamp((e.beta - 45) / 60, -.5, .5);
+    }, { passive: true });
+  }
+
+  /* ---------------- render ---------------- */
+  let last = performance.now(), T = 0;
+
+  function drawSky(now) {
+    skx.clearRect(0, 0, W, H);
+    // Einstein radius: stars behind the hole are pushed out into a ring.
+    const RE = RS * 1.62, RE2 = RE * RE;
+    const ox = px * 38, oy = py * 26;
+
+    for (const s of stars) {
+      const sx = s.x + ox * s.z, sy = s.y + oy * s.z;
+      const b = Math.hypot(sx, sy) || .001;
+      const tw = reduce ? 1 : .72 + .28 * Math.sin(T * s.tws + s.tw);
+      const base = (.18 + s.m * .82) * tw;
+      const ux = sx / b, uy = sy / b;
+      // primary image
+      const r1 = (b + Math.sqrt(b * b + 4 * RE2)) / 2;
+      const amp1 = Math.min(3.2, (r1 * r1) / (r1 * r1 - RE2 * .98 + .001) * .6 + .4);
+      dot(CX + ux * r1, CY + uy * r1, base * Math.min(1, amp1 * .8), (.45 + s.m * 1.3) * Math.min(1.7, Math.sqrt(amp1)), s.c);
+      // secondary image, on the far side, faint, just outside the shadow
+      if (b < RE * 2.4) {
+        const r2 = (Math.sqrt(b * b + 4 * RE2) - b) / 2;
+        if (r2 > RS * 1.02) dot(CX - ux * r2, CY - uy * r2, base * .35 * (1 - b / (RE * 2.4)), .5 + s.m, s.c);
+      }
+    }
+
+    // Soft glow around the ring
+    const g = skx.createRadialGradient(CX, CY, RS * .9, CX, CY, RS * 3.4);
+    g.addColorStop(0, `rgba(${P.glow[0]},0)`);
+    g.addColorStop(.08, `rgba(${P.glow[0]},${P.glow[1]})`);
+    g.addColorStop(.35, `rgba(${P.glow[2]},${P.glow[3]})`);
+    g.addColorStop(1, `rgba(${P.glow[2]},0)`);
+    skx.fillStyle = g; skx.fillRect(0, 0, W, H);
+
+    const tiltNow = TILT + py * .08, skew = px * .06;
+    drawBody(tiltNow, skew, false);
+    drawBody(tiltNow, skew, true);
+  }
+
+  function dot(x, y, a, r, c) {
+    if (x < -4 || y < -4 || x > W + 4 || y > H + 4) return;
+    if (P.star) { c = P.star; a *= P.starMul; }
+    skx.fillStyle = `rgba(${c[0]},${c[1]},${c[2]},${a.toFixed(3)})`;
+    if (r < 1.1) skx.fillRect(x - r / 2, y - r / 2, r, r);
+    else { skx.beginPath(); skx.arc(x, y, r * .6, 0, 6.283); skx.fill(); }
+  }
+
+  /* The dial: one tick per day from equinox to equinox; elapsed days lit. */
+  function drawDial() {
+    const total = Math.round((EPOCH - ORIGIN) / 864e5);
+    if (total <= 0 || REHEARSE) return;
+    const elapsed = clamp((Date.now() - ORIGIN) / 864e5, 0, total);
+    const R = Math.min(Math.max(BASE * 3.05, RS * 2.7), Math.min(W, H) * .47, H * .44);
+    const rot = -Math.PI / 2;
+    skx.save();
+    skx.translate(CX, CY);
+    for (let i = 0; i < total; i++) {
+      const a = rot + (i / total) * Math.PI * 2;
+      const lit = i < elapsed;
+      const major = i % 30 === 0;
+      const len = major ? 9 : 4;
+      skx.strokeStyle = lit ? `rgba(${P.tick},.55)` : `rgba(${P.tick},.13)`;
+      skx.lineWidth = major ? 1 : .8;
+      skx.beginPath();
+      skx.moveTo(Math.cos(a) * R, Math.sin(a) * R);
+      skx.lineTo(Math.cos(a) * (R + len), Math.sin(a) * (R + len));
+      skx.stroke();
+    }
+    // present marker
+    const a = rot + (elapsed / total) * Math.PI * 2;
+    const pulse = reduce ? 1 : .6 + .4 * Math.sin(T * 2);
+    skx.fillStyle = `rgba(${P.mark},${.9 * pulse})`;
+    skx.beginPath(); skx.arc(Math.cos(a) * (R + 16), Math.sin(a) * (R + 16), 1.8, 0, 6.283); skx.fill();
+    // faint orbit
+    skx.strokeStyle = `rgba(${P.tick},.06)`; skx.lineWidth = 1;
+    skx.beginPath(); skx.arc(0, 0, R - 6, 0, 6.283); skx.stroke();
+    skx.restore();
+  }
+
+  function particleColor(r, bright, alpha) {
+    // hot inner edge: cream-white; outer: lime fading to green
+    const t = clamp((r - R_IN) / (R_OUT - R_IN), 0, 1);
+    const h = P.hot, c = P.cool;
+    const cr = h[0] + (c[0] - h[0]) * t, cg = h[1] + (c[1] - h[1]) * t, cb = h[2] + (c[2] - h[2]) * t;
+    return `rgba(${cr | 0},${cg | 0},${cb | 0},${(alpha * bright * P.pMul).toFixed(3)})`;
+  }
+
+  function drawDisk(dt) {
+    // trails: fade the previous frame rather than clearing it
+    dkx.globalCompositeOperation = 'destination-out';
+    dkx.fillStyle = reduce ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,.17)';
+    dkx.fillRect(0, 0, W, H);
+    dkx.globalCompositeOperation = P.add;
+
+    const tiltNow = TILT + py * .08;
+    const skew = px * .06;
+    const speed = (crossed ? 3.2 : 1) * (1 + hold * 3.5);
+    const inflow = 0.012 * speed;
+
+    const back = [], front = [];
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];
+      if (!reduce) {
+        p.a += dt * 0.95 * speed * Math.pow(p.r, -1.5);
+        p.r -= dt * inflow * (p.seeded ? 5 : 1) / (p.r * .6);
+        p.life = Math.min(1, p.life + dt * .6);
+      }
+      if (p.r < 1.02) { if (p.seeded) { parts.splice(i, 1); continue; } spawn(p, R_OUT - Math.random() * .4); p.life = 0; continue; }
+      const ca = Math.cos(p.a), sa = Math.sin(p.a);
+      const x = CX + (ca + skew * sa) * p.r * RS;
+      const y = CY + (sa * tiltNow + p.w) * p.r * RS;
+      // Doppler beaming: the approaching side (left) is brighter
+      const beam = .38 + .62 * Math.pow((1 - ca) / 2, 1.4);
+      const fadeIn = clamp((p.r - 1.02) / .45, 0, 1) * p.life;
+      const fadeOut = clamp((R_OUT + .4 - p.r) / .8, 0, 1);
+      const a = (.25 + p.k * .75) * beam * fadeIn * fadeOut * (p.seeded ? 1 : .8);
+      const item = [x, y, p.s * (1.2 - (p.r - R_IN) * .12), particleColor(p.r, beam, a)];
+      (sa < 0 ? back : front).push(item);
+
+      // Lensed image of the far side: bent over the top of the shadow
+      if (sa < 0 && p.r < 3.4) {
+        const u = (p.r - R_IN) / (3.4 - R_IN);
+        const lr = RS * (1.07 + u * u * .5);
+        const lx = CX + ca * lr, ly = CY - Math.abs(sa) * lr;
+        back.push([lx, ly, p.s * .75, particleColor(p.r, beam, a * .6 * Math.pow(1 - u, 1.6))]);
+      }
+      // ... and a fainter one under it
+      if (sa > 0 && p.r < 2.8) {
+        const lr = RS * 1.22 + (p.r - R_IN) * RS * .16;
+        back.push([CX + ca * lr, CY + Math.abs(sa) * lr, p.s * .6, particleColor(p.r, beam, a * .22)]);
+      }
+    }
+
+    for (const q of back) { dkx.fillStyle = q[3]; dkx.fillRect(q[0], q[1], q[2], q[2]); }
+
+    // the shadow
+    dkx.globalCompositeOperation = 'source-over';
+    const sh = dkx.createRadialGradient(CX, CY, RS * .6, CX, CY, RS * 1.03);
+    sh.addColorStop(0, P.sh0); sh.addColorStop(.9, P.sh1); sh.addColorStop(1, `rgba(${P.shE},0)`);
+    dkx.fillStyle = sh;
+    dkx.beginPath(); dkx.arc(CX, CY, RS * 1.03, 0, 6.283); dkx.fill();
+
+    dkx.globalCompositeOperation = P.add;
+    const rs2 = (RS * 1.0) * (RS * 1.0);
+    for (const q of front) {
+      const dx = q[0] - CX, dy = q[1] - CY;
+      if (dx * dx + dy * dy < rs2) { dkx.globalAlpha = .32; dkx.fillStyle = q[3]; dkx.fillRect(q[0], q[1], q[2], q[2]); dkx.globalAlpha = 1; }
+      else { dkx.fillStyle = q[3]; dkx.fillRect(q[0], q[1], q[2], q[2]); }
+    }
+    dkx.globalCompositeOperation = 'source-over';
+  }
+
+  /* The continuous glow beneath the particles: disk body (split into far and near
+     halves so the shadow can pass between them) and the lensed arc over the top. */
+  function drawBody(tilt, skew, near) {
+    const breathe = reduce ? 1 : .88 + .12 * Math.sin(T * .45);
+    const k = (crossed ? .4 : 1) * breathe * .16 * P.bodyMul * (1 + hold * .6);
+    skx.save();
+    skx.translate(CX, CY);
+    skx.transform(1, 0, skew, tilt, 0, 0);
+    skx.beginPath();
+    if (near) skx.rect(-RS * 6, 0, RS * 12, RS * 6); else skx.rect(-RS * 6, -RS * 6, RS * 12, RS * 6);
+    skx.clip();
+    if (near) {
+      // outside the shadow at full strength; inside it only a faint veil, so the numbers stay clear
+      skx.beginPath(); skx.rect(-RS * 6, 0, RS * 12, RS * 6 / tilt);
+      skx.ellipse(-skew * 0, 0, RS * 1.03, RS * 1.03 / tilt, 0, 0, 6.283);
+      skx.clip('evenodd');
+    }
+    const g = skx.createRadialGradient(0, 0, RS * R_IN * .92, 0, 0, RS * R_OUT);
+    g.addColorStop(0, `rgba(${P.g0},0)`);
+    g.addColorStop(.04, `rgba(${P.g0},${k * 2.4})`);
+    g.addColorStop(.22, `rgba(${P.g1},${k})`);
+    g.addColorStop(.6, `rgba(${P.g2},${k * .35})`);
+    g.addColorStop(1, `rgba(${P.g3},0)`);
+    skx.fillStyle = g;
+    skx.beginPath(); skx.arc(0, 0, RS * R_OUT, 0, 6.283); skx.fill();
+    // Doppler: brighten the approaching (left) half
+    const lg = skx.createLinearGradient(-RS * R_OUT, 0, RS * R_OUT, 0);
+    lg.addColorStop(0, `rgba(${P.g0},${k * .9})`); lg.addColorStop(.5, `rgba(${P.g0},0)`);
+    skx.globalCompositeOperation = P.add;
+    skx.fillStyle = lg;
+    skx.beginPath(); skx.ellipse(0, 0, RS * R_OUT * .8, RS * R_OUT * .8, 0, 0, 6.283); skx.fill();
+    skx.restore();
+
+    if (!near) {
+      // lensed image of the far disk: a soft half-annulus arched over the shadow
+      // thickness tapers to nothing where the arc meets the disk plane
+      const r0 = RS * 1.04, r1 = RS * 1.62;
+      const ann = () => {
+        skx.beginPath();
+        const N = 64;
+        for (let i = 0; i <= N; i++) {
+          const t = i / N, a = Math.PI + t * Math.PI;
+          const r = r0 + (r1 - r0) * Math.pow(Math.sin(t * Math.PI), .85);
+          const x = CX + Math.cos(a) * r, y = CY + Math.sin(a) * r;
+          i ? skx.lineTo(x, y) : skx.moveTo(x, y);
+        }
+        skx.arc(CX, CY, r0, Math.PI * 2, Math.PI, true);
+        skx.closePath();
+      };
+      const rg = skx.createRadialGradient(CX, CY, r0, CX, CY, r1);
+      rg.addColorStop(0, `rgba(${P.g0},0)`);
+      rg.addColorStop(.06, `rgba(${P.g0},${k * 3.4})`);
+      rg.addColorStop(.2, `rgba(${P.g1},${k * 1.5})`);
+      rg.addColorStop(.55, `rgba(${P.g2},${k * .45})`);
+      rg.addColorStop(1, `rgba(${P.g3},0)`);
+      skx.globalCompositeOperation = P.add;
+      ann(); skx.fillStyle = rg; skx.fill();
+    }
+  }
+
+  function drawRing() {
+    rgx.clearRect(0, 0, W, H);
+    rgx.globalCompositeOperation = P.add;
+    const flick = reduce ? 1 : .85 + .15 * Math.sin(T * 1.7) * Math.sin(T * .63);
+    const lg = rgx.createLinearGradient(CX - RS, 0, CX + RS, 0);
+    lg.addColorStop(0, `rgba(${P.ring0},1)`); lg.addColorStop(1, `rgba(${P.ring1},.6)`);
+    for (let k = 0; k < 4; k++) {
+      rgx.globalAlpha = [.75, .28, .12, .05][k] * flick * (crossed ? .5 : 1) * (document.body.classList.contains('portal-hover') ? 1.6 : 1) * (1 + hold * .8);
+      rgx.strokeStyle = lg; rgx.lineWidth = [1, 3, 7, 16][k];
+      rgx.beginPath(); rgx.arc(CX, CY, RS * 1.03 + [0, 1, 3, 7][k], 0, 6.283); rgx.stroke();
+    }
+    rgx.globalAlpha = 1;
+    rgx.globalCompositeOperation = 'source-over';
+  }
+
+  function frame(now) {
+    const dt = Math.min(.05, (now - last) / 1000); last = now; T += dt;
+    px += (tx - px) * .035; py += (ty - py) * .035;
+    RS = horizonRadius(now);
+    root.style.setProperty('--rs', BASE + 'px');
+    root.style.setProperty('--cy', CY + 'px');
+    root.style.setProperty('--rsl', RS + 'px');
+    // behind the open introduction the horizon rests (after the opening transition), to spare the processor
+    if (introOpen && now > introFreezeAt) { if (!reduce) requestAnimationFrame(frame); return; }
+    drawSky(now);
+    drawDisk(dt);
+    drawRing();
+    if (crossed) {
+      const k = clamp((now - crossT - 4500) / 5000, 0, 1);
+      if (k > 0) {
+        const g = dkx.createRadialGradient(CX, CY, 0, CX, CY, Math.hypot(W, H) * .6);
+        g.addColorStop(0, `rgba(${P.after[0]},${.16 * k})`); g.addColorStop(.5, `rgba(${P.after[1]},${.22 * k})`); g.addColorStop(1, `rgba(${P.after[1]},0)`);
+        dkx.fillStyle = g; dkx.fillRect(0, 0, W, H);
+      }
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+
+  /* ---------------- sound: a slow, low chord that breathes ---------------- */
+  let ac = null, master = null, soundOn = false, lpNode = null;
+  const btn = $('sound'), lbl = $('sound-label');
+  function buildSound() {
+    ac = new (window.AudioContext || window.webkitAudioContext)();
+    master = ac.createGain(); master.gain.value = 0;
+    const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 520; lp.Q.value = .4; lpNode = lp;
+    const lfo = ac.createOscillator(), lfoG = ac.createGain();
+    lfo.frequency.value = 1 / 11; lfoG.gain.value = 260; lfo.connect(lfoG); lfoG.connect(lp.frequency); lfo.start();
+    // A–E–B–F♯: open fifths, no resolution
+    [[55, 0], [55.3, 0], [82.41, 0], [123.47, 0], [185, 0]].forEach(([f], i) => {
+      const o = ac.createOscillator(); o.type = i < 2 ? 'sine' : 'triangle'; o.frequency.value = f;
+      const g = ac.createGain(); g.gain.value = [.26, .22, .14, .07, .035][i];
+      const trem = ac.createOscillator(), tg = ac.createGain();
+      trem.frequency.value = .05 + i * .031; tg.gain.value = g.gain.value * .5; trem.connect(tg); tg.connect(g.gain); trem.start();
+      o.connect(g); g.connect(lp); o.start();
+    });
+    lp.connect(master); master.connect(ac.destination);
+  }
+  // Silence the drone while the introduction is open; bring it back on return.
+  function duck(inside) {
+    if (!ac || !master) return;
+    master.gain.cancelScheduledValues(ac.currentTime);
+    master.gain.setValueAtTime(master.gain.value, ac.currentTime);
+    master.gain.linearRampToValueAtTime(inside || !soundOn ? 0 : .32, ac.currentTime + (inside ? 1.4 : 3.5));
+  }
+  function swell() {
+    if (!ac || !soundOn) return;
+    master.gain.cancelScheduledValues(ac.currentTime);
+    master.gain.linearRampToValueAtTime(.6, ac.currentTime + 6);
+  }
+  function setSound(on) {
+    soundOn = on;
+    if (!ac) buildSound();
+    ac.resume().catch(() => {});
+    master.gain.cancelScheduledValues(ac.currentTime);
+    master.gain.setValueAtTime(master.gain.value, ac.currentTime);
+    const inside = document.body.classList.contains('intro-open');   // the drone belongs to the horizon only
+    master.gain.linearRampToValueAtTime(on && !inside ? .32 : 0, ac.currentTime + (on ? 5 : 1.2));
+    btn.classList.toggle('sound-on', on);
+    btn.setAttribute('aria-pressed', String(on));
+    lbl.textContent = on ? 'Sound on' : 'Sound off';
+  }
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    // If the browser was still holding the sound back, this first click releases it rather than muting.
+    if (soundOn && ac && ac.state !== 'running') { unlock(); return; }
+    setSound(!soundOn);
+  });
+
+  /* On by default. Browsers keep audio silent until the visitor first touches,
+     clicks, scrolls or presses a key; the drone fades in at that moment. */
+  function unlock() {
+    if (soundOn) setSound(true);
+    if (ac && ac.state === 'running') ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(t => removeEventListener(t, unlock, true));
+  }
+  try { setSound(true); } catch (e) {}
+  ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(t => addEventListener(t, unlock, { capture: true, passive: true }));
+
+
+  /* ================= Always becoming. ================= */
+  const intro = $('intro'), introScroll = $('intro-scroll'), portal = $('portal');
+  let introOpen = false, lastFocus = null, introFreezeAt = 0;
+
+  // lexicon: 13 base-13 digits (3 unresolved), 26 Latin, 24 Greek, ∇ — 64
+  (function buildLexicon() {
+    const lex = $('lex');
+    const cells = [];
+    for (let i = 0; i < 10; i++) cells.push([String(i)]);
+    for (let i = 0; i < 3; i++) cells.push(['', 'open']);
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(c => cells.push([c]));
+    'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ'.split('').forEach(c => cells.push([c, 'ΔΛΦΩ'.includes(c) ? 'key' : '']));
+    cells.push(['∇', 'key']);
+    cells.forEach(([c, k], i) => {
+      const s = document.createElement('span');
+      s.textContent = c; if (k) s.className = k;
+      if (k === 'open') s.setAttribute('aria-label', 'unresolved base-13 glyph');
+      s.style.transitionDelay = (i * 14) + 'ms';
+      lex.appendChild(s);
+    });
+  })();
+
+  (function buildLadder() {
+    const names = ['LAUNCH', 'FIRST DESCENT', 'CLEAVAGE', 'COLLAPSE', 'SETTLING', 'CONSOLIDATION', 'REFINEMENT', 'ATTENUATION', 'TRACE', 'RESIDUE',
+      'REMNANT', 'FILAMENT', 'THREAD', 'STRAND', 'GRAIN', 'MOTE', 'SPECK', 'GLINT', 'UNIT', 'ABSOLUTE'];
+    const ol = $('ladder');
+    names.forEach((n, i) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<b>${String(i).padStart(2, '0')}</b>${n}`;
+      li.style.opacity = (1 - i * .032).toFixed(2);
+      ol.appendChild(li);
+    });
+  })();
+
+  // reveal on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { root: introScroll, threshold: .15, rootMargin: '0px 0px -6% 0px' });
+  intro.querySelectorAll('.rv, #lex, #order').forEach(el => io.observe(el));
+
+  // chapter rail + progress
+  const railLinks = [...document.querySelectorAll('#rail a')];
+  const chapters = railLinks.map(a => $(a.dataset.c));
+  const prog = $('intro-progress');
+  introScroll.addEventListener('scroll', () => {
+    const max = introScroll.scrollHeight - introScroll.clientHeight;
+    prog.style.transform = `scaleX(${max > 0 ? introScroll.scrollTop / max : 0})`;
+    const mid = introScroll.scrollTop + introScroll.clientHeight * .45;
+    let cur = 0;
+    chapters.forEach((c, i) => { if (c.offsetTop <= mid) cur = i; });
+    railLinks.forEach((a, i) => a.classList.toggle('on', i === cur));
+  }, { passive: true });
+  railLinks[0].classList.add('on');
+  railLinks.forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    introScroll.scrollTo({ top: $(a.dataset.c).offsetTop, behavior: reduce ? 'auto' : 'smooth' });
+  }));
+
+  function openIntro() {
+    if (introOpen) return;
+    introOpen = true; lastFocus = document.activeElement; introFreezeAt = performance.now() + 1800;
+    introScroll.scrollTop = 0;
+    intro.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('intro-open');
+    duck(true);
+    // let the first chapter bloom once the horizon has opened
+    setTimeout(() => $('c0').querySelectorAll('.rv').forEach(el => el.classList.add('in')), reduce ? 0 : 700);
+    setTimeout(() => $('intro-close').focus({ preventScroll: true }), reduce ? 0 : 900);
+  }
+  function closeIntro() {
+    if (!introOpen) return;
+    introOpen = false;
+    intro.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('intro-open');
+    duck(false);
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
+  portal.addEventListener('click', e => { e.stopPropagation(); openIntro(); });
+  portal.addEventListener('pointerenter', () => document.body.classList.add('portal-hover'));
+  portal.addEventListener('pointerleave', () => document.body.classList.remove('portal-hover'));
+  $('intro-close').addEventListener('click', closeIntro);
+  $('intro-return').addEventListener('click', closeIntro);
+  document.addEventListener('keydown', e => {
+    if (!introOpen) return;
+    if (e.key === 'Escape') { e.preventDefault(); closeIntro(); }
+    if (e.key === 'Tab') {   // keep focus inside the introduction
+      const f = [...intro.querySelectorAll('button, a[href]')].filter(el => el.offsetParent !== null);
+      if (!f.length) return;
+      const first = f[0], lastEl = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); lastEl.focus(); }
+      else if (!e.shiftKey && document.activeElement === lastEl) { e.preventDefault(); first.focus(); }
+    }
+  });
+  if (INTRO_ENABLED && location.hash === '#beginning') setTimeout(openIntro, 400);
+
+
+  /* ================= theme ================= */
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  function applyTheme(t, animate) {
+    root.dataset.theme = t;
+    P = PALETTES[t];
+    if (metaTheme) metaTheme.setAttribute('content', t === 'light' ? '#f6f4ec' : '#050807');
+    document.querySelectorAll('[data-theme-toggle]').forEach(b => b.setAttribute('aria-label', t === 'light' ? 'Switch to dark theme' : 'Switch to light theme'));
+    if (animate) { document.body.classList.add('theme-shift'); setTimeout(() => document.body.classList.remove('theme-shift'), 900); }
+    if (reduce) frame(performance.now());
+  }
+  applyTheme(root.dataset.theme === 'light' ? 'light' : 'dark', false);
+  document.querySelectorAll('[data-theme-toggle]').forEach(b => b.addEventListener('click', e => {
+    e.stopPropagation();
+    const t = root.dataset.theme === 'light' ? 'dark' : 'light';
+    try { localStorage.setItem('sc-theme', JSON.stringify(t)); } catch (err) {}
+    applyTheme(t, true);
+  }));
+
+  /* ================= press and hold: time accelerates ================= */
+  let holding = false;
+  addEventListener('pointerdown', e => {
+    if (e.target.closest('button, a, .intro, [role="button"]')) return;
+    holding = true;
+  });
+  ['pointerup', 'pointercancel', 'blur'].forEach(t => addEventListener(t, () => { holding = false; }));
+  addEventListener('keydown', e => { if (e.code === 'Space' && !introOpen && !e.target.closest('button')) { e.preventDefault(); holding = true; } });
+  addEventListener('keyup', e => { if (e.code === 'Space') holding = false; });
+  let lastLp = 0;
+  function tickHold() {
+    hold += ((holding ? 1 : 0) - hold) * (holding ? .025 : .018);
+    if (hold < .001) hold = 0;
+    if (ac && lpNode) {
+      const target = 520 + hold * 1300;
+      if (Math.abs(target - lastLp) > 6) { lpNode.frequency.setTargetAtTime(target, ac.currentTime, .35); lastLp = target; }
+    }
+  }
+
+  /* ================= immersion inside the introduction ================= */
+  // drifting motes that rise as you descend
+  const motes = $('motes'), mtx = motes.getContext('2d');
+  let M = [];
+  function buildMotes() {
+    motes.width = Math.round(innerWidth * DPR); motes.height = Math.round(innerHeight * DPR);
+    mtx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    const n = Math.round(clamp(innerWidth * innerHeight / 16000, 30, 110));
+    M = Array.from({ length: n }, () => ({ x: Math.random() * innerWidth, y: Math.random() * innerHeight * 3, z: .2 + Math.random() * .8, r: .5 + Math.random() * 1.6, ph: Math.random() * 6.28 }));
+  }
+  function drawMotes() {
+    const w = innerWidth, h = innerHeight, sc = introScroll.scrollTop;
+    mtx.clearRect(0, 0, w, h);
+    const span = h * 3;
+    for (const m of M) {
+      m.y -= .08 * m.z; m.ph += .01;
+      let y = ((m.y - sc * m.z * .5) % span + span) % span - h * .5;
+      if (y < -10 || y > h + 10) continue;
+      const a = (.18 + .5 * m.z) * (.6 + .4 * Math.sin(m.ph));
+      mtx.fillStyle = `rgba(${P.tick},${(a * (P.star ? .5 : .55)).toFixed(3)})`;
+      mtx.beginPath(); mtx.arc(m.x + Math.sin(m.ph * .7) * 6 * m.z, y, m.r * m.z, 0, 6.283); mtx.fill();
+    }
+  }
+
+  // watermark parallax
+  const marks = [...intro.querySelectorAll('.watermark')];
+  function parallax() {
+    const h = introScroll.clientHeight;
+    for (const w of marks) {
+      const r = w.parentElement.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > h) continue;
+      w.style.transform = `translateY(calc(-50% + ${((r.top + r.height / 2) - h / 2) * -.22}px))`;
+    }
+  }
+
+  // the recursion diagram: hover a node, or watch a signal travel the loop
+  const loop = intro.querySelector('.loop'), cap = $('loop-caption');
+  const cards = [...document.querySelectorAll('#node-cards > div')];
+  const nodesEl = [...loop.querySelectorAll('.node')];
+  const TOGETHER = 'All five at once, bound by dependence, not by time. What we perceive as time is the generative flow of information through them.';
+  const NODE_EDGES = [['f1', 'c2'], ['f1', 'f2', 'c1'], ['f2', 'f3', 'c2'], ['f3', 'c1']];
+  const NODE_TEXT = [
+    '∇Φ · imagination — generative differentiation, prior to data, observation, proof, study and realization',
+    'Λ · selection — the constraint that admits some differences and not others',
+    'Ω · rendering — the realized world, what is actually brought into structure',
+    'Δ · recursive persistence — each persistent organization inside the realized world: a proton, a cell, a mind'
+  ];
+  let focusN = -1;
+  cap.textContent = TOGETHER;
+  function focusNode(i) {
+    focusN = i;
+    loop.classList.toggle('focus', i >= 0);
+    loop.querySelectorAll('.edge, .flow').forEach(el => el.classList.toggle('hl', i >= 0 && NODE_EDGES[i].includes(el.dataset.e)));
+    nodesEl.forEach((n, k) => n.classList.toggle('on', k === i));
+    cards.forEach((c, k) => c.classList.toggle('on', k === i));
+    cap.textContent = i >= 0 ? NODE_TEXT[i] : TOGETHER;
+  }
+  nodesEl.forEach((n, i) => {
+    n.addEventListener('pointerenter', () => focusNode(i));
+    n.addEventListener('pointerleave', () => focusNode(-1));
+    n.addEventListener('focus', () => focusNode(i));
+    n.addEventListener('blur', () => focusNode(-1));
+    n.addEventListener('click', () => focusNode(focusN === i ? -1 : i));
+  });
+  cards.forEach((c, i) => { c.addEventListener('pointerenter', () => focusNode(i)); c.addEventListener('pointerleave', () => focusNode(-1)); });
+  document.querySelectorAll('#arrows li').forEach(li => {
+    const on = () => { loop.classList.add('focus'); loop.querySelectorAll('.edge, .flow').forEach(el => el.classList.toggle('hl', el.dataset.e === li.dataset.e)); li.classList.add('on'); };
+    const off = () => { li.classList.remove('on'); focusNode(-1); };
+    li.addEventListener('pointerenter', on); li.addEventListener('pointerleave', off);
+  });
+
+  // lexicon: read a symbol
+  const lexRead = $('lex-read');
+  const LEX = {
+    '∇': 'the differential operator. With Φ it writes imagination: generative differentiation.',
+    'Φ': 'with ∇, imagination — generative differentiation.',
+    'Λ': 'selection — the constraint that admits some differences and not others.',
+    'Ω': 'rendering — the realized world.',
+    'Δ': 'recursive persistence — each persistent organization inside the realized world: a proton, a cell, a mind.'
+  };
+  function readLex(el) {
+    lex.querySelectorAll('.sel').forEach(x => x.classList.remove('sel'));
+    el.classList.add('sel');
+    const c = el.textContent, i = [...lex.children].indexOf(el);
+    let t;
+    if (el.classList.contains('open')) t = '<b>·</b>A base-13 glyph above 9. Not yet fixed — unresolved, and left open rather than invented.';
+    else if (LEX[c] && (i >= 39 || c === '∇')) t = `<b>${c}</b>${LEX[c]}`;
+    else if (i < 13) t = `<b>${c}</b>Base-13 digit. Fixed in canon.`;
+    else if (i < 39) t = `<b>${c}</b>Latin letter — one of twenty-six. Its meaning holds in every equation it enters.`;
+    else t = `<b>${c}</b>Greek letter — one of twenty-four. Its meaning holds in every equation it enters.`;
+    lexRead.innerHTML = t;
+  }
+  const lex = $('lex');
+  lex.addEventListener('pointerover', e => { if (e.target.parentElement === lex) readLex(e.target); });
+  lex.addEventListener('click', e => { if (e.target.parentElement === lex) readLex(e.target); });
+
+  // keyboard: arrows move between chapters
+  addEventListener('keydown', e => {
+    if (!introOpen || !['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp'].includes(e.key)) return;
+    e.preventDefault();
+    const mid = introScroll.scrollTop + 10;
+    let i = chapters.findIndex(c => c.offsetTop > mid);
+    if (i < 0) i = chapters.length;
+    const cur = i - 1;
+    const next = /Down/.test(e.key) ? Math.min(chapters.length - 1, cur + 1) : Math.max(0, cur - (introScroll.scrollTop > chapters[Math.max(cur, 0)].offsetTop + 20 ? 0 : 1));
+    introScroll.scrollTo({ top: chapters[next].offsetTop, behavior: reduce ? 'auto' : 'smooth' });
+  });
+
+  // the introduction's own loop
+  let iLast = performance.now();
+  function introLoop(now) {
+    const dt = Math.min(.05, (now - iLast) / 1000); iLast = now;
+    if (introOpen) {
+      drawMotes(); parallax();
+    }
+    tickHold();
+    requestAnimationFrame(introLoop);
+  }
+  buildMotes();
+  addEventListener('resize', () => buildMotes());
+  requestAnimationFrame(introLoop);
+
+  /* ---------------- start ---------------- */
+  resize(); buildParts();
+  let rT; addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(() => { resize(); if (reduce) frame(performance.now()); }, 120); });
+  tickClock(); setInterval(tickClock, 250);
+  if (reduce) {
+    // one still frame, with the disk settled
+    for (let i = 0; i < 1; i++) frame(performance.now());
+    setInterval(() => frame(performance.now()), 60000);
+  } else {
+    requestAnimationFrame(frame);
+  }
+  document.addEventListener('visibilitychange', () => { last = performance.now(); });
+})();
+</script>
+  <script src="assets/glossary.js"></script>
+  <script src="assets/house.js"></script>
+</body>
 </html>
